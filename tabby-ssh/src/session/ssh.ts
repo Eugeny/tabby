@@ -576,15 +576,12 @@ export class SSHSession {
             if (method.type === 'publickey') {
                 try {
                     const key = await this.loadPrivateKey(method.name, method.contents)
-                    const possibleHashAlgs = ['ssh-rsa', 'rsa-sha2-256', 'rsa-sha2-512'].includes(key.algorithm) ? ['sha256', 'sha512', 'sha1'] as const : [null] as const
                     this.emitServiceMessage(`Trying private key: ${method.name}`)
-                    for (const alg of possibleHashAlgs) {
-                        const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key, alg)
-                        if (result instanceof russh.AuthenticatedSSHClient) {
-                            return result
-                        }
-                        maybeSetRemainingMethods(result)
+                    const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key, null)
+                    if (result instanceof russh.AuthenticatedSSHClient) {
+                        return result
                     }
+                    maybeSetRemainingMethods(result)
                 } catch (e) {
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.name}: ${e}`)
                     continue
