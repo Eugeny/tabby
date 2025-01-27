@@ -111,7 +111,7 @@ export class SSHSession {
 
     private logger: Logger
     private refCount = 0
-    private remainingAuthMethods: AuthMethod[] = []
+    private allAuthMethods: AuthMethod[] = []
     private serviceMessage = new Subject<string>()
     private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
     private willDestroy = new Subject<void>()
@@ -125,6 +125,7 @@ export class SSHSession {
     private translate: TranslateService
     private knownHosts: SSHKnownHostsService
     private privateKeyImporters: AutoPrivateKeyLocator[]
+    private previouslyDisconnected = false
 
     constructor (
         private injector: Injector,
@@ -150,7 +151,7 @@ export class SSHSession {
     }
 
     private addPublicKeyAuthMethod (name: string, contents: Buffer) {
-        this.remainingAuthMethods.push({
+        this.allAuthMethods.push({
             type: 'publickey',
             name,
             contents,
@@ -158,7 +159,7 @@ export class SSHSession {
     }
 
     async init (): Promise<void> {
-        this.remainingAuthMethods = [{ type: 'none' }]
+        this.allAuthMethods = [{ type: 'none' }]
         if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
             if (this.profile.options.privateKeys?.length) {
                 for (const pk of this.profile.options.privateKeys) {
@@ -187,7 +188,7 @@ export class SSHSession {
             if (!spec) {
                 this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
             } else {
-                this.remainingAuthMethods.push({
+                this.allAuthMethods.push({
                     type: 'agent',
                     ...spec,
                 })
@@ -196,21 +197,21 @@ export class SSHSession {
         if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
             const savedPassword = this.profile.options.password ?? await this.passwordStorage.loadPassword(this.profile)
             if (savedPassword) {
-                this.remainingAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
+                this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
             }
-            this.remainingAuthMethods.push({ type: 'keyboard-interactive' })
+            this.allAuthMethods.push({ type: 'keyboard-interactive' })
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
             if (this.profile.options.password) {
-                this.remainingAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
+                this.allAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
             }
             const password = await this.passwordStorage.loadPassword(this.profile)
             if (password) {
-                this.remainingAuthMethods.push({ type: 'saved-password', password })
+                this.allAuthMethods.push({ type: 'saved-password', password })
             }
-            this.remainingAuthMethods.push({ type: 'prompt-password' })
+            this.allAuthMethods.push({ type: 'prompt-password' })
         }
-        this.remainingAuthMethods.push({ type: 'hostbased' })
+        this.allAuthMethods.push({ type: 'hostbased' })
     }
 
     private async getAgentConnectionSpec (): Promise<russh.AgentConnectionSpec|null> {
@@ -323,9 +324,14 @@ export class SSHSession {
             }
         })
 
+        this.previouslyDisconnected = false
         this.ssh.disconnect$.subscribe(() => {
-            if (this.open) {
-                this.destroy()
+            if (!this.previouslyDisconnected) {
+                this.previouslyDisconnected = true
+                // Let service messages drain
+                setTimeout(() => {
+                    this.destroy()
+                })
             }
         })
 
@@ -508,6 +514,22 @@ export class SSHSession {
     }
 
     async handleAuth (): Promise<russh.AuthenticatedSSHClient|null> {
+        const subscription = this.ssh.disconnect$.subscribe(() => {
+            // Auto auth and >=3 keys found
+            if (!this.profile.options.auth && this.allAuthMethods.filter(x => x.type === 'publickey').length >= 3) {
+                this.emitServiceMessage('The server has disconnected during authentication.')
+                this.emitServiceMessage('This may happen if too many private key authentication attemps are made.')
+                this.emitServiceMessage('You can set the specific private key for authentication in the profile settings.')
+            }
+        })
+        try {
+            return await this._handleAuth()
+        } finally {
+            subscription.unsubscribe()
+        }
+    }
+
+    private async _handleAuth (): Promise<russh.AuthenticatedSSHClient|null> {
         this.activePrivateKey = null
 
         if (!(this.ssh instanceof russh.SSHClient)) {
@@ -523,6 +545,7 @@ export class SSHSession {
             return noneResult
         }
 
+        let remainingMethods = [...this.allAuthMethods]
         let methodsLeft = noneResult.remainingMethods
 
         function maybeSetRemainingMethods (r: russh.AuthFailure) {
@@ -533,13 +556,13 @@ export class SSHSession {
 
         while (true) {
             const m = methodsLeft
-            const method = this.remainingAuthMethods.find(x => m.length === 0 || m.includes(sshAuthTypeForMethod(x)))
+            const method = remainingMethods.find(x => m.length === 0 || m.includes(sshAuthTypeForMethod(x)))
 
-            if (!method) {
+            if (this.previouslyDisconnected || !method) {
                 return null
             }
 
-            this.remainingAuthMethods = this.remainingAuthMethods.filter(x => x !== method)
+            remainingMethods = remainingMethods.filter(x => x !== method)
 
             if (method.type === 'saved-password') {
                 this.emitServiceMessage(this.translate.instant('Using saved password'))
