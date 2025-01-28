@@ -3628,10 +3628,10 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-russh@0.1.18:
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/russh/-/russh-0.1.18.tgz#6c8a770bd09a42a234fe76ebffdeeeedba294bd1"
-  integrity sha512-erfqYTn2Kof15UkhHsC/mlP5MWiqdUaU6fVZPwre5RlDa0DpmmNu8Kc/I5RlsKJkBrB61P2/qaHxb0dg+hCIMg==
+russh@0.1.19:
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/russh/-/russh-0.1.19.tgz#b1e9edeef5bb8502ff083638bf93512dc084c39e"
+  integrity sha512-gfLiz+OyGDcFhm5NE0Y6V1byPSgFNLr+71PFlMMz48oZPXl+WQavdCcyfdy9T/1afip9Vw5lkb6SxZ6/RVj2Lw==
   dependencies:
     "@napi-rs/cli" "^2.18.3"
 
