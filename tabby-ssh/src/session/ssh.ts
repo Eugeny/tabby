@@ -194,13 +194,6 @@ export class SSHSession {
                 })
             }
         }
-        if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
-            const savedPassword = this.profile.options.password ?? await this.passwordStorage.loadPassword(this.profile)
-            if (savedPassword) {
-                this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
-            }
-            this.allAuthMethods.push({ type: 'keyboard-interactive' })
-        }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
             if (this.profile.options.password) {
                 this.allAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
@@ -209,6 +202,15 @@ export class SSHSession {
             if (password) {
                 this.allAuthMethods.push({ type: 'saved-password', password })
             }
+        }
+        if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
+            const savedPassword = this.profile.options.password ?? await this.passwordStorage.loadPassword(this.profile)
+            if (savedPassword) {
+                this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
+            }
+            this.allAuthMethods.push({ type: 'keyboard-interactive' })
+        }
+        if (!this.profile.options.auth || this.profile.options.auth === 'password') {
             this.allAuthMethods.push({ type: 'prompt-password' })
         }
         this.allAuthMethods.push({ type: 'hostbased' })
