@@ -58,21 +58,18 @@ export class SSHService {
                     const buffer = await this.fileProviders.retrieveFile(pk)
                     privateKeyContent = buffer.toString()
                     await fs.writeFile(tmpFile.path, privateKeyContent)
-                    
                     const keyHash = crypto.createHash('sha512').update(privateKeyContent).digest('hex')
-                    // need to pass an default passphrase with "tabby", otherwise it might get stuck at the passphrase input
-                    passphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash) ?? "tabby"
-    
+                    // need to pass an default passphrase, otherwise it might get stuck at the passphrase input
+                    passphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash) ?? 'tabby'
                     const winSCPcom = path.slice(0, -3) + 'com'
                     try {
-                        await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, "-o", tmpFile.path, "--old-passphrase", passphrase])
+                        await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, '-o', tmpFile.path, '--old-passphrase', passphrase])
                     } catch (error) {
-                        console.warn("Could not convert private key ", error)
+                        console.warn('Could not convert private key ', error)
                         continue
                     }
                     break
                 }
-                
                 args.push(`/privatekey=${tmpFile.path}`)
                 if (passphrase != null) {
                     args.push(`/passphrase=${passphrase}`)
