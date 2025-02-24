@@ -342,6 +342,7 @@ Pull-запросы и плагины приветствуются!
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/geodic"><img src="https://avatars.githubusercontent.com/u/64704703?v=4?s=100" width="100px;" alt="geodic"/><br /><sub><b>geodic</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=geodic" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ianaflous"><img src="https://avatars.githubusercontent.com/u/42301579?v=4?s=100" width="100px;" alt="ianaflous"/><br /><sub><b>ianaflous</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ianaflous" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
