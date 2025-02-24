@@ -3,7 +3,7 @@ import { Subject, Observable } from 'rxjs'
 import { SessionMiddleware } from '../api/middleware'
 
 const OSCPrefix = Buffer.from('\x1b]')
-const OSCSuffix = Buffer.from('\x07')
+const OSCSuffixes = [Buffer.from('\x07'), Buffer.from('\x1b\\')]
 
 export class OSCProcessor extends SessionMiddleware {
     get cwdReported$ (): Observable<string> { return this.cwdReported }
@@ -14,11 +14,22 @@ export class OSCProcessor extends SessionMiddleware {
 
     feedFromSession (data: Buffer): void {
         let startIndex = 0
-        while (data.includes(OSCPrefix, startIndex) && data.includes(OSCSuffix, startIndex)) {
-            const params = data.subarray(data.indexOf(OSCPrefix, startIndex) + OSCPrefix.length)
-            const oscString = params.subarray(0, params.indexOf(OSCSuffix)).toString()
+        while (data.includes(OSCPrefix, startIndex)) {
+            const si = startIndex
+            if (!OSCSuffixes.some(s => data.includes(s, si))) {
+                break
+            }
 
-            startIndex = data.indexOf(OSCSuffix, startIndex) + OSCSuffix.length
+            const params = data.subarray(data.indexOf(OSCPrefix, startIndex) + OSCPrefix.length)
+
+            const [closesSuffix, closestSuffixIndex] = OSCSuffixes
+                .map((suffix): [Buffer, number] => [suffix, params.indexOf(suffix)])
+                .filter(([_, index]) => index !== -1)
+                .sort(([_, a], [__, b]) => a - b)[0]
+
+            const oscString = params.subarray(0, closestSuffixIndex).toString()
+
+            startIndex = data.indexOf(closesSuffix, startIndex) + closesSuffix.length
 
             const [oscCodeString, ...oscParams] = oscString.split(';')
             const oscCode = parseInt(oscCodeString)
