@@ -341,6 +341,7 @@
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/geodic"><img src="https://avatars.githubusercontent.com/u/64704703?v=4?s=100" width="100px;" alt="geodic"/><br /><sub><b>geodic</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=geodic" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://madebytimo.de"><img src="https://avatars.githubusercontent.com/u/44726248?v=4?s=100" width="100px;" alt="Timo Schnaible"/><br /><sub><b>Timo Schnaible</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=madebyTimo" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
