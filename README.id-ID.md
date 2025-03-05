@@ -346,6 +346,7 @@ Terima kasih kepada mereka yang telah membantu ([emoji key](https://allcontribut
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/geodic"><img src="https://avatars.githubusercontent.com/u/64704703?v=4?s=100" width="100px;" alt="geodic"/><br /><sub><b>geodic</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=geodic" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mannjani"><img src="https://avatars.githubusercontent.com/u/4688839?v=4?s=100" width="100px;" alt="mannjani"/><br /><sub><b>mannjani</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=mannjani" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
