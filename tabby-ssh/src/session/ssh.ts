@@ -162,9 +162,11 @@ export class SSHSession {
         this.allAuthMethods = [{ type: 'none' }]
         if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
             if (this.profile.options.privateKeys?.length) {
-                for (const pk of this.profile.options.privateKeys) {
+                for (let pk of this.profile.options.privateKeys) {
                     // eslint-disable-next-line @typescript-eslint/init-declarations
                     let contents: Buffer
+                    pk = pk.replace('%h', this.profile.options.host)
+                    pk = pk.replace('%r', this.profile.options.user)
                     try {
                         contents = await this.fileProviders.retrieveFile(pk)
                     } catch (error) {
