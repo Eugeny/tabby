@@ -11,7 +11,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v3.7.0
+      uses: actions/setup-node@v4.0.0
       with:
         node-version: 22
 
@@ -54,7 +54,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v3.7.0
+      uses: actions/setup-node@v4.0.0
       with:
         node-version: 22
 
@@ -166,7 +166,7 @@ jobs:
         fetch-depth: 0
 
     - name: Install Node
-      uses: actions/setup-node@v3.7.0
+      uses: actions/setup-node@v4.0.0
       with:
         node-version: 22
 
@@ -324,7 +324,7 @@ jobs:
       if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
 
     - name: Installing Node
-      uses: actions/setup-node@v3.7.0
+      uses: actions/setup-node@v4.0.0
       with:
         node-version: 22
 
