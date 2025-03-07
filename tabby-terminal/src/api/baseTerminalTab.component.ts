@@ -309,10 +309,16 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                 case 'scroll-to-top':
                     this.frontend?.scrollToTop()
                     break
-                case 'scroll-up':
+                case 'scroll-page-up':
                     this.frontend?.scrollPages(-1)
                     break
+                case 'scroll-up':
+                    this.frontend?.scrollLines(-1)
+                    break
                 case 'scroll-down':
+                    this.frontend?.scrollLines(1)
+                    break
+                case 'scroll-page-down':
                     this.frontend?.scrollPages(1)
                     break
                 case 'scroll-to-bottom':

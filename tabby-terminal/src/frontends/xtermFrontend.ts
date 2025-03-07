@@ -357,6 +357,10 @@ export class XTermFrontend extends Frontend {
         this.xterm.scrollPages(pages)
     }
 
+    scrollLines (amount: number): void {
+        this.xterm.scrollLines(amount)
+    }
+
     scrollToBottom (): void {
         this.xtermCore._scrollToBottom()
     }
