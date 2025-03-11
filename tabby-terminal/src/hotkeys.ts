@@ -86,11 +86,19 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Scroll terminal to top'),
         },
         {
-            id: 'scroll-up',
+            id: 'scroll-page-up',
             name: this.translate.instant('Scroll terminal one page up'),
         },
         {
+            id: 'scroll-up',
+            name: this.translate.instant('Scroll terminal one line up'),
+        },
+        {
             id: 'scroll-down',
+            name: this.translate.instant('Scroll terminal one line down'),
+        },
+        {
+            id: 'scroll-page-down',
             name: this.translate.instant('Scroll terminal one page down'),
         },
         {
@@ -113,3 +121,4 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
         return this.hotkeys
     }
 }
+

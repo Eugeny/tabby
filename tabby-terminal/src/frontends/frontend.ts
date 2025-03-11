@@ -77,6 +77,7 @@ export abstract class Frontend {
     abstract visualBell (): void
 
     abstract scrollToTop (): void
+    abstract scrollLines (amount: number): void
     abstract scrollPages (pages: number): void
     abstract scrollToBottom (): void
 
