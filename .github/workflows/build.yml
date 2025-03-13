@@ -258,7 +258,7 @@ jobs:
         repo: 'eugeny/tabby'
         dir: 'dist'
         rpmvers: 'el/9 el/8 ol/6 ol/7'
-        debvers: 'ubuntu/bionic ubuntu/focal ubuntu/hirsute ubuntu/impish ubuntu/jammy ubuntu/kinetic ubuntu/noble ubuntu/oracular debian/jessie debian/stretch debian/buster debian/bullseye debian/bookworm debian/trixie'
+        debvers: 'ubuntu/bionic ubuntu/focal ubuntu/hirsute ubuntu/impish ubuntu/jammy ubuntu/kinetic ubuntu/noble ubuntu/oracular debian/jessie debian/stretch debian/buster debian/bullseye debian/bookworm debian/trixie debian/testing debian/unstable'
 
     - uses: actions/upload-artifact@master
       name: Upload AppImage (${{matrix.arch}})
