@@ -6,6 +6,8 @@
         [class.text-danger]='state.resultCount == 0',
         (click)='$event.stopPropagation()',
         (keyup.enter)='findPrevious()',
+        (keyup.up)='findPrevious()',
+        (keyup.down)='findPrevious()',
         (keyup.esc)='close.emit()',
         [placeholder]='"Search"|translate'
     )
