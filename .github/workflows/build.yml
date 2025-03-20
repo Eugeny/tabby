@@ -1,5 +1,5 @@
 name: Package-Build
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 jobs:
   Lint:
     runs-on: ubuntu-24.04
