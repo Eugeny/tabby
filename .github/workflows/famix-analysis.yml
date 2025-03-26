@@ -1,0 +1,79 @@
+name: Metrics to CSV
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        smalltalk: [Moose64-11]
+    name: ${{ matrix.smalltalk }}
+
+    steps:
+      # Checkout code
+      - name: Checkout TypeScript source
+        uses: actions/checkout@v4
+
+      # Install Node
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Build custom ts2famix
+      - name: Clone custom ts2famix (FamixTypeScriptImporter)
+        run: |
+          git clone https://github.com/fuhrmanator/FamixTypeScriptImporter.git
+          cd FamixTypeScriptImporter
+          git checkout fuhrmanator/issue71
+          npm install
+          npm run build
+
+      # Clone package for MetricsCalculator
+      - name: Clone MetricsCalculator
+        run: |
+          git clone --branch automation https://x-access-token:${{ secrets.GH_PAT }}@github.com/kkeddam/mgl843-work.git external-smalltalk
+
+      # Generate meta-model
+      - name: Generate FAMIX model from TypeScript
+        run: |
+          npx --prefix FamixTypeScriptImporter ts2famix \
+            -i tsconfig.json \
+            -o model.json
+
+      # Download the correct VM
+      - uses: hpi-swa/setup-smalltalkCI@v1
+        with:
+          smalltalk-image: ${{ matrix.smalltalk }}
+
+      # Run the tests (dummy. Just to setup the VM correctly)
+      - run: smalltalkci -s ${{ matrix.smalltalk }} external-smalltalk/.smalltalk.ston
+        shell: bash
+        timeout-minutes: 15
+
+      # Compute the metrics into CSV file
+      - name: Load model and run custom analysis
+        run: |
+          $SMALLTALK_CI_VM $SMALLTALK_CI_IMAGE eval "
+            | token model calculator |
+            Metacello new
+              githubUser: 'fuhrmanator' project: 'FamixTypeScript' commitish: 'master' path: 'src';
+              baseline: 'FamixTypeScript';
+              load.
+            
+            model := 'model.json' asFileReference readStreamDo: [ :stream |
+              FamixTypeScriptModel new importFromJSONStream: stream ].
+            model install.
+
+            calculator := MetricsCalculator new loadModel: model.
+            calculator exportClassMetrics: 'outputfile.csv'.
+          "
+
+      # Upload the metrics CSV
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: famix-analysis
+          path: outputfile.csv
