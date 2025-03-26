@@ -31,6 +31,104 @@ jobs:
     - name: Lint
       run: yarn run lint
 
+  macOS-Build:
+    runs-on: macos-15
+    needs: Lint
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            rust_triple: x86_64-apple-darwin
+          - arch: arm64
+            rust_triple: aarch64-apple-darwin
+      fail-fast: false
+
+    env:
+      ARCH: ${{matrix.arch}}
+      RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Installing Node
+      uses: actions/setup-node@v3.7.0
+      with:
+        node-version: 22
+
+    - run: rustup target add ${{matrix.rust_triple}}
+
+    - name: Install deps
+      run: |
+        yarn --network-timeout 1000000
+      env:
+        ARCH: ${{matrix.arch}}
+
+    - name: Webpack
+      run: yarn run build
+
+    - name: Prepackage plugins
+      run: scripts/prepackage-plugins.mjs
+      env:
+        ARCH: ${{matrix.arch}}
+
+    - run: sed -i '' 's/updateInfo = await/\/\/updateInfo = await/g' node_modules/app-builder-lib/out/targets/ArchiveTarget.js
+
+    # Work around electron-builder beta bug
+    - run: ln -s ../../node_modules/electron app/node_modules
+
+    - name: Build and sign packages
+      run: scripts/build-macos.mjs
+      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
+      env:
+        ARCH: ${{matrix.arch}}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
+        CSC_LINK: ${{ secrets.CSC_LINK }}
+        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        APPSTORE_USERNAME: ${{ secrets.APPSTORE_USERNAME }}
+        APPSTORE_PASSWORD: ${{ secrets.APPSTORE_PASSWORD }}
+        USE_HARD_LINKS: false
+        # DEBUG: electron-builder,electron-builder:*
+
+    - name: Build packages without signing
+      run: scripts/build-macos.mjs
+      if: "! (github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
+      env:
+        ARCH: ${{matrix.arch}}
+        # DEBUG: electron-builder,electron-builder:*
+
+    - name: Upload symbols
+      run: |
+        sudo npm install -g @sentry/cli --unsafe-perm
+        ./scripts/sentry-upload.mjs
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+
+    - name: Package artifacts
+      run: |
+        mkdir artifact-dmg
+        mv dist/*.dmg artifact-dmg/
+        mkdir artifact-zip
+        mv dist/*.zip artifact-zip/
+
+    - uses: actions/upload-artifact@master
+      name: Upload DMG
+      with:
+        name: macOS .dmg (${{matrix.arch}})
+        path: artifact-dmg
+
+    - uses: actions/upload-artifact@master
+      name: Upload ZIP
+      with:
+        name: macOS .zip (${{matrix.arch}})
+        path: artifact-zip
+
   Linux-Build:
     runs-on: ${{matrix.os}}
     needs: Lint
