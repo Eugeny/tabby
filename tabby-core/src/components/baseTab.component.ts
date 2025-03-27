@@ -93,7 +93,9 @@ export abstract class BaseTabComponent extends BaseComponent {
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
 
     protected config: ConfigService
-
+    public recoveryStateChanged(): void {
+        this.recoveryStateChangedHint.next()
+    }
     protected constructor (injector: Injector) {
         super()
         this.config = injector.get(ConfigService)
