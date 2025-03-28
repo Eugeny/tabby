@@ -7,7 +7,7 @@
         (click)='$event.stopPropagation()',
         (keyup.enter)='findPrevious()',
         (keyup.up)='findPrevious()',
-        (keyup.down)='findPrevious()',
+        (keyup.down)='findNext()',
         (keyup.esc)='close.emit()',
         [placeholder]='"Search"|translate'
     )
