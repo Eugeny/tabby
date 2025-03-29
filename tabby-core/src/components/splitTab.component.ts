@@ -670,145 +670,121 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         })
     }
 
-    private layoutInternal (root: SplitContainer, x: number, y: number, w: number, h: number) {
+    private layoutInternal(root: SplitContainer, x: number, y: number, w: number, h: number) {
         const size = root.orientation === 'v' ? h : w
         const sizes = root.ratios.map(ratio => ratio * size)
         const thickness = 10
-
-        if (root === this.root) {
-            this._dropZones.push({
-                x: x - thickness / 2,
-                y: y + thickness,
-                w: thickness,
-                h: h - thickness * 2,
-                type: 'relative',
-                side: 'l',
-            })
-            this._dropZones.push({
-                x,
-                y: y - thickness / 2,
-                w,
-                h: thickness,
-                type: 'relative',
-                side: 't',
-            })
-            this._dropZones.push({
-                x: x + w - thickness / 2,
-                y: y + thickness,
-                w: thickness,
-                h: h - thickness * 2,
-                type: 'relative',
-                side: 'r',
-            })
-            this._dropZones.push({
-                x,
-                y: y + h - thickness / 2,
-                w,
-                h: thickness,
-                type: 'relative',
-                side: 'b',
-            })
-        }
-
+    
+        this.setRootContainerDropZonesIfNeeded(root, x, y, w, h, thickness)
+    
         root.x = x
         root.y = y
         root.w = w
         root.h = h
-
+    
         let offset = 0
         root.children.forEach((child, i) => {
-            const childX = root.orientation === 'v' ? x : x + offset
-            const childY = root.orientation === 'v' ? y + offset : y
-            const childW = root.orientation === 'v' ? w : sizes[i]
-            const childH = root.orientation === 'v' ? sizes[i] : h
-            if (child instanceof SplitContainer) {
-                this.layoutInternal(child, childX, childY, childW, childH)
-            } else {
-                const viewRef = this.viewRefs.get(child)
-                if (viewRef) {
-                    const element = viewRef.rootNodes[0]
-                    element.classList.toggle('child', true)
-                    element.classList.toggle('maximized', child === this.maximizedTab)
-                    element.classList.toggle('minimized', this.maximizedTab && child !== this.maximizedTab)
-                    element.classList.toggle('focused', this._allFocusMode || child === this.focusedTab)
-                    element.style.left = `${childX}%`
-                    element.style.top = `${childY}%`
-                    element.style.width = `${childW}%`
-                    element.style.height = `${childH}%`
-
-                    if (child === this.maximizedTab) {
-                        element.style.left = '5%'
-                        element.style.top = '5%'
-                        element.style.width = '90%'
-                        element.style.height = '90%'
-                    }
-                }
-            }
-
+            const { childX, childY, childW, childH } = this.calculateChildBounds(root, x, y, sizes[i], offset)
+            this.layoutChild(root, child, i, childX, childY, childW, childH, thickness)
             offset += sizes[i]
-
-            if (i !== root.ratios.length - 1) {
-                // Spanner area
-                this._dropZones.push({
-                    type: 'relative',
-                    relativeTo: root.children[i],
-                    side: root.orientation === 'v' ? 'b': 'r',
-                    x: root.orientation === 'v' ? childX + thickness : childX + offset - thickness / 2,
-                    y: root.orientation === 'v' ? childY + offset - thickness / 2 : childY + thickness,
-                    w: root.orientation === 'v' ? childW - thickness * 2 : thickness,
-                    h: root.orientation === 'v' ? thickness : childH - thickness * 2,
-                })
-            }
-
-            // Sides
-            if (root.orientation === 'v') {
-                this._dropZones.push({
-                    x: childX,
-                    y: childY + thickness,
-                    w: thickness,
-                    h: childH - thickness * 2,
-                    type: 'relative',
-                    relativeTo: child,
-                    side: 'l',
-                })
-                this._dropZones.push({
-                    x: childX + w - thickness,
-                    y: childY + thickness,
-                    w: thickness,
-                    h: childH - thickness * 2,
-                    type: 'relative',
-                    relativeTo: child,
-                    side: 'r',
-                })
-            } else {
-                this._dropZones.push({
-                    x: childX + thickness,
-                    y: childY,
-                    w: childW - thickness * 2,
-                    h: thickness,
-                    type: 'relative',
-                    relativeTo: child,
-                    side: 't',
-                })
-                this._dropZones.push({
-                    x: childX + thickness,
-                    y: childY + childH - thickness,
-                    w: childW - thickness * 2,
-                    h: thickness,
-                    type: 'relative',
-                    relativeTo: child,
-                    side: 'b',
-                })
-            }
-
-            if (i !== 0) {
-                this._spanners.push({
-                    container: root,
-                    index: i,
-                })
-            }
         })
     }
+    
+    private calculateChildBounds(root: SplitContainer, x: number, y: number, size: number, offset: number) {
+        return {
+            childX: root.orientation === 'v' ? x : x + offset,
+            childY: root.orientation === 'v' ? y + offset : y,
+            childW: root.orientation === 'v' ? root.w : size,
+            childH: root.orientation === 'v' ? size : root.h
+        }
+    }
+    
+    private setRootContainerDropZonesIfNeeded(root: SplitContainer, x: number, y: number, w: number, h: number, thickness: number) {
+        if (root !== this.root) return
+    
+        this._dropZones.push({ x: x - thickness / 2, y: y + thickness, w: thickness, h: h - thickness * 2, type: 'relative', side: 'l' })
+        this._dropZones.push({ x, y: y - thickness / 2, w, h: thickness, type: 'relative', side: 't' })
+        this._dropZones.push({ x: x + w - thickness / 2, y: y + thickness, w: thickness, h: h - thickness * 2, type: 'relative', side: 'r' })
+        this._dropZones.push({ x, y: y + h - thickness / 2, w, h: thickness, type: 'relative', side: 'b' })
+    }
+    
+    private layoutChild(
+        root: SplitContainer,
+        child: BaseTabComponent | SplitContainer,
+        i: number,
+        childX: number,
+        childY: number,
+        childW: number,
+        childH: number,
+        thickness: number
+    ) {
+        if (child instanceof SplitContainer) {
+            this.layoutInternal(child, childX, childY, childW, childH)
+        } else {
+            const viewRef = this.viewRefs.get(child)
+            if (viewRef) {
+                const element = viewRef.rootNodes[0]
+                element.classList.toggle('child', true)
+                element.classList.toggle('maximized', child === this.maximizedTab)
+                element.classList.toggle('minimized', this.maximizedTab && child !== this.maximizedTab)
+                element.classList.toggle('focused', this._allFocusMode || child === this.focusedTab)
+                element.style.left = `${childX}%`
+                element.style.top = `${childY}%`
+                element.style.width = `${childW}%`
+                element.style.height = `${childH}%`
+    
+                if (child === this.maximizedTab) {
+                    element.style.left = '5%'
+                    element.style.top = '5%'
+                    element.style.width = '90%'
+                    element.style.height = '90%'
+                }
+            }
+        }
+    
+        if (i !== root.ratios.length - 1) {
+            this._dropZones.push({
+                type: 'relative',
+                relativeTo: root.children[i],
+                side: root.orientation === 'v' ? 'b': 'r',
+                x: root.orientation === 'v' ? childX + thickness : childX + childW - thickness / 2,
+                y: root.orientation === 'v' ? childY + childH - thickness / 2 : childY + thickness,
+                w: root.orientation === 'v' ? childW - thickness * 2 : thickness,
+                h: root.orientation === 'v' ? thickness : childH - thickness * 2,
+            })
+        }
+    
+        const sideDropZones = this.getSideDropZones(root, childX, childY, childW, childH, thickness, child)
+        this._dropZones.push(...sideDropZones)
+    
+        if (i !== 0) {
+            this._spanners.push({ container: root, index: i })
+        }
+    }
+    
+    private getSideDropZones(
+        root: SplitContainer,
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        thickness: number,
+        child: BaseTabComponent | SplitContainer
+    ): SplitDropZoneInfo[] {
+        if (root.orientation === 'v') {
+            return [
+                { x, y: y + thickness, w: thickness, h: h - thickness * 2, type: 'relative', relativeTo: child, side: 'l' },
+                { x: x + w - thickness, y: y + thickness, w: thickness, h: h - thickness * 2, type: 'relative', relativeTo: child, side: 'r' },
+            ]
+        } else {
+            return [
+                { x: x + thickness, y, w: w - thickness * 2, h: thickness, type: 'relative', relativeTo: child, side: 't' },
+                { x: x + thickness, y: y + h - thickness, w: w - thickness * 2, h: thickness, type: 'relative', relativeTo: child, side: 'b' },
+            ]
+        }
+    }
+    
+
 
     private async recoverContainer (root: SplitContainer, state: any) {
         const children: (SplitContainer | BaseTabComponent)[] = []
