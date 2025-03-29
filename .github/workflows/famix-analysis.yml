@@ -70,7 +70,13 @@ jobs:
             calculator := MetricsCalculator new loadModel: model.
             calculator exportClassMetrics: 'outputfile.csv'.
           "
-
+      # Upload meta-model JSON
+      - name: Upload FamixTypeScript Model JSON
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: famixtypescript-model
+          path: model.json
+          
       # Upload the metrics CSV
       - name: Upload CSV artifact
         uses: actions/upload-artifact@v4.6.2
