@@ -6,7 +6,6 @@ import { Frontend, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
 import { LigaturesAddon } from '@xterm/addon-ligatures'
-import { ISearchOptions, SearchAddon } from '@xterm/addon-search'
 import { WebglAddon } from '@xterm/addon-webgl'
 import { Unicode11Addon } from '@xterm/addon-unicode11'
 import { SerializeAddon } from '@xterm/addon-serialize'
@@ -15,6 +14,7 @@ import { CanvasAddon } from '@xterm/addon-canvas'
 import { BaseTerminalProfile, TerminalColorScheme } from '../api/interfaces'
 import { getTerminalBackgroundColor } from '../helpers'
 import './xterm.css'
+import { XTermSearchManager } from './xtermSearchManager'
 
 const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
@@ -71,8 +71,6 @@ export class XTermFrontend extends Frontend {
     private configuredTheme: ITheme = {}
     private copyOnSelect = false
     private preventNextOnSelectionChangeEvent = false
-    private search = new SearchAddon()
-    private searchState: SearchState = { resultCount: 0 }
     private fitAddon = new FitAddon()
     private serializeAddon = new SerializeAddon()
     private ligaturesAddon?: LigaturesAddon
@@ -81,6 +79,8 @@ export class XTermFrontend extends Frontend {
     private opened = false
     private resizeObserver?: any
     private flowControl: FlowControl
+    private searchManager: XTermSearchManager
+    private searchState: SearchState = { resultCount: 0 }
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -107,6 +107,8 @@ export class XTermFrontend extends Frontend {
         })
         this.flowControl = new FlowControl(this.xterm)
         this.xtermCore = this.xterm['_core']
+        this.searchManager = new XTermSearchManager(this.xterm, () => this.copyOnSelect,
+            () => this.preventNextOnSelectionChangeEvent = true)
 
         this.xterm.onBinary(data => {
             this.input.next(Buffer.from(data, 'binary'))
@@ -258,9 +260,9 @@ export class XTermFrontend extends Frontend {
         this.ready.next()
         this.ready.complete()
 
-        this.xterm.loadAddon(this.search)
+        this.xterm.loadAddon(this.searchManager.searchAddon)
 
-        this.search.onDidChangeResults(state => {
+        this.searchManager.searchAddon.onDidChangeResults(state => {
             this.searchState = state
         })
 
@@ -440,45 +442,16 @@ export class XTermFrontend extends Frontend {
         this.resizeHandler()
     }
 
-    private getSearchOptions (searchOptions?: SearchOptions): ISearchOptions {
-        return {
-            ...searchOptions,
-            decorations: {
-                matchOverviewRuler: '#888888',
-                activeMatchColorOverviewRuler: '#ffff00',
-                matchBackground: '#888888',
-                activeMatchBackground: '#ffff00',
-            },
-        }
-    }
-
-    private wrapSearchResult (result: boolean): SearchState {
-        if (!result) {
-            return { resultCount: 0 }
-        }
-        return this.searchState
-    }
-
     findNext (term: string, searchOptions?: SearchOptions): SearchState {
-        if (this.copyOnSelect) {
-            this.preventNextOnSelectionChangeEvent = true
-        }
-        return this.wrapSearchResult(
-            this.search.findNext(term, this.getSearchOptions(searchOptions)),
-        )
+        return this.searchManager.findNext(term, searchOptions)
     }
 
     findPrevious (term: string, searchOptions?: SearchOptions): SearchState {
-        if (this.copyOnSelect) {
-            this.preventNextOnSelectionChangeEvent = true
-        }
-        return this.wrapSearchResult(
-            this.search.findPrevious(term, this.getSearchOptions(searchOptions)),
-        )
+        return this.searchManager.findPrevious(term, searchOptions)
     }
 
     cancelSearch (): void {
-        this.search.clearDecorations()
+        this.searchManager.cancelSearch()
         this.focus()
     }
 
