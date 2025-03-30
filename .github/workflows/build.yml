@@ -229,6 +229,7 @@ jobs:
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
       if: matrix.build-arch == 'x64'
 
+
   Windows-Build:
     runs-on: windows-latest
     needs: Lint
