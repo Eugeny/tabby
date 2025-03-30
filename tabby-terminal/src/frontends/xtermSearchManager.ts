@@ -1,4 +1,3 @@
-import { Terminal } from '@xterm/xterm'
 import { ISearchOptions, SearchAddon } from '@xterm/addon-search'
 import { SearchOptions, SearchState } from './frontend'
 
@@ -10,7 +9,6 @@ export class XTermSearchManager {
     searchState: SearchState = { resultCount: 0 }
 
     constructor (
-        private xterm: Terminal,
         private getIsCopyOnSelect: () => boolean,
         private preventNextSelectionEvent: () => void,
     ) {

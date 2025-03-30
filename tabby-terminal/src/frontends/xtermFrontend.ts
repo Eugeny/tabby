@@ -107,8 +107,10 @@ export class XTermFrontend extends Frontend {
         })
         this.flowControl = new FlowControl(this.xterm)
         this.xtermCore = this.xterm['_core']
-        this.searchManager = new XTermSearchManager(this.xterm, () => this.copyOnSelect,
-            () => this.preventNextOnSelectionChangeEvent = true)
+        this.searchManager = new XTermSearchManager(
+            () => this.copyOnSelect,
+            () => this.preventNextOnSelectionChangeEvent = true,
+        )
 
         this.xterm.onBinary(data => {
             this.input.next(Buffer.from(data, 'binary'))
@@ -443,11 +445,19 @@ export class XTermFrontend extends Frontend {
     }
 
     findNext (term: string, searchOptions?: SearchOptions): SearchState {
-        return this.searchManager.findNext(term, searchOptions)
+        const result = this.searchManager.findNext(term, searchOptions)
+        this.searchState = result
+        return result
     }
 
     findPrevious (term: string, searchOptions?: SearchOptions): SearchState {
-        return this.searchManager.findPrevious(term, searchOptions)
+        const result = this.searchManager.findPrevious(term, searchOptions)
+        this.searchState = result
+        return result
+    }
+
+    getSearchState (): SearchState {
+        return this.searchState
     }
 
     cancelSearch (): void {
