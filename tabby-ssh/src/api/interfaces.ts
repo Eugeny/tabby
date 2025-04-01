@@ -6,7 +6,7 @@ export enum SSHAlgorithmType {
     CIPHER = 'cipher',
     HOSTKEY = 'serverHostKey',
     COMPRESSION = 'compression',
-    
+
 }
 
 export interface SSHProfile extends ConnectableTerminalProfile {

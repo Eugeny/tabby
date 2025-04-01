@@ -107,7 +107,7 @@ export class SSHProfileSettingsComponent {
             this.profile.options.algorithms![k] = Object.entries(this.algorithms[k])
                 .filter(([_, v]) => !!v)
                 .map(([key, _]) => key)
-            if(k !== SSHAlgorithmType.COMPRESSION) this.profile.options.algorithms![k].sort()
+            if(k !== SSHAlgorithmType.COMPRESSION) { this.profile.options.algorithms![k].sort() }
         }
 
         if (this.connectionMode !== 'jumpHost') {
