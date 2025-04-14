@@ -118,7 +118,8 @@
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) — позволяет создавать пользовательские профили рабочего окружения на основе конфига;
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) — открывает браузер по умолчанию с текстом, выделенном во вкладке Tabby.
 * [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - открывает sftp вкладку для ssh соединения, похож на SecureCRT
-
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - Встроенные всплывающие окна веб-аутентификации (Основано в основном для аутентификации в браузере warpgate)
+* [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - Мощная интеграция сервера протокола Model Context Protocol для Tabby, которая беспрепятственно соединяется с ИИ-ассистентами через MCP-клиенты, такие как Cursor и Windsurf, улучшая рабочий процесс в терминале с помощью интеллектуальных возможностей искусственного интеллекта.
 <a name="themes"></a>
 # Темы
 

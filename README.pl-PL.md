@@ -132,6 +132,7 @@ Wtyczki (jak i motywy) mogą być instalowane bezpośrednio z widoku ustawień w
 * [background](https://github.com/moemoechu/tabby-background) - zmień tło Tabby oraz wiele więcej
 * [highlight](https://github.com/moemoechu/tabby-highlight) - Tabby terminal keyword highlight plugin
 * [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - okienka autoryzacji wewnątrz konsoli (Zbudowany głównie pod autoryzację projektu Warpgate w przeglądarce)
+* [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - Potężna integracja serwera Model Context Protocol dla Tabby, która bezproblemowo łączy się z asystentami AI poprzez klientów MCP, takich jak Cursor i Windsurf, usprawniając przepływ pracy w terminalu dzięki inteligentnym możliwościom AI.
 
 <a name="themes"></a>
 

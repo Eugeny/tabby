@@ -120,8 +120,9 @@ Tema dan Plugin bisa langsung di install dari Pengaturan di dalam Tabby.
 * [clippy](https://github.com/Eugeny/tabby-clippy) - suatu contoh plugin yang akan mengganggu anda setiap saat
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - memperbolehkan membuat kustom profil workspace dari konfigurasi yang diberikan
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - membuka browser default dengan text yang dipilih dari Tab Tabby
-* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
-
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - membuka tab sftp untuk koneksi ssh seperti SecureCRT
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - Pop-up otentikasi web di dalam aplikasi (Dibangun terutama untuk otentikasi in-browser warpgate)
+* [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - Integrasi server Model Context Protocol yang kuat untuk Tabby yang terhubung secara mulus dengan asisten AI melalui klien MCP seperti Cursor dan Windsurf, meningkatkan alur kerja terminal Anda dengan kemampuan AI yang cerdas.
 <a name="themes"></a>
 
 # Tema
