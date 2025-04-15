@@ -127,8 +127,9 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
 * [clippy](https://github.com/Eugeny/tabby-clippy) - プラグインの作例として、いつも厄介なあいつが出てくるプラグイン
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 指定された設定からカスタマイズされたワークスペースを作成することができます
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - Tabby内の端末で選択したテキストを既定ブラウザで開くことができます。
-* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
-
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - SecureCRTのようにSSH接続のSFTPタブを開く
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - アプリ内ウェブ認証ポップアップ（主にwarpgateのブラウザ認証用に構築）
+* [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - TabbyのためのパワフルなModel Context Protocolサーバー統合機能で、CursorやWindsurfなどのMCPクライアントを通じてAIアシスタントとシームレスに接続し、インテリジェントなAI機能によってターミナルワークフローを強化します。
 <a name="themes"></a>
 
 # テーマ

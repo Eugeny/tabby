@@ -116,8 +116,9 @@ This README is also available in: <a  href="./README.md">:gb: English</a> · <a 
 * [clippy](https://github.com/Eugeny/tabby-clippy) - 항상 당신을 귀찮게 하는 예제 플러그인
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 주어진 구성을 기반으로 사용자 정의 작업 공간 프로필을 생성할 수 있습니다
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - Tabby의 탭에서 선택한 텍스트로 기본 시스템 브라우저를 엽니다
-* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
-
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - SecureCRT와 유사하게 SSH 연결에 대한 SFTP 탭을 엽니다.
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - 앱 내 웹 인증 팝업 (주로 warpgate 브라우저 인증을 위해 구축)
+* [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - Cursor 및 Windsurf와 같은 MCP 클라이언트를 통해 AI 어시스턴트와 원활하게 연결되는 Tabby용 강력한 모델 컨텍스트 프로토콜 서버 통합으로, 지능형 AI 기능으로 터미널 워크플로우를 향상시킵니다.
 <a name="themes"></a>
 # 테마
 

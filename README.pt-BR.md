@@ -120,8 +120,9 @@ Plugins e temas podem ser instalados durante a execução na pagina de configura
 * [clippy](https://github.com/Eugeny/tabby-clippy) - um plugin de exemplo que te incomoda o tempo todo
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - permite criar perfis de espaço de trabalho personalizados com base na configuração fornecida
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - abre o navegador padrão do sistema com um texto selecionado na guia do Tabby
-* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
-
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - abre uma guia SFTP para conexão SSH como o SecureCRT
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - pop-ups de autenticação web dentro do aplicativo (Construído principalmente para autenticação in-browser do warpgate)
+* [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - Integração poderosa do servidor Model Context Protocol para Tabby que se conecta perfeitamente com assistentes de IA através de clientes MCP como Cursor e Windsurf, aprimorando seu fluxo de trabalho no terminal com recursos inteligentes de IA.
 <a name="themes"></a>
 
 # Temas
