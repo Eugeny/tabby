@@ -342,6 +342,7 @@ Pull requests and plugins are welcome!
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/geodic"><img src="https://avatars.githubusercontent.com/u/64704703?v=4?s=100" width="100px;" alt="geodic"/><br /><sub><b>geodic</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=geodic" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://thuanpham582002.github.io/"><img src="https://avatars.githubusercontent.com/u/95533596?v=4?s=100" width="100px;" alt="thuanpham582002"/><br /><sub><b>thuanpham582002</b></sub></a><br /><a href="#plugin-thuanpham582002" title="Plugin/utility libraries">🔌</a></td>
     </tr>
   </tbody>
 </table>
