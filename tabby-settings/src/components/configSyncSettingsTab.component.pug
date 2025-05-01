@@ -67,7 +67,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                                 div {{cfg.name}}
                                 small.text-muted(
                                     translate='Modified on {date}',
-                                    [translateParams]='{date: cfg.modified_at|date:"medium"}'
+                                    [translateParams]='{date: cfg.modified_at|date:"medium":undefined:getLocale()}'
                                 )
                             .me-auto
                             button.btn.btn-link.ms-1(

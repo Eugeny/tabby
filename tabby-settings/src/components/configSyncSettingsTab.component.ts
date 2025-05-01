@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, HostBinding } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseComponent, ConfigService, PromptModalComponent, HostAppService, PlatformService, NotificationsService, TranslateService } from 'tabby-core'
+import { BaseComponent, ConfigService, PromptModalComponent, HostAppService, PlatformService, NotificationsService, TranslateService, LocaleService } from 'tabby-core'
 import { Config, ConfigSyncService } from '../services/configSync.service'
 
 
@@ -25,6 +25,7 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         private ngbModal: NgbModal,
         private notifications: NotificationsService,
         private translate: TranslateService,
+        private locale: LocaleService,
     ) {
         super()
     }
@@ -144,5 +145,9 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
 
     openTabbyWebInfo () {
         this.platform.openExternal('https://github.com/Eugeny/tabby-web')
+    }
+
+    getLocale (): string {
+        return this.locale.getLocale()
     }
 }
