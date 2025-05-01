@@ -3,7 +3,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import axios from 'axios'
 import * as marked from '../../node_modules/marked/src/marked'
 import { Component, Injector } from '@angular/core'
-import { BaseTabComponent, TranslateService } from 'tabby-core'
+import { BaseTabComponent, TranslateService, LocaleService } from 'tabby-core'
 
 export interface Release {
     name: string
@@ -22,7 +22,7 @@ export class ReleaseNotesComponent extends BaseTabComponent {
     releases: Release[] = []
     lastPage = 1
 
-    constructor (translate: TranslateService, injector: Injector) {
+    constructor (translate: TranslateService, private locale: LocaleService, injector: Injector) {
         super(injector)
         this.setTitle(translate.instant(_('Release notes')))
         this.loadReleases(1)
@@ -44,5 +44,9 @@ export class ReleaseNotesComponent extends BaseTabComponent {
 
     onScrolled () {
         this.loadReleases(this.lastPage + 1)
+    }
+
+    getLocale (): string {
+        return this.locale.getLocale()
     }
 }

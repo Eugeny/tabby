@@ -1,7 +1,7 @@
 import * as C from 'constants'
 import { posix as path } from 'path'
 import { Component, Input, Output, EventEmitter, Inject, Optional } from '@angular/core'
-import { FileUpload, DirectoryUpload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
+import { FileUpload, DirectoryUpload, MenuItemOptions, NotificationsService, PlatformService, LocaleService } from 'tabby-core'
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
 import { SFTPContextMenuItemProvider } from '../api'
@@ -32,6 +32,7 @@ export class SFTPPanelComponent {
     constructor (
         private ngbModal: NgbModal,
         private notifications: NotificationsService,
+        private locale: LocaleService,
         public platform: PlatformService,
         @Optional() @Inject(SFTPContextMenuItemProvider) protected contextMenuProviders: SFTPContextMenuItemProvider[],
     ) {
@@ -272,5 +273,9 @@ export class SFTPPanelComponent {
 
     close (): void {
         this.closed.emit()
+    }
+
+    getLocale (): string {
+        return this.locale.getLocale()
     }
 }
