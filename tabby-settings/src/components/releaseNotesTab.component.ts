@@ -45,4 +45,5 @@ export class ReleaseNotesComponent extends BaseTabComponent {
     onScrolled () {
         this.loadReleases(this.lastPage + 1)
     }
+
 }

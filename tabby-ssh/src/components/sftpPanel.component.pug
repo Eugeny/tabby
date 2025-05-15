@@ -61,5 +61,5 @@
                 div {{item.name}}
                 .me-auto
                 .size(*ngIf='!item.isDirectory') {{item.size|filesize}}
-                .date {{item.modified|date:'medium'}}
+                .date {{item.modified|tabbyDate}}
                 .mode {{getModeString(item)}}

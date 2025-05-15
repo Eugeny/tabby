@@ -43,7 +43,7 @@ import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
 import { VaultFileProvider } from './services/vault.service'
 import { HotkeysService } from './services/hotkeys.service'
-import { CustomMissingTranslationHandler, LocaleService } from './services/locale.service'
+import { CustomMissingTranslationHandler, LocaleService, TabbyFormatedDatePipe } from './services/locale.service'
 import { CommandService } from './services/commands.service'
 
 import { NewTheme } from './theme'
@@ -130,6 +130,7 @@ const PROVIDERS = [
         DropZoneDirective,
         CdkAutoDropGroup,
         ProfileIconComponent,
+        TabbyFormatedDatePipe,
     ],
     exports: [
         AppRootComponent,
@@ -144,6 +145,7 @@ const PROVIDERS = [
         TranslateModule,
         CdkAutoDropGroup,
         ProfileIconComponent,
+        TabbyFormatedDatePipe,
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class

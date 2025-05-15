@@ -273,4 +273,5 @@ export class SFTPPanelComponent {
     close (): void {
         this.closed.emit()
     }
+
 }
