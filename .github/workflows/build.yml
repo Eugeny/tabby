@@ -18,11 +18,11 @@ jobs:
     - name: Install deps
       run: |
         sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
-        npm i -g yarn
+        npm install -g corepack
         cd app
         yarn
         cd ..
-        rm app/node_modules/.yarn-integrity
+        rm -f app/node_modules/.yarn-integrity
         yarn
 
     - name: Build typings
@@ -62,7 +62,7 @@ jobs:
 
     - name: Install deps
       run: |
-        yarn --network-timeout 1000000
+        yarn
       env:
         ARCH: ${{matrix.arch}}
 
@@ -217,11 +217,11 @@ jobs:
 
     - name: Install npm_modules (native)
       run: |
-        npm i -g yarn node-gyp
-        yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target-arch=${{matrix.build-arch}}
+        npm i -g corepack node-gyp
+        yarn
 
     - name: Webpack (${{matrix.arch}})
-      run: yarn run build --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}
+      run: yarn run build
 
     - name: Prepackage plugins (${{matrix.arch}})
       run: scripts/prepackage-plugins.mjs
@@ -339,8 +339,8 @@ jobs:
     - name: Build
       shell: powershell
       run: |
-        npm i -g yar node-gyp
-        yarn --network-timeout 1000000
+        npm i -g corepack node-gyp
+        yarn
         yarn run build
         node scripts/prepackage-plugins.mjs
       env:
