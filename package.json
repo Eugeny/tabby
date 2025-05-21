@@ -12,7 +12,7 @@
     "@angular/platform-browser-dynamic": "^15.2.6",
     "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
     "@electron/notarize": "^1.2.3",
-    "@electron/rebuild": "^3.7.1",
+    "@electron/rebuild": "^4.0.1",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@ng-bootstrap/ng-bootstrap": "^14.1.0",
     "@ngtools/webpack": "^15.2.5",

@@ -14,9 +14,6 @@
         "stream-browserify": "^3.0.0",
         "url": "^0.11.0"
     },
-    "resolutions": {
-        "**/util": "^0.12.0"
-    },
     "scripts": {
         "prepare": "patch-package"
     },

@@ -18,8 +18,8 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "ansi-colors": "^4.1.1",
-    "@types/node": "14.14.31"
+    "@types/node": "14.14.31",
+    "ansi-colors": "^4.1.1"
   },
   "peerDependencies": {
     "@angular/animations": "^15",
