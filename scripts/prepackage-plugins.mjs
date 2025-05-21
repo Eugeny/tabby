@@ -22,7 +22,7 @@ vars.builtinPlugins.forEach(plugin => {
     sh.cp('-r', path.join('..', plugin), '.')
     sh.rm('-rf', path.join(plugin, 'node_modules'))
     sh.cd(plugin)
-    sh.exec(`yarn install --force --production`, { fatal: true })
+    sh.exec(`yarn`, { fatal: true })
 
 
     log.info('rebuild', 'native')

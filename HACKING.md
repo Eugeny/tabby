@@ -8,7 +8,7 @@ First of all, clone this repository.
 
 # Install Dependencies
 - [Node.js](https://nodejs.org/en/download/) **version 15 or newer*
-- [Yarn](https://yarnpkg.com/)
+- [Yarn v4](https://yarnpkg.com/)
 
 First, from within the `tabby` directory install the dependencies via yarn:
 
