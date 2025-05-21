@@ -50,7 +50,7 @@ export class DockMenuService {
             ])
         }
         if (this.hostApp.platform === Platform.macOS) {
-            this.electron.app.dock.setMenu(this.electron.Menu.buildFromTemplate(
+            this.electron.app.dock?.setMenu(this.electron.Menu.buildFromTemplate(
                 [
                     ...[...this.profilesService.getRecentProfiles(), ...profiles].map(profile => ({
                         label: profile.name,
