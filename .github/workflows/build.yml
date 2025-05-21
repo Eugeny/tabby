@@ -2,7 +2,7 @@ name: Package-Build
 on: [push, pull_request]
 jobs:
   Lint:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
@@ -138,17 +138,17 @@ jobs:
           - build-arch: x64
             arch: amd64
             rust_triple: x86_64-unknown-linux-gnu
-            os: ubuntu-24.04
+            os: ubuntu-latest
           - build-arch: arm64
             arch: arm64
             rust_triple: aarch64-unknown-linux-gnu
             triplet: aarch64-linux-gnu-
-            os: ubuntu-24.04-arm
+            os: ubuntu-latest
           - build-arch: arm
             arch: armhf
             rust_triple: arm-unknown-linux-gnueabihf
             triplet: arm-linux-gnueabihf-
-            os: ubuntu-24.04
+            os: ubuntu-latest
       fail-fast: false
 
     env:
