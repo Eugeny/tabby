@@ -31,7 +31,7 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
 
         const openLink = async uri => {
             for (const handler of this.handlers) {
-                if (!handler.regex.test(uri)) {
+                if (!handler.fullMatchRegex.test(uri)) {
                     continue
                 }
                 if (!await handler.verify(await handler.convert(uri, tab), tab)) {

@@ -13,4 +13,12 @@ export abstract class LinkHandler {
     }
 
     abstract handle (uri: string, tab?: BaseTerminalTabComponent<any>): void
+
+    private _fullMatchRegex: RegExp | null = null
+    get fullMatchRegex (): RegExp {
+        if (!this._fullMatchRegex) {
+            this._fullMatchRegex = new RegExp(`^${this.regex.source}$`)
+        }
+        return this._fullMatchRegex
+    }
 }
