@@ -97,6 +97,7 @@
     "lzma-native": "^8.0.6",
     "**/graceful-fs": "^4.2.4",
     "nan": "2.22.2",
+    "node-abi": "4.9.0",
     "node-gyp": "^10.0.0"
   },
   "scripts": {
