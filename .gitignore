@@ -37,3 +37,5 @@ sentry-symbols.js
 
 crowdin.yml
 .crowdin.env
+
+install-state.gz

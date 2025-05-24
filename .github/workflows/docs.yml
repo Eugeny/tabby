@@ -19,6 +19,7 @@ jobs:
     - name: Build
       run: |
         sudo apt update && sudo apt install libfontconfig1-dev
+        npm i -g corepack
         yarn cache clean
         cd app
         yarn

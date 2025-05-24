@@ -1,7 +1,7 @@
-diff --git a/node_modules/ansi-color/lib/ansi-color.js b/node_modules/ansi-color/lib/ansi-color.js
-index 1062c87..4fc2847 100644
---- a/node_modules/ansi-color/lib/ansi-color.js
-+++ b/node_modules/ansi-color/lib/ansi-color.js
+diff --git a/lib/ansi-color.js b/lib/ansi-color.js
+index 1062c87b46c5515a2d0c813b38de333b88149d0b..4fc2847ace3bddc79b17720f99fec86952cd6f03 100644
+--- a/lib/ansi-color.js
++++ b/lib/ansi-color.js
 @@ -32,8 +32,8 @@ exports.set = function(str, color) {
    var color_attrs = color.split("+");
    var ansi_str = "";
