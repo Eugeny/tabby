@@ -315,6 +315,7 @@ export class SSHSession {
                     kex: this.profile.options.algorithms?.[SSHAlgorithmType.KEX]?.filter(x => supportedAlgorithms[SSHAlgorithmType.KEX].includes(x)),
                     mac: this.profile.options.algorithms?.[SSHAlgorithmType.HMAC]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HMAC].includes(x)),
                     key: this.profile.options.algorithms?.[SSHAlgorithmType.HOSTKEY]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HOSTKEY].includes(x)),
+                    compression: this.profile.options.algorithms?.[SSHAlgorithmType.COMPRESSION]?.filter(x => supportedAlgorithms[SSHAlgorithmType.COMPRESSION].includes(x)),
                 },
                 keepaliveIntervalSeconds: Math.round((this.profile.options.keepaliveInterval ?? 15000) / 1000),
                 keepaliveCountMax: this.profile.options.keepaliveCountMax,

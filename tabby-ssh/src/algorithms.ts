@@ -6,6 +6,7 @@ export const supportedAlgorithms = {
     [SSHAlgorithmType.HOSTKEY]: russh.getSupportedKeyTypes().filter(x => x !== 'none'),
     [SSHAlgorithmType.CIPHER]: russh.getSupportedCiphers().filter(x => x !== 'clear'),
     [SSHAlgorithmType.HMAC]: russh.getSupportedMACs().filter(x => x !== 'none'),
+    [SSHAlgorithmType.COMPRESSION]: russh.getSupportedCompressionAlgorithms().reverse(),
 }
 
 export const defaultAlgorithms = {
@@ -41,5 +42,10 @@ export const defaultAlgorithms = {
         'hmac-sha2-256',
         'hmac-sha1-etm@openssh.com',
         'hmac-sha1',
+    ],
+    [SSHAlgorithmType.COMPRESSION]: [
+        'zlib@openssh.com',
+        'zlib',
+        'none',
     ],
 }
