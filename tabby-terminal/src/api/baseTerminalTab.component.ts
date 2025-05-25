@@ -542,7 +542,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         }
 
         if (!this.alternateScreenActive) {
-            if (data.includes('\r') && this.config.store.terminal.warnOnMultilinePaste) {
+            if ((data.includes('\r') || data.includes('\n')) && this.config.store.terminal.warnOnMultilinePaste) {
                 const buttons = [
                     this.translate.instant('Paste'),
                     this.translate.instant('Cancel'),
