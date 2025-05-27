@@ -11,6 +11,7 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
 import { SSHProfile } from '../api'
 import { SSHShellSession } from '../session/shell'
 import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
+import { PasswordStorageService } from '../services/passwordStorage.service'
 
 /** @hidden */
 @Component({
@@ -37,6 +38,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         private ngbModal: NgbModal,
         private profilesService: ProfilesService,
         private sshMultiplexer: SSHMultiplexerService,
+        private passwordStorage: PasswordStorageService,
     ) {
         super(injector)
         this.sessionChanged$.subscribe(() => {
@@ -63,6 +65,9 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                     if (this.sshSession) {
                         this.ssh.launchWinSCP(this.sshSession)
                     }
+                    break
+                case 'paste-ssh-password':
+                    this.pasteSSHPassword()
                     break
             }
         })
@@ -221,6 +226,26 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     @HostListener('click')
     onClick (): void {
         this.sftpPanelVisible = false
+    }
+
+    async pasteSSHPassword (): Promise<void> {
+        if (!this.sshSession) {
+            return
+        }
+
+        let password = this.sshSession.savedPassword
+
+        if (!password) {
+            password = await this.passwordStorage.loadPassword(this.profile) ?? undefined
+        }
+
+        if (!password && this.profile.options.password) {
+            password = this.profile.options.password
+        }
+
+        if (password) {
+            this.sendInput(password)
+        }
     }
 
     protected isSessionExplicitlyTerminated (): boolean {
