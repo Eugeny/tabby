@@ -15,6 +15,7 @@ export class SSHConfigProvider extends ConfigProvider {
         hotkeys: {
             'restart-ssh-session': [],
             'launch-winscp': [],
+            'paste-ssh-password': ['Ctrl+K'],
         },
     }
 
