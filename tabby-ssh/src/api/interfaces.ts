@@ -37,6 +37,7 @@ export interface SSHProfileOptions extends LoginScriptsOptions {
     httpProxyPort?: number
     reuseSession?: boolean
     input: InputProcessingOptions,
+    totpSecret?: string
 }
 
 export enum PortForwardType {

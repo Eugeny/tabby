@@ -7,3 +7,18 @@
 .prompt-text {
     white-space: pre-wrap;
 }
+
+.totp-info {
+    background: rgba(40, 167, 69, 0.1);
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    border-radius: 4px;
+    padding: 8px 12px;
+    
+    .totp-code {
+        color: #28a745;
+    }
+    
+    .totp-timer {
+        color: #6c757d;
+    }
+}
