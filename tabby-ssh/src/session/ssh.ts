@@ -86,8 +86,8 @@ export class KeyboardInteractivePrompt {
 
     isTOTPPrompt (index: number): boolean {
         const prompt = this.prompts[index].prompt.toLowerCase()
-        return (prompt.includes('verification code') || 
-                prompt.includes('authenticator') || 
+        return (prompt.includes('verification code') ||
+                prompt.includes('authenticator') ||
                 prompt.includes('totp') ||
                 prompt.includes('token') ||
                 prompt.includes('code') ||

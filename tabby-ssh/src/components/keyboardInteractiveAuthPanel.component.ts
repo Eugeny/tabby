@@ -17,7 +17,7 @@ export class KeyboardInteractiveAuthComponent implements OnInit, OnDestroy {
     @Output() done = new EventEmitter()
     @ViewChild('input') input: ElementRef
     remember = false
-    
+
     totpCode = ''
     totpTimeRemaining = 30
     private totpInterval?: any
@@ -25,16 +25,16 @@ export class KeyboardInteractiveAuthComponent implements OnInit, OnDestroy {
     constructor (
         private passwordStorage: PasswordStorageService,
         private totpService: TOTPService,
-        private changeDetector: ChangeDetectorRef
+        private changeDetector: ChangeDetectorRef,
     ) {}
 
-    ngOnInit(): void {
+    ngOnInit (): void {
         this.updateTOTPIfNeeded()
         this.startTOTPTimer()
         this.changeDetector.markForCheck()
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy (): void {
         if (this.totpInterval) {
             clearInterval(this.totpInterval)
         }
@@ -44,11 +44,11 @@ export class KeyboardInteractiveAuthComponent implements OnInit, OnDestroy {
         return this.prompt.isAPasswordPrompt(this.step)
     }
 
-    isTOTP(): boolean {
+    isTOTP (): boolean {
         return this.prompt.isTOTPPrompt(this.step)
     }
 
-    private updateTOTPIfNeeded(): void {
+    private updateTOTPIfNeeded (): void {
         if (this.isTOTP() && this.profile.options.totpSecret) {
             try {
                 this.totpCode = this.totpService.generateTOTP(this.profile.options.totpSecret)
@@ -60,7 +60,7 @@ export class KeyboardInteractiveAuthComponent implements OnInit, OnDestroy {
         }
     }
 
-    private startTOTPTimer(): void {
+    private startTOTPTimer (): void {
         if (this.isTOTP() && this.profile.options.totpSecret) {
             this.totpInterval = setInterval(() => {
                 this.totpTimeRemaining = this.totpService.getRemainingTime()

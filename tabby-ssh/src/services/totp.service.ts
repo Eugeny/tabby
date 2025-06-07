@@ -9,7 +9,7 @@ export class TOTPService {
      * @param window 时间窗口（默认30秒）
      * @param digits 代码位数（默认6位）
      */
-    generateTOTP(secret: string, window: number = 30, digits: number = 6): string {
+    generateTOTP (secret: string, window = 30, digits = 6): string {
         if (!secret) {
             throw new Error('TOTP secret is required')
         }
@@ -17,11 +17,11 @@ export class TOTPService {
         try {
             // 解码Base32密钥
             const key = this.base32Decode(secret.toUpperCase().replace(/\s/g, ''))
-            
+
             // 计算时间步长
             const epoch = Math.floor(Date.now() / 1000)
             const timeStep = Math.floor(epoch / window)
-            
+
             // 生成HMAC
             const hmac = crypto.createHmac('sha1', key as any)
             const timeBuffer = Buffer.alloc(8)
@@ -29,14 +29,14 @@ export class TOTPService {
             timeBuffer.writeUInt32BE(timeStep, 4)
             hmac.update(timeBuffer as any)
             const hash = hmac.digest()
-            
+
             // 动态截取
             const offset = hash[hash.length - 1] & 0x0f
-            const binary = ((hash[offset] & 0x7f) << 24) |
-                          ((hash[offset + 1] & 0xff) << 16) |
-                          ((hash[offset + 2] & 0xff) << 8) |
-                          (hash[offset + 3] & 0xff)
-            
+            const binary = (hash[offset] & 0x7f) << 24 |
+                          (hash[offset + 1] & 0xff) << 16 |
+                          (hash[offset + 2] & 0xff) << 8 |
+                          hash[offset + 3] & 0xff
+
             // 生成代码
             const otp = binary % Math.pow(10, digits)
             return otp.toString().padStart(digits, '0')
@@ -48,19 +48,19 @@ export class TOTPService {
     /**
      * 验证TOTP密钥格式
      */
-    validateSecret(secret: string): boolean {
-        if (!secret) return false
-        
+    validateSecret (secret: string): boolean {
+        if (!secret) { return false }
+
         try {
             // 移除空格并转为大写
             const cleanSecret = secret.toUpperCase().replace(/\s/g, '')
-            
+
             // 检查Base32字符
             const base32Regex = /^[A-Z2-7]+=*$/
             if (!base32Regex.test(cleanSecret)) {
                 return false
             }
-            
+
             // 尝试解码
             this.base32Decode(cleanSecret)
             return true
@@ -72,38 +72,37 @@ export class TOTPService {
     /**
      * 获取剩余时间（秒）
      */
-    getRemainingTime(window: number = 30): number {
+    getRemainingTime (window = 30): number {
         const epoch = Math.floor(Date.now() / 1000)
-        return window - (epoch % window)
+        return window - epoch % window
     }
 
     /**
      * Base32解码
      */
-    private base32Decode(encoded: string): Uint8Array {
+    private base32Decode (encoded: string): Uint8Array {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
         let bits = 0
         let value = 0
         const output: number[] = []
-        
-        for (let i = 0; i < encoded.length; i++) {
-            const char = encoded[i]
-            if (char === '=') break
-            
+
+        for (const char of encoded) {
+            if (char === '=') { break }
+
             const index = alphabet.indexOf(char)
             if (index === -1) {
                 throw new Error(`Invalid character in Base32: ${char}`)
             }
-            
-            value = (value << 5) | index
+
+            value = value << 5 | index
             bits += 5
-            
+
             if (bits >= 8) {
-                output.push(value >>> (bits - 8))
+                output.push(value >>> bits - 8)
                 bits -= 8
             }
         }
-        
+
         return new Uint8Array(output)
     }
-} 
+}
