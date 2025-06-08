@@ -10,7 +10,7 @@ import { LogService, Logger, HotkeysService, PlatformService, FileUpload } from 
 const SPACER = '            '
 
 // Helper function to detect and filter ANSI escape sequences
-function filterAnsiEscapeSequences(data: Buffer): Buffer {
+function filterAnsiEscapeSequences (data: Buffer): Buffer {
     const result: number[] = []
     let i = 0
 
@@ -23,7 +23,7 @@ function filterAnsiEscapeSequences(data: Buffer): Buffer {
                 i += 2
                 // Skip parameters (digits, semicolons, spaces)
                 while (i < data.length &&
-                       ((data[i] >= 48 && data[i] <= 57) || // 0-9
+                       (data[i] >= 48 && data[i] <= 57 || // 0-9
                         data[i] === 59 || // semicolon
                         data[i] === 32 || // space
                         data[i] === 63 || // question mark
@@ -34,8 +34,8 @@ function filterAnsiEscapeSequences(data: Buffer): Buffer {
                 }
                 // Skip the final command character (letter)
                 if (i < data.length &&
-                    ((data[i] >= 65 && data[i] <= 90) || // A-Z
-                     (data[i] >= 97 && data[i] <= 122))) { // a-z
+                    (data[i] >= 65 && data[i] <= 90 || // A-Z
+                     data[i] >= 97 && data[i] <= 122)) { // a-z
                     i++
                 }
             } else if (data[i + 1] === 93) { // ESC]
@@ -69,28 +69,7 @@ function filterAnsiEscapeSequences(data: Buffer): Buffer {
     return Buffer.from(result)
 }
 
-// Helper function to check if buffer contains only printable ASCII or expected protocol bytes
-function isLikelyProtocolData(data: Buffer): boolean {
-    if (data.length === 0) return true
 
-    // Check for ZMODEM protocol markers
-    const hasZmodemMarkers = data.includes(Buffer.from('**\x18B')[0]) ||
-                            data.includes(Buffer.from('**\x18B')[1]) ||
-                            data.includes(Buffer.from('**\x18B')[2]) ||
-                            data.includes(Buffer.from('**\x18B')[3])
-
-    if (hasZmodemMarkers) return true
-
-    // Check for high ratio of control characters (likely protocol data)
-    let controlChars = 0
-    for (let i = 0; i < data.length; i++) {
-        if (data[i] < 32 && data[i] !== 9 && data[i] !== 10 && data[i] !== 13) {
-            controlChars++
-        }
-    }
-
-    return controlChars / data.length > 0.1 // More than 10% control chars suggests protocol data
-}
 
 class ZModemMiddleware extends SessionMiddleware {
     private sentry: ZModem.Sentry
@@ -153,7 +132,7 @@ class ZModemMiddleware extends SessionMiddleware {
                     original: data.length,
                     filtered: filtered.length,
                     originalHex: data.toString('hex'),
-                    filteredHex: filtered.toString('hex')
+                    filteredHex: filtered.toString('hex'),
                 })
                 processedData = filtered
             }
@@ -189,7 +168,7 @@ class ZModemMiddleware extends SessionMiddleware {
             } catch (e) {
                 this.logger.error('protocol error', e, {
                     chunk: Array.from(chunk),
-                    chunkString: chunk.toString('hex')
+                    chunkString: chunk.toString('hex'),
                 })
 
                 // Try to recover by filtering and retrying
@@ -209,12 +188,12 @@ class ZModemMiddleware extends SessionMiddleware {
 
                     // If that doesn't work, try byte-by-byte processing
                     let recoveredBytes = 0
-                    for (let i = 0; i < chunk.length; i++) {
+                    for (const [i, byte] of chunk.entries()) {
                         try {
                             this.sentry.consume(chunk.slice(i, i + 1))
                             recoveredBytes++
                         } catch (innerE) {
-                            this.logger.debug('Skipping problematic byte:', chunk[i], 'hex:', chunk[i].toString(16))
+                            this.logger.debug('Skipping problematic byte:', byte, 'hex:', byte.toString(16))
                             // Skip this byte and continue
                         }
                     }
