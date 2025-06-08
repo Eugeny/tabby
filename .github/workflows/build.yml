@@ -13,7 +13,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v4.4.0
       with:
-        node-version: 18
+        node-version: 22
 
     - name: Update node-gyp
       run: npm install -g node-gyp@10.2.0
@@ -62,7 +62,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v4.4.0
       with:
-        node-version: 18
+        node-version: 22
 
     - run: rustup target add ${{matrix.rust_triple}}
 
@@ -174,7 +174,7 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v4.4.0
       with:
-        node-version: 18
+        node-version: 22
 
     - name: Install FPM
       run: |
@@ -333,7 +333,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v4.4.0
       with:
-        node-version: 18
+        node-version: 22
 
     - run: npm i -g npx
     - run: rustup target add ${{matrix.rust_triple}}
