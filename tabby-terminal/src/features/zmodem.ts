@@ -69,8 +69,6 @@ function filterAnsiEscapeSequences (data: Buffer): Buffer {
     return Buffer.from(result)
 }
 
-
-
 class ZModemMiddleware extends SessionMiddleware {
     private sentry: ZModem.Sentry
     private isActive = false
