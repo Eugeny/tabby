@@ -15,9 +15,15 @@ jobs:
       with:
         node-version: 22
 
+    - name: Update node-gyp
+      run: npm install -g node-gyp@10.2.0
+
     - name: Install deps
       run: |
         sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
+        npm cache clean --force
+        yarn cache clean
+        rm -rf node_modules
         npm i -g yarn
         cd app
         yarn
@@ -217,6 +223,7 @@ jobs:
 
     - name: Install npm_modules (native)
       run: |
+        npm install -g node-gyp@10.2.0
         npm i -g yarn node-gyp
         yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target-arch=${{matrix.build-arch}}
 
