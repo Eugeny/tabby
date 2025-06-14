@@ -19,7 +19,7 @@ for (let dir of ['app', 'tabby-core', 'tabby-local', 'tabby-ssh', 'tabby-termina
         buildPath: path.resolve(__dirname, '../' + dir),
         electronVersion: vars.electronVersion,
         arch: process.env.ARCH,
-        force: true,tat
+        force: true,
     })
     build.catch(e => {
         console.error(e)
