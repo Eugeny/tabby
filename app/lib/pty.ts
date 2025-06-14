@@ -98,11 +98,20 @@ export class PTY {
 
         const env = process.platform === 'win32' ? refreshenvFromRegistery() : args["2"].env
         const origin_env = args["2"].env;
+        if (process.env.NODE_ENV === 'development')
+        {
+            console.dir("origin_env", origin_env)
+        }
         const newEnv = Object.assign(origin_env, env)
+        if (process.env.NODE_ENV === 'development')
+        {
+            console.dir("newEnv", newEnv)
+        }
         if (process.platform === 'win32')
         {
             args["2"].env = newEnv
         }
+
         this.pty = (nodePTY as any).spawn(...args)
         for (const key of ['close', 'exit']) {
             (this.pty as any).on(key, (...eventArgs) => this.emit(key, ...eventArgs))
