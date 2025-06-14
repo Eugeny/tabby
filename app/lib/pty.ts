@@ -96,10 +96,13 @@ export class PTY {
     constructor(private id: string, private app: Application, ...args: any[])
     {
 
-        const env = process.platform === 'win32' ? refreshenvFromRegistery() : args
+        const env = process.platform === 'win32' ? refreshenvFromRegistery() : args["2"].env
         const origin_env = args["2"].env;
-        const newEnv  =  Object.assign(origin_env, env)
-        args["2"].env = newEnv
+        const newEnv = Object.assign(origin_env, env)
+        if (process.platform === 'win32')
+        {
+            args["2"].env = newEnv
+        }
         this.pty = (nodePTY as any).spawn(...args)
         for (const key of ['close', 'exit']) {
             (this.pty as any).on(key, (...eventArgs) => this.emit(key, ...eventArgs))
