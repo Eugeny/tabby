@@ -66,7 +66,7 @@ export class Session extends BaseSession {
             options.restoreFromPTYID = undefined
         }
 
-        if (!pty  || true )   {
+        if (!pty   )   {
             let env = mergeEnv(
                 process.env,
                 {
