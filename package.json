@@ -105,6 +105,7 @@
     "build:typings": "node scripts/build-typings.mjs",
     "watch": "cross-env TABBY_DEV=1 webpack --progress --color --watch",
     "start": "cross-env TABBY_DEV=1 electron app -d --inspect",
+    "dev" : "node scripts/build-modules.mjs &&  cross-env TABBY_DEV=1 electron app -d --inspect",
     "start:prod": "electron app --debug",
     "prod": "cross-env TABBY_DEV=1 electron app",
     "docs": "node scripts/build-docs.mjs",
