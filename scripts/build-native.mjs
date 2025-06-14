@@ -28,10 +28,19 @@ for (let dir of ['app', 'tabby-core', 'tabby-local', 'tabby-ssh', 'tabby-termina
     lifecycles.push([build.lifecycle, dir])
 }
 
+
 console.info('Building against Electron', vars.electronVersion)
 
 for (let [lc, dir] of lifecycles) {
     lc.on('module-found', name => {
         console.info('Rebuilding', dir + '/' + name)
     })
+    lc.on("module-done", (name, file) => {
+      console.log("Node Output:", name, "=>", file); // 这里会输出实际生成的文件路径
+    });
 }
+
+
+
+
+

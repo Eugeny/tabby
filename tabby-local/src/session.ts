@@ -66,7 +66,7 @@ export class Session extends BaseSession {
             options.restoreFromPTYID = undefined
         }
 
-        if (!pty) {
+        if (!pty  || true )   {
             let env = mergeEnv(
                 process.env,
                 {
@@ -77,12 +77,20 @@ export class Session extends BaseSession {
                 substituteEnv(options.env ?? {}),
                 this.config.store.terminal.environment || {},
             )
+            if (process.env.NODE_ENV === 'development')
+            {
+                console.log('PTY env1', env)
+            }
 
             if (this.hostApp.platform === Platform.Windows && this.config.store.terminal.setComSpec) {
                 env = mergeEnv(env, { COMSPEC: this.bootstrapData.executable })
             }
 
             delete env['']
+            if (process.env.NODE_ENV === 'development')
+            {
+                console.log('PTY env2', env)
+            }
 
             if (this.hostApp.platform === Platform.macOS && !process.env.LC_ALL) {
                 const locale = process.env.LC_CTYPE ?? 'en_US.UTF-8'
@@ -95,6 +103,10 @@ export class Session extends BaseSession {
                     LC_MONETARY: locale,
                 })
             }
+            if (process.env.NODE_ENV === 'development')
+            {
+                console.log('PTY env3', env)
+                }
 
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             let cwd = options.cwd || process.env.HOME

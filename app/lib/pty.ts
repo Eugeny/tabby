@@ -4,6 +4,7 @@ import { ipcMain } from 'electron'
 import { Application } from './app'
 import { UTF8Splitter } from './utfSplitter'
 import { Subject, debounceTime } from 'rxjs'
+import { execSync } from 'child_process'
 
 class PTYDataQueue {
     private buffers: Buffer[] = []
@@ -92,7 +93,25 @@ export class PTY {
     private outputQueue: PTYDataQueue
     exited = false
 
-    constructor (private id: string, private app: Application, ...args: any[]) {
+    constructor(private id: string, private app: Application, ...args: any[])
+    {
+
+        const env = process.platform === 'win32' ? refreshenvFromRegistery() : args["2"].env
+        const origin_env = args["2"].env;
+        if (process.env.NODE_ENV === 'development')
+        {
+            console.dir("origin_env", origin_env)
+        }
+        const newEnv = Object.assign(origin_env, env)
+        if (process.env.NODE_ENV === 'development')
+        {
+            console.dir("newEnv", newEnv)
+        }
+        if (process.platform === 'win32')
+        {
+            args["2"].env = newEnv
+        }
+
         this.pty = (nodePTY as any).spawn(...args)
         for (const key of ['close', 'exit']) {
             (this.pty as any).on(key, (...eventArgs) => this.emit(key, ...eventArgs))
@@ -137,8 +156,70 @@ export class PTY {
     }
 }
 
+
+function refreshenvFromRegistery()
+{
+
+    function getUserEnvFromRegistry(): Record<string, string>
+    {
+        const env: Record<string, string> = {}
+        try
+        {
+            const output = execSync('reg query "HKCU\\Environment"', { encoding: 'utf-8' })
+            const lines = output.split(/\r?\n/)
+            for (const line of lines)
+            {
+                const match = line.match(/^\s*(\w+)\s+REG_\w+\s+(.*)$/)
+                if (match)
+                {
+                    const [, key, value] = match
+                    env[key] = value
+                }
+            }
+        } catch (err)
+        {
+            console.error('读取注册表失败', err)
+        }
+        return env
+    }
+
+    /**
+     * 从注册表中读取系统环境变量（HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment）
+     */
+    function getSystemEnvFromRegistry(): Record<string, string>
+    {
+        const env: Record<string, string> = {}
+        try
+        {
+            const output = execSync(
+                'reg query "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment"',
+                { encoding: 'utf-8' }
+            )
+            const lines = output.split(/\r?\n/)
+            for (const line of lines)
+            {
+                const match = line.match(/^\s*(\w+)\s+REG_\w+\s+(.*)$/)
+                if (match)
+                {
+                    const [, key, value] = match
+                    env[key] = value
+                }
+            }
+        } catch (err)
+        {
+            console.error('读取系统注册表失败', err)
+        }
+        return env
+    }
+
+    const userEnv = getUserEnvFromRegistry()
+    const systemEnv = getSystemEnvFromRegistry()
+    const env = { ...userEnv, ...systemEnv }
+
+    return env;
+}
 export class PTYManager {
-    private ptys: Record<string, PTY|undefined> = {}
+    private ptys: Record<string, PTY | undefined> = {}
 
     init (app: Application): void {
         ipcMain.on('pty:spawn', (event, ...options) => {
