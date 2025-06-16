@@ -5,7 +5,7 @@
     .icon(*ngIf='isDownload(transfer)') !{require('../icons/download.svg')}
     .icon(*ngIf='!isDownload(transfer)') !{require('../icons/upload.svg')}
     .main
-        label.no-wrap([title]='transfer.getName()') {{transfer.getName()}}
+        label.no-wrap([ngbTooltip]='transfer.getName()') {{transfer.getName()}}
         ngb-progressbar([type]='transfer.isComplete() ? "success" : transfer.isCancelled() ? "danger" : "info"', [value]='getProgress(transfer)')
         .metadata
             .size {{transfer.getSize()|filesize}}
