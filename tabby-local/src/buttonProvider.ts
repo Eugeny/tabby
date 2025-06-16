@@ -21,8 +21,10 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 touchBarNSImage: 'NSTouchBarAddDetailTemplate',
                 click: () => {
                     this.terminal.openTab()
+
                 },
             },
         ]
     }
 }
+
