@@ -15,7 +15,7 @@
     "dist",
     "typings"
   ],
-  "author": "Eugene Pankov",
+  "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
     "@types/semver": "^7.1.0",

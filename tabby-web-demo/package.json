@@ -11,7 +11,7 @@
     "data",
     "dist"
   ],
-  "author": "Eugene Pankov",
+  "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
     "@types/webpack-env": "^1.16.0"
