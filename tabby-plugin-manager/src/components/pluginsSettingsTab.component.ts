@@ -100,6 +100,7 @@ export class PluginsSettingsTabComponent {
             this.busy.delete(plugin.name)
             this.config.requestRestart()
         } catch (err) {
+            console.error('Error installing plugin', plugin.name, err)
             this.erroredPlugin = plugin.name
             this.errorMessage = err
             this.busy.delete(plugin.name)
@@ -114,6 +115,7 @@ export class PluginsSettingsTabComponent {
             this.busy.delete(plugin.name)
             this.config.requestRestart()
         } catch (err) {
+            console.error('Error uninstalling plugin', plugin.name, err)
             this.erroredPlugin = plugin.name
             this.errorMessage = err
             this.busy.delete(plugin.name)
