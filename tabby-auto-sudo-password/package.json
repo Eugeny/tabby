@@ -1,0 +1,23 @@
+{
+  "name": "tabby-auto-sudo-password",
+  "version": "1.0.197-nightly.1",
+  "description": "Offers to automatically paste saved sudo password in SSH sessions",
+  "keywords": [
+    "tabby-builtin-plugin"
+  ],
+  "main": "dist/index.js",
+  "typings": "typings/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color --display-modules",
+    "watch": "webpack --progress --color --watch"
+  },
+  "files": [
+    "dist",
+    "typings"
+  ],
+  "devDependencies": {
+    "ansi-colors": "^4.1.1"
+  },
+  "author": "Eugene Pankov",
+  "license": "MIT"
+}
