@@ -2493,10 +2493,10 @@ compare-version@^0.1.2:
   resolved "https://registry.yarnpkg.com/compare-version/-/compare-version-0.1.2.tgz#0162ec2d9351f5ddd59a9202cba935366a725080"
   integrity sha512-pJDh5/4wrEnXX/VWRZvruAGHkzKdr46z11OlTPN+VrATlWWhSKewNCJ1futCO5C7eJB3nPMFZA1LeYtcFboZ2A==
 
-compare-versions@^5:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-5.0.1.tgz#14c6008436d994c3787aba38d4087fabe858555e"
-  integrity sha512-v8Au3l0b+Nwkp4G142JcgJFh1/TUhdxut7wzD1Nq1dyp5oa3tXaqb03EXOAB6jS4gMlalkjAUPZBMiAfKUixHQ==
+compare-versions@^6:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-6.1.0.tgz#3f2131e3ae93577df111dba133e6db876ffe127a"
+  integrity sha512-LNZQXhqUvqUTotpZ00qLSaify3b4VFD588aRr8MKFw4CMUr98ytzCW5wDH5qx/DEY5kCDXcbcRuCqL0szEf2tg==
 
 concat-map@0.0.1:
   version "0.0.1"
