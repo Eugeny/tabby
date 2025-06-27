@@ -351,6 +351,7 @@ Obrigado vai para essas pessoas maravilhosas ([emoji key](https://allcontributor
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/geodic"><img src="https://avatars.githubusercontent.com/u/64704703?v=4?s=100" width="100px;" alt="geodic"/><br /><sub><b>geodic</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=geodic" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/yyjdelete"><img src="https://avatars.githubusercontent.com/u/1819074?v=4?s=100" width="100px;" alt="SilverFox"/><br /><sub><b>SilverFox</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=yyjdelete" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
