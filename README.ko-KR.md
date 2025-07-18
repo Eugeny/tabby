@@ -107,7 +107,7 @@ This README is also available in: <a  href="./README.md">:gb: English</a> · <a 
 
 플러그인과 테마는 Tabby 내부의 설정에서 직접 설치할 수 있습니다.
 
-* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - m터미널의 경로 및 URL을 클릭 가능하게
+* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - 터미널의 경로 및 URL을 클릭 가능하게
 * [docker](https://github.com/Eugeny/tabby-docker) - Docker 컨테이너에 연결
 * [title-control](https://github.com/kbjr/terminus-title-control) - 접두사, 접미사 및/또는 문자열 제거를 제공하여 터미널 탭의 제목을 수정
 * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 하나 또는 모든 터미널 탭에 신속한 명령 전송
@@ -144,7 +144,7 @@ Pull requests and plugins are welcome!
 ---
 <a name="contributors"></a>
 
-여기있는 멋진 사람들에게 진심으로 감사합니다. ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+여기 있는 멋진 사람들에게 진심으로 감사합니다. ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
