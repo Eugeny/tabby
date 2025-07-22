@@ -5,12 +5,11 @@ import * as os from 'os'
 import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
-import { PlatformService, ClipboardContent, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, DirectoryUpload, FileUpload, FileDownload, FileUploadOptions, wrapPromise, TranslateService } from 'tabby-core'
+import { PlatformService, ClipboardContent, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, DirectoryUpload, FileUpload, FileDownload, DirectoryDownload, FileUploadOptions, wrapPromise, TranslateService, FileTransfer, PlatformTheme } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 import { ShellIntegrationService } from './shellIntegration.service'
 import { ElectronHostAppService } from './hostApp.service'
-import { PlatformTheme } from '../../../tabby-core/src/api/platform'
 import { configPath } from '../../../app/lib/config'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
@@ -272,19 +271,47 @@ export class ElectronPlatformService extends PlatformService {
         return transfer
     }
 
+    async startDownloadDirectory (name: string, estimatedSize?: number): Promise<DirectoryDownload|null> {
+        const selectedFolder = await this.pickDirectory(this.translate.instant('Select destination folder for {name}', { name }))
+        if (!selectedFolder) {
+            return null
+        }
+
+        let downloadPath = path.join(selectedFolder, name)
+        let counter = 1
+        while (fsSync.existsSync(downloadPath)) {
+            downloadPath = path.join(selectedFolder, `${name} (${counter})`)
+            counter++
+        }
+
+        const transfer = new ElectronDirectoryDownload(downloadPath, name, estimatedSize ?? 0, this.electron, this.zone, this)
+        await wrapPromise(this.zone, transfer.open())
+        this.fileTransferStarted.next(transfer)
+        return transfer
+    }
+
+    _registerFileTransfer (transfer: FileTransfer): void {
+        this.fileTransferStarted.next(transfer)
+    }
+
     setErrorHandler (handler: (_: any) => void): void {
         this.electron.ipcRenderer.on('uncaughtException', (_$event, err) => {
             handler(err)
         })
     }
 
-    async pickDirectory (): Promise<string> {
-        return (await this.electron.dialog.showOpenDialog(
+    async pickDirectory (title?: string): Promise<string | null> {
+        const result = await this.electron.dialog.showOpenDialog(
             this.hostWindow.getWindow(),
             {
+                title,
                 properties: ['openDirectory', 'showHiddenFiles'],
             },
-        )).filePaths[0]
+        )
+        if (result.canceled || !result.filePaths.length) {
+            return null
+        }
+        return result.filePaths[0]
     }
 
     getTheme (): PlatformTheme {
@@ -362,10 +389,6 @@ class ElectronFileDownload extends FileDownload {
         return path.basename(this.filePath)
     }
 
-    getMode (): number {
-        return this.mode
-    }
-
     getSize (): number {
         return this.size
     }
@@ -382,5 +405,52 @@ class ElectronFileDownload extends FileDownload {
     close (): void {
         this.electron.powerSaveBlocker.stop(this.powerSaveBlocker)
         this.file.close()
+    }
+}
+
+class ElectronDirectoryDownload extends DirectoryDownload {
+    private powerSaveBlocker = 0
+
+    constructor (
+        private basePath: string,
+        private name: string,
+        private estimatedSize: number,
+        private electron: ElectronService,
+        private zone: NgZone,
+        private platformService: ElectronPlatformService,
+    ) {
+        super()
+        this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
+    }
+
+    async open (): Promise<void> {
+        await fs.mkdir(this.basePath, { recursive: true })
+    }
+
+    getName (): string {
+        return this.name
+    }
+
+    getSize (): number {
+        return this.estimatedSize
+    }
+
+    async createDirectory (relativePath: string): Promise<void> {
+        const fullPath = path.join(this.basePath, relativePath)
+        await fs.mkdir(fullPath, { recursive: true })
+    }
+
+    async createFile (relativePath: string, mode: number, size: number): Promise<FileDownload> {
+        const fullPath = path.join(this.basePath, relativePath)
+        await fs.mkdir(path.dirname(fullPath), { recursive: true })
+
+        const fileDownload = new ElectronFileDownload(fullPath, mode, size, this.electron)
+        await wrapPromise(this.zone, fileDownload.open())
+        this.platformService._registerFileTransfer(fileDownload)
+        return fileDownload
+    }
+
+    close (): void {
+        this.electron.powerSaveBlocker.stop(this.powerSaveBlocker)
     }
 }

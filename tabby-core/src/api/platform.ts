@@ -22,7 +22,6 @@ export interface MessageBoxResult {
 
 export abstract class FileTransfer {
     abstract getName (): string
-    abstract getMode (): number
     abstract getSize (): number
     abstract close (): void
 
@@ -66,7 +65,14 @@ export abstract class FileDownload extends FileTransfer {
     abstract write (buffer: Uint8Array): Promise<void>
 }
 
+export abstract class DirectoryDownload extends FileTransfer {
+    abstract createDirectory (relativePath: string): Promise<void>
+    abstract createFile (relativePath: string, mode: number, size: number): Promise<FileDownload>
+}
+
 export abstract class FileUpload extends FileTransfer {
+    abstract getMode (): number
+
     abstract read (): Promise<Uint8Array>
 
     async readAll (): Promise<Uint8Array> {
@@ -127,6 +133,7 @@ export abstract class PlatformService {
     abstract saveConfig (content: string): Promise<void>
 
     abstract startDownload (name: string, mode: number, size: number): Promise<FileDownload|null>
+    abstract startDownloadDirectory (name: string, estimatedSize?: number): Promise<DirectoryDownload|null>
     abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
     abstract startUploadDirectory (paths?: string[]): Promise<DirectoryUpload>
 
@@ -237,7 +244,7 @@ export abstract class PlatformService {
     abstract setErrorHandler (handler: (_: any) => void): void
     abstract popupContextMenu (menu: MenuItemOptions[], event?: MouseEvent): void
     abstract showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult>
-    abstract pickDirectory (): Promise<string>
+    abstract pickDirectory (): Promise<string | null>
     abstract quit (): void
 }
 
