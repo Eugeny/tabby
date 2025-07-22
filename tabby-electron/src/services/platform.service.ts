@@ -272,7 +272,7 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async startDownloadDirectory (name: string, estimatedSize?: number): Promise<DirectoryDownload|null> {
-        const selectedFolder = await this.pickDirectory(this.translate.instant('Select destination folder for {name}', { name }))
+        const selectedFolder = await this.pickDirectory(this.translate.instant('Select destination folder for {name}', { name }), this.translate.instant('Download here'))
         if (!selectedFolder) {
             return null
         }
@@ -284,7 +284,7 @@ export class ElectronPlatformService extends PlatformService {
             counter++
         }
 
-        const transfer = new ElectronDirectoryDownload(downloadPath, name, estimatedSize ?? 0, this.electron, this.zone, this)
+        const transfer = new ElectronDirectoryDownload(downloadPath, name, estimatedSize ?? 0, this.electron, this.zone)
         await wrapPromise(this.zone, transfer.open())
         this.fileTransferStarted.next(transfer)
         return transfer
@@ -300,11 +300,12 @@ export class ElectronPlatformService extends PlatformService {
         })
     }
 
-    async pickDirectory (title?: string): Promise<string | null> {
+    async pickDirectory (title?: string, buttonLabel?: string): Promise<string | null> {
         const result = await this.electron.dialog.showOpenDialog(
             this.hostWindow.getWindow(),
             {
                 title,
+                buttonLabel,
                 properties: ['openDirectory', 'showHiddenFiles'],
             },
         )
@@ -340,6 +341,7 @@ class ElectronFileUpload extends FileUpload {
         const stat = await fs.stat(this.filePath)
         this.size = stat.size
         this.mode = stat.mode
+        this.setTotalSize(this.size)
         this.file = await fs.open(this.filePath, 'r')
     }
 
@@ -358,6 +360,9 @@ class ElectronFileUpload extends FileUpload {
     async read (): Promise<Uint8Array> {
         const result = await this.file.read(this.buffer, 0, this.buffer.length, null)
         this.increaseProgress(result.bytesRead)
+        if (this.getCompletedBytes() >= this.getSize()) {
+            this.setCompleted(true)
+        }
         return this.buffer.slice(0, result.bytesRead)
     }
 
@@ -379,6 +384,7 @@ class ElectronFileDownload extends FileDownload {
     ) {
         super()
         this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
+        this.setTotalSize(size)
     }
 
     async open (): Promise<void> {
@@ -400,6 +406,9 @@ class ElectronFileDownload extends FileDownload {
             this.increaseProgress(result.bytesWritten)
             pos += result.bytesWritten
         }
+        if (this.getCompletedBytes() >= this.getSize()) {
+            this.setCompleted(true)
+        }
     }
 
     close (): void {
@@ -414,13 +423,13 @@ class ElectronDirectoryDownload extends DirectoryDownload {
     constructor (
         private basePath: string,
         private name: string,
-        private estimatedSize: number,
+        estimatedSize: number,
         private electron: ElectronService,
         private zone: NgZone,
-        private platformService: ElectronPlatformService,
     ) {
         super()
         this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
+        this.setTotalSize(estimatedSize)
     }
 
     async open (): Promise<void> {
@@ -432,7 +441,7 @@ class ElectronDirectoryDownload extends DirectoryDownload {
     }
 
     getSize (): number {
-        return this.estimatedSize
+        return this.getTotalSize()
     }
 
     async createDirectory (relativePath: string): Promise<void> {
@@ -446,7 +455,6 @@ class ElectronDirectoryDownload extends DirectoryDownload {
 
         const fileDownload = new ElectronFileDownload(fullPath, mode, size, this.electron)
         await wrapPromise(this.zone, fileDownload.open())
-        this.platformService._registerFileTransfer(fileDownload)
         return fileDownload
     }
 

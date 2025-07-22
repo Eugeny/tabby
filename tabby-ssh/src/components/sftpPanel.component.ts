@@ -222,15 +222,19 @@ export class SFTPPanelComponent {
 
     async downloadFolder (folder: SFTPFile): Promise<void> {
         try {
-            const estimatedSize = await this.calculateFolderSize(folder)
-
-            const transfer = await this.platform.startDownloadDirectory(folder.name, estimatedSize)
+            const transfer = await this.platform.startDownloadDirectory(folder.name, 0)
             if (!transfer) {
                 return
             }
 
+            // Start background size calculation and download simultaneously
+            const sizeCalculationPromise = this.calculateFolderSizeAndUpdate(folder, transfer)
+            const downloadPromise = this.downloadFolderRecursive(folder, transfer, '')
+
             try {
-                await this.downloadFolderRecursive(folder, transfer, '')
+                await Promise.all([sizeCalculationPromise, downloadPromise])
+                transfer.setStatus('')
+                transfer.setCompleted(true)
             } catch (error) {
                 transfer.cancel()
                 throw error
@@ -243,15 +247,16 @@ export class SFTPPanelComponent {
         }
     }
 
-    private async calculateFolderSize (folder: SFTPFile): Promise<number> {
+    private async calculateFolderSizeAndUpdate (folder: SFTPFile, transfer: DirectoryDownload) {
         let totalSize = 0
         const items = await this.sftp.readdir(folder.fullPath)
         for (const item of items) {
             if (item.isDirectory) {
-                totalSize += await this.calculateFolderSize(item)
+                totalSize += await this.calculateFolderSizeAndUpdate(item, transfer)
             } else {
                 totalSize += item.size
             }
+            transfer.setTotalSize(totalSize)
         }
         return totalSize
     }
@@ -266,13 +271,12 @@ export class SFTPPanelComponent {
 
             const itemRelativePath = relativePath ? `${relativePath}/${item.name}` : item.name
 
+            transfer.setStatus(itemRelativePath)
             if (item.isDirectory) {
                 await transfer.createDirectory(itemRelativePath)
                 await this.downloadFolderRecursive(item, transfer, itemRelativePath)
             } else {
-                // Create file download for this individual file
                 const fileDownload = await transfer.createFile(itemRelativePath, item.mode, item.size)
-
                 await this.sftp.download(item.fullPath, fileDownload)
             }
         }

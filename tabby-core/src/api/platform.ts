@@ -33,8 +33,16 @@ export abstract class FileTransfer {
         return this.completedBytes
     }
 
+    getStatus (): string {
+        return this.status
+    }
+
+    getTotalSize (): number {
+        return this.totalSize
+    }
+
     isComplete (): boolean {
-        return this.completedBytes >= this.getSize()
+        return this.completed
     }
 
     isCancelled (): boolean {
@@ -44,6 +52,18 @@ export abstract class FileTransfer {
     cancel (): void {
         this.cancelled = true
         this.close()
+    }
+
+    setStatus (status: string): void {
+        this.status = status
+    }
+
+    setTotalSize (size: number): void {
+        this.totalSize = size
+    }
+
+    setCompleted (completed: boolean): void {
+        this.completed = completed
     }
 
     protected increaseProgress (bytes: number): void {
@@ -56,9 +76,12 @@ export abstract class FileTransfer {
     }
 
     private completedBytes = 0
+    private totalSize = 0
     private lastChunkStartTime = Date.now()
     private lastChunkSpeed = 0
     private cancelled = false
+    private completed = false
+    private status = ''
 }
 
 export abstract class FileDownload extends FileTransfer {

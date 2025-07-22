@@ -35,7 +35,7 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
         if (item.isDirectory && this.hostApp.platform !== Platform.Web) {
             items.push({
                 click: () => panel.downloadFolder(item),
-                label: this.translate.instant('Download folder'),
+                label: this.translate.instant('Download directory'),
             })
         }
 
