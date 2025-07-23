@@ -1,7 +1,7 @@
 import * as C from 'constants'
 import { posix as path } from 'path'
 import { Component, Input, Output, EventEmitter, Inject, Optional } from '@angular/core'
-import { FileUpload, DirectoryUpload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
+import { FileUpload, DirectoryUpload, DirectoryDownload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
 import { SFTPContextMenuItemProvider } from '../api'
@@ -218,6 +218,68 @@ export class SFTPPanelComponent {
             return
         }
         this.sftp.download(itemPath, transfer)
+    }
+
+    async downloadFolder (folder: SFTPFile): Promise<void> {
+        try {
+            const transfer = await this.platform.startDownloadDirectory(folder.name, 0)
+            if (!transfer) {
+                return
+            }
+
+            // Start background size calculation and download simultaneously
+            const sizeCalculationPromise = this.calculateFolderSizeAndUpdate(folder, transfer)
+            const downloadPromise = this.downloadFolderRecursive(folder, transfer, '')
+
+            try {
+                await Promise.all([sizeCalculationPromise, downloadPromise])
+                transfer.setStatus('')
+                transfer.setCompleted(true)
+            } catch (error) {
+                transfer.cancel()
+                throw error
+            } finally {
+                transfer.close()
+            }
+        } catch (error) {
+            this.notifications.error(`Failed to download folder: ${error.message}`)
+            throw error
+        }
+    }
+
+    private async calculateFolderSizeAndUpdate (folder: SFTPFile, transfer: DirectoryDownload) {
+        let totalSize = 0
+        const items = await this.sftp.readdir(folder.fullPath)
+        for (const item of items) {
+            if (item.isDirectory) {
+                totalSize += await this.calculateFolderSizeAndUpdate(item, transfer)
+            } else {
+                totalSize += item.size
+            }
+            transfer.setTotalSize(totalSize)
+        }
+        return totalSize
+    }
+
+    private async downloadFolderRecursive (folder: SFTPFile, transfer: DirectoryDownload, relativePath: string): Promise<void> {
+        const items = await this.sftp.readdir(folder.fullPath)
+
+        for (const item of items) {
+            if (transfer.isCancelled()) {
+                throw new Error('Download cancelled')
+            }
+
+            const itemRelativePath = relativePath ? `${relativePath}/${item.name}` : item.name
+
+            transfer.setStatus(itemRelativePath)
+            if (item.isDirectory) {
+                await transfer.createDirectory(itemRelativePath)
+                await this.downloadFolderRecursive(item, transfer, itemRelativePath)
+            } else {
+                const fileDownload = await transfer.createFile(itemRelativePath, item.mode, item.size)
+                await this.sftp.download(item.fullPath, fileDownload)
+            }
+        }
     }
 
     getModeString (item: SFTPFile): string {
