@@ -23,11 +23,14 @@ export class SFTPPanelComponent {
     @Output() closed = new EventEmitter<void>()
     sftp: SFTPSession
     fileList: SFTPFile[]|null = null
+    filteredFileList: SFTPFile[] = []
     @Input() path = '/'
     @Output() pathChange = new EventEmitter<string>()
     pathSegments: PathSegment[] = []
     @Input() cwdDetectionAvailable = false
     editingPath: string|null = null
+    showFilter = false
+    filterText = ''
 
     constructor (
         private ngbModal: NgbModal,
@@ -54,6 +57,8 @@ export class SFTPPanelComponent {
         this.path = newPath
         this.pathChange.next(this.path)
 
+        this.clearFilter()
+
         let p = newPath
         this.pathSegments = []
         while (p !== '/') {
@@ -65,6 +70,7 @@ export class SFTPPanelComponent {
         }
 
         this.fileList = null
+        this.filteredFileList = []
         try {
             this.fileList = await this.sftp.readdir(this.path)
         } catch (error) {
@@ -79,6 +85,8 @@ export class SFTPPanelComponent {
         this.fileList.sort((a, b) =>
             dirKey(b) - dirKey(a) ||
             a.name.localeCompare(b.name))
+
+        this.updateFilteredList()
     }
 
     getFileType (fileExtension: string): string {
@@ -336,4 +344,29 @@ export class SFTPPanelComponent {
         this.closed.emit()
     }
 
+    clearFilter (): void {
+        this.showFilter = false
+        this.filterText = ''
+        this.updateFilteredList()
+    }
+
+    onFilterChange (): void {
+        this.updateFilteredList()
+    }
+
+    private updateFilteredList (): void {
+        if (!this.fileList) {
+            this.filteredFileList = []
+            return
+        }
+
+        if (!this.showFilter || this.filterText.trim() === '') {
+            this.filteredFileList = this.fileList
+            return
+        }
+
+        this.filteredFileList = this.fileList.filter(item =>
+            item.name.toLowerCase().includes(this.filterText.toLowerCase()),
+        )
+    }
 }
