@@ -20,7 +20,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
             auth: null,
             password: null,
             privateKeys: [],
-            keepaliveInterval: 5000,
+            keepaliveInterval: null,
             keepaliveCountMax: 10,
             readyTimeout: null,
             x11: false,

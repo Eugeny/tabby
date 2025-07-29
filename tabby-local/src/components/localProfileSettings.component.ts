@@ -28,6 +28,10 @@ export class LocalProfileSettingsComponent implements ProfileSettingsComponent<L
         //     return
         // }
 
-        this.profile.options.cwd = await this.platform.pickDirectory()
+        const cwd = await this.platform.pickDirectory()
+        if (!cwd) {
+            return
+        }
+        this.profile.options.cwd = cwd
     }
 }

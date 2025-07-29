@@ -6,4 +6,6 @@ export const PLUGIN_BLACKLIST = [
     'terminus-clickable-ips', // broken, functionality now bundled with Tabby
     'terminus-elastic-quick-commands', // broken and abandoned, fork of quick-commands
     'terminus-elastic-quick-cmds', // broken and abandoned, fork of quick-commands
+    'tabby-fig', // abandoned,
+    'tabby-plugin-fig-integration', // abandoned,
 ]

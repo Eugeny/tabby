@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule, NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap'
 import { NgxFilesizeModule } from 'ngx-filesize'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { TranslateModule, TranslateCompiler, TranslateService, MissingTranslationHandler } from '@ngx-translate/core'
@@ -155,6 +155,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
         platform: PlatformService,
         hotkeys: HotkeysService,
         commands: CommandService,
+        ngbTooltipConfig: NgbTooltipConfig,
         public locale: LocaleService,
         private translate: TranslateService,
         private profilesService: ProfilesService,
@@ -201,6 +202,10 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
                 commands.run('core:profile-selector', {})
             }
         })
+
+        ngbTooltipConfig.openDelay = 750
+        ngbTooltipConfig.placement = 'top bottom auto'
+        ngbTooltipConfig.container = 'body'
     }
 
     async showSelector (provider: ProfileProvider<Profile>): Promise<void> {

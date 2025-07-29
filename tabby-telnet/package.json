@@ -15,7 +15,7 @@
     "dist",
     "typings"
   ],
-  "author": "Eugene Pankov",
+  "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
     "ansi-colors": "^4.1.1",

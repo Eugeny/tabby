@@ -4,7 +4,7 @@
   "private": true,
   "repository": "https://github.com/Eugeny/tabby",
   "author": {
-    "name": "Eugene Pankov",
+    "name": "Tabby Developers",
     "email": "e@ajenti.org"
   },
   "main": "dist/main.js",

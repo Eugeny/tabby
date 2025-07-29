@@ -1,7 +1,7 @@
 {
-  "name": "tabby-linkifier",
+  "name": "tabby-auto-sudo-password",
   "version": "1.0.197-nightly.1",
-  "description": "Makes URLs, IPs and file paths clickable in Tabby",
+  "description": "Offers to automatically paste saved sudo password in SSH sessions",
   "keywords": [
     "tabby-builtin-plugin"
   ],
@@ -15,10 +15,9 @@
     "dist",
     "typings"
   ],
-  "author": "Tabby Developers",
-  "license": "MIT",
   "devDependencies": {
-    "@xterm/addon-web-links": "^0.10.0",
-    "untildify": "^4.0.0"
-  }
+    "ansi-colors": "^4.1.1"
+  },
+  "author": "Tabby Developers",
+  "license": "MIT"
 }

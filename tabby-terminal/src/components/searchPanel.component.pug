@@ -16,14 +16,14 @@
 ng-container(*ngIf='state.resultCount > 0')
     button.btn.btn-link(
         (click)='findPrevious()',
-        ngbTooltip='Search up',
+        [ngbTooltip]='"Search up"|translate',
         placement='bottom',
         [fastHtmlBind]='icons.arrowUp'
     )
 
     button.btn.btn-link(
         (click)='findNext()',
-        ngbTooltip='Search down',
+        [ngbTooltip]='"Search down"|translate',
         placement='bottom',
         [fastHtmlBind]='icons.arrowDown'
     )
@@ -34,7 +34,7 @@ button.btn(
     (click)='options.caseSensitive = !options.caseSensitive; saveSearchOptions()',
     [class.btn-link]='!options.caseSensitive',
     [class.btn-info]='options.caseSensitive',
-    ngbTooltip='Case sensitivity',
+    [ngbTooltip]='"Case sensitivity"|translate',
     placement='bottom',
     [fastHtmlBind]='icons.case'
 )
@@ -43,7 +43,7 @@ button.btn(
     (click)='options.regex = !options.regex; saveSearchOptions()',
     [class.btn-link]='!options.regex',
     [class.btn-info]='options.regex',
-    ngbTooltip='Regular expression',
+    [ngbTooltip]='"Regular expression"|translate',
     placement='bottom',
     [fastHtmlBind]='icons.regexp'
 )
@@ -52,7 +52,7 @@ button.btn(
     (click)='options.wholeWord = !options.wholeWord; saveSearchOptions()',
     [class.btn-link]='!options.wholeWord',
     [class.btn-info]='options.wholeWord',
-    ngbTooltip='Whole word',
+    [ngbTooltip]='"Whole word"|translate',
     placement='bottom',
     [fastHtmlBind]='icons.wholeWord'
 )

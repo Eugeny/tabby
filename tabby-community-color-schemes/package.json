@@ -14,7 +14,7 @@
   "files": [
     "dist"
   ],
-  "author": "Eugene Pankov",
+  "author": "Tabby Developers",
   "license": "MIT",
   "peerDependencies": {
     "@angular/core": "^15",

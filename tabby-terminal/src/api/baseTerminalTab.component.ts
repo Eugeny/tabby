@@ -17,6 +17,8 @@ import { getTerminalBackgroundColor } from '../helpers'
 
 
 const INACTIVE_TAB_UNLOAD_DELAY = 1000 * 30
+const OSC_FOCUS_IN = Buffer.from('\x1b[I')
+const OSC_FOCUS_OUT = Buffer.from('\x1b[O')
 
 /**
  * A class to base your custom terminal tabs on
@@ -494,7 +496,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             data = Buffer.from(data, 'utf-8')
         }
         this.session?.feedFromTerminal(data)
-        if (this.config.store.terminal.scrollOnInput) {
+        if (this.config.store.terminal.scrollOnInput && !data.equals(OSC_FOCUS_IN) && !data.equals(OSC_FOCUS_OUT)) {
             this.frontend?.scrollToBottom()
         }
     }
