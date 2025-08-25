@@ -33,6 +33,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
                 kex: [] as string[],
                 cipher: [] as string[],
                 serverHostKey: [] as string[],
+                compression: [] as string[],
             },
             proxyCommand: null,
             forwardedPorts: [],
