@@ -42,7 +42,7 @@ export abstract class FileTransfer {
     }
 
     isComplete (): boolean {
-        return this.completedBytes >= this.getSize()
+        return this.completed || this.completedBytes >= this.getSize()
     }
 
     isCancelled (): boolean {
