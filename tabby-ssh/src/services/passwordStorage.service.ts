@@ -15,6 +15,9 @@ export class PasswordStorageService {
             const key = this.getVaultKeyForConnection(profile)
             this.vault.addSecret({ type: VAULT_SECRET_TYPE_PASSWORD, key, value: password })
         } else {
+            if (!profile.options.user) {
+                return
+            }
             const key = this.getKeytarKeyForConnection(profile)
             return keytar.setPassword(key, profile.options.user, password)
         }
@@ -25,6 +28,9 @@ export class PasswordStorageService {
             const key = this.getVaultKeyForConnection(profile)
             this.vault.removeSecret(VAULT_SECRET_TYPE_PASSWORD, key)
         } else {
+            if (!profile.options.user) {
+                return
+            }
             const key = this.getKeytarKeyForConnection(profile)
             await keytar.deletePassword(key, profile.options.user)
         }
@@ -35,6 +41,9 @@ export class PasswordStorageService {
             const key = this.getVaultKeyForConnection(profile)
             return (await this.vault.getSecret(VAULT_SECRET_TYPE_PASSWORD, key))?.value ?? null
         } else {
+            if (!profile.options.user) {
+                return null
+            }
             const key = this.getKeytarKeyForConnection(profile)
             return keytar.getPassword(key, profile.options.user)
         }
