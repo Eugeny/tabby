@@ -215,7 +215,7 @@ export class ProfilesService {
         const freeInputEquivalent = provider instanceof QuickConnectProfileProvider ? provider.intoQuickConnectString(fullProfile) ?? undefined : undefined
         return {
             ...profile,
-            group: this.resolveProfileGroupName(profile.group ?? ''),
+            group: this.resolveProfileGroupPath(profile?.group ?? '').join(' 🡒 '),
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
         }
@@ -284,6 +284,11 @@ export class ProfilesService {
 
                 if (!this.config.store.terminal.showBuiltinProfiles) {
                     profiles = profiles.filter(x => !x.isBuiltin)
+                    profiles = profiles.map(p => {
+                        if (p.isBuiltin) p.group = "Built-in"
+                        if (!p.icon) p.icon = 'fas fa-network-wired'
+                        return p
+                    })
                 }
 
                 profiles = profiles.filter(x => !x.isTemplate)
@@ -523,6 +528,37 @@ export class ProfilesService {
     */
     resolveProfileGroupName (groupId: string): string {
         return this.config.store.groups.find(g => g.id === groupId)?.name ?? groupId
+        const group = this.resolveProfileGroup(groupId);
+        return group?.name ?? groupId
+    }
+
+    resolveProfileGroupPath (groupId: string): string[] {
+        const groupNames: string[] = [];
+        let currentGroupId: string | undefined = groupId;
+        let depth = 0;
+
+        while (currentGroupId && depth <= 30) {
+            const group = this.resolveProfileGroup(currentGroupId);
+            if (!group) {
+                groupNames.unshift(currentGroupId);
+                break;
+            }
+
+            if (group.name) groupNames.unshift(group.name);
+
+            if (!group.parentGroupId) break;
+            currentGroupId = group.parentGroupId;
+            depth++;
+        }
+
+        return groupNames;
+    }
+
+    /**
+    * Resolve and return ProfileGroup | null from ProfileGroup ID
+    */
+    resolveProfileGroup (groupId: string): PartialProfileGroup<ProfileGroup> | null {
+        return this.config.store.groups.find(g => g.id === groupId) ?? null
     }
 
     /**
