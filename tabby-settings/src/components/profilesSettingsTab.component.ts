@@ -11,6 +11,7 @@ _('Ungrouped')
 
 interface CollapsableProfileGroup extends ProfileGroup {
     collapsed: boolean
+    children: PartialProfileGroup<CollapsableProfileGroup>[]
 }
 
 /** @hidden */
@@ -24,6 +25,8 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     templateProfiles: PartialProfile<Profile>[] = []
     customProfiles: PartialProfile<Profile>[] = []
     profileGroups: PartialProfileGroup<CollapsableProfileGroup>[]
+    rootGroups: PartialProfileGroup<CollapsableProfileGroup>[] = []
+
     filter = ''
     Platform = Platform
 
@@ -57,6 +60,29 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     launchProfile (profile: PartialProfile<Profile>): void {
         this.profilesService.openNewTabForProfile(profile)
+    }
+
+    private buildGroupTree (groups: PartialProfileGroup<CollapsableProfileGroup>[]): PartialProfileGroup<CollapsableProfileGroup>[] {
+        const map = new Map<string, PartialProfileGroup<CollapsableProfileGroup>>()
+
+        for (const group of groups) {
+            group.children = []
+            map.set(group.id, group)
+        }
+
+        const roots: PartialProfileGroup<CollapsableProfileGroup>[] = []
+
+        for (const group of groups) {
+            if (group.parentGroupId) {
+                const parent = map.get(group.parentGroupId)
+                if (parent) parent.children!.push(group)
+                else roots.push(group) // Orphaned group, treat as root
+            } else {
+                roots.push(group)
+            }
+        }
+
+        return roots
     }
 
     async newProfile (base?: PartialProfile<Profile>): Promise<void> {
@@ -147,13 +173,20 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     async newProfileGroup (): Promise<void> {
-        const modal = this.ngbModal.open(PromptModalComponent)
-        modal.componentInstance.prompt = this.translate.instant('New group name')
-        const result = await modal.result.catch(() => null)
-        if (result?.value.trim()) {
-            await this.profilesService.newProfileGroup({ id: '', name: result.value })
-            await this.config.save()
+        const modal = this.ngbModal.open(
+            EditProfileGroupModalComponent,
+            { size: 'lg' },
+        )
+        modal.componentInstance.group = {
+            id: 'new',
+            icon: 'far fa-folder',
+            color: '#B8B8B8'
         }
+        modal.componentInstance.providers = []
+
+        const createResult: EditProfileGroupModalComponentResult<CollapsableProfileGroup> | null = await modal.result.catch(() => null)
+        if (!createResult) return
+        await this.config.save()
     }
 
     async editProfileGroup (group: PartialProfileGroup<CollapsableProfileGroup>): Promise<void> {
@@ -161,6 +194,10 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (!result) {
             return
         }
+
+        // don't save children to the config
+        delete group.children;
+
         await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(result))
         await this.config.save()
     }
@@ -254,6 +291,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         groups.sort((a, b) => (a.id === 'built-in' || !a.editable ? 1 : 0) - (b.id === 'built-in' || !b.editable ? 1 : 0))
         groups.sort((a, b) => (a.id === 'ungrouped' ? 0 : 1) - (b.id === 'ungrouped' ? 0 : 1))
         this.profileGroups = groups.map(g => ProfilesSettingsTabComponent.intoPartialCollapsableProfileGroup(g, profileGroupCollapsed[g.id] ?? false))
+        this.rootGroups = this.buildGroupTree(this.profileGroups)
     }
 
     isGroupVisible (group: PartialProfileGroup<ProfileGroup>): boolean {
@@ -286,9 +324,6 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     toggleGroupCollapse (group: PartialProfileGroup<CollapsableProfileGroup>): void {
-        if (group.profiles?.length === 0) {
-            return
-        }
         group.collapsed = !group.collapsed
         this.saveProfileGroupCollapse(group)
     }
