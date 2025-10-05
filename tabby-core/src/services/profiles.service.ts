@@ -221,7 +221,30 @@ export class ProfilesService {
         }
     }
 
-    showProfileSelector (): Promise<PartialProfile<Profile>|null> {
+    buildGroupTree (groups: PartialProfileGroup<ProfileGroup & { [key: string]: any }>[]): PartialProfileGroup<ProfileGroup & { [key: string]: any }>[] {
+        const map = new Map<string, PartialProfileGroup<ProfileGroup & { [key: string]: any }>>()
+
+        for (const group of groups) {
+            group.children = []
+            map.set(group.id, group)
+        }
+
+        const roots: PartialProfileGroup<ProfileGroup & { [key: string]: any }>[] = []
+
+        for (const group of groups) {
+            if (group.parentGroupId) {
+                const parent = map.get(group.parentGroupId)
+                if (parent) parent.children!.push(group)
+                else roots.push(group) // Orphaned group, treat as root
+            } else {
+                roots.push(group)
+            }
+        }
+
+        return roots
+    }
+
+    showProfileSelector (): Promise<PartialProfile<Profile> | null> {
         if (this.selector.active) {
             return Promise.resolve(null)
         }

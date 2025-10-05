@@ -62,29 +62,6 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         this.profilesService.openNewTabForProfile(profile)
     }
 
-    private buildGroupTree (groups: PartialProfileGroup<CollapsableProfileGroup>[]): PartialProfileGroup<CollapsableProfileGroup>[] {
-        const map = new Map<string, PartialProfileGroup<CollapsableProfileGroup>>()
-
-        for (const group of groups) {
-            group.children = []
-            map.set(group.id, group)
-        }
-
-        const roots: PartialProfileGroup<CollapsableProfileGroup>[] = []
-
-        for (const group of groups) {
-            if (group.parentGroupId) {
-                const parent = map.get(group.parentGroupId)
-                if (parent) parent.children!.push(group)
-                else roots.push(group) // Orphaned group, treat as root
-            } else {
-                roots.push(group)
-            }
-        }
-
-        return roots
-    }
-
     async newProfile (base?: PartialProfile<Profile>): Promise<void> {
         if (!base) {
             let profiles = await this.profilesService.getProfiles()
@@ -279,7 +256,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         groups.sort((a, b) => (a.id === 'built-in' || !a.editable ? 1 : 0) - (b.id === 'built-in' || !b.editable ? 1 : 0))
         groups.sort((a, b) => (a.id === 'ungrouped' ? 0 : 1) - (b.id === 'ungrouped' ? 0 : 1))
         this.profileGroups = groups.map(g => ProfilesSettingsTabComponent.intoPartialCollapsableProfileGroup(g, profileGroupCollapsed[g.id] ?? false))
-        this.rootGroups = this.buildGroupTree(this.profileGroups)
+        this.rootGroups = this.profilesService.buildGroupTree(this.profileGroups)
     }
 
     isGroupVisible (group: PartialProfileGroup<ProfileGroup>): boolean {
