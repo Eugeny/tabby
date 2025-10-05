@@ -173,20 +173,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     async newProfileGroup (): Promise<void> {
-        const modal = this.ngbModal.open(
-            EditProfileGroupModalComponent,
-            { size: 'lg' },
-        )
-        modal.componentInstance.group = {
+        this.editProfileGroup({
             id: 'new',
-            icon: 'far fa-folder',
-            color: '#B8B8B8'
-        }
-        modal.componentInstance.providers = []
-
-        const createResult: EditProfileGroupModalComponentResult<CollapsableProfileGroup> | null = await modal.result.catch(() => null)
-        if (!createResult) return
-        await this.config.save()
+            name: '',
+            icon: 'far fa-folder'
+        })
     }
 
     async editProfileGroup (group: PartialProfileGroup<CollapsableProfileGroup>): Promise<void> {
@@ -194,9 +185,6 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (!result) {
             return
         }
-
-        // don't save children to the config
-        delete group.children;
 
         await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(result))
         await this.config.save()
@@ -399,6 +387,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     private static collapsableIntoPartialProfileGroup (group: PartialProfileGroup<CollapsableProfileGroup>): PartialProfileGroup<ProfileGroup> {
         const g: any = { ...group }
         delete g.collapsed
+        delete g.children
         return g
     }
 

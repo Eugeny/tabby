@@ -60,7 +60,7 @@ export class EditProfileGroupModalComponent<G extends ProfileGroup> {
         );
     }
 
-    constructor(
+    constructor (
         private modalInstance: NgbActiveModal,
         private profilesService: ProfilesService,
         private platform: PlatformService,
@@ -109,13 +109,7 @@ export class EditProfileGroupModalComponent<G extends ProfileGroup> {
         }
 
         if (this.group.id === 'new') {
-            await this.profilesService.newProfileGroup({
-                id: '',
-                name: this.group.name,
-                icon: this.group?.icon,
-                color: this.group?.color,
-                parentGroupId: this.group?.parentGroupId
-            })
+            await this.profilesService.newProfileGroup(this.group, { genId: true })
         }
         this.modalInstance.close({ group: this.group })
     }
