@@ -29,7 +29,7 @@ export class SSHService {
 
     async getWinSCPURI (profile: SSHProfile, cwd?: string, username?: string): Promise<string> {
         let uri = `scp://${username ?? profile.options.user}`
-        const password = await this.passwordStorage.loadPassword(profile)
+        const password = await this.passwordStorage.loadPassword(profile, username)
         if (password) {
             uri += ':' + encodeURIComponent(password)
         }
