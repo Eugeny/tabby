@@ -22,17 +22,22 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Add upstream & fetch Eugeny tags
         shell: bash
         run: |
           git remote add upstream https://github.com/Eugeny/tabby.git || true
           git fetch upstream --tags --prune
+          # ensure local tag namespace filled (fork + upstream)
+          git fetch --tags --force
+          git describe --tags || true
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
 
       - name: Enable Yarn 1.x via Corepack
         shell: bash
@@ -44,20 +49,16 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            **\AppData\Local\Yarn\Cache
-            !**\node_modules
+            C:\Users\runneradmin\AppData\Local\Yarn\Cache
           key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install deps
         shell: bash
-        run: |
-          yarn --network-timeout 300000
+        run: yarn --network-timeout 300000
 
       - name: Build native modules for Electron
         shell: bash
-        run: |
-          # your repo’s script wraps electron-rebuild for Electron $ELECTRON_VERSION
-          node scripts/build-native.mjs
+        run: node scripts/build-native.mjs
 
       - name: Upload prebuilt .node artifacts
         uses: actions/upload-artifact@v4
@@ -67,26 +68,30 @@ jobs:
           path: |
             app/node_modules/**/build/Release/*.node
 
-  # optional: build an unsigned Windows installer too
   installer-x64:
     needs: prebuilds-x64
     runs-on: windows-latest
+
     steps:
       - name: Checkout (full history + tags)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Add upstream & fetch Eugeny tags
         shell: bash
         run: |
           git remote add upstream https://github.com/Eugeny/tabby.git || true
           git fetch upstream --tags --prune
+          git fetch --tags --force
+          git describe --tags || true
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
 
       - name: Enable Yarn 1.x via Corepack
         shell: bash
@@ -96,8 +101,7 @@ jobs:
 
       - name: Install deps
         shell: bash
-        run: |
-          yarn --network-timeout 300000
+        run: yarn --network-timeout 300000
 
       - name: Prepackage plugins
         shell: bash
