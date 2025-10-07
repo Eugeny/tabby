@@ -284,6 +284,7 @@ export class ProfilesService {
 
                 if (!this.config.store.terminal.showBuiltinProfiles) {
                     profiles = profiles.filter(x => !x.isBuiltin)
+                } else {
                     profiles = profiles.map(p => {
                         if (p.isBuiltin) p.group = "Built-in"
                         if (!p.icon) p.icon = 'fas fa-network-wired'
@@ -527,7 +528,6 @@ export class ProfilesService {
     * Resolve and return ProfileGroup Name from ProfileGroup ID
     */
     resolveProfileGroupName (groupId: string): string {
-        return this.config.store.groups.find(g => g.id === groupId)?.name ?? groupId
         const group = this.resolveProfileGroup(groupId);
         return group?.name ?? groupId
     }
