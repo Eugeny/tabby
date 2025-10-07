@@ -29,7 +29,6 @@ jobs:
         run: |
           git remote add upstream https://github.com/Eugeny/tabby.git || true
           git fetch upstream --tags --prune
-          # ensure local tag namespace filled (fork + upstream)
           git fetch --tags --force
           git describe --tags || true
 
@@ -38,6 +37,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
+
+      # <<< PLACE THE FALLBACK STEP HERE >>>
+      - name: Set fallback BUILD_VERSION if no tags
+        shell: bash
+        run: |
+          if ! git describe --tags >/dev/null 2>&1; then
+            echo "BUILD_VERSION=$(node -p \"require('./package.json').version + '-nightly.' + process.env.GITHUB_RUN_NUMBER\")" >> $GITHUB_ENV
+          fi
 
       - name: Enable Yarn 1.x via Corepack
         shell: bash
@@ -93,6 +100,14 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
 
+      # <<< AND HERE TOO >>>
+      - name: Set fallback BUILD_VERSION if no tags
+        shell: bash
+        run: |
+          if ! git describe --tags >/dev/null 2>&1; then
+            echo "BUILD_VERSION=$(node -p \"require('./package.json').version + '-nightly.' + process.env.GITHUB_RUN_NUMBER\")" >> $GITHUB_ENV
+          fi
+
       - name: Enable Yarn 1.x via Corepack
         shell: bash
         run: |
@@ -103,10 +118,9 @@ jobs:
         shell: bash
         run: yarn --network-timeout 300000
 
-      # Build the app so app/dist/main.js exists before packaging
-      - name: Build app (webpack/Angular)
+      - name: Build (renderer + main)
         shell: bash
-        run: yarn build
+        run: yarn run build
 
       - name: Prepackage plugins
         shell: bash
