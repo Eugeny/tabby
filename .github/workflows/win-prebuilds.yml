@@ -103,6 +103,11 @@ jobs:
         shell: bash
         run: yarn --network-timeout 300000
 
+      # Build the app so app/dist/main.js exists before packaging
+      - name: Build app (webpack/Angular)
+        shell: bash
+        run: yarn build
+
       - name: Prepackage plugins
         shell: bash
         run: node scripts/prepackage-plugins.mjs
