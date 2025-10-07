@@ -7,7 +7,7 @@ on:
 
 env:
   ELECTRON_VERSION: 37.3.1
-  NODE_VERSION: 22.20.0      # satisfies node-abi >= 4.9
+  NODE_VERSION: 22.20.0
   CI: true
   SENTRYCLI_SKIP_DOWNLOAD: 1
   npm_config_msvs_version: "2022"
@@ -38,12 +38,11 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
 
-      # <<< PLACE THE FALLBACK STEP HERE >>>
       - name: Set fallback BUILD_VERSION if no tags
         shell: bash
         run: |
           if ! git describe --tags >/dev/null 2>&1; then
-            echo "BUILD_VERSION=$(node -p \"require('./package.json').version + '-nightly.' + process.env.GITHUB_RUN_NUMBER\")" >> $GITHUB_ENV
+            node -e "const v=require('./package.json').version; console.log('BUILD_VERSION=' + v + '-nightly.' + process.env.GITHUB_RUN_NUMBER)" >> "$GITHUB_ENV"
           fi
 
       - name: Enable Yarn 1.x via Corepack
@@ -100,12 +99,11 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
 
-      # <<< AND HERE TOO >>>
       - name: Set fallback BUILD_VERSION if no tags
         shell: bash
         run: |
           if ! git describe --tags >/dev/null 2>&1; then
-            echo "BUILD_VERSION=$(node -p \"require('./package.json').version + '-nightly.' + process.env.GITHUB_RUN_NUMBER\")" >> $GITHUB_ENV
+            node -e "const v=require('./package.json').version; console.log('BUILD_VERSION=' + v + '-nightly.' + process.env.GITHUB_RUN_NUMBER)" >> "$GITHUB_ENV"
           fi
 
       - name: Enable Yarn 1.x via Corepack
