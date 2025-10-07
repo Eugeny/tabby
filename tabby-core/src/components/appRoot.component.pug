@@ -8,7 +8,7 @@ title-bar(
 .window.h-100.d-flex
 
     profile-tree(
-        *ngIf='ready'
+        *ngIf='ready && !config.store.hideProfileTree'
     )
 
     .content.main.h-100(
