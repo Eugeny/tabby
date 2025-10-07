@@ -1,51 +1,62 @@
+// scripts/vars.mjs
 import * as path from 'path'
 import * as fs from 'fs'
 import * as semver from 'semver'
 import * as childProcess from 'child_process'
-
-process.env.ARCH = ((process.env.ARCH || process.arch) === 'arm') ? 'armv7l' : (process.env.ARCH || process.arch)
-
 import * as url from 'url'
+
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-const electronInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../node_modules/electron/package.json')))
+// Normalize ARCH for other scripts
+process.env.ARCH = ((process.env.ARCH || process.arch) === 'arm') ? 'armv7l' : (process.env.ARCH || process.arch)
 
-// --- Robust version derivation (works even when fork has no tags) ---
-let rawDescribe = ''
-try {
-  // try to get something like v1.0.227-4-gc5e402c
-  rawDescribe = childProcess.execSync('git describe --tags --abbrev=7', { encoding: 'utf-8' }).trim()
-} catch { /* ignore */ }
+// Read electron + package versions
+const electronInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../node_modules/electron/package.json'), 'utf8'))
+const pkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf8'))
 
-let version
-if (rawDescribe) {
-  // strip leading "v"
-  version = rawDescribe.replace(/^v/, '')
-  // keep upstream behavior: convert first "-" to "-c"
-  if (version.includes('-')) {
-    version = version.replace('-', '-c')
+function tryDescribe () {
+  try {
+    // Match only version-like tags (vX.Y.Z), but allow describe to fall back to sha if needed
+    return childProcess.execSync('git describe --tags --match "v[0-9]*" --dirty --always', { encoding: 'utf-8' }).trim()
+  } catch {
+    return null
   }
-  if (version.includes('-c')) {
-    try {
-      // turn e.g. 1.0.227-c4... into next prepatch nightly
-      const rev = process.env.REV ?? process.env.GITHUB_RUN_NUMBER ?? 0
-      version = semver.inc(version, 'prepatch').replace('-0', `-nightly.${rev}`)
-    } catch {
-      version = null
+}
+
+function computeVersion () {
+  // Allow CI to force a version (optional)
+  if (process.env.BUILD_VERSION) {
+    return process.env.BUILD_VERSION
+  }
+
+  const described = tryDescribe()
+  const rev = process.env.REV
+    ?? process.env.GITHUB_RUN_NUMBER
+    ?? (process.env.GITHUB_SHA ? process.env.GITHUB_SHA.slice(0, 7) : '0')
+
+  // If we got a semver-ish tag, use it (strip leading "v")
+  if (described && /^v?\d+\.\d+\.\d+/.test(described)) {
+    let v = described.replace(/^v/, '')
+    // If "describe" added a suffix (e.g., v1.2.3-45-gHASH), make it a nightly prerelease
+    if (v.includes('-')) {
+      v = v.replace('-', '-c') // keep previous behavior
+      const inc = semver.inc(v, 'prepatch')
+      if (inc) {
+        v = inc.replace('-0', `-nightly.${rev}`)
+      }
     }
+    return v
   }
+
+  // Fallback: use package.json version and make a nightly
+  const base = pkg.version || '0.0.0'
+  if (base.includes('-')) {
+    return `${base}.${rev}`
+  }
+  return `${base}-nightly.${rev}`
 }
 
-if (!version) {
-  // Fallback when tags are unavailable or semver parsing failed
-  let sha = '0000000'
-  try { sha = childProcess.execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim() } catch { /* ignore */ }
-  const base = process.env.FALLBACK_BASE_VERSION || '1.0.0'
-  const rev = process.env.REV ?? process.env.GITHUB_RUN_NUMBER ?? '0'
-  version = `${base}-nightly.${rev}.${sha}`
-}
-
-export { version }
+export const version = computeVersion()
 
 export const builtinPlugins = [
   'tabby-core',
