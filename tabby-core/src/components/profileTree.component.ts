@@ -114,7 +114,7 @@ export class ProfileTreeComponent extends BaseComponent {
         modal.componentInstance.group = deepClone(group)
         modal.componentInstance.providers = this.profilesService.getProviders()
 
-        const result: PartialProfileGroup<ProfileGroup & { group: PartialProfileGroup<ProfileGroup>, provider?: ProfileProvider<Profile> }> = await modal.result.catch(() => null)
+        const result: PartialProfileGroup<ProfileGroup & { group: PartialProfileGroup<CollapsableProfileGroup>, provider?: ProfileProvider<Profile> }> = await modal.result.catch(() => null)
         if (!result) return
         if (!result?.group) return;
 
@@ -122,7 +122,8 @@ export class ProfileTreeComponent extends BaseComponent {
             return this.editProfileGroupDefaults(result.group, result.provider)
         }
 
-        delete group.collapsed;
+        delete result.group.collapsed;
+        delete result.group.children;
         await this.profilesService.writeProfileGroup(result.group)
         await this.config.save()
     }
