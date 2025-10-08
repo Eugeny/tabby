@@ -153,7 +153,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         this.editProfileGroup({
             id: 'new',
             name: '',
-            icon: 'far fa-folder'
+            icon: 'far fa-folder',
         })
     }
 

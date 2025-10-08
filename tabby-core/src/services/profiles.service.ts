@@ -215,27 +215,28 @@ export class ProfilesService {
         const freeInputEquivalent = provider instanceof QuickConnectProfileProvider ? provider.intoQuickConnectString(fullProfile) ?? undefined : undefined
         return {
             ...profile,
-            group: this.resolveProfileGroupPath(profile?.group ?? '').join(' 🡒 '),
+            group: this.resolveProfileGroupPath(profile.group ?? '').join(' 🡒 '),
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
         }
     }
 
-    buildGroupTree (groups: PartialProfileGroup<ProfileGroup & { [key: string]: any }>[]): PartialProfileGroup<ProfileGroup & { [key: string]: any }>[] {
-        const map = new Map<string, PartialProfileGroup<ProfileGroup & { [key: string]: any }>>()
+    buildGroupTree (groups: PartialProfileGroup<ProfileGroup & { children: any }>[]): PartialProfileGroup<ProfileGroup & { children: any }>[] {
+        const map = new Map<string, PartialProfileGroup<ProfileGroup & { children: any }>>()
 
         for (const group of groups) {
             group.children = []
             map.set(group.id, group)
         }
 
-        const roots: PartialProfileGroup<ProfileGroup & { [key: string]: any }>[] = []
+        const roots: PartialProfileGroup<ProfileGroup & { children: any }>[] = []
 
         for (const group of groups) {
             if (group.parentGroupId) {
                 const parent = map.get(group.parentGroupId)
-                if (parent) parent.children!.push(group)
-                else roots.push(group) // Orphaned group, treat as root
+                if (parent) {
+                    parent.children.push(group)
+                } else { roots.push(group) } // Orphaned group, treat as root
             } else {
                 roots.push(group)
             }
@@ -286,8 +287,8 @@ export class ProfilesService {
                     profiles = profiles.filter(x => !x.isBuiltin)
                 } else {
                     profiles = profiles.map(p => {
-                        if (p.isBuiltin) p.group = "Built-in"
-                        if (!p.icon) p.icon = 'fas fa-network-wired'
+                        if (p.isBuiltin) { p.group = 'Built-in' }
+                        if (!p.icon) { p.icon = 'fas fa-network-wired' }
                         return p
                     })
                 }
@@ -528,30 +529,30 @@ export class ProfilesService {
     * Resolve and return ProfileGroup Name from ProfileGroup ID
     */
     resolveProfileGroupName (groupId: string): string {
-        const group = this.resolveProfileGroup(groupId);
+        const group = this.resolveProfileGroup(groupId)
         return group?.name ?? groupId
     }
 
     resolveProfileGroupPath (groupId: string): string[] {
-        const groupNames: string[] = [];
-        let currentGroupId: string | undefined = groupId;
-        let depth = 0;
+        const groupNames: string[] = []
+        let currentGroupId: string | undefined = groupId
+        let depth = 0
 
         while (currentGroupId && depth <= 30) {
-            const group = this.resolveProfileGroup(currentGroupId);
+            const group = this.resolveProfileGroup(currentGroupId)
             if (!group) {
-                groupNames.unshift(currentGroupId);
-                break;
+                groupNames.unshift(currentGroupId)
+                break
             }
 
-            if (group.name) groupNames.unshift(group.name);
+            if (group.name) { groupNames.unshift(group.name) }
 
-            if (!group.parentGroupId) break;
-            currentGroupId = group.parentGroupId;
-            depth++;
+            if (!group.parentGroupId) { break }
+            currentGroupId = group.parentGroupId
+            depth++
         }
 
-        return groupNames;
+        return groupNames
     }
 
     /**

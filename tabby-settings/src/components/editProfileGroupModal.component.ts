@@ -23,41 +23,39 @@ export class EditProfileGroupModalComponent<G extends ProfileGroup> {
 
     getValidParents (groups: PartialProfileGroup<ProfileGroup>[], targetId: string): PartialProfileGroup<ProfileGroup>[] {
         // Build a quick lookup: parentGroupId -> [child groups]
-        const childrenMap = new Map<string | null, string[]>();
+        const childrenMap = new Map<string | null, string[]>()
         for (const group of groups) {
-            const parent = group.parentGroupId ?? null;
+            const parent = group.parentGroupId ?? null
             if (!childrenMap.has(parent)) {
-                childrenMap.set(parent, []);
+                childrenMap.set(parent, [])
             }
-            childrenMap.get(parent)!.push(group.id);
+            childrenMap.get(parent)!.push(group.id)
         }
 
         // Depth-first search to find all descendants of target
         function getDescendants (id: string): Set<string> {
-            const descendants = new Set<string>();
-            const stack: string[] = [id];
+            const descendants = new Set<string>()
+            const stack: string[] = [id]
 
             while (stack.length > 0) {
-                const current = stack.pop()!;
-                const children = childrenMap.get(current);
+                const current = stack.pop()!
+                const children = childrenMap.get(current)
                 if (children) {
                     for (const child of children) {
                         if (!descendants.has(child)) {
-                            descendants.add(child);
-                            stack.push(child);
+                            descendants.add(child)
+                            stack.push(child)
                         }
                     }
                 }
             }
-            return descendants;
+            return descendants
         }
 
-        const descendants = getDescendants(targetId);
+        const descendants = getDescendants(targetId)
 
         // Valid parents = all groups that are not the target or its descendants
-        return groups.filter(
-            (g) => g.id !== targetId && !descendants.has(g.id)
-        );
+        return groups.filter((g) => g.id !== targetId && !descendants.has(g.id))
     }
 
     constructor (

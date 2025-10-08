@@ -2,7 +2,7 @@ import { Component, HostBinding, HostListener, Input } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import deepClone from 'clone-deep'
-import FuzzySearch from 'fuzzy-search';
+import FuzzySearch from 'fuzzy-search'
 
 import { ConfigService } from '../services/config.service'
 import { ProfilesService } from '../services/profiles.service'
@@ -28,15 +28,15 @@ export class ProfileTreeComponent extends BaseComponent {
     rootGroups: PartialProfileGroup<ProfileGroup>[] = []
 
     filteredProfiles: PartialProfile<Profile>[] = []
-    @Input() filter: string = '';
-    
-    
+    @Input() filter = ''
+
+
     panelMinWidth = 200
     panelMaxWidth = 600
-    panelInternalWidth: number = parseInt(window.localStorage?.profileTreeWidth ?? 300);
-    panelStartWidth = this.panelInternalWidth;
-    panelIsResizing = false;
-    panelStartX = 0;
+    panelInternalWidth: number = parseInt(window.localStorage.profileTreeWidth ?? 300)
+    panelStartWidth = this.panelInternalWidth
+    panelIsResizing = false
+    panelStartX = 0
 
     constructor (
         private app: AppService,
@@ -44,7 +44,7 @@ export class ProfileTreeComponent extends BaseComponent {
         private config: ConfigService,
         private profilesService: ProfilesService,
         private translate: TranslateService,
-        private ngbModal: NgbModal
+        private ngbModal: NgbModal,
     ) {
         super()
     }
@@ -54,7 +54,7 @@ export class ProfileTreeComponent extends BaseComponent {
         this.subscribeUntilDestroyed(this.config.changed$, () => this.loadTreeItems())
         this.subscribeUntilDestroyed(this.config.changed$, () => this.loadTreeItems())
         this.app.tabsChanged$.subscribe(() => this.tabStateChanged())
-        this.app.activeTabChange$.subscribe((e) => this.tabStateChanged())
+        this.app.activeTabChange$.subscribe(() => this.tabStateChanged())
     }
 
 
@@ -63,7 +63,7 @@ export class ProfileTreeComponent extends BaseComponent {
         let groups = await this.profilesService.getProfileGroups({ includeNonUserGroup: true, includeProfiles: true })
 
         for (const group of groups) {
-            if (group?.profiles?.length) {
+            if (group.profiles?.length) {
                 // remove template profiles
                 group.profiles = group.profiles.filter(x => !x.isTemplate)
 
@@ -72,7 +72,7 @@ export class ProfileTreeComponent extends BaseComponent {
             }
         }
 
-        if (!this.config.store.terminal.showBuiltinProfiles) groups = groups.filter(g => g.id !== 'built-in')
+        if (!this.config.store.terminal.showBuiltinProfiles) { groups = groups.filter(g => g.id !== 'built-in') }
 
         groups.sort((a, b) => a.name.localeCompare(b.name))
         groups.sort((a, b) => (a.id === 'built-in' || !a.editable ? 1 : 0) - (b.id === 'built-in' || !b.editable ? 1 : 0))
@@ -89,13 +89,13 @@ export class ProfileTreeComponent extends BaseComponent {
         )
 
         const provider = this.profilesService.providerForProfile(profile)
-        if (!provider) throw new Error('Cannot edit a profile without a provider')
+        if (!provider) { throw new Error('Cannot edit a profile without a provider') }
 
         modal.componentInstance.profile = deepClone(profile)
         modal.componentInstance.profileProvider = provider
 
         const result = await modal.result.catch(() => null)
-        if (!result) return;
+        if (!result) { return }
 
         result.type = provider.id
 
@@ -114,16 +114,16 @@ export class ProfileTreeComponent extends BaseComponent {
         modal.componentInstance.group = deepClone(group)
         modal.componentInstance.providers = this.profilesService.getProviders()
 
-        const result: PartialProfileGroup<ProfileGroup & { group: PartialProfileGroup<CollapsableProfileGroup>, provider?: ProfileProvider<Profile> }> = await modal.result.catch(() => null)
-        if (!result) return
-        if (!result?.group) return;
+        const result: PartialProfileGroup<ProfileGroup & { group: PartialProfileGroup<CollapsableProfileGroup>, provider?: ProfileProvider<Profile> }> | null = await modal.result.catch(() => null)
+        if (!result) { return }
+        if (!result.group) { return }
 
         if (result.provider) {
             return this.editProfileGroupDefaults(result.group, result.provider)
         }
 
-        delete result.group.collapsed;
-        delete result.group.children;
+        delete result.group.collapsed
+        delete result.group.children
         await this.profilesService.writeProfileGroup(result.group)
         await this.config.save()
     }
@@ -157,42 +157,42 @@ export class ProfileTreeComponent extends BaseComponent {
         return this.editProfileGroup(group)
     }
 
-    async profileContextMenu(profile: PartialProfile<Profile>, event: MouseEvent): Promise<void> {
+    async profileContextMenu (profile: PartialProfile<Profile>, event: MouseEvent): Promise<void> {
         event.preventDefault()
 
         this.platform.popupContextMenu([
             {
                 type: 'normal',
                 label: this.translate.instant('Run'),
-                click: () => this.launchProfile(profile)
+                click: () => this.launchProfile(profile),
             },
             {
                 type: 'normal',
                 label: this.translate.instant('Edit profile'),
                 click: () => this.editProfile(profile),
-                enabled: !(profile.isBuiltin || profile.isTemplate)
-            }
-        ]);
+                enabled: !(profile.isBuiltin ?? profile.isTemplate),
+            },
+        ])
     }
 
-    async groupContextMenu(group: PartialProfileGroup<CollapsableProfileGroup>, event: MouseEvent): Promise<void> {
+    async groupContextMenu (group: PartialProfileGroup<CollapsableProfileGroup>, event: MouseEvent): Promise<void> {
         event.preventDefault()
         this.platform.popupContextMenu([
             {
                 type: 'normal',
                 label: group.collapsed ? this.translate.instant('Expand group') : this.translate.instant('Collapse group'),
-                click: () => this.toggleGroupCollapse(group)
+                click: () => this.toggleGroupCollapse(group),
             },
             {
                 type: 'normal',
                 label: this.translate.instant('Edit group'),
                 click: () => this.editProfileGroup(group),
-                enabled: group.editable
-            }
-        ]);
+                enabled: group.editable,
+            },
+        ])
     }
 
-    private async tabStateChanged(): Promise<void> {
+    private async tabStateChanged (): Promise<void> {
         // TODO: show active tab in the side panel with eye icon
     }
 
@@ -200,25 +200,25 @@ export class ProfileTreeComponent extends BaseComponent {
         return this.profilesService.launchProfile(profile)
     }
 
-    async onFilterChange(): Promise<void> {
+    async onFilterChange (): Promise<void> {
         try {
             const q = this.filter.trim().toLowerCase()
 
             if (q.length === 0) {
-                this.rootGroups = this.profilesService.buildGroupTree(this.profileGroups);
+                this.rootGroups = this.profilesService.buildGroupTree(this.profileGroups)
                 return
             }
 
             const profiles = await this.profilesService.getProfiles({
                 includeBuiltin: this.config.store.terminal.showBuiltinProfiles,
-                clone: true
+                clone: true,
             })
 
             const matches = new FuzzySearch(
                 profiles.filter(p => !p.isTemplate),
                 ['name', 'description'],
                 { sort: false },
-            ).search(q);
+            ).search(q)
 
             this.rootGroups = [
                 {
@@ -226,43 +226,43 @@ export class ProfileTreeComponent extends BaseComponent {
                     editable: false,
                     name: this.translate.instant('Filter results'),
                     icon: 'fas fa-magnifying-glass',
-                    profiles: matches
-                }
+                    profiles: matches,
+                },
             ]
         } catch (error) {
-            console.error('Error occurred during search:', error);
+            console.error('Error occurred during search:', error)
         }
     }
 
     ////// RESIZING //////
-    startResize(event: MouseEvent) {
-        this.panelIsResizing = true;
-        this.panelStartX = event.clientX;
-        this.panelStartWidth = this.panelWidth;
-        event.preventDefault();
+    startResize (event: MouseEvent): void {
+        this.panelIsResizing = true
+        this.panelStartX = event.clientX
+        this.panelStartWidth = this.panelWidth
+        event.preventDefault()
     }
 
     @HostListener('document:mousemove', ['$event'])
-    onMouseMove(event: MouseEvent) {
-        if (!this.panelIsResizing) return;
-        const delta = event.clientX - this.panelStartX;
+    onMouseMove (event: MouseEvent): void {
+        if (!this.panelIsResizing) { return }
+        const delta = event.clientX - this.panelStartX
         const width = Math.min(Math.max(this.panelMinWidth, this.panelStartWidth + delta), this.panelMaxWidth)
-        this.panelWidth = width;
-        window.localStorage.profileTreeWidth = width;
+        this.panelWidth = width
+        window.localStorage.profileTreeWidth = width
     }
 
     @HostListener('document:mouseup')
-    stopResize() {
-        this.panelIsResizing = false;
+    stopResize (): void {
+        this.panelIsResizing = false
     }
 
     @HostBinding('style.width.px')
-    get panelWidth() {
-        return this.panelInternalWidth;
+    get panelWidth (): number {
+        return this.panelInternalWidth
     }
 
-    set panelWidth(value: number) {
-        this.panelInternalWidth = value;
+    set panelWidth (value: number) {
+        this.panelInternalWidth = value
     }
 
     ////// GROUP COLLAPSING //////

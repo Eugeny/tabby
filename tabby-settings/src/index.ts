@@ -84,8 +84,8 @@ export default class SettingsModule {
 }
 
 export * from './api'
-export { 
+export {
     SettingsTabComponent,
     EditProfileModalComponent,
-    EditProfileGroupModalComponent
+    EditProfileGroupModalComponent,
 }
