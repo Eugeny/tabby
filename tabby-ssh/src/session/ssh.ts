@@ -210,15 +210,10 @@ export class SSHSession {
             if (this.profile.options.password) {
                 this.allAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
             }
-            const password = await this.passwordStorage.loadPassword(this.profile)
-            if (password) {
-                this.allAuthMethods.push({ type: 'saved-password', password })
-            }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
-            const savedPassword = this.profile.options.password ?? await this.passwordStorage.loadPassword(this.profile)
-            if (savedPassword) {
-                this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
+            if (this.profile.options.password) {
+                this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword: this.profile.options.password })
             }
             this.allAuthMethods.push({ type: 'keyboard-interactive' })
         }
@@ -226,6 +221,38 @@ export class SSHSession {
             this.allAuthMethods.push({ type: 'prompt-password' })
         }
         this.allAuthMethods.push({ type: 'hostbased' })
+    }
+
+    private async populateStoredPasswordsForResolvedUsername (): Promise<void> {
+        if (!this.authUsername) {
+            return
+        }
+
+        const storedPassword = await this.passwordStorage.loadPassword(this.profile, this.authUsername)
+        if (!storedPassword) {
+            return
+        }
+
+        if (!this.profile.options.auth || this.profile.options.auth === 'password') {
+            const hasSavedPassword = this.allAuthMethods.some(method => method.type === 'saved-password' && method.password === storedPassword)
+            if (!hasSavedPassword) {
+                const promptIndex = this.allAuthMethods.findIndex(method => method.type === 'prompt-password')
+                const insertIndex = promptIndex >= 0 ? promptIndex : this.allAuthMethods.length
+                this.allAuthMethods.splice(insertIndex, 0, { type: 'saved-password', password: storedPassword })
+            }
+        }
+
+        if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
+            const existingSaved = this.allAuthMethods.find(method => method.type === 'keyboard-interactive' && method.savedPassword === storedPassword)
+            if (!existingSaved) {
+                const updatable = this.allAuthMethods.find(method => method.type === 'keyboard-interactive' && method.savedPassword === undefined)
+                if (updatable && updatable.type === 'keyboard-interactive') {
+                    updatable.savedPassword = storedPassword
+                } else {
+                    this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword: storedPassword })
+                }
+            }
+        }
     }
 
     private async getAgentConnectionSpec (): Promise<russh.AgentConnectionSpec|null> {
@@ -327,7 +354,7 @@ export class SSHSession {
                     key: this.profile.options.algorithms?.[SSHAlgorithmType.HOSTKEY]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HOSTKEY].includes(x)),
                     compression: this.profile.options.algorithms?.[SSHAlgorithmType.COMPRESSION]?.filter(x => supportedAlgorithms[SSHAlgorithmType.COMPRESSION].includes(x)),
                 },
-                keepaliveIntervalSeconds: this.profile.options.keepaliveInterval ? Math.round(this.profile.options.keepaliveInterval / 1000) : undefined,
+                keepaliveIntervalSeconds: Math.round((this.profile.options.keepaliveInterval ?? 15000) / 1000),
                 keepaliveCountMax: this.profile.options.keepaliveCountMax,
                 connectionTimeoutSeconds: this.profile.options.readyTimeout ? Math.round(this.profile.options.readyTimeout / 1000) : undefined,
             },
@@ -373,12 +400,14 @@ export class SSHSession {
             }
         }
 
+        await this.populateStoredPasswordsForResolvedUsername()
+
         const authenticatedClient = await this.handleAuth()
         if (authenticatedClient) {
             this.ssh = authenticatedClient
         } else {
             this.ssh.disconnect()
-            this.passwordStorage.deletePassword(this.profile)
+            this.passwordStorage.deletePassword(this.profile, this.authUsername ?? undefined)
             // eslint-disable-next-line @typescript-eslint/no-base-to-string
             throw new Error('Authentication rejected')
         }
@@ -386,7 +415,7 @@ export class SSHSession {
         // auth success
 
         if (this.savedPassword) {
-            this.passwordStorage.savePassword(this.profile, this.savedPassword)
+            this.passwordStorage.savePassword(this.profile, this.savedPassword, this.authUsername ?? undefined)
         }
 
         for (const fw of this.profile.options.forwardedPorts ?? []) {

@@ -40,7 +40,7 @@
     "cross-env": "7.0.3",
     "css-loader": "^6.7.3",
     "deep-equal": "2.0.5",
-    "electron": "^36.4",
+    "electron": "38",
     "electron-builder": "^26.0",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
@@ -97,7 +97,7 @@
     "lzma-native": "^8.0.6",
     "**/graceful-fs": "^4.2.4",
     "nan": "2.22.2",
-    "node-abi": "4.9.0",
+    "node-abi": "^4",
     "node-gyp": "^10.0.0"
   },
   "scripts": {
