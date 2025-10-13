@@ -11,6 +11,7 @@ export const supportedAlgorithms = {
 
 export const defaultAlgorithms = {
     [SSHAlgorithmType.KEX]: [
+        'mlkem768x25519-sha256',
         'curve25519-sha256',
         'curve25519-sha256@libssh.org',
         'diffie-hellman-group16-sha512',
