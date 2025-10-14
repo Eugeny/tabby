@@ -219,7 +219,12 @@ function convertHostToSSHProfile (host: string, settings: Record<string, string 
             case SSHProfilePropertyNames.ReadyTimeout:
                 const secondsString = settings[key]
                 if (typeof secondsString === 'string') {
-                    options[targetName] = parseInt(secondsString, 10) * 1000
+                    const parsedSeconds = parseInt(secondsString, 10)
+                    if (!isNaN(parsedSeconds) && parsedSeconds >= 0) {
+                        options[targetName] = parsedSeconds * 1000
+                    } else {
+                        console.log(`Invalid value for ${key}: "${secondsString}"`)
+                    }
                 } else {
                     console.log('Unexpected value in settings for ' + key)
                 }
