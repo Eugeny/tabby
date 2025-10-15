@@ -299,7 +299,7 @@ jobs:
 
   Windows-Build:
     runs-on: windows-latest
-    needs: Lint
+    # needs: Lint
     strategy:
       matrix:
         include:
@@ -336,15 +336,15 @@ jobs:
         npm install --global node-gyp@10.2.0
         npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
-    - name: Build
-      shell: powershell
-      run: |
-        npm i -g yar node-gyp
-        yarn --network-timeout 1000000
-        yarn run build
-        node scripts/prepackage-plugins.mjs
-      env:
-        ARCH: ${{matrix.arch}}
+    # - name: Build
+    #   shell: powershell
+    #   run: |
+    #     npm i -g yar node-gyp
+    #     yarn --network-timeout 1000000
+    #     yarn run build
+    #     node scripts/prepackage-plugins.mjs
+    #   env:
+    #     ARCH: ${{matrix.arch}}
 
     - name: Decode certificate
       if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
@@ -372,6 +372,9 @@ jobs:
         # not used but necessary for electron-builder to run
         $env:WIN_CSC_LINK=$env:SM_CLIENT_CERT_FILE
         $env:WIN_CSC_KEY_PASSWORD=$env:SM_CLIENT_CERT_PASSWORD
+
+        smctl sign --keypair-alias=key_1502388686 --input extras\uac.exe
+
         node scripts/build-windows.mjs
       env:
         ARCH: ${{matrix.arch}}
