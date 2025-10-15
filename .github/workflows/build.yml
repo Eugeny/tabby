@@ -322,6 +322,8 @@ jobs:
     - name: Code signing with Software Trust Manager
       uses: digicert/ssm-code-signing@v1.0.0
       if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
+      env:
+        FORCE_DOWNLOAD_TOOLS: 'true'
 
     - name: Installing Node
       uses: actions/setup-node@v4.4.0
@@ -360,8 +362,6 @@ jobs:
       if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
       shell: powershell
       run: |
-        choco install jsign -y
-
         Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
         smksp_registrar.exe list
         smctl.exe healthcheck

@@ -36,7 +36,7 @@ builder({
                     console.log('Signing', configuration)
                     if (configuration.path) {
                         try {
-                            const cmd = `smctl sign --tool jsign --keypair-alias=${keypair} --input "${String(configuration.path)}"`
+                            const cmd = `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`
                             console.log(cmd)
                             const out = execSync(cmd)
                             if (out.toString().includes('FAILED')) {
