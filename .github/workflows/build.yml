@@ -320,7 +320,7 @@ jobs:
         fetch-depth: 0
 
     - name: Code signing with Software Trust Manager
-      uses: digicert/ssm-code-signing@v1.0.0
+      uses: digicert/ssm-code-signing@v1.1.1
       if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
       env:
         FORCE_DOWNLOAD_TOOLS: 'true'
