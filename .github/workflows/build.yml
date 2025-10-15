@@ -360,7 +360,7 @@ jobs:
       if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
       shell: powershell
       run: |
-        choco install osslsigncode -y
+        choco install jsign -y
 
         Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
         smksp_registrar.exe list
