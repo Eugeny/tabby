@@ -255,6 +255,15 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     [(ngModel)]='profile.options.readyTimeout',
                 )
 
+            .form-line(*ngIf='profile.options.user && (!profile.options.auth || profile.options.auth === "keyboardInteractive" || profile.options.auth === "password")')
+                .header
+                    .title TOTP Secret Key
+                input.form-control(
+                    type='password',
+                    placeholder='Enter your TOTP secret key (Base32)',
+                    [(ngModel)]='profile.options.totpSecret'
+                )
+
     li(ngbNavItem)
         a(ngbNavLink, translate) Ciphers
         ng-template(ngbNavContent)
