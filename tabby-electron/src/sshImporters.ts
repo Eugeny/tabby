@@ -205,12 +205,26 @@ function convertHostToSSHProfile (host: string, settings: Record<string, string 
 
             // The following have single integer values
             case SSHProfilePropertyNames.Port:
-            case SSHProfilePropertyNames.KeepaliveInterval:
             case SSHProfilePropertyNames.KeepaliveCountMax:
-            case SSHProfilePropertyNames.ReadyTimeout:
                 const numberString = settings[key]
                 if (typeof numberString === 'string') {
                     options[targetName] = parseInt(numberString, 10)
+                } else {
+                    console.log('Unexpected value in settings for ' + key)
+                }
+                break
+
+            // KeepaliveInterval and ReadyTimeout are in seconds in SSH config but milliseconds in Tabby
+            case SSHProfilePropertyNames.KeepaliveInterval:
+            case SSHProfilePropertyNames.ReadyTimeout:
+                const secondsString = settings[key]
+                if (typeof secondsString === 'string') {
+                    const parsedSeconds = parseInt(secondsString, 10)
+                    if (!isNaN(parsedSeconds) && parsedSeconds >= 0) {
+                        options[targetName] = parsedSeconds * 1000
+                    } else {
+                        console.log(`Invalid value for ${key}: "${secondsString}"`)
+                    }
                 } else {
                     console.log('Unexpected value in settings for ' + key)
                 }
