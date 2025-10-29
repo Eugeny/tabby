@@ -55,7 +55,7 @@ export class SSHService {
                     const winSCPcom = path?.slice(0, -3) + 'com'
                     tmpFile = await tmp.file()
                     let passphrase: string|null = null
-                    for (const pk of jumpHostProfile.profile.options.privateKeys) {
+                    for (const pk of jumpHostProfile.options.privateKeys) {
                         let privateKeyContent: string|null = null
                         const buffer = await this.fileProviders.retrieveFile(pk)
                         privateKeyContent = buffer.toString()
@@ -65,7 +65,7 @@ export class SSHService {
                         passphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash) ?? 'tabby'
                         try {
                             await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, '-o', tmpFile.path, '--old-passphrase', passphrase])
-                            uri += `;x-tunnelprivatekey=${encodeURIComponent(tmpFile.path)}`
+                            uri += `;x-tunnelpublickeyfile=${encodeURIComponent(tmpFile.path)}`
                         } catch (error) {
                             console.warn('Could not convert private key ', error)
                             continue
