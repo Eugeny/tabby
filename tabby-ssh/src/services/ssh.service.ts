@@ -27,6 +27,37 @@ export class SSHService {
         return this.detectedWinSCPPath ?? this.config.store.ssh.winSCPPath
     }
 
+    async generateWinSCPXTunnelURI (jumpHostProfile: SSHProfile): Promise<{uri: string|null, privateKeyFile?: tmp.FileResult|null}> {
+        let uri: string = ''
+        let tmpFile: tmp.FileResult|null = null
+        if (jumpHostProfile) {
+            uri += ';x-tunnel=1'
+            const jumpHostname = jumpHostProfile.options.host
+            uri += `;x-tunnelhostname=${jumpHostname}`
+            const jumpPort = jumpHostProfile.options.port ?? 22
+            uri += `;x-tunnelportnumber=${jumpPort}`
+            const jumpUsername = jumpHostProfile.options.user
+            uri += `;x-tunnelusername=${jumpUsername}`
+            if (jumpHostProfile.options.auth === 'password') {                    
+                const jumpPassword = await this.passwordStorage.loadPassword(jumpHostProfile, jumpUsername)
+                if (jumpPassword) {
+                    uri += `;x-tunnelpasswordplain=${encodeURIComponent(jumpPassword)}`
+                }
+            }
+            if (jumpHostProfile.options.auth === 'publicKey' && jumpHostProfile.options.privateKeys && jumpHostProfile.options.privateKeys.length > 0) {            
+                const privateKeyPairs = await this.convertPrivateKeyFileToPuTTYFormat(jumpHostProfile)        
+                tmpFile = privateKeyPairs.privateKeyFile
+                if (tmpFile) {
+                    uri += `;x-tunnelpublickeyfile=${encodeURIComponent(tmpFile.path)}`
+                }
+                if (privateKeyPairs.passphrase != null) {
+                    uri += `;x-tunnelpassphraseplain=${encodeURIComponent(privateKeyPairs.passphrase)}`
+                }
+            }
+        }
+        return {uri: uri, privateKeyFile: tmpFile?? null}
+    }
+
     async getWinSCPURI (profile: SSHProfile, cwd?: string, username?: string): Promise<{uri: string, privateKeyFile?: tmp.FileResult|null}> {
         let uri = `scp://${username ?? profile.options.user}`
         const password = await this.passwordStorage.loadPassword(profile, username)
@@ -36,44 +67,9 @@ export class SSHService {
         let tmpFile: tmp.FileResult|null = null
         if (profile.options.jumpHost) {
             const jumpHostProfile = this.config.store.profiles.find(x => x.id === profile.options.jumpHost) ?? null;
-            if (jumpHostProfile) {
-                uri += ';x-tunnel=1'
-                const jumpHostname = jumpHostProfile.options.host
-                uri += `;x-tunnelhostname=${jumpHostname}`
-                const jumpPort = jumpHostProfile.options.port ?? 22
-                uri += `;x-tunnelportnumber=${jumpPort}`
-                const jumpUsername = jumpHostProfile.options.user
-                uri += `;x-tunnelusername=${jumpUsername}`
-                if (jumpHostProfile.options.auth === 'password') {                    
-                    const jumpPassword = await this.passwordStorage.loadPassword(jumpHostProfile, jumpUsername)
-                    if (jumpPassword) {
-                        uri += `;x-tunnelpasswordplain=${encodeURIComponent(jumpPassword)}`
-                    }
-                }
-                if (jumpHostProfile.options.auth === 'publicKey' && jumpHostProfile.options.privateKeys && jumpHostProfile.options.privateKeys.length > 0) {                    
-                    const path = this.getWinSCPPath()
-                    const winSCPcom = path?.slice(0, -3) + 'com'
-                    tmpFile = await tmp.file()
-                    let passphrase: string|null = null
-                    for (const pk of jumpHostProfile.options.privateKeys) {
-                        let privateKeyContent: string|null = null
-                        const buffer = await this.fileProviders.retrieveFile(pk)
-                        privateKeyContent = buffer.toString()
-                        await fs.writeFile(tmpFile.path, privateKeyContent)
-                        const keyHash = crypto.createHash('sha512').update(privateKeyContent).digest('hex')
-                        // need to pass an default passphrase, otherwise it might get stuck at the passphrase input
-                        passphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash) ?? 'tabby'
-                        try {
-                            await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, '-o', tmpFile.path, '--old-passphrase', passphrase])
-                            uri += `;x-tunnelpublickeyfile=${encodeURIComponent(tmpFile.path)}`
-                        } catch (error) {
-                            console.warn('Could not convert private key ', error)
-                            continue
-                        }
-                        break
-                    }
-                }
-            }
+            const xTunnelParams = await this.generateWinSCPXTunnelURI(jumpHostProfile)
+            uri += xTunnelParams.uri ?? ''
+            tmpFile = xTunnelParams.privateKeyFile ?? null
         }
         if (profile.options.host.includes(':')) {
             uri += `@[${profile.options.host}]:${profile.options.port}${cwd ?? '/'}`
@@ -81,6 +77,39 @@ export class SSHService {
             uri += `@${profile.options.host}:${profile.options.port}${cwd ?? '/'}`
         }
         return {uri, privateKeyFile: tmpFile?? null}
+    }
+
+    async convertPrivateKeyFileToPuTTYFormat (profile: SSHProfile): Promise<{passphrase: string|null, privateKeyFile: tmp.FileResult|null}> {
+        if (!profile.options.privateKeys || profile.options.privateKeys.length === 0) {
+            throw new Error('No private keys in profile')
+        }        
+        const path = this.getWinSCPPath()
+        if (!path) {
+            throw new Error('WinSCP not found')
+        }
+        let tmpPrivateKeyFile: tmp.FileResult|null = null
+        let passphrase: string|null = null
+        let tmpFile: tmp.FileResult = await tmp.file()
+        for (const pk of profile.options.privateKeys) {
+            let privateKeyContent: string|null = null
+            const buffer = await this.fileProviders.retrieveFile(pk)
+            privateKeyContent = buffer.toString()
+            await fs.writeFile(tmpFile.path, privateKeyContent)
+            const keyHash = crypto.createHash('sha512').update(privateKeyContent).digest('hex')
+            // need to pass an default passphrase, otherwise it might get stuck at the passphrase input
+            const curPassphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash) ?? 'tabby'
+            const winSCPcom = path.slice(0, -3) + 'com'
+            try {
+                await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, '-o', tmpFile.path, '--old-passphrase', curPassphrase])
+            } catch (error) {
+                console.warn('Could not convert private key ', error)
+                continue
+            }
+            tmpPrivateKeyFile = tmpFile
+            passphrase = curPassphrase
+            break
+        }
+        return {passphrase, privateKeyFile: tmpPrivateKeyFile}
     }
 
     async launchWinSCP (session: SSHSession): Promise<void> {
@@ -93,29 +122,15 @@ export class SSHService {
 
         let tmpFile: tmp.FileResult|null = null
         try {
-            if (session.activePrivateKey && session.profile.options.privateKeys && session.profile.options.privateKeys.length > 0) {
-                tmpFile = await tmp.file()
-                let passphrase: string|null = null
-                for (const pk of session.profile.options.privateKeys) {
-                    let privateKeyContent: string|null = null
-                    const buffer = await this.fileProviders.retrieveFile(pk)
-                    privateKeyContent = buffer.toString()
-                    await fs.writeFile(tmpFile.path, privateKeyContent)
-                    const keyHash = crypto.createHash('sha512').update(privateKeyContent).digest('hex')
-                    // need to pass an default passphrase, otherwise it might get stuck at the passphrase input
-                    passphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash) ?? 'tabby'
-                    const winSCPcom = path.slice(0, -3) + 'com'
-                    try {
-                        await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, '-o', tmpFile.path, '--old-passphrase', passphrase])
-                    } catch (error) {
-                        console.warn('Could not convert private key ', error)
-                        continue
-                    }
-                    break
+            if (session.activePrivateKey && session.profile.options.privateKeys && session.profile.options.privateKeys.length > 0) {                
+                const profile = session.profile
+                const privateKeyPairs = await this.convertPrivateKeyFileToPuTTYFormat(profile)
+                tmpFile = privateKeyPairs.privateKeyFile
+                if (tmpFile) {
+                    args.push(`/privatekey=${tmpFile.path}`)
                 }
-                args.push(`/privatekey=${tmpFile.path}`)
-                if (passphrase != null) {
-                    args.push(`/passphrase=${passphrase}`)
+                if (privateKeyPairs.passphrase != null) {
+                    args.push(`/passphrase=${privateKeyPairs.passphrase}`)
                 }
             }
             await this.platform.exec(path, args)
