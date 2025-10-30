@@ -27,8 +27,8 @@ export class SSHService {
         return this.detectedWinSCPPath ?? this.config.store.ssh.winSCPPath
     }
 
-    async generateWinSCPXTunnelURI (jumpHostProfile: SSHProfile): Promise<{ uri: string|null, privateKeyFile?: tmp.FileResult|null }> {
-        let uri: string = ''
+    async generateWinSCPXTunnelURI (jumpHostProfile: SSHProfile|null): Promise<{ uri: string|null, privateKeyFile?: tmp.FileResult|null }> {
+        let uri = ''
         let tmpFile: tmp.FileResult|null = null
         if (jumpHostProfile) {
             uri += ';x-tunnel=1'
@@ -45,7 +45,7 @@ export class SSHService {
                 }
             }
             if (jumpHostProfile.options.auth === 'publicKey' && jumpHostProfile.options.privateKeys && jumpHostProfile.options.privateKeys.length > 0) {
-                const privateKeyPairs = await this.convertPrivateKeyFileToPuTTYFormat(jumpHostProfile)        
+                const privateKeyPairs = await this.convertPrivateKeyFileToPuTTYFormat(jumpHostProfile)
                 tmpFile = privateKeyPairs.privateKeyFile
                 if (tmpFile) {
                     uri += `;x-tunnelpublickeyfile=${encodeURIComponent(tmpFile.path)}`
@@ -66,7 +66,7 @@ export class SSHService {
         }
         let tmpFile: tmp.FileResult|null = null
         if (profile.options.jumpHost) {
-            const jumpHostProfile = this.config.store.profiles.find(x => x.id === profile.options.jumpHost) ?? null;
+            const jumpHostProfile = this.config.store.profiles.find(x => x.id === profile.options.jumpHost) ?? null
             const xTunnelParams = await this.generateWinSCPXTunnelURI(jumpHostProfile)
             uri += xTunnelParams.uri ?? ''
             tmpFile = xTunnelParams.privateKeyFile ?? null
@@ -82,14 +82,14 @@ export class SSHService {
     async convertPrivateKeyFileToPuTTYFormat (profile: SSHProfile): Promise<{ passphrase: string|null, privateKeyFile: tmp.FileResult|null }> {
         if (!profile.options.privateKeys || profile.options.privateKeys.length === 0) {
             throw new Error('No private keys in profile')
-        }        
+        }
         const path = this.getWinSCPPath()
         if (!path) {
             throw new Error('WinSCP not found')
         }
         let tmpPrivateKeyFile: tmp.FileResult|null = null
         let passphrase: string|null = null
-        let tmpFile: tmp.FileResult = await tmp.file()
+        const tmpFile: tmp.FileResult = await tmp.file()
         for (const pk of profile.options.privateKeys) {
             let privateKeyContent: string|null = null
             const buffer = await this.fileProviders.retrieveFile(pk)
