@@ -27,7 +27,7 @@ export class SSHService {
         return this.detectedWinSCPPath ?? this.config.store.ssh.winSCPPath
     }
 
-    async generateWinSCPXTunnelURI (jumpHostProfile: SSHProfile): Promise<{uri: string|null, privateKeyFile?: tmp.FileResult|null}> {
+    async generateWinSCPXTunnelURI (jumpHostProfile: SSHProfile): Promise<{ uri: string|null, privateKeyFile?: tmp.FileResult|null }> {
         let uri: string = ''
         let tmpFile: tmp.FileResult|null = null
         if (jumpHostProfile) {
@@ -38,13 +38,13 @@ export class SSHService {
             uri += `;x-tunnelportnumber=${jumpPort}`
             const jumpUsername = jumpHostProfile.options.user
             uri += `;x-tunnelusername=${jumpUsername}`
-            if (jumpHostProfile.options.auth === 'password') {                    
+            if (jumpHostProfile.options.auth === 'password') {
                 const jumpPassword = await this.passwordStorage.loadPassword(jumpHostProfile, jumpUsername)
                 if (jumpPassword) {
                     uri += `;x-tunnelpasswordplain=${encodeURIComponent(jumpPassword)}`
                 }
             }
-            if (jumpHostProfile.options.auth === 'publicKey' && jumpHostProfile.options.privateKeys && jumpHostProfile.options.privateKeys.length > 0) {            
+            if (jumpHostProfile.options.auth === 'publicKey' && jumpHostProfile.options.privateKeys && jumpHostProfile.options.privateKeys.length > 0) {
                 const privateKeyPairs = await this.convertPrivateKeyFileToPuTTYFormat(jumpHostProfile)        
                 tmpFile = privateKeyPairs.privateKeyFile
                 if (tmpFile) {
@@ -55,10 +55,10 @@ export class SSHService {
                 }
             }
         }
-        return {uri: uri, privateKeyFile: tmpFile?? null}
+        return { uri: uri, privateKeyFile: tmpFile?? null }
     }
 
-    async getWinSCPURI (profile: SSHProfile, cwd?: string, username?: string): Promise<{uri: string, privateKeyFile?: tmp.FileResult|null}> {
+    async getWinSCPURI (profile: SSHProfile, cwd?: string, username?: string): Promise<{ uri: string, privateKeyFile?: tmp.FileResult|null }> {
         let uri = `scp://${username ?? profile.options.user}`
         const password = await this.passwordStorage.loadPassword(profile, username)
         if (password) {
@@ -76,10 +76,10 @@ export class SSHService {
         }else {
             uri += `@${profile.options.host}:${profile.options.port}${cwd ?? '/'}`
         }
-        return {uri, privateKeyFile: tmpFile?? null}
+        return { uri, privateKeyFile: tmpFile?? null }
     }
 
-    async convertPrivateKeyFileToPuTTYFormat (profile: SSHProfile): Promise<{passphrase: string|null, privateKeyFile: tmp.FileResult|null}> {
+    async convertPrivateKeyFileToPuTTYFormat (profile: SSHProfile): Promise<{ passphrase: string|null, privateKeyFile: tmp.FileResult|null }> {
         if (!profile.options.privateKeys || profile.options.privateKeys.length === 0) {
             throw new Error('No private keys in profile')
         }        
@@ -109,7 +109,7 @@ export class SSHService {
             passphrase = curPassphrase
             break
         }
-        return {passphrase, privateKeyFile: tmpPrivateKeyFile}
+        return { passphrase, privateKeyFile: tmpPrivateKeyFile }
     }
 
     async launchWinSCP (session: SSHSession): Promise<void> {
@@ -122,7 +122,7 @@ export class SSHService {
 
         let tmpFile: tmp.FileResult|null = null
         try {
-            if (session.activePrivateKey && session.profile.options.privateKeys && session.profile.options.privateKeys.length > 0) {                
+            if (session.activePrivateKey && session.profile.options.privateKeys && session.profile.options.privateKeys.length > 0) {
                 const profile = session.profile
                 const privateKeyPairs = await this.convertPrivateKeyFileToPuTTYFormat(profile)
                 tmpFile = privateKeyPairs.privateKeyFile
