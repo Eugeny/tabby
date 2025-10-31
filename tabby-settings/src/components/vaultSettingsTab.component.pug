@@ -4,7 +4,6 @@
     .m-3(translate) Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases.
     button.btn.btn-primary.m-2((click)='enableVault()', translate) Set master passphrase
 
-
 div(*ngIf='vault.isEnabled()')
     .d-flex.align-items-center.mb-3
         h3.m-0(translate) Vault
@@ -19,12 +18,20 @@ div(*ngIf='vault.isEnabled()')
                     span(translate) Erase the Vault
 
     div(*ngIf='vaultContents')
+        .input-group
+        input.form-control.mb-4(
+                type='search',
+                [placeholder]='"Filter"|translate',
+                [(ngModel)]='searchTerm',
+                (ngModelChange)='updateFilteredSecrets()'
+            )
+
         .text-center(*ngIf='!vaultContents.secrets.length')
             i.fas.fa-empty-set.fa-3x
             h3.m-3(translate) Vault is empty
 
         .list-group
-            .list-group-item.d-flex.align-items-center.p-1.ps-3(*ngFor='let secret of vaultContents.secrets')
+            .list-group-item.d-flex.align-items-center.p-1.ps-3(*ngFor='let secret of filteredSecrets')
                 i.fas.fa-key
                 .me-auto {{getSecretLabel(secret)}}
 

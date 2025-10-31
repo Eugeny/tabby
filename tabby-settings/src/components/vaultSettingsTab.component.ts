@@ -14,7 +14,8 @@ import { ShowSecretModalComponent } from './showSecretModal.component'
 export class VaultSettingsTabComponent extends BaseComponent {
     vaultContents: Vault|null = null
     VAULT_SECRET_TYPE_FILE = VAULT_SECRET_TYPE_FILE
-
+    searchTerm = ''
+    filteredSecrets: any[] = []
     @HostBinding('class.content-box') true
 
     constructor (
@@ -32,8 +33,18 @@ export class VaultSettingsTabComponent extends BaseComponent {
 
     async loadVault (): Promise<void> {
         this.vaultContents = await this.vault.load()
+        this.filteredSecrets = this.vaultContents?.secrets ?? []
     }
-
+    updateFilteredSecrets() {
+        if (!this.vaultContents || !this.vaultContents.secrets) {
+            this.filteredSecrets = [];
+            return;
+        }
+        const term = this.searchTerm.toLowerCase();
+        this.filteredSecrets = this.vaultContents.secrets.filter(secret =>
+            this.getSecretLabel(secret).toLowerCase().includes(term)
+        );
+    }
     async enableVault () {
         const modal = this.ngbModal.open(SetVaultPassphraseModalComponent)
         const newPassphrase = await modal.result.catch(() => null)
