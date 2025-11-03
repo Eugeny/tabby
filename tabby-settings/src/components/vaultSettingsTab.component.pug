@@ -18,8 +18,10 @@ div(*ngIf='vault.isEnabled()')
                     span(translate) Erase the Vault
 
     div(*ngIf='vaultContents')
-        .input-group
-        input.form-control.mb-4(
+        .input-group.mb-4
+            .input-group-text
+                i.fas.fa-fw.fa-search
+            input.form-control(
                 type='search',
                 [placeholder]='"Filter"|translate',
                 [(ngModel)]='searchTerm',
