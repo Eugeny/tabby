@@ -45,8 +45,6 @@ export const defaultAlgorithms = {
         'hmac-sha1',
     ],
     [SSHAlgorithmType.COMPRESSION]: [
-        'zlib@openssh.com',
-        'zlib',
         'none',
     ],
 }
