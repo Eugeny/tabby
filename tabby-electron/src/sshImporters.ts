@@ -2,7 +2,6 @@ import * as fs from 'fs/promises'
 import * as fsSync from 'fs'
 import * as path from 'path'
 import * as glob from 'glob'
-import slugify from 'slugify'
 import * as yaml from 'js-yaml'
 import { Injectable } from '@angular/core'
 import { PartialProfile } from 'tabby-core'
@@ -145,15 +144,24 @@ async function parseSSHConfigFile (
     return merged
 }
 
+// Function to convert an SSH Profile name into a sha256 hash-based ID
+async function hashSSHProfileName (name: string) {
+    const textEncoder = new TextEncoder()
+    const encoded = textEncoder.encode(name)
+    const hash = await crypto.subtle.digest('SHA-256', encoded)
+    const hashArray = Array.from(new Uint8Array(hash))
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+}
+
 // Function to take an ssh-config entry and convert it into an SSHProfile
-function convertHostToSSHProfile (host: string, settings: Record<string, string | string[] | object[] >): PartialProfile<SSHProfile> {
+async function convertHostToSSHProfile (host: string, settings: Record<string, string | string[] | object[] >): Promise<PartialProfile<SSHProfile>> {
 
     // inline function to generate an id for this profile
-    const deriveID = (name: string) => 'openssh-config:' + slugify(name)
+    const deriveID = async (name: string) => 'openssh-config:' + await hashSSHProfileName(name)
 
     // Start point of the profile, with an ID, name, type and group
     const thisProfile: PartialProfile<SSHProfile> = {
-        id: deriveID(host),
+        id: await deriveID(host),
         name: `${host} (.ssh/config)`,
         type: 'ssh',
         group: 'Imported from .ssh/config',
@@ -194,7 +202,7 @@ function convertHostToSSHProfile (host: string, settings: Record<string, string 
                 const basicString = settings[key]
                 if (typeof basicString === 'string') {
                     if (targetName === SSHProfilePropertyNames.JumpHost) {
-                        options[targetName] = deriveID(basicString)
+                        options[targetName] = await deriveID(basicString)
                     } else {
                         options[targetName] = basicString
                     }
@@ -295,7 +303,7 @@ function convertHostToSSHProfile (host: string, settings: Record<string, string 
     return thisProfile
 }
 
-function convertToSSHProfiles (config: SSHConfig): PartialProfile<SSHProfile>[] {
+async function convertToSSHProfiles (config: SSHConfig): Promise<PartialProfile<SSHProfile>[]> {
     const myMap = new Map<string, PartialProfile<SSHProfile>>()
 
     function noWildCardsInName (name: string) {
@@ -333,7 +341,7 @@ function convertToSSHProfiles (config: SSHConfig): PartialProfile<SSHProfile>[] 
                         // NOTE: SSHConfig.compute() lies about the return types
                         const configuration: Record<string, string | string[] | object[]> = config.compute(host)
                         if (Object.keys(configuration).map(key => key.toLowerCase()).includes('hostname')) {
-                            myMap[host] = convertHostToSSHProfile(host, configuration)
+                            myMap[host] = await convertHostToSSHProfile(host, configuration)
                         }
                     }
                 }
@@ -354,7 +362,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
 
         try {
             const config: SSHConfig = await parseSSHConfigFile(configPath)
-            return convertToSSHProfiles(config)
+            return await convertToSSHProfiles(config)
         } catch (e) {
             if (e.code === 'ENOENT') {
                 return []
@@ -376,7 +384,7 @@ export class StaticFileImporter extends SSHProfileImporter {
     }
 
     async getProfiles (): Promise<PartialProfile<SSHProfile>[]> {
-        const deriveID = name => 'file-config:' + slugify(name)
+        const deriveID = async name => 'file-config:' + await hashSSHProfileName(name)
 
         if (!fsSync.existsSync(this.configPath)) {
             return []
@@ -387,11 +395,11 @@ export class StaticFileImporter extends SSHProfileImporter {
             return []
         }
 
-        return (yaml.load(content) as PartialProfile<SSHProfile>[]).map(item => ({
+        return Promise.all((yaml.load(content) as PartialProfile<SSHProfile>[]).map(async item => ({
             ...item,
-            id: deriveID(item.name),
+            id: await deriveID(item.name),
             type: 'ssh',
-        }))
+        })))
     }
 }
 
