@@ -1,0 +1,90 @@
+:host {
+    background-color: var(--theme-bg-more-2);
+    height: 100vh;
+    position: relative;
+    border-right: 1px solid var(--theme-secondary);
+    
+}
+
+input {
+    border: 1px solid var(--theme-secondary);
+}
+
+.profile-tree {
+    max-height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+
+    .fw-20 {
+        width: 20px;
+    }
+
+    .fas.fa-chevron-right,
+    .fas.fa-chevron-down {
+        font-size: .7rem;
+    }
+
+    profile-icon {
+        width: 15px;
+        height: 15px;
+    }
+
+    .tree-item {
+        text-decoration: none;
+        color: inherit;
+        padding: calc(.25rem * calc(var(--spaciness) * var(--spaciness))) 0;
+        padding-right: .25rem;
+        border-radius: .3rem;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        &:hover {
+            background-color: var(--theme-secondary);
+            .actions {
+                display: flex;
+            }
+        }
+
+        .actions {
+            display: none;
+            position: absolute;
+            right: 0;
+            flex-direction: row;
+            gap: calc(.25rem * calc(var(--spaciness) * var(--spaciness)));
+            height: 100%;
+            padding: calc(.25rem * calc(var(--spaciness) * var(--spaciness)));
+            background: var(--theme-secondary);
+            .action {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                font-size: 0.6rem;
+                background-color: var(--theme-bg-more-2);
+                border-radius: .2rem;
+                padding: 0 calc(.34rem * calc(var(--spaciness) * var(--spaciness)));
+                &:hover {
+                    background-color: var(--theme-primary);
+                    color: var(--theme-secondary);
+                }
+            }
+        }
+    }
+}
+
+
+.grabber {
+    position: absolute;
+    z-index: 1;
+    width: 7px;
+    height: 25px;
+    display: block;
+    background-color: var(--theme-secondary-fg);
+    border: 3px solid var(--theme-secondary);
+    border-radius: 0.4rem;
+    top: 50%;
+    right: -4px;
+    cursor: col-resize;
+}
