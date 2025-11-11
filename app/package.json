@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2",
-    "node-pty": "^1.1.0-beta34",
+    "node-pty": "^1.1.0-beta39",
     "any-promise": "^1.3.0",
     "electron-config": "2.0.0",
     "electron-debug": "^3.2.0",

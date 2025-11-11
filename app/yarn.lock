@@ -2813,7 +2813,7 @@ node-gyp@^10.0.0, node-gyp@^5.0.2, node-gyp@^5.1.0:
     tar "^6.1.2"
     which "^4.0.0"
 
-node-pty@^1.1.0-beta34:
+node-pty@^1.1.0-beta39:
   version "1.1.0-beta9"
   resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-1.1.0-beta9.tgz#ed643cb3b398d031b4e31c216e8f3b0042435f1d"
   integrity sha512-/Ue38pvXJdgRZ3+me1FgfglLd301GhJN0NStiotdt61tm43N5htUyR/IXOUzOKuNaFmCwIhy6nwb77Ky41LMbw==
