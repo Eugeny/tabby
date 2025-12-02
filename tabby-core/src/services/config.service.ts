@@ -285,6 +285,7 @@ export class ConfigService {
         this.changed.next()
     }
 
+    // eslint-disable-next-line max-statements
     private migrate (config) {
         config.version ??= 0
         if (config.version < 1) {
@@ -413,6 +414,17 @@ export class ConfigService {
                 delete config.configSync.token
             }
             config.version = 7
+        }
+        if (config.version < 8) {
+            if (config.profileDefaults?.ssh?.options?.algorithms?.compression) {
+                config.profileDefaults.ssh.options.algorithms.compression = ['none']
+            }
+            for (const p of config.profiles ?? []) {
+                if (p.options?.algorithms?.compression) {
+                    p.options.algorithms.compression = ['none']
+                }
+            }
+            config.version = 8
         }
     }
 
