@@ -32,7 +32,7 @@
     "apply-loader": "2.0.0",
     "axios": "^1.4.0",
     "babel-loader": "^9.1.2",
-    "browserify-sign": "^4.2.1",
+    "browserify-sign": "^4.2.2",
     "clone-deep": "^4.0.1",
     "compare-versions": "^5",
     "core-js": "^3.31.0",
