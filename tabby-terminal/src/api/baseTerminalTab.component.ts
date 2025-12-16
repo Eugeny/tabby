@@ -500,6 +500,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         const stack = new Error().stack
         const caller = stack?.split('\n')[2]?.trim()
         console.log('sendInput called by:', caller)
+
         this.session?.feedFromTerminal(data)
         if (this.config.store.terminal.scrollOnInput && !data.equals(OSC_FOCUS_IN) && !data.equals(OSC_FOCUS_OUT)) {
             this.frontend?.scrollToBottom()
