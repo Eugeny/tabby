@@ -168,7 +168,7 @@ export class XTermFrontend extends Frontend {
             this.hotkeysService.pushKeyEvent(name, event)
 
             let ret = true
-            if (this.hotkeysService.matchActiveHotkey(true) !== null) {
+            if (this.hotkeysService.matchActiveHotkey(false) !== null) {
                 event.stopPropagation()
                 event.preventDefault()
                 ret = false
