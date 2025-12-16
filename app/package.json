@@ -32,7 +32,7 @@
     "rxjs": "^7.5.7",
     "russh": "0.1.31",
     "source-map-support": "^0.5.20",
-    "v8-compile-cache": "^2.3.0",
+    "v8-compile-cache": "^2.4.0",
     "yargs": "^17.7.2"
   },
   "optionalDependencies": {
