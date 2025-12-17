@@ -206,16 +206,20 @@ export class HotkeysService {
         const currentSequence = this.getCurrentKeystrokes()
 
         const config = this.getHotkeysConfig()
-        console.log("111 pressedKeystroke:", this.pressedKeystroke)
-        console.log("111 config:", config)
-        console.log("111 currentSequence:", currentSequence)
+        console.log("111 all hotkeys:", config)
         for (const id in config) {
             for (const sequence of config[id]) {
-                console.log("111 sequence:", sequence)
+                console.log("hotkey name:", id)
+                console.log("111 input:", currentSequence, currentSequence.length)
+                console.log("111 config:", sequence, sequence.length)
                 if (currentSequence.length < sequence.length) {
+                    console.log("222222")
                     continue
                 }
+                console.log("111 pressedKeystroke:", this.pressedKeystroke)
+                console.log("111 config:", sequence, sequence.length)
                 if (sequence[sequence.length - 1] !== this.pressedKeystroke) {
+                    console.log("3333333")
                     continue
                 }
 
@@ -227,12 +231,15 @@ export class HotkeysService {
                     )
                     if (nextOffset === -1) {
                         matched = false
+                        console.log("111 not match! break")
                         break
                     }
                     lastIndex += nextOffset
                 }
 
+                console.log("111 lastIndex:", lastIndex)
                 if (partial ? lastIndex > 0 : matched) {
+                    console.log("111 push")
                     matches.push({
                         id,
                         sequence,
@@ -241,6 +248,7 @@ export class HotkeysService {
             }
         }
 
+        console.log("1111 matches:", matches)
         matches.sort((a, b) => b.sequence.length - a.sequence.length)
         if (!matches.length) {
             console.log(3333333333)
