@@ -205,6 +205,8 @@ export class HotkeysService {
         const currentSequence = this.getCurrentKeystrokes()
 
         const config = this.getHotkeysConfig()
+        console.log("111 config: ", config)
+        console.log("111 currentSequence: ", currentSequence)
         for (const id in config) {
             for (const sequence of config[id]) {
                 if (currentSequence.length < sequence.length) {
