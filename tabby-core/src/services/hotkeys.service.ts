@@ -195,7 +195,7 @@ export class HotkeysService {
 
     matchActiveHotkey (partial = false): string|null {
         if (!this.isEnabled() || !this.pressedKeystroke) {
-            console.log("2222")
+            // console.log("2222")
             return null
         }
         const matches: {
