@@ -339,15 +339,7 @@ export class XTermFrontend extends Frontend {
     }
 
     clear (): void {
-        if (this.isAlternateScreenActive()) {
-            // vim / less / top 等
-            // 前端清屏，避免破坏应用状态
-            this.xterm.clear()
-        } else {
-            // 普通 shell：发送 Ctrl+L
-            // 等价于用户真实按下 Ctrl+L
-            this.input.next(Buffer.from('\x0c', 'binary'))
-        }
+        this.xterm.clear()
     }
 
     visualBell (): void {
