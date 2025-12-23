@@ -1,0 +1,37 @@
+diff --git a/node_modules/@xterm/xterm/src/common/InputHandler.ts b/node_modules/@xterm/xterm/src/common/InputHandler.ts
+index a4b8c64..0e8df2b 100644
+--- a/node_modules/@xterm/xterm/src/common/InputHandler.ts
++++ b/node_modules/@xterm/xterm/src/common/InputHandler.ts
+@@ -1218,12 +1218,27 @@ export class InputHandler extends Disposable implements IInputHandler {
+         this._dirtyRowTracker.markDirty(0);
+         break;
+       case 2:
+-        j = this._bufferService.rows;
+-        this._dirtyRowTracker.markDirty(j - 1);
+-        while (j--) {
+-          this._resetBufferLine(j, respectProtect);
++        if (true) {
++          j = this._bufferService.rows;
++          this._dirtyRowTracker.markRangeDirty(0, j - 1);
++          while (j--) {
++            const currentLine = this._activeBuffer.lines.get(this._activeBuffer.ybase + j);
++            if (currentLine?.getTrimmedLength()) {
++              break;
++            }
++          }
++          for (; j >= 0; j--) {
++            this._bufferService.scroll(this._eraseAttrData());
++          }
++        }
++        else {
++          j = this._bufferService.rows;
++          this._dirtyRowTracker.markDirty(j - 1);
++          while (j--) {
++            this._resetBufferLine(j, respectProtect);
++          }
++          this._dirtyRowTracker.markDirty(0);
+         }
+-        this._dirtyRowTracker.markDirty(0);
+         break;
+       case 3:
+         // Clear scrollback (everything not in viewport)
