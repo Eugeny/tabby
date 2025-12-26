@@ -167,15 +167,13 @@ export class XTermFrontend extends Frontend {
 
             this.hotkeysService.pushKeyEvent(name, event)
 
-            let isMatch = this.hotkeysService.matchActiveHotkey(false) !== null
-            // console.log("111 isMatch:", isMatch)
-            if (isMatch) {
-                // return false for stop key handler
+            let ret = true
+            if (this.hotkeysService.matchActiveHotkey(true) !== null) {
                 event.stopPropagation()
                 event.preventDefault()
-                return false
+                ret = false
             }
-            return true
+            return ret
         }
 
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
@@ -340,7 +338,6 @@ export class XTermFrontend extends Frontend {
 
     clear (): void {
         this.xterm.clear()
-        // this.input.next(Buffer.from('\x1b[H\x1b[2J', 'binary'))
     }
 
     visualBell (): void {
@@ -423,7 +420,6 @@ export class XTermFrontend extends Frontend {
         this.xterm.options.fontWeight = config.terminal.fontWeight
         this.xterm.options.fontWeightBold = config.terminal.fontWeightBold
         this.xterm.options.minimumContrastRatio = config.terminal.minimumContrastRatio
-        this.xterm.options.scrollOnEraseInDisplay = true
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
