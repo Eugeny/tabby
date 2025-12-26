@@ -8,7 +8,7 @@ app-root {
         background: rgba(var(--bs-dark-rgb),.65);
     }
 
-    &> .content {
+    .main.content {
         .tab-bar {
             background: var(--theme-bg-more-2);
 
