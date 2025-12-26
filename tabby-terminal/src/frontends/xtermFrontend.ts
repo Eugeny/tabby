@@ -167,7 +167,7 @@ export class XTermFrontend extends Frontend {
 
             this.hotkeysService.pushKeyEvent(name, event)
 
-            let isMatch = this.hotkeysService.matchActiveHotkey(false) !== null
+            let isMatch = this.hotkeysService.matchActiveHotkey(true) !== null
             // console.log("111 isMatch:", isMatch)
             if (isMatch) {
                 // return false for stop key handler
