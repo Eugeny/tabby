@@ -3847,6 +3847,11 @@ filelist@^1.0.4:
   dependencies:
     minimatch "^5.0.1"
 
+filesize@^9:
+  version "9.0.11"
+  resolved "https://registry.yarnpkg.com/filesize/-/filesize-9.0.11.tgz#4ac3a42c084232dd9b2a1da0107f32d42fcfa5e4"
+  integrity sha512-gTAiTtI0STpKa5xesyTA9hA3LX4ga8sm2nWRcffEa1L/5vQwb4mj2MdzMkoHoGv4QzfDshQZuYscQSf8c4TKOA==
+
 fill-range@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.1.1.tgz#44265d3cac07e3ea7dc247516380643754a05292"
@@ -6359,6 +6364,13 @@ neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+ngx-filesize@^3.0.2:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/ngx-filesize/-/ngx-filesize-3.0.6.tgz#28f1fb20a6396602000e384d35d09284ce5c1166"
+  integrity sha512-wIZJeE9x8ovYJDaxmCfaJvVf2T0q1q8XkiceTmSgPFj0di0MCGPVErW1z6sk/T6Wk7SH9OWs5/Wf3dZDH8T5GQ==
+  dependencies:
+    tslib "^2.3.0"
 
 ngx-toastr@^16.0.2:
   version "16.0.2"

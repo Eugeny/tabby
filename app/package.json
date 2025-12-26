@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@electron/remote": "^2",
+    "atomically": "^2.0.2",
     "any-promise": "^1.3.0",
+    "dunder-proto": "^1",
     "electron-config": "2.0.0",
     "electron-debug": "^3.2.0",
     "electron-promise-ipc": "^2.2.4",
@@ -47,10 +49,7 @@
   "devDependencies": {
     "@ngx-translate/core": "^14.0.0",
     "@types/mz": "2.7.4",
-    "@types/node": "20.3.1",
-    "atomically": "^2.0.2",
-    "filesize": "^9",
-    "ngx-filesize": "^3.0.2"
+    "@types/node": "20.3.1"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",
