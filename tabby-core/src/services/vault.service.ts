@@ -8,7 +8,7 @@ import { UnlockVaultModalComponent } from '../components/unlockVaultModal.compon
 import { NotificationsService } from './notifications.service'
 import { SelectorService } from './selector.service'
 import { FileProvider } from '../api/fileProvider'
-import { PlatformService } from '../api/platform'
+import { FileService, PlatformService } from '../api/platform'
 
 const PBKDF_ITERATIONS = 100000
 const PBKDF_DIGEST = 'sha512'
@@ -114,6 +114,7 @@ export class VaultService {
         private zone: NgZone,
         private notifications: NotificationsService,
         private ngbModal: NgbModal,
+        private fileService: FileService,
     ) {
         this.getPassphrase = serializeFunction(this.getPassphrase.bind(this))
     }
@@ -138,13 +139,15 @@ export class VaultService {
     }
 
     async decrypt (storage: StoredVault, passphrase?: string): Promise<Vault> {
-        if (!passphrase) {
-            passphrase = await this.getPassphrase()
-        }
         try {
+            if (!passphrase) {
+                passphrase = await this.getPassphrase()
+            }
             return await wrapPromise(this.zone, decryptVault(storage, passphrase))
         } catch (e) {
+            console.log("decrypt error:", e)
             this.forgetPassphrase()
+            await this.fileService.deleteVaultPassphrase()
             if (e.toString().includes('BAD_DECRYPT')) {
                 this.notifications.error('Incorrect passphrase')
             }
@@ -177,6 +180,9 @@ export class VaultService {
 
     async getPassphrase (): Promise<string> {
         if (!_rememberedPassphrase) {
+            _rememberedPassphrase = await this.fileService.loadVaultPassphrase()
+        }
+        if (!_rememberedPassphrase) {
             const modal = this.ngbModal.open(UnlockVaultModalComponent)
             const { passphrase, rememberFor } = await modal.result
             setTimeout(() => {
@@ -184,6 +190,8 @@ export class VaultService {
                 // avoid multiple consequent prompts
             }, Math.max(1000, rememberFor * 60000))
             _rememberedPassphrase = passphrase
+            // get passphrase from user input
+            await this.fileService.saveVaultPassphrase(passphrase)
         }
 
         return _rememberedPassphrase!

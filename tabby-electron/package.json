@@ -28,5 +28,8 @@
     "tmp-promise": "^3.0.2",
     "which": "^3.0.0",
     "winston": "^3.3.3"
+  },
+  "dependencies": {
+    "electron-store": "8.1.0"
   }
 }

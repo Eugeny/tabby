@@ -1,5 +1,15 @@
+# Dev
 yarn
 
 yarn run build
 
 yarn run start
+
+
+
+# Release
+ARCH=arm64 node scripts/prepackage-plugins.mjs
+
+ARCH=arm64 node scripts/build-macos.mjs
+
+codesign --deep --force --sign - dist/mac-arm64/Tabby.app

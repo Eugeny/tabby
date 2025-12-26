@@ -17,7 +17,7 @@ import { parseArgs } from './cli'
 import { Application } from './app'
 import electronDebug = require('electron-debug')
 import { loadConfig } from './config'
-
+import Store from 'electron-store'
 
 const argv = parseArgs(process.argv, process.cwd())
 
@@ -70,6 +70,8 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 app.on('ready', async () => {
+    Store.initRenderer()
+
     if (process.platform === 'darwin') {
         app.dock.setMenu(Menu.buildFromTemplate([
             {
