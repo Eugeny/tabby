@@ -492,9 +492,15 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      * Feeds input into the active session
      */
     sendInput (data: string|Buffer): void {
+        // console.log("222 sendInput: ", data)
         if (!(data instanceof Buffer)) {
             data = Buffer.from(data, 'utf-8')
         }
+        // 222 打印调用者
+        // const stack = new Error().stack
+        // const caller = stack?.split('\n')[2]?.trim()
+        // console.log("222 sendInput called by:", caller)
+
         this.session?.feedFromTerminal(data)
         if (this.config.store.terminal.scrollOnInput && !data.equals(OSC_FOCUS_IN) && !data.equals(OSC_FOCUS_OUT)) {
             this.frontend?.scrollToBottom()
