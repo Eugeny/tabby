@@ -36,7 +36,8 @@ const cachedBuiltinModules = {
     'ngx-toastr': require('ngx-toastr'),
     rxjs: require('rxjs'),
     'rxjs/operators': require('rxjs/operators'),
-    'zone.js/dist/zone.js': require('zone.js/dist/zone.js'),
+    'zone.js/dist/zone.js': require('zone.js'),
+    'zone.js': require('zone.js'),
 }
 
 const builtinModules = [
