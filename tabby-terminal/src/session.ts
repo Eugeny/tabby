@@ -71,7 +71,7 @@ export abstract class BaseSession {
 
     async destroy (): Promise<void> {
         if (this.open) {
-            this.logger.info('Destroying')
+            this.logger.info("111 Destroying")
             this.open = false
             this.closed.next()
             this.destroyed.next()
