@@ -289,12 +289,12 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     break
                 case 'delete-line':
                     this.forEachFocusedTerminalPane(tab => {
-                        tab.sendInput('\x1bw')
+                        tab.sendInput('\x15\x0b')   // \x15 => Ctrl + U; \x0b => Ctrl + K
                     })
                     break
                 case 'delete-previous-word':
                     this.forEachFocusedTerminalPane(tab => {
-                        tab.sendInput('\u0017')
+                        tab.sendInput('\u0017')     // \u0017 => Ctrl + W
                     })
                     break
                 case 'delete-next-word':
