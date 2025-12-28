@@ -74,6 +74,14 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Search'),
         },
         {
+            id: 'search-up',
+            name: this.translate.instant('Search Up'),
+        },
+        {
+            id: 'search-down',
+            name: this.translate.instant('Search Down'),
+        },
+        {
             id: 'pane-focus-all',
             name: this.translate.instant('Focus all panes at once (broadcast)'),
         },

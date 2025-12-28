@@ -96,3 +96,5 @@ hotkeys:
     - '⌘-Shift-E'
   command-selector:
     - '⌘-Shift-P'
+  search-up: []
+  search-down: []

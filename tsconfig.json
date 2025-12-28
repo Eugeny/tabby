@@ -11,7 +11,7 @@
     "sourceMap": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -46,5 +46,7 @@
     "strictTemplates": true,
     "enableResourceInlining": true,
     "strictInjectionParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
   },
 }

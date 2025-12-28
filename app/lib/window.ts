@@ -11,6 +11,7 @@ import { compare as compareVersions } from 'compare-versions'
 
 import type { Application } from './app'
 import { parseArgs } from './cli'
+import { argv } from '../lib/index'
 
 let DwmEnableBlurBehindWindow: any = null
 if (process.platform === 'win32') {
@@ -130,6 +131,10 @@ export class Window {
                 this.window.focus()
                 this.window.moveTop()
                 application.focus()
+            }
+
+            if (argv.debug) {
+                this.window.webContents.openDevTools();
             }
         })
 

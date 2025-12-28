@@ -1,7 +1,7 @@
-# Dev
+# Development
 yarn
 
-yarn run build
+yarn run watch  # yarn run build
 
 yarn run start
 

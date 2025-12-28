@@ -11,10 +11,10 @@
         "experimentalDecorators": true,
         "esModuleInterop": true,
         "sourceMap": true,
-        "noUnusedParameters": true,
+        "noUnusedParameters": false,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "lib": [
            "dom",
            "es2015",

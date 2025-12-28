@@ -98,3 +98,5 @@ hotkeys:
     - 'Ctrl-Shift-E'
   command-selector:
     - 'Ctrl-Shift-P'
+  search-up: []
+  search-down: []

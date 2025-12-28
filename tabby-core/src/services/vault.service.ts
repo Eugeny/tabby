@@ -145,7 +145,7 @@ export class VaultService {
             }
             return await wrapPromise(this.zone, decryptVault(storage, passphrase))
         } catch (e) {
-            console.log("decrypt error:", e)
+            console.error("decrypt error:", e)
             this.forgetPassphrase()
             await this.fileService.deleteVaultPassphrase()
             if (e.toString().includes('BAD_DECRYPT')) {

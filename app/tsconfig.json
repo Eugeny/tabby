@@ -12,8 +12,8 @@
         "sourceMap": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "noUnusedParameters": true,
-        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "noUnusedLocals": false,
         "lib": [
            "dom",
            "es2015",

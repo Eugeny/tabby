@@ -19,7 +19,7 @@ import electronDebug = require('electron-debug')
 import { loadConfig } from './config'
 import Store from 'electron-store'
 
-const argv = parseArgs(process.argv, process.cwd())
+export const argv = parseArgs(process.argv, process.cwd())
 
 // eslint-disable-next-line @typescript-eslint/init-declarations
 let configStore: any
@@ -44,13 +44,13 @@ process.on('uncaughtException' as any, err => {
     application.broadcast('uncaughtException', err)
 })
 
-if (argv.d) {
-    electronDebug({
-        isEnabled: true,
-        showDevTools: true,
-        devToolsMode: 'undocked',
-    })
-}
+// if (argv.d) {
+//     electronDebug({
+//         isEnabled: true,
+//         showDevTools: true,
+//         devToolsMode: 'undocked',
+//     })
+// }
 
 app.on('activate', async () => {
     if (!application.hasWindows()) {

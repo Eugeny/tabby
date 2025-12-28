@@ -87,13 +87,9 @@ export class HotkeysService {
             const events = ['keydown', 'keyup']
 
             events.forEach(eventType => {
-                document.addEventListener(eventType, (nativeEvent: KeyboardEvent) => {
-                    this._keyEvent.next(nativeEvent)
-                    this.pushKeyEvent(eventType, nativeEvent)
-                    if (hostApp.platform === Platform.Web && this.matchActiveHotkey(true) !== null) {
-                        nativeEvent.preventDefault()
-                        nativeEvent.stopPropagation()
-                    }
+                window.addEventListener(eventType, (nativeEvent: KeyboardEvent) => {
+                    // console.log("1111 keyboard non-xterm.js:", nativeEvent)
+                    this.propagationKeyEventHandler(eventType, nativeEvent)
                 })
             })
         })
@@ -105,17 +101,43 @@ export class HotkeysService {
         this.key.subscribe = deprecate(s => this.keyEvent$.subscribe(s), 'key is deprecated, use keyEvent$')
     }
 
+    propagationKeyEventHandler (eventName: string, nativeEvent: KeyboardEvent): boolean {
+        const isMatch = this.pushKeyEvent(eventName, nativeEvent)
+        if (isMatch) {
+            // console.log("preventDefault and stopPropagation:", nativeEvent)
+            nativeEvent.preventDefault()
+            nativeEvent.stopPropagation()
+            return false
+        } else if (this.isRefresh(nativeEvent)) {
+            // Prevent Ctrl+W closing window / Ctrl+N opening new window in PWA.
+            // (No effect in a regular browser tab.)
+            nativeEvent.preventDefault()
+            return false
+        }
+        return true
+    }
+
+    /**
+     * @param {KeyboardEvent} e
+     * @return {boolean}
+     */
+    isRefresh (e) {
+        // 116: keyCode of "F5"
+        return e.keyCode === 116;
+    }
+
     /**
      * Adds a new key event to the buffer
      *
      * @param eventName DOM event name
      * @param nativeEvent event object
      */
-    pushKeyEvent (eventName: string, nativeEvent: KeyboardEvent): void {
+    pushKeyEvent (eventName: string, nativeEvent: KeyboardEvent): boolean {
         if (nativeEvent.timeStamp === this.lastEventTimestamp) {
-            return
+            return false
         }
 
+        let isMatch = false
         nativeEvent['event'] = eventName
 
         const eventData = {
@@ -163,16 +185,21 @@ export class HotkeysService {
             this.pressedKeystroke = null
         }
 
-        const matched = this.matchActiveHotkey()
-        this.zone.run(() => {
-            if (matched) {
-                if (this.recognitionPhase) {
-                    this.emitHotkeyOn(matched)
-                }
-            } else if (this.pressedHotkey) {
-                this.emitHotkeyOff(this.pressedHotkey)
+        const hotkey = this.matchActiveHotkey(false)
+        if (hotkey) {
+            if (this.recognitionPhase) {
+                this.zone.run(() => {
+                    this.emitHotkeyOn(hotkey)
+                })
+                isMatch = true
             }
-        })
+        } else if (this.pressedHotkey) {
+            this.zone.run(() => {
+                if (this.pressedHotkey) {
+                    this.emitHotkeyOff(this.pressedHotkey)
+                }
+            })
+        }
 
         this.zone.run(() => {
             this._key.next(getKeyName(eventData))
@@ -184,6 +211,7 @@ export class HotkeysService {
         }
 
         this.lastEventTimestamp = nativeEvent.timeStamp
+        return isMatch
     }
 
     getCurrentKeystrokes (): Keystroke[] {
@@ -195,7 +223,7 @@ export class HotkeysService {
 
     matchActiveHotkey (partial = false): string|null {
         if (!this.isEnabled() || !this.pressedKeystroke) {
-            // console.log("2222")
+            // console.log("111 not matched, isEnabled:", this.isEnabled(), this.pressedKeystroke)
             return null
         }
         const matches: {
@@ -213,13 +241,13 @@ export class HotkeysService {
                 // console.log("111 input:", currentSequence, currentSequence.length)
                 // console.log("111 config:", sequence, sequence.length)
                 if (currentSequence.length < sequence.length) {
-                    // console.log("222222")
+                    // console.log("111 continue-1")
                     continue
                 }
                 // console.log("111 pressedKeystroke:", this.pressedKeystroke)
                 // console.log("111 config:", sequence, sequence.length)
                 if (sequence[sequence.length - 1] !== this.pressedKeystroke) {
-                    // console.log("3333333")
+                    // console.log("111 continue-2")
                     continue
                 }
 
@@ -248,16 +276,16 @@ export class HotkeysService {
             }
         }
 
-        // console.log("1111 matches:", matches)
+        // console.log("111 matches:", matches)
         matches.sort((a, b) => b.sequence.length - a.sequence.length)
         if (!matches.length) {
-            // console.log("3333")
+            // console.log("111 not matched")
             return null
         }
         if (matches[0].sequence.length > 1) {
             this.clearCurrentKeystrokes()
         }
-        // console.log("44444")
+        // console.log("111 matched")
         return matches[0].id
     }
 

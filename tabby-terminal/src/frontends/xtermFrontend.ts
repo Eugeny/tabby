@@ -141,7 +141,7 @@ export class XTermFrontend extends Frontend {
             this.xterm.loadAddon(new ImageAddon())
         }
 
-        const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
+        const propagationKeyEventHandler = (eventType: string, event: KeyboardEvent) => {
             if (this.isAlternateScreenActive()) {
                 let modifiers = 0
                 modifiers += event.ctrlKey ? 1 : 0
@@ -165,20 +165,16 @@ export class XTermFrontend extends Frontend {
                 return false
             }
 
-            this.hotkeysService.pushKeyEvent(name, event)
-
-            let isMatch = this.hotkeysService.matchActiveHotkey(true) !== null
-            // console.log("111 isMatch:", isMatch)
-            if (isMatch) {
-                // return false for stop key handler
-                event.stopPropagation()
-                event.preventDefault()
-                return false
-            }
-            return true
+            return this.hotkeysService.propagationKeyEventHandler(eventType, event)
         }
 
+        /*
+        * xterm.js only triggers keyup event, no keydown.
+        * For certain special keys like F1–F12, Home, End, PageUp/PageDown
+        * xterm calls preventDefault() to stop the event from propagating.
+         */
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
+            // console.log("1111 keyboard from xterm.js:", event)
             if (this.hostApp.platform !== Platform.Web) {
                 if (
                     event.getModifierState('Meta') && event.key.toLowerCase() === 'v' ||
@@ -192,8 +188,17 @@ export class XTermFrontend extends Frontend {
                 return false
             }
 
-            return keyboardEventHandler('keydown', event)
+            return propagationKeyEventHandler('keydown', event)
         })
+
+        const oldKeyUp = this.xtermCore._keyUp.bind(this.xtermCore)
+        this.xtermCore._keyUp = (event: KeyboardEvent) => {
+            this.xtermCore.updateCursorStyle(event)
+            // console.log("1111 keyboard from xterm.js:", event)
+            if (propagationKeyEventHandler('keyup', event)) {
+                oldKeyUp(event)
+            }
+        }
 
         this.xtermCore._scrollToBottom = this.xtermCore.scrollToBottom.bind(this.xtermCore)
         this.xtermCore.scrollToBottom = () => null
@@ -207,14 +212,6 @@ export class XTermFrontend extends Frontend {
             } catch (e) {
                 // tends to throw when element wasn't shown yet
                 console.warn('Could not resize xterm', e)
-            }
-        }
-
-        const oldKeyUp = this.xtermCore._keyUp.bind(this.xtermCore)
-        this.xtermCore._keyUp = (e: KeyboardEvent) => {
-            this.xtermCore.updateCursorStyle(e)
-            if (keyboardEventHandler('keyup', e)) {
-                oldKeyUp(e)
             }
         }
 
