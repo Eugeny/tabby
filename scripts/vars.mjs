@@ -10,7 +10,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const electronInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../node_modules/electron/package.json')))
 
-export let version = childProcess.execSync('git describe --tags', { encoding:'utf-8' })
+export let version = childProcess.execSync('git describe --tags --always', { encoding:'utf-8' })
 version = version.substring(1).trim()
 version = version.replace('-', '-c')
 

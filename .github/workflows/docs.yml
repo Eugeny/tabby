@@ -3,7 +3,8 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    # if: ${{ github.actor != 'dependabot[bot]' }}
+    if: false
 
     steps:
     - name: Checkout
