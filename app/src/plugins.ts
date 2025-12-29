@@ -162,7 +162,11 @@ async function parsePluginInfo (pluginDir: string, packageName: string): Promise
     try {
         const info = JSON.parse(await fs.readFile(infoPath, { encoding: 'utf-8' }))
 
-        if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin') || info.keywords.includes('tabby-plugin') || info.keywords.includes('tabby-builtin-plugin'))) {
+        if (!info.keywords
+                || !(info.keywords.includes('terminus-plugin')
+                || info.keywords.includes('terminus-builtin-plugin')
+                || info.keywords.includes('tabby-plugin')
+                || info.keywords.includes('tabby-builtin-plugin'))) {
             return null
         }
 
@@ -192,7 +196,23 @@ export async function findPlugins (): Promise<PluginInfo[]> {
     const paths = nodeModule.globalPaths
     let foundPlugins: PluginInfo[] = []
 
-    const candidateLocations: { pluginDir: string, packageName: string }[] = await getPluginCandidateLocation(paths)
+    let scopePaths = []
+    let entries
+    for (const pluginPath of paths) {
+        try {
+            entries = await fs.promises.readdir(pluginPath, {withFileTypes: true})
+        } catch (e) {
+            continue
+        }
+
+        for (const entry of entries) {
+            if (entry.isDirectory() && entry.name.startsWith('@zeroleo12345')) {
+                scopePaths.push(path.join(pluginPath, entry.name))
+            }
+        }
+    }
+
+    const candidateLocations: { pluginDir: string, packageName: string }[] = await getPluginCandidateLocation([...paths, ...scopePaths])
 
     const foundPluginsPromises: Promise<PluginInfo|null>[] = []
     for (const { pluginDir, packageName } of candidateLocations) {
@@ -217,12 +237,14 @@ export async function findPlugins (): Promise<PluginInfo[]> {
                 }
             }
 
+            // console.log("111 push plugin: ", pluginInfo)
             foundPlugins.push(pluginInfo)
         }
     }
 
     foundPlugins.sort((a, b) => a.name > b.name ? 1 : -1)
     foundPlugins.sort((a, b) => a.isBuiltin < b.isBuiltin ? 1 : -1)
+    // console.log("1111 foundPlugins:", foundPlugins)
     return foundPlugins
 }
 

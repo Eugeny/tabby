@@ -27,6 +27,7 @@ export class PluginManagerService {
 
     listAvailable (query?: string): Observable<PluginInfo[]> {
         return forkJoin(
+            this._listAvailableInternal('@zeroleo12345/', '@zeroleo12345/tabby-plugin', query),
             this._listAvailableInternal('tabby-', 'tabby-plugin', query),
             this._listAvailableInternal('terminus-', 'terminus-plugin', query),
         ).pipe(
