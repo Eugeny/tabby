@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { build as builder } from 'electron-builder'
+import execa from 'execa'
 import * as vars from './vars.mjs'
 
 const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
@@ -38,6 +39,16 @@ builder({
                 channel: `latest-${process.env.ARCH}`,
             },
         ] : undefined,
+        afterSign: async (context) => {
+          const appPath = context.appOutDir + '/Tabby.app'
+          await execa('codesign', [
+            '--deep',
+            '--force',
+            '--sign',
+            '-',
+            appPath,
+          ])
+        },
     },
     publish: (process.env.KEYGEN_TOKEN && isTag) ? 'always' : 'never',
 }).catch(e => {

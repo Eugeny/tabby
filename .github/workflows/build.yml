@@ -15,7 +15,7 @@ jobs:
       ) ||
       (
         github.event_name == 'pull_request' &&
-        github.event.pull_request.labels
+        contains(github.event.pull_request.labels.*.name, 'enhancement')
       )
 
     steps:
@@ -24,26 +24,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Installing Node
-      uses: actions/setup-node@v4.4.0
-      with:
-        node-version: 22
-
-    - name: Install deps
-      run: |
-        sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
-        npm i -g yarn
-        cd app
-        yarn
-        cd ..
-        rm app/node_modules/.yarn-integrity
-        yarn
-
-    - name: Build typings
-      run: yarn run build:typings
-
-    # - name: Lint
-    #   run: yarn run lint
 
   macOS-Build:
     runs-on: macos-15
@@ -56,7 +36,6 @@ jobs:
           - arch: arm64
             rust_triple: aarch64-apple-darwin
       fail-fast: false
-
     env:
       ARCH: ${{matrix.arch}}
       RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
@@ -70,7 +49,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v4.4.0
       with:
-        node-version: 22
+        node-version: 22.21.1
 
     - run: rustup target add ${{matrix.rust_triple}}
 
@@ -81,52 +60,29 @@ jobs:
         ARCH: ${{matrix.arch}}
 
     - name: Webpack
-      run: yarn run build
+      run: |
+        yarn run build
 
     - name: Prepackage plugins
-      run: scripts/prepackage-plugins.mjs
+      run: |
+        scripts/prepackage-plugins.mjs
       env:
         ARCH: ${{matrix.arch}}
 
     - run: sed -i '' 's/updateInfo = await/\/\/updateInfo = await/g' node_modules/app-builder-lib/out/targets/ArchiveTarget.js
 
     # Work around electron-builder beta bug
-    - run: ln -s ../../node_modules/electron app/node_modules
-
-    # - name: Build and sign packages
-    #   run: scripts/build-macos.mjs
-    #   if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
-    #   env:
-    #     ARCH: ${{matrix.arch}}
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-    #     CSC_LINK: ${{ secrets.CSC_LINK }}
-    #     CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-    #     APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-    #     APPSTORE_USERNAME: ${{ secrets.APPSTORE_USERNAME }}
-    #     APPSTORE_PASSWORD: ${{ secrets.APPSTORE_PASSWORD }}
-    #     USE_HARD_LINKS: false
-    #     # DEBUG: electron-builder,electron-builder:*
+    # - run: ln -s ../../node_modules/electron app/node_modules
 
     - name: Build packages without signing
       run: |
         scripts/build-macos.mjs
         find ./dist -name "Tabby.app" | xargs -I{} -t sh -c "codesign --deep --force --sign - {}"
-      if: "! (github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
 
-    # - name: Upload symbols
-    #   run: |
-    #     sudo npm install -g @sentry/cli --unsafe-perm
-    #     ./scripts/sentry-upload.mjs
-    #   env:
-    #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-    #     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-    #     SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-
-    - name: Package artifacts
+    - name: Prepare artifacts for dmg and zip
       run: |
         mkdir artifact-dmg
         mv dist/*.dmg artifact-dmg/
@@ -145,173 +101,6 @@ jobs:
         name: macOS .zip (${{matrix.arch}})
         path: artifact-zip
 
-  Linux-Build:
-    runs-on: ${{matrix.os}}
-    needs: Lint
-    strategy:
-      matrix:
-        include:
-          - build-arch: x64
-            arch: amd64
-            rust_triple: x86_64-unknown-linux-gnu
-            os: ubuntu-24.04
-          - build-arch: arm64
-            arch: arm64
-            rust_triple: aarch64-unknown-linux-gnu
-            triplet: aarch64-linux-gnu-
-            os: ubuntu-24.04-arm
-          - build-arch: arm
-            arch: armhf
-            rust_triple: arm-unknown-linux-gnueabihf
-            triplet: arm-linux-gnueabihf-
-            os: ubuntu-24.04
-      fail-fast: false
-
-    env:
-      CC: ${{matrix.triplet}}gcc
-      CXX: ${{matrix.triplet}}g++
-      ARCH: ${{matrix.build-arch}}
-      npm_config_arch: ${{matrix.build-arch}}
-      npm_config_target_arch: ${{matrix.build-arch}}
-      RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Install Node
-      uses: actions/setup-node@v4.4.0
-      with:
-        node-version: 22
-
-    - name: Install FPM
-      run: |
-        sudo gem install fpm
-
-    - run: rustup target add ${{matrix.rust_triple}}
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install libfontconfig1-dev libarchive-tools zsh crossbuild-essential-${{matrix.arch}}
-
-    - name: Setup tar to run as root
-      run: sudo chmod u+s "$(command -v tar)"
-      if: matrix.build-arch == 'arm'
-
-    - name: Download cached sysroot
-      uses: actions/cache@v3
-      id: dl-cached-sysroot
-      if: matrix.build-arch == 'arm'
-      with:
-        key: sysroot-${{matrix.build-arch}}
-        path: /${{matrix.build-arch}}-sysroot
-
-    - name: Setup crossbuild sysroot
-      run: |
-        sudo apt-get update -y && sudo apt-get install debootstrap qemu-user-static binfmt-support -y
-        sudo qemu-debootstrap --include=libfontconfig1-dev,libsecret-1-dev,libnss3,libatk1.0-0,libatk-bridge2.0-0,libgdk-pixbuf2.0-0,libgtk-3-0,libgbm1 --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --arch ${{matrix.arch}} bionic /${{matrix.build-arch}}-sysroot/ http://ports.ubuntu.com/ubuntu-ports/
-        sudo find /${{matrix.build-arch}}-sysroot -type l -lname '/*' -exec sh -c 'file="$0"; dir=$(dirname "$file"); target=$(readlink "$0"); prefix=$(dirname "$dir" | sed 's@[^/]*@\.\.@g'); newtarget="$prefix$target"; ln -snf $newtarget $file' {} \; ;
-      if: matrix.build-arch == 'arm' && steps.dl-cached-sysroot.outputs.cache-hit != 'true'
-
-    - name: Setup env to use ${{matrix.build-arch}} sysroot
-      run: |
-        echo "CFLAGS=--sysroot=/${{matrix.build-arch}}-sysroot/" >> $GITHUB_ENV
-        echo "CXXFLAGS=--sysroot=/${{matrix.build-arch}}-sysroot/" >> $GITHUB_ENV
-        echo "LDFLAGS=--sysroot=/${{matrix.build-arch}}-sysroot/" >> $GITHUB_ENV
-
-        [[ ${npm_config_arch} == 'arm' ]] && echo "npm_config_arch=armv7l" >> $GITHUB_ENV
-
-        if [[ ${{matrix.arch}} == 'armhf' ]]; then
-          echo "PKG_CONFIG_PATH=/${{matrix.build-arch}}-sysroot/usr/lib/pkgconfig/:/${{matrix.build-arch}}-sysroot/usr/lib/arm-linux-gnueabihf/pkgconfig/" >> $GITHUB_ENV
-        elif [[ ${{matrix.arch}} == 'arm64' ]]; then
-          echo "PKG_CONFIG_PATH=/${{matrix.build-arch}}-sysroot/usr/lib/pkgconfig/:/${{matrix.build-arch}}-sysroot/usr/lib/aarch64-linux-gnu/pkgconfig/" >> $GITHUB_ENV
-        fi
-      if: matrix.build-arch == 'arm'
-
-    - name: Install npm_modules (native)
-      run: |
-        npm i -g yarn node-gyp
-        yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target-arch=${{matrix.build-arch}}
-
-    - name: Webpack (${{matrix.arch}})
-      run: yarn run build --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}
-
-    - name: Prepackage plugins (${{matrix.arch}})
-      run: scripts/prepackage-plugins.mjs
-
-    - name: Build packages (${{matrix.arch}})
-      run: scripts/build-linux.mjs
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-        USE_HARD_LINKS: false
-        USE_SYSTEM_FPM: true
-        # DEBUG: electron-builder,electron-builder:*
-
-    - name: Build web resources (amd64 only)
-      run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
-      if: matrix.build-arch == 'x64'
-
-    # - name: Upload symbols (amd64 only)
-    #   run: |
-    #     sudo npm install -g @sentry/cli --unsafe-perm
-    #     ./scripts/sentry-upload.mjs
-    #   if: matrix.build-arch == 'x64'
-    #   env:
-    #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-    #     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-    #     SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-
-    # - name: Upload packages to packagecloud.io
-    #   uses: TykTechnologies/packagecloud-action@main
-    #   if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-    #   env:
-    #     PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
-    #   with:
-    #     repo: 'eugeny/tabby'
-    #     dir: 'dist'
-    #     rpmvers: 'el/9 el/8 ol/6 ol/7'
-    #     debvers: 'ubuntu/bionic ubuntu/focal ubuntu/hirsute ubuntu/impish ubuntu/jammy ubuntu/kinetic ubuntu/noble ubuntu/oracular debian/jessie debian/stretch debian/buster debian/bullseye debian/bookworm debian/trixie debian/forky debian/duke debian/testing debian/unstable debian/sid'
-
-    - uses: actions/upload-artifact@master
-      name: Upload AppImage (${{matrix.arch}})
-      with:
-        name: Linux AppImage (${{matrix.arch}})
-        path: dist/*.AppImage
-
-    - uses: actions/upload-artifact@master
-      name: Upload DEB (${{matrix.arch}})
-      with:
-        name: Linux DEB (${{matrix.arch}})
-        path: dist/*.deb
-
-    - uses: actions/upload-artifact@master
-      name: Upload RPM (${{matrix.arch}})
-      with:
-        name: Linux RPM (${{matrix.arch}})
-        path: dist/*.rpm
-
-    - uses: actions/upload-artifact@master
-      name: Upload Pacman Package (${{matrix.arch}})
-      with:
-        name: Linux Pacman (${{matrix.arch}})
-        path: dist/*.pacman
-
-    - uses: actions/upload-artifact@master
-      name: Upload Linux tarball (${{matrix.arch}})
-      with:
-        name: Linux tarball (${{matrix.arch}})
-        path: dist/*.tar.gz
-
-    - uses: actions/upload-artifact@master
-      name: Upload web tarball (amd64 only)
-      with:
-        name: Web tarball
-        path: tabby-web.tar.gz
-      if: matrix.build-arch == 'x64'
 
   Windows-Build:
     runs-on: windows-latest
@@ -334,12 +123,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-
-    - name: Code signing with Software Trust Manager
-      uses: digicert/ssm-code-signing@v1.1.1
-      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
-      env:
-        FORCE_DOWNLOAD_TOOLS: 'true'
 
     - name: Installing Node
       uses: actions/setup-node@v4.4.0
@@ -364,60 +147,10 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
-    - name: Decode certificate
-      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
-      env:
-        SM_CLIENT_CERT_FILE_B64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
-      run: |
-        SM_CLIENT_CERT_FILE=$RUNNER_TEMP/certificate.p12
-        echo "$SM_CLIENT_CERT_FILE_B64" | base64 --decode > $SM_CLIENT_CERT_FILE
-        echo "SM_CLIENT_CERT_FILE=$SM_CLIENT_CERT_FILE" >> "$GITHUB_ENV"
-      shell: bash
-
-    - name: Build and sign packages
-      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
-      shell: powershell
-      run: |
-        Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
-        smksp_registrar.exe list
-        smctl.exe healthcheck
-        smctl.exe keypair ls
-        smctl windows certsync --keypair-alias $env:SM_KEYPAIR_ALIAS
-        smctl.exe certificate ls
-        C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
-        smksp_cert_sync.exe
-
-        # not used but necessary for electron-builder to run
-        $env:WIN_CSC_LINK=$env:SM_CLIENT_CERT_FILE
-        $env:WIN_CSC_KEY_PASSWORD=$env:SM_CLIENT_CERT_PASSWORD
-
-        node scripts/build-windows.mjs
-      env:
-        ARCH: ${{matrix.arch}}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-        SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
-        SM_PUBLISHER_NAME: ${{ secrets.SM_PUBLISHER_NAME }}
-        SM_API_KEY: ${{ secrets.SM_API_KEY }}
-        SM_HOST: ${{ vars.SM_HOST }}
-        SM_CODE_SIGNING_CERT_SHA1_HASH: ${{ vars.SM_CODE_SIGNING_CERT_SHA1_HASH }}
-        SM_KEYPAIR_ALIAS: ${{ vars.SM_KEYPAIR_ALIAS }}
-        # DEBUG: electron-builder,electron-builder:*
-
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "! (github.event_name == 'push' && (startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
-
-    # - name: Upload symbols
-    #   run: |
-    #     npm install @sentry/cli
-    #     node scripts/sentry-upload.mjs
-    #   env:
-    #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-    #     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-    #     SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
 
     - name: Package artifacts
       run: |

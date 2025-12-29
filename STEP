@@ -15,3 +15,7 @@ ARCH=arm64 node scripts/build-macos.mjs
 codesign --deep --force --sign - dist/mac-arm64/Tabby.app
 
 codesign -dv --verbose=4 dist/mac-arm64/Tabby.app
+
+
+# Open CI
+xattr -r -d com.apple.quarantine Tabby.app
