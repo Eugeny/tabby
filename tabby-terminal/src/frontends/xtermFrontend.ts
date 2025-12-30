@@ -175,18 +175,19 @@ export class XTermFrontend extends Frontend {
          */
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
             // console.log("1111 keyboard from xterm.js:", event)
-            if (this.hostApp.platform !== Platform.Web) {
-                if (
-                    event.getModifierState('Meta') && event.key.toLowerCase() === 'v' ||
-                    event.key === 'Insert' && event.shiftKey
-                ) {
-                    event.preventDefault()
-                    return false
-                }
-            }
-            if (event.getModifierState('Meta') && event.key.startsWith('Arrow')) {
-                return false
-            }
+
+            // if (this.hostApp.platform !== Platform.Web) {
+            //     if (
+            //         event.getModifierState('Meta') && event.key.toLowerCase() === 'v' ||
+            //         event.key === 'Insert' && event.shiftKey
+            //     ) {
+            //         event.preventDefault()
+            //         return false
+            //     }
+            // }
+            // if (event.getModifierState('Meta') && event.key.startsWith('Arrow')) {
+            //     return false
+            // }
 
             return propagationKeyEventHandler('keydown', event)
         })
