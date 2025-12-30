@@ -73,7 +73,9 @@ export class PluginsSettingsTabComponent {
                     return this.pluginManager.listInstalled(query)
                 }),
             ).subscribe(plugin => {
-                this.installedPlugins$ = plugin
+                this.installedPlugins$ = plugin.sort((a, b) => {
+                    return Number(a.isBuiltin) - Number(b.isBuiltin)
+                })
             })
     }
 
