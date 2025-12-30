@@ -5,107 +5,113 @@ title-bar(
   [class.inset]='hostApp.platform == Platform.macOS && !hostWindow.isFullscreen'
 )
 
-.content(
-    *ngIf='ready',
-    [class.tabs-on-top]='config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left" || config.store.appearance.tabsLocation == "right"',
-    [class.tabs-on-left]='hasVerticalTabs() && config.store.appearance.tabsLocation == "left"',
-    [class.tabs-titlebar-enabled]='isTitleBarNeeded()',
-    [class.tabs-on-right]='hasVerticalTabs() && config.store.appearance.tabsLocation == "right"',
-)
-    .tab-bar(
-        *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
-        [class.tab-bar-no-controls-overlay]='hostApp.platform == Platform.macOS',
-        (dblclick)='!isTitleBarNeeded() && toggleMaximize()'
+.window.h-100.d-flex
+
+    profile-tree(
+        *ngIf='ready && !config.store.hideProfileTree'
     )
-        .inset.background(*ngIf='hostApp.platform == Platform.macOS \
-        && !hostWindow.isFullscreen \
-        && config.store.appearance.frame == "thin" \
-        && (config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left")')
-        .tabs(
-            cdkDropList,
-            [cdkDropListOrientation]='(config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "bottom") ? "horizontal" : "vertical"',
-            (cdkDropListDropped)='onTabsReordered($event)',
-            cdkAutoDropGroup='app-tabs'
+
+    .content.main.h-100(
+        *ngIf='ready',
+        [class.tabs-on-top]='config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left" || config.store.appearance.tabsLocation == "right"',
+        [class.tabs-on-left]='hasVerticalTabs() && config.store.appearance.tabsLocation == "left"',
+        [class.tabs-titlebar-enabled]='isTitleBarNeeded()',
+        [class.tabs-on-right]='hasVerticalTabs() && config.store.appearance.tabsLocation == "right"',
+    )
+        .tab-bar(
+            *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
+            [class.tab-bar-no-controls-overlay]='hostApp.platform == Platform.macOS',
+            (dblclick)='!isTitleBarNeeded() && toggleMaximize()'
         )
-            tab-header(
-                *ngFor='let tab of app.tabs; let idx = index',
-                [index]='idx',
-                [tab]='tab',
+            .inset.background(*ngIf='hostApp.platform == Platform.macOS \
+            && !hostWindow.isFullscreen \
+            && config.store.appearance.frame == "thin" \
+            && (config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left")')
+            .tabs(
+                cdkDropList,
+                [cdkDropListOrientation]='(config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "bottom") ? "horizontal" : "vertical"',
+                (cdkDropListDropped)='onTabsReordered($event)',
+                cdkAutoDropGroup='app-tabs'
+            )
+                tab-header(
+                    *ngFor='let tab of app.tabs; let idx = index',
+                    [index]='idx',
+                    [tab]='tab',
+                    [active]='tab == app.activeTab',
+                    [@animateTab]='{value: "in", params: {size: targetTabSize}}',
+                    [@.disabled]='hasVerticalTabs() || !config.store.accessibility.animations',
+                    (click)='app.selectTab(tab)',
+                    [class.fully-draggable]='hostApp.platform !== Platform.macOS',
+                    [ngbTooltip]='tab.customTitle || tab.title'
+                )
+
+            .btn-group.background
+                .d-flex(
+                    *ngFor='let button of leftToolbarButtons'
+                )
+                    button.btn.btn-secondary.btn-tab-bar(
+                        [ngbTooltip]='button.label',
+                        (click)='button.run && button.run()',
+                        [fastHtmlBind]='button.icon'
+                    )
+
+                .d-flex(
+                    ngbDropdown,
+                    container='body',
+                    #activeTransfersDropdown='ngbDropdown'
+                )
+                    button.btn.btn-secondary.btn-tab-bar(
+                        [hidden]='activeTransfers.length == 0',
+                        [ngbTooltip]='"File transfers"|translate',
+                        ngbDropdownToggle
+                    ) !{require('../icons/transfers.svg')}
+                    transfers-menu(
+                        ngbDropdownMenu,
+                        [(transfers)]='activeTransfers',
+                        (transfersChange)='onTransfersChange()'
+                    )
+
+            .btn-space.background(
+                [class.persistent]='config.store.appearance.frame == "thin"',
+                [class.drag]='config.store.appearance.frame == "thin" \
+                && ((config.store.appearance.tabsLocation !== "left" && config.store.appearance.tabsLocation !== "right") || hostApp.platform !== Platform.macOS)'
+            )
+
+            .btn-group.background
+                .d-flex(
+                    *ngFor='let button of rightToolbarButtons'
+                )
+                    button.btn.btn-secondary.btn-tab-bar(
+                        [ngbTooltip]='button.label',
+                        (click)='button.run && button.run()',
+                        [fastHtmlBind]='button.icon'
+                    )
+
+                button.btn.btn-secondary.btn-tab-bar.btn-update(
+                    *ngIf='updatesAvailable',
+                    [ngbTooltip]='"Update available - Click to install"|translate',
+                    (click)='updater.update()'
+                ) !{require('../icons/gift.svg')}
+
+            window-controls.background(
+                *ngIf='config.store.appearance.frame == "thin" \
+                && config.store.appearance.tabsLocation !== "left" \
+                && config.store.appearance.tabsLocation !== "right" \
+                && hostApp.platform == Platform.Linux',
+            )
+
+            div.window-controls-spacer(
+                *ngIf='config.store.appearance.frame == "thin" && (hostApp.platform == Platform.Windows) && (config.store.appearance.tabsLocation == "top")',
+            )
+        .content
+            start-page.content-tab.content-tab-active(*ngIf='ready && app.tabs.length == 0')
+
+            tab-body.content-tab(
+                #tabBodies,
+                *ngFor='let tab of unsortedTabs',
+                [class.content-tab-active]='tab == app.activeTab',
                 [active]='tab == app.activeTab',
-                [@animateTab]='{value: "in", params: {size: targetTabSize}}',
-                [@.disabled]='hasVerticalTabs() || !config.store.accessibility.animations',
-                (click)='app.selectTab(tab)',
-                [class.fully-draggable]='hostApp.platform !== Platform.macOS',
-                [ngbTooltip]='tab.customTitle || tab.title'
+                [tab]='tab',
             )
-
-        .btn-group.background
-            .d-flex(
-                *ngFor='let button of leftToolbarButtons'
-            )
-                button.btn.btn-secondary.btn-tab-bar(
-                    [ngbTooltip]='button.label',
-                    (click)='button.run && button.run()',
-                    [fastHtmlBind]='button.icon'
-                )
-
-            .d-flex(
-                ngbDropdown,
-                container='body',
-                #activeTransfersDropdown='ngbDropdown'
-            )
-                button.btn.btn-secondary.btn-tab-bar(
-                    [hidden]='activeTransfers.length == 0',
-                    [ngbTooltip]='"File transfers"|translate',
-                    ngbDropdownToggle
-                ) !{require('../icons/transfers.svg')}
-                transfers-menu(
-                    ngbDropdownMenu,
-                    [(transfers)]='activeTransfers',
-                    (transfersChange)='onTransfersChange()'
-                )
-
-        .btn-space.background(
-            [class.persistent]='config.store.appearance.frame == "thin"',
-            [class.drag]='config.store.appearance.frame == "thin" \
-            && ((config.store.appearance.tabsLocation !== "left" && config.store.appearance.tabsLocation !== "right") || hostApp.platform !== Platform.macOS)'
-        )
-
-        .btn-group.background
-            .d-flex(
-                *ngFor='let button of rightToolbarButtons'
-            )
-                button.btn.btn-secondary.btn-tab-bar(
-                    [ngbTooltip]='button.label',
-                    (click)='button.run && button.run()',
-                    [fastHtmlBind]='button.icon'
-                )
-
-            button.btn.btn-secondary.btn-tab-bar.btn-update(
-                *ngIf='updatesAvailable',
-                [ngbTooltip]='"Update available - Click to install"|translate',
-                (click)='updater.update()'
-            ) !{require('../icons/gift.svg')}
-
-        window-controls.background(
-            *ngIf='config.store.appearance.frame == "thin" \
-            && config.store.appearance.tabsLocation !== "left" \
-            && config.store.appearance.tabsLocation !== "right" \
-            && hostApp.platform == Platform.Linux',
-        )
-
-        div.window-controls-spacer(
-            *ngIf='config.store.appearance.frame == "thin" && (hostApp.platform == Platform.Windows) && (config.store.appearance.tabsLocation == "top")',
-        )
-    .content
-        start-page.content-tab.content-tab-active(*ngIf='ready && app.tabs.length == 0')
-
-        tab-body.content-tab(
-            #tabBodies,
-            *ngFor='let tab of unsortedTabs',
-            [class.content-tab-active]='tab == app.activeTab',
-            [active]='tab == app.activeTab',
-            [tab]='tab',
-        )
 
 ng-template(ngbModalContainer)

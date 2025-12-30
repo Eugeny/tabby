@@ -130,6 +130,15 @@ h3.mb-3(translate) Window
         (ngModelChange)='saveConfiguration(true)'
     )
 
+.form-line
+    .header
+        .title(translate) Hide profile sidebar
+        .description(translate) Hide profile selector sidebar.
+    toggle(
+        [(ngModel)]='config.store.hideProfileTree',
+        (ngModelChange)='saveConfiguration(false)'
+    )
+
 h3.mt-4(translate) Docking
 
 .form-line(*ngIf='docking')

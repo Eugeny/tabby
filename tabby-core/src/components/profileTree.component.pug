@@ -1,0 +1,57 @@
+.div.p-2.h-100.d-flex.flex-column
+    input.form-control.form-control-sm.mb-1(
+        [ngStyle]='searchStyle',
+        type='text',
+        [(ngModel)]='filter',
+        placeholder='Filter',
+        (ngModelChange)='onFilterChange()'
+    )
+
+    .profile-tree.h-100
+        .d-flex.flex-column.p-2.profile-tree-container
+
+            ng-container(*ngFor='let group of rootGroups')
+                ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: group, depth: 0}')
+
+            ng-template(#recursiveGroup let-group let-depth='depth')
+                a.tree-item(
+                    (click)='toggleGroupCollapse(group)',
+                    [style.paddingLeft.px]='depth * 20',
+                    (contextmenu)='groupContextMenu(group, $event)',
+                    href='#'
+                )
+                    .fw-20
+                        .fa.fa-fw.fas.fa-chevron-right.ms-1.text-muted(*ngIf='group.collapsed')
+                        .fa.fa-fw.fas.fa-chevron-down.ms-1.text-muted(*ngIf='!group.collapsed')
+                    .fw-20
+                        profile-icon.ms-1([icon]='group.icon ?? "far fa-folder"', [color]='group?.color')
+                    span.ms-2.me-auto {{ group.name || ("Ungrouped"|translate) }}
+
+                ng-container(*ngIf='!group.collapsed')
+                    ng-container(*ngFor='let profile of group.profiles')
+                        a.tree-item(
+                            (dblclick)='launchProfile(profile)',
+                            [style.paddingLeft.px]='(depth + 1) * 40',
+                            (contextmenu)='profileContextMenu(profile, $event)',
+                            href='#'
+                        )
+                            .fw-20
+                                profile-icon.ms-1([icon]='profile.icon', [color]='profile.color')
+                            span.ms-2.no-wrap {{ profile.name }}
+
+                            .actions
+                                .action((click)='launchProfile(profile)')
+                                    .fa.fa-fw.fas.fa-play
+                                //- .action
+                                //-     .fa.fa-fw.fas.fa-eject
+
+                    ng-container(*ngFor='let child of group.children')
+                        ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: child, depth: depth + 1}')
+
+.grabber(
+    cdkDrag,
+    cdkDragLockAxis="x",
+    (cdkDragStarted)="onDragStarted($event)",
+    (cdkDragMoved)="onDragMoved($event)",
+    (cdkDragEnded)='onDragEnd($event)',
+)
