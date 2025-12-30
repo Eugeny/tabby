@@ -108,6 +108,50 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Tab {number}', { number: 9 }),
         },
         {
+            id: 'tab-10',
+            name: this.translate.instant('Tab {number}', { number: 10 }),
+        },
+        {
+            id: 'tab-11',
+            name: this.translate.instant('Tab {number}', { number: 11 }),
+        },
+        {
+            id: 'tab-12',
+            name: this.translate.instant('Tab {number}', { number: 12 }),
+        },
+        {
+            id: 'tab-13',
+            name: this.translate.instant('Tab {number}', { number: 13 }),
+        },
+        {
+            id: 'tab-14',
+            name: this.translate.instant('Tab {number}', { number: 14 }),
+        },
+        {
+            id: 'tab-15',
+            name: this.translate.instant('Tab {number}', { number: 15 }),
+        },
+        {
+            id: 'tab-16',
+            name: this.translate.instant('Tab {number}', { number: 16 }),
+        },
+        {
+            id: 'tab-17',
+            name: this.translate.instant('Tab {number}', { number: 17 }),
+        },
+        {
+            id: 'tab-18',
+            name: this.translate.instant('Tab {number}', { number: 18 }),
+        },
+        {
+            id: 'tab-19',
+            name: this.translate.instant('Tab {number}', { number: 19 }),
+        },
+        {
+            id: 'tab-20',
+            name: this.translate.instant('Tab {number}', { number: 20 }),
+        },
+        {
             id: 'split-right',
             name: this.translate.instant('Split to the right'),
         },
