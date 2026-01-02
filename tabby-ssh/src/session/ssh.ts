@@ -248,7 +248,17 @@ export class SSHSession {
     private async getAgentConnectionSpec (): Promise<russh.AgentConnectionSpec|null> {
         if (this.hostApp.platform === Platform.Windows) {
             if (this.config.store.ssh.agentType === 'auto') {
-                if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+                let pipeExists = false
+                try {
+                    await fs.stat(WINDOWS_OPENSSH_AGENT_PIPE)
+                    pipeExists = true
+                } catch (e) {
+                    if (e.code === 'EBUSY') {
+                        pipeExists = true
+                    }
+                }
+
+                if (pipeExists) {
                     return {
                         kind: 'named-pipe',
                         path: WINDOWS_OPENSSH_AGENT_PIPE,
