@@ -189,6 +189,11 @@ export class SSHSession {
                         continue
                     }
 
+                    try {
+                        russh.parsePublicKey(contents.toString('utf-8'))
+                        continue
+                    } catch { }
+
                     this.addPublicKeyAuthMethod(pk, contents)
                 }
             } else {
