@@ -210,8 +210,8 @@ export class SSHSession {
             if (!spec) {
                 this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
             } else {
-                // If user configured specific identity pubkey,
-                // try it first with agent-identity authentication
+                // If user configured specific private keys, try to load their corresponding
+                // .pub files and use them first for agent-identity authentication
                 if (this.profile.options.privateKeys?.length) {
                     for (let pk of this.profile.options.privateKeys) {
                         pk = pk.replace('%h', this.profile.options.host)
