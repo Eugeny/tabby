@@ -37,32 +37,18 @@ type AuthMethod = {
     type: 'publickey'
     name: string
     contents: Buffer
-} | {
+} | ({
     type: 'agent',
+    publicKey?: russh.SshPublicKey
+} & ({
     kind: 'unix-socket',
     path: string
 } | {
-    type: 'agent',
     kind: 'named-pipe',
     path: string
 } | {
-    type: 'agent',
     kind: 'pageant',
-} | {
-    type: 'agent-identity',
-    kind: 'unix-socket',
-    path: string,
-    publicKey: russh.SshPublicKey
-} | {
-    type: 'agent-identity',
-    kind: 'named-pipe',
-    path: string,
-    publicKey: russh.SshPublicKey
-} | {
-    type: 'agent-identity',
-    kind: 'pageant',
-    publicKey: russh.SshPublicKey
-}
+}))
 
 function sshAuthTypeForMethod (m: AuthMethod): string {
     switch (m.type) {
@@ -73,7 +59,6 @@ function sshAuthTypeForMethod (m: AuthMethod): string {
         case 'keyboard-interactive': return 'keyboard-interactive'
         case 'publickey': return 'publickey'
         case 'agent': return 'publickey'
-        case 'agent-identity': return 'publickey'
     }
 }
 
@@ -758,26 +743,14 @@ export class SSHSession {
             }
             if (method.type === 'agent') {
                 try {
-                    const result = await this.ssh.authenticateWithAgent(this.authUsername, method)
+                    const result = await this.ssh.authenticateWithAgent(this.authUsername, method, method.publicKey)
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
                     maybeSetRemainingMethods(result)
                 } catch (e) {
-                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent: ${e}`)
-                    continue
-                }
-            }
-            if (method.type === 'agent-identity') {
-                try {
-                    this.emitServiceMessage(`Trying agent identity: ${method.publicKey.fingerprint()}`)
-                    const result = await this.ssh.authenticateWithAgentIdentity(this.authUsername, method, method.publicKey)
-                    if (result instanceof russh.AuthenticatedSSHClient) {
-                        return result
-                    }
-                    maybeSetRemainingMethods(result)
-                } catch (e) {
-                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent with identity: ${e}`)
+                    const identitySuffix = method.publicKey ? ` with identity ${method.publicKey.fingerprint()}` : ''
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent${identitySuffix}: ${e}`)
                     continue
                 }
             }
