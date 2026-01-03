@@ -189,10 +189,20 @@ export class SSHSession {
                         continue
                     }
 
+                    // If the file parses as a public key, it was likely a .pub file
+                    // mistakenly configured in the privateKeys list. In that case,
+                    // skip it here and warn the user instead of treating it as a
+                    // private key.
                     try {
                         russh.parsePublicKey(contents.toString('utf-8'))
+                        this.emitServiceMessage(
+                            colors.bgYellow.yellow.black(' ! ') +
+                            ` Expected a private key, but ${pk} appears to be a public key. Skipping it for private key authentication.`,
+                        )
                         continue
-                    } catch { }
+                    } catch {
+                        // Not a valid public key; treat the file contents as a private key below.
+                    }
 
                     this.addPublicKeyAuthMethod(pk, contents)
                 }
