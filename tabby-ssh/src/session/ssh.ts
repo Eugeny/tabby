@@ -743,7 +743,7 @@ export class SSHSession {
             }
             if (method.type === 'agent') {
                 try {
-                    const result = await this.ssh.authenticateWithAgent(this.authUsername, method, method.publicKey)
+                    const result = method.publicKey ? await this.ssh.authenticateWithAgentIdentity(this.authUsername, method, method.publicKey) : await this.ssh.authenticateWithAgent(this.authUsername, method)
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
