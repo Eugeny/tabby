@@ -613,6 +613,7 @@ export class SSHSession {
         }
     }
 
+    // eslint-disable-next-line max-statements
     private async _handleAuth (): Promise<russh.AuthenticatedSSHClient|null> {
         this.activePrivateKey = null
 
