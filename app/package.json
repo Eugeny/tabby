@@ -31,7 +31,7 @@
     "native-process-working-directory": "^1.0.2",
     "node-pty": "^1.1.0",
     "npm": "6",
-    "russh": "0.1.32",
+    "russh": "0.1.33",
     "rxjs": "^7.5.7",
     "source-map-support": "^0.5.20",
     "v8-compile-cache": "^2.3.0",
