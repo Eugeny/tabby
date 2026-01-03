@@ -222,7 +222,7 @@ export class SSHSession {
                             const pubKeyContent = await this.fileProviders.retrieveFile(pubKeyPath)
                             const publicKey = russh.parsePublicKey(pubKeyContent.toString('utf-8'))
                             this.allAuthMethods.push({
-                                type: 'agent-identity',
+                                type: 'agent',
                                 ...spec,
                                 publicKey,
                             } as AuthMethod)
