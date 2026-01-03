@@ -245,6 +245,10 @@ export class SSHSession {
                         } catch (error) {
                             // Not a public key file or doesn't exist, skip
                             this.logger.debug(`Could not load public key ${pubKeyPath}: ${error}`)
+                            this.emitServiceMessage(
+                                `Could not load public key for agent auth from ${pubKeyPath}. ` +
+                                `Agent-identity authentication will not be attempted for this key.`
+                            )
                         }
                     }
                 }
