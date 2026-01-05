@@ -37,18 +37,18 @@ type AuthMethod = {
     type: 'publickey'
     name: string
     contents: Buffer
-} | {
+} | ({
     type: 'agent',
+    publicKey?: russh.SshPublicKey
+} & ({
     kind: 'unix-socket',
     path: string
 } | {
-    type: 'agent',
     kind: 'named-pipe',
     path: string
 } | {
-    type: 'agent',
     kind: 'pageant',
-}
+}))
 
 function sshAuthTypeForMethod (m: AuthMethod): string {
     switch (m.type) {
@@ -174,6 +174,21 @@ export class SSHSession {
                         continue
                     }
 
+                    // If the file parses as a public key, it was likely a .pub file
+                    // mistakenly configured in the privateKeys list. In that case,
+                    // skip it here and warn the user instead of treating it as a
+                    // private key.
+                    try {
+                        russh.parsePublicKey(contents.toString('utf-8'))
+                        this.emitServiceMessage(
+                            colors.bgYellow.yellow.black(' ! ') +
+                            ` Expected a private key, but ${pk} appears to be a public key. Skipping it for private key authentication.`,
+                        )
+                        continue
+                    } catch {
+                        // Not a valid public key; treat the file contents as a private key below.
+                    }
+
                     this.addPublicKeyAuthMethod(pk, contents)
                 }
             } else {
@@ -190,6 +205,39 @@ export class SSHSession {
             if (!spec) {
                 this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
             } else {
+                // If user configured specific private keys, try to load their corresponding
+                // .pub files and use them first for agent-identity authentication
+                if (this.profile.options.privateKeys?.length) {
+                    for (let pk of this.profile.options.privateKeys) {
+                        pk = pk.replace('%h', this.profile.options.host)
+                        pk = pk.replace('%r', this.profile.options.user)
+
+                        // Try to load as public key file
+                        let pubKeyPath = pk
+                        if (!pk.endsWith('.pub')) {
+                            pubKeyPath = pk + '.pub'
+                        }
+
+                        try {
+                            const pubKeyContent = await this.fileProviders.retrieveFile(pubKeyPath)
+                            const publicKey = russh.parsePublicKey(pubKeyContent.toString('utf-8'))
+                            this.allAuthMethods.push({
+                                type: 'agent',
+                                ...spec,
+                                publicKey,
+                            } as AuthMethod)
+                            this.emitServiceMessage(`Loaded public key for agent auth: ${pubKeyPath}`)
+                        } catch (error) {
+                            // Not a public key file or doesn't exist, skip
+                            this.emitServiceMessage(
+                                `Could not load public key for agent auth from ${pubKeyPath}: ${error}. ` +
+                                `Agent-identity authentication will not be attempted for this key.`,
+                            )
+                        }
+                    }
+                }
+
+                // Always add fallback agent auth that tries all keys
                 this.allAuthMethods.push({
                     type: 'agent',
                     ...spec,
@@ -573,6 +621,7 @@ export class SSHSession {
         }
     }
 
+    // eslint-disable-next-line max-statements
     private async _handleAuth (): Promise<russh.AuthenticatedSSHClient|null> {
         this.activePrivateKey = null
 
@@ -704,13 +753,14 @@ export class SSHSession {
             }
             if (method.type === 'agent') {
                 try {
-                    const result = await this.ssh.authenticateWithAgent(this.authUsername, method)
+                    const result = method.publicKey ? await this.ssh.authenticateWithAgentIdentity(this.authUsername, method, method.publicKey) : await this.ssh.authenticateWithAgent(this.authUsername, method)
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
                     maybeSetRemainingMethods(result)
                 } catch (e) {
-                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent: ${e}`)
+                    const identitySuffix = method.publicKey ? ` with identity ${method.publicKey.fingerprint()}` : ''
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent${identitySuffix}: ${e}`)
                     continue
                 }
             }
