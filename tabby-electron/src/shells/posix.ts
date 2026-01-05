@@ -5,6 +5,8 @@ import { HostAppService, Platform } from 'tabby-core'
 
 import { ShellProvider, Shell } from 'tabby-local'
 
+const EXCLUDED_SHELLS = ['csh', 'dash', 'ksh', 'tcsh']
+
 /** @hidden */
 @Injectable()
 export class POSIXShellsProvider extends ShellProvider {
@@ -29,6 +31,10 @@ export class POSIXShellsProvider extends ShellProvider {
             .split('\n')
             .map(x => x.trim())
             .filter(x => x && !x.startsWith('#'))
+            .filter(x => {
+                const shellName = x.split('/').pop()
+                return !EXCLUDED_SHELLS.includes(shellName ?? '')
+            })
             .map(x => ({
                 id: slugify(x),
                 name: x.split('/').pop(),

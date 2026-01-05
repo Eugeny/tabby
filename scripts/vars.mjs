@@ -26,7 +26,6 @@ export const builtinPlugins = [
     'tabby-community-color-schemes',
     'tabby-ssh',
     'tabby-serial',
-    'tabby-telnet',
     'tabby-local',
     'tabby-electron',
     'tabby-plugin-manager',

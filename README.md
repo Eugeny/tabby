@@ -33,7 +33,7 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 
 [**Tabby**](https://tabby.sh) (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows 10, macOS and Linux
 
-* Integrated SSH and Telnet client and connection manager
+* Integrated SSH client and connection manager
 * Integrated serial terminal
 * Theming and color schemes
 * Fully configurable shortcuts and multi-chord shortcuts
@@ -45,7 +45,7 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 * Doesn't choke on fast-flowing outputs
 * Proper shell experience on Windows including tab completion (via Clink)
 * Integrated encrypted container for SSH secrets and configuration
-* SSH, SFTP and Telnet client available as a [web app](https://tabby.sh/app) (also [self-hosted](https://github.com/Eugeny/tabby-web)).
+* SSH and SFTP client available as a [web app](https://tabby.sh/app) (also [self-hosted](https://github.com/Eugeny/tabby-web)).
 
 # Contents <!-- omit in toc -->
 

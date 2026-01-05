@@ -35,7 +35,7 @@
 
 [**Tabby**](https://tabby.sh)(旧**Terminus**)は、Windows、macOS、Linux向けの高度なカスタマイズに対応した端末エミュレータ、SSH、シリアルコンソールです
 
-* SSH、Telnetクライアントと接続マネージャーの統合
+* SSHクライアントと接続マネージャーの統合
 * シリアルコンソールの統合
 * テーマと配色のカスタマイズ
 * 自由なショートカットのカスタマイズと複数キー入力にも対応
@@ -47,7 +47,7 @@
 * 大量の出力にも止まることはありません
 * タブキーによる補完機能にも対応したWindows上での快適なシェル (Clink使用)
 * SSHの機密性の高い情報と設定を保存する暗号化コンテナの搭載
-* SSH、SFTP、Telnetクライアントが[Webアプリ](https://tabby.sh/app)としても利用できます ([セルフホスティング](https://github.com/Eugeny/tabby-web)も可能)
+* SSH、SFTPクライアントが[Webアプリ](https://tabby.sh/app)としても利用できます ([セルフホスティング](https://github.com/Eugeny/tabby-web)も可能)
 
 # コンテンツ <!-- omit in toc -->
 

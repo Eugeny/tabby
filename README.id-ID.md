@@ -28,7 +28,7 @@ This README is also available in: <a  href="./README.md">:gb: English</a> · <a 
 
 [**Tabby**](https://tabby.sh) (sebelumnya **Terminus**) adalah emulator terminal, SSH, dan klien serial yang sangat dapat dikonfigurasi untuk Windows, macOS, dan Linux
 
-* Integrasi SSH dan klien Telnet dan Koneksi Manager
+* Integrasi SSH dan Koneksi Manager
 * Integrasi terminal serial
 * Tema dan skema warna
 * Pintasan yang dapat dikonfigurasi sepenuhnya dan pintasan multi-chord
@@ -40,7 +40,7 @@ This README is also available in: <a  href="./README.md">:gb: English</a> · <a 
 * Tidak tersendat dengan output yang tampil dengan cepat
 * Pengalaman shell yang tepat di Windows termasuk penyelesaian tab (melalui Clink)
 * Terintegrasi dengan wadah terenkripsi untuk rahasia dan konfigurasi SSH
-* SSH, SFTP dan klien Telnet tersedia sebagai [aplikasi web](https://tabby.sh/app) (dan juga [self-hosted](https://github.com/Eugeny/tabby-web)).
+* SSH dan SFTP tersedia sebagai [aplikasi web](https://tabby.sh/app) (dan juga [self-hosted](https://github.com/Eugeny/tabby-web)).
 
 # Contents <!-- omit in toc -->
 

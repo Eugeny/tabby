@@ -36,7 +36,7 @@ Ten plik README jest również dostępny w językach: <a  href="./README.md">:gb
 
 [**Tabby**](https://tabby.sh) (formalnie **Terminus**) to wysoce konfigurowalny emulator konsoli, SSH oraz klienta konsoli szeregowej na systemy Windows 10, macOS oraz Linux
 
-* Zintegrowany klient SSH i Telnet oraz menedżer sesji
+* Zintegrowany klient SSH oraz menedżer sesji
 * Zintegrowany klient terminala szeregowego
 * Motywy and palety kolorów
 * W pełni konfigurowalne skróty klawiszowe
@@ -48,7 +48,7 @@ Ten plik README jest również dostępny w językach: <a  href="./README.md">:gb
 * Nie zawieszanie się przy szybko wyświetlanych wynikach
 * Pełne doświadczenie powłoki na systemie Windows zawierającej podpowiedzi (przez Clink)
 * Zintegrowany zaszyfrowany kontener na klucze SSH i jego konfigurację
-* Klient SSH, SFTP oraz Telnet dostępny jako [aplikacja webowa](https://tabby.sh/app) (również jako [własna instacja](https://github.com/Eugeny/tabby-web)).
+* Klient SSH oraz SFTP dostępny jako [aplikacja webowa](https://tabby.sh/app) (również jako [własna instacja](https://github.com/Eugeny/tabby-web)).
 
 # Spis treści <!-- omit in toc -->
 

@@ -32,7 +32,7 @@ export function parseArgs (argv: string[], cwd: string): any {
             return yargs.positional('providerId', {
                 describe: 'The name of a quick connect profile provider',
                 type: 'string',
-                choices: ['ssh', 'telnet'],
+                choices: ['ssh'],
             }).positional('query', {
                 describe: 'The quick connect query string',
                 type: 'string',

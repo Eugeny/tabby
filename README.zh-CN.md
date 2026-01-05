@@ -28,7 +28,7 @@
 
 [**Tabby**](https://tabby.sh) (前身是 **Terminus**) 是一个可高度配置的终端模拟器和 SSH 或串口客户端，支持 Windows，macOS 和 Linux
 
-* 集成 SSH，Telnet 客户端和连接管理器
+* 集成 SSH 客户端和连接管理器
 * 集成串行终端
 * 定制主题和配色方案
 * 完全可配置的快捷键和多键快捷键
@@ -40,7 +40,7 @@
 * 不会因快速的输出而卡住
 * Windows 上舒适的 shell 体验，包括 tab 自动补全（通过 Clink）
 * 为 SSH secrets 和设置集成了加密容器
-* SSH、SFTP 和 Telnet 客户端可用作 [Web 应用](https://tabby.sh/app)（也可[托管](https://github.com/Eugeny/tabby-web)）
+* SSH 和 SFTP 客户端可用作 [Web 应用](https://tabby.sh/app)（也可[托管](https://github.com/Eugeny/tabby-web)）
 
 # 目录 <!-- omit in toc -->
 
