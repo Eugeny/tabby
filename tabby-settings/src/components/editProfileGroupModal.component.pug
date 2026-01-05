@@ -12,7 +12,56 @@
                     [(ngModel)]='group.name',
                 )
 
-        .col-12.col-lg-8
+            .mb-3
+                label(translate) Parent Group
+                input.form-control(
+                    type='text',
+                    alwaysVisibleTypeahead,
+                    placeholder='Ungrouped',
+                    [(ngModel)]='selectedParentGroup',
+                    [ngbTypeahead]='groupTypeahead',
+                    [inputFormatter]="groupFormatter",
+			        [resultFormatter]="groupFormatter",
+			        [editable]="false"
+                )
+
+            .mb-3
+                label(translate) Icon
+                .input-group
+                    input.form-control(
+                        type='text',
+                        alwaysVisibleTypeahead,
+                        [(ngModel)]='group.icon',
+                        [ngbTypeahead]='iconSearch',
+                        [resultTemplate]='rt'
+                    )
+                    .input-group-text
+                        profile-icon(
+                            [icon]='group.icon',
+                            [color]='group.color'
+                        )
+
+                ng-template(#rt,let-r='result',let-t='term')
+                    i([class]='"fa-fw " + r')
+                    ngb-highlight.ms-2([result]='r', [term]='t')
+
+            .mb-3
+                label(translate) Color
+                .input-group
+                    input.form-control.color-picker(
+                        type='color',
+                        [(ngModel)]='group.color',
+                        [ngbTypeahead]='colorsAutocomplete',
+                        [resultFormatter]='colorsFormatter'
+                    )
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='group.color',
+                        [ngbTypeahead]='colorsAutocomplete',
+                        [resultFormatter]='colorsFormatter'
+                    )
+
+        .col-12.col-lg-8(*ngIf='providers.length !== 0')
             .form-line.content-box
                 .header
                     .title(translate) Default profile group settings
