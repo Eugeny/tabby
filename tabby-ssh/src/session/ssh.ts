@@ -495,10 +495,50 @@ export class SSHSession {
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
                 channel.close()
             })
-            channel.data$.subscribe(data => socket.write(data))
-            socket.on('data', data => channel.write(Uint8Array.from(data)))
-            channel.closed$.subscribe(() => socket.destroy())
-            socket.on('close', () => channel.close())
+
+            // Channel → Socket data flow with error handling
+            channel.data$.subscribe({
+                next: data => socket.write(data),
+                error: err => {
+                    this.logger.error(`Remote forward channel error: ${err}`)
+                    socket.destroy()
+                },
+            })
+
+            // Socket → Channel data flow with proper conversion
+            socket.on('data', data => {
+                try {
+                    channel.write(new Uint8Array(data.buffer, data.byteOffset, data.byteLength))
+                } catch (err) {
+                    this.logger.error(`Remote forward write error: ${err}`)
+                    socket.destroy()
+                }
+            })
+
+            // Handle EOF from remote
+            channel.eof$.subscribe(() => {
+                this.logger.debug('Remote forward channel EOF')
+                socket.end()
+            })
+
+            // Handle channel close
+            channel.closed$.subscribe(() => {
+                this.logger.debug('Remote forward channel closed')
+                socket.destroy()
+            })
+
+            // Handle socket close
+            socket.on('close', () => {
+                this.logger.debug('Remote forward socket closed')
+                channel.close()
+            })
+
+            // Handle EOF from local
+            socket.on('end', () => {
+                this.logger.debug('Remote forward socket end')
+                channel.eof()
+            })
+
             socket.on('connect', () => {
                 this.logger.info('Connection forwarded')
             })
@@ -788,10 +828,57 @@ export class SSHSession {
                     throw err
                 }))
                 const socket = accept()
-                channel.data$.subscribe(data => socket.write(data))
-                socket.on('data', data => channel.write(Uint8Array.from(data)))
-                channel.closed$.subscribe(() => socket.destroy())
-                socket.on('close', () => channel.close())
+
+                // Channel → Socket data flow with error handling
+                channel.data$.subscribe({
+                    next: data => {
+                        socket.write(data)
+                    },
+                    error: err => {
+                        this.logger.error(`Channel data error: ${err}`)
+                        socket.destroy(new Error(`SSH channel error: ${err}`))
+                    },
+                })
+
+                // Socket → Channel data flow with proper conversion
+                socket.on('data', data => {
+                    try {
+                        channel.write(new Uint8Array(data.buffer, data.byteOffset, data.byteLength))
+                    } catch (err) {
+                        this.logger.error(`Channel write failed: ${err}`)
+                        socket.destroy(new Error(`Failed to write to SSH channel: ${err}`))
+                    }
+                })
+
+                // Handle EOF from remote (critical for bi-directional communication)
+                channel.eof$.subscribe(() => {
+                    this.logger.debug('Channel EOF received, ending socket')
+                    socket.end() // Half-close socket
+                })
+
+                // Handle full channel close
+                channel.closed$.subscribe(() => {
+                    this.logger.debug('Channel closed, destroying socket')
+                    socket.destroy()
+                })
+
+                // Handle socket errors
+                socket.on('error', err => {
+                    this.logger.error(`Socket error: ${err}`)
+                    channel.close()
+                })
+
+                // Handle socket close
+                socket.on('close', () => {
+                    this.logger.debug('Socket closed, closing channel')
+                    channel.close()
+                })
+
+                // Handle EOF from local (send EOF to remote)
+                socket.on('end', () => {
+                    this.logger.debug('Socket end, sending EOF to channel')
+                    channel.eof() // Send EOF to remote
+                })
             }).then(() => {
                 this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwarded ${fw}`)
                 this.forwardedPorts.push(fw)
