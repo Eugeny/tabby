@@ -123,8 +123,8 @@ h3.mb-3(translate) Window
 
 .form-line(*ngIf='hostApp.platform !== Platform.Web && hostApp.platform !== Platform.Linux')
     .header
-        .title(translate) Hide tray
-        .description(translate) Hide Tabby in tray or menu bar.
+        .title(translate) Hide tray icon
+        .description(translate) Hide Tabby from tray or menu bar.
     toggle(
         [(ngModel)]='config.store.hideTray',
         (ngModelChange)='saveConfiguration(true)'
