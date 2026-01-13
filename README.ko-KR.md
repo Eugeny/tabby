@@ -345,6 +345,7 @@ Pull requests and plugins are welcome!
       <td align="center" valign="top" width="14.28%"><a href="https://p.foundation/"><img src="https://avatars.githubusercontent.com/u/80860929?v=4?s=100" width="100px;" alt="P Foundation"/><br /><sub><b>P Foundation</b></sub></a><br /><a href="#financial-pfoundation" title="Financial">💵</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/et304383"><img src="https://avatars.githubusercontent.com/u/2693414?v=4?s=100" width="100px;" alt="et304383"/><br /><sub><b>et304383</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=et304383" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ajkrj"><img src="https://avatars.githubusercontent.com/u/210226755?v=4?s=100" width="100px;" alt="ajkrj"/><br /><sub><b>ajkrj</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ajkrj" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/SergeBakharev"><img src="https://avatars.githubusercontent.com/u/4798437?v=4?s=100" width="100px;" alt="SergeBakharev"/><br /><sub><b>SergeBakharev</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=SergeBakharev" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
