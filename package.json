@@ -34,7 +34,7 @@
     "clone-deep": "^4.0.1",
     "compare-versions": "^5",
     "core-js": "^3.31.0",
-    "core-js-pure": "^3.21.1",
+    "core-js-pure": "^3.33.2",
     "cross-env": "7.0.3",
     "css-loader": "^6.7.3",
     "deep-equal": "2.0.5",
