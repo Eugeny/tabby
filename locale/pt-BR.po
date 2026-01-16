@@ -710,7 +710,7 @@ msgstr "Abaixo"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Download"
-msgstr "Transferir"
+msgstr "Download"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Draw bold text in bright colors"
@@ -2571,4 +2571,3 @@ msgstr "Diminuir zoom"
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
 msgstr "Dinâmico"
-
