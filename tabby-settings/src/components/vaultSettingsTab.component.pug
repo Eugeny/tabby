@@ -96,6 +96,7 @@ div(*ngIf='vault.isEnabled()')
                         type='number',
                         min='1',
                         max='30',
+                        step='1',
                         [ngModel]='customExpireDays',
                         (ngModelChange)='setCustomExpireDays($event)',
                     )
