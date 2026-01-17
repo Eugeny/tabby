@@ -196,7 +196,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
         const modal = this.ngbModal.open(SetVaultPassphraseModalComponent)
         const newPassphrase = await modal.result.catch(() => null)
         if (newPassphrase) {
-            this.vault.save(this.vaultContents, newPassphrase)
+            await this.vault.save(this.vaultContents, newPassphrase)
             // Update Touch ID storage if enabled
             if (this.touchIdEnabled) {
                 await this.platform.secureStorePassphrase(newPassphrase)
