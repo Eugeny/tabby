@@ -71,7 +71,7 @@ div(*ngIf='vault.isEnabled()')
                 .description(translate) Unlock the vault using Touch ID instead of entering the passphrase
             toggle(
                 [ngModel]='touchIdEnabled',
-                (ngModelChange)='toggleTouchId()',
+                (ngModelChange)='toggleTouchId($event)',
             )
 
         // Touch ID expire days (show only when Touch ID is enabled)

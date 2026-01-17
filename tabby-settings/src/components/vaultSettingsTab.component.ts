@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, HostBinding } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService, VAULT_SECRET_TYPE_FILE, PromptModalComponent, VaultFileSecret, TranslateService } from 'tabby-core'
+import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService, VAULT_SECRET_TYPE_FILE, PromptModalComponent, VaultFileSecret, TranslateService, NotificationsService } from 'tabby-core'
 import { SetVaultPassphraseModalComponent } from './setVaultPassphraseModal.component'
 import { ShowSecretModalComponent } from './showSecretModal.component'
 
@@ -17,6 +17,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
 
     // Touch ID support
     touchIdAvailable = false
+    touchIdEnabled = false
     touchIdExpireOptions = [
         { value: 1, label: '1 day' },
         { value: 7, label: '7 days' },
@@ -36,6 +37,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
         private platform: PlatformService,
         private ngbModal: NgbModal,
         private translate: TranslateService,
+        private notifications: NotificationsService,
     ) {
         super()
         if (vault.isOpen()) {
@@ -56,14 +58,13 @@ export class VaultSettingsTabComponent extends BaseComponent {
             await this.platform.setTouchIdSettings(true, 1, this.platform.getTouchIdSettings().expireOnRestart)
         }
 
+        this.touchIdEnabled = this.platform.getTouchIdSettings().enabled
+
         if (!this.touchIdExpirePresetValues.includes(expireDays)) {
             this.customExpireDays = expireDays
         }
     }
 
-    get touchIdEnabled (): boolean {
-        return this.platform.getTouchIdSettings().enabled
-    }
 
     get touchIdExpireDays (): number {
         return this.platform.getTouchIdSettings().expireDays
@@ -95,9 +96,15 @@ export class VaultSettingsTabComponent extends BaseComponent {
 
             // Update settings in separate file (not affected by vault encryption)
             await this.platform.setTouchIdSettings(true, this.touchIdExpireDays)
+            this.touchIdEnabled = true
         } catch (e: any) {
             // User cancelled or Touch ID failed
             console.error('Failed to enable Touch ID:', e)
+            this.notifications.error(this.translate.instant('Failed to enable Touch ID'), e.message || e.toString())
+
+            // Force toggle back
+            this.touchIdEnabled = true
+            setTimeout(() => this.touchIdEnabled = false)
         }
     }
 
@@ -105,13 +112,14 @@ export class VaultSettingsTabComponent extends BaseComponent {
         const settings = this.platform.getTouchIdSettings()
         await this.platform.setTouchIdSettings(false, settings.expireDays, settings.expireOnRestart)
         await this.platform.secureDeletePassphrase()
+        this.touchIdEnabled = false
     }
 
-    async toggleTouchId (): Promise<void> {
-        if (this.touchIdEnabled) {
-            await this.disableTouchId()
-        } else {
+    async toggleTouchId (enabled: boolean): Promise<void> {
+        if (enabled) {
             await this.enableTouchId()
+        } else {
+            await this.disableTouchId()
         }
     }
 
