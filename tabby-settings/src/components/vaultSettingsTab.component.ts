@@ -43,7 +43,9 @@ export class VaultSettingsTabComponent extends BaseComponent {
     }
 
     async checkTouchIdAvailability (): Promise<void> {
-        this.touchIdAvailable = await this.platform.isBiometricAuthAvailable()
+        const biometricAvailable = await this.platform.isBiometricAuthAvailable()
+        const secureStorageAvailable = this.platform.isSecureStorageAvailable()
+        this.touchIdAvailable = biometricAvailable && secureStorageAvailable
     }
 
     get touchIdEnabled (): boolean {
@@ -76,6 +78,8 @@ export class VaultSettingsTabComponent extends BaseComponent {
     }
 
     async disableTouchId (): Promise<void> {
+        const settings = this.platform.getTouchIdSettings()
+        await this.platform.setTouchIdSettings(false, settings.expireDays, settings.expireOnRestart)
         await this.platform.secureDeletePassphrase()
     }
 

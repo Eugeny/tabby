@@ -411,14 +411,15 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async secureDeletePassphrase (): Promise<void> {
-        this.touchIdCache = null
-        try {
-            if (fsSync.existsSync(this.touchIdStoragePath)) {
-                await fs.unlink(this.touchIdStoragePath)
-            }
-        } catch {
-            // Ignore errors
+        this.loadTouchIdCache()
+        if (!this.touchIdCache) {
+            return
         }
+
+        this.touchIdCache.encrypted = []
+        this.touchIdCache.timestamp = 0
+        this.touchIdCache.bootTime = undefined
+        await this.saveTouchIdCache()
     }
 
     getSecureStorageTimestamp (): number|null {
