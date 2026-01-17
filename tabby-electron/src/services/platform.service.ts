@@ -322,6 +322,167 @@ export class ElectronPlatformService extends PlatformService {
             return 'light'
         }
     }
+
+    // Touch ID / Biometric methods (macOS only)
+    private touchIdCache: {
+        encrypted: number[],
+        timestamp: number,
+        enabled?: boolean,
+        expireDays?: number,
+        expireOnRestart?: boolean,
+        bootTime?: number,
+    }|null = null
+
+    private get touchIdStoragePath (): string {
+        return path.join(path.dirname(this.configPath), 'vault-touchid.json')
+    }
+
+    private getBootTime (): number {
+        // Calculate boot time from current time minus uptime
+        return Date.now() - os.uptime() * 1000
+    }
+
+    private loadTouchIdCache (): void {
+        if (!this.touchIdCache) {
+            if (fsSync.existsSync(this.touchIdStoragePath)) {
+                try {
+                    const content = fsSync.readFileSync(this.touchIdStoragePath, 'utf8')
+                    this.touchIdCache = JSON.parse(content)
+                } catch {
+                    this.touchIdCache = null
+                }
+            }
+        }
+    }
+
+    private async saveTouchIdCache (): Promise<void> {
+        if (this.touchIdCache) {
+            await fs.writeFile(this.touchIdStoragePath, JSON.stringify(this.touchIdCache), 'utf8')
+            try {
+                await fs.chmod(this.touchIdStoragePath, 0o600)
+            } catch {
+                // Ignore permission-setting errors to avoid breaking functionality on unsupported platforms
+            }
+        }
+    }
+
+    async isBiometricAuthAvailable (): Promise<boolean> {
+        if (this.hostApp.platform !== Platform.macOS) {
+            return false
+        }
+        try {
+            return this.electron.systemPreferences.canPromptTouchID()
+        } catch {
+            return false
+        }
+    }
+
+    async promptBiometricAuth (reason: string): Promise<void> {
+        if (this.hostApp.platform !== Platform.macOS) {
+            throw new Error('Biometric authentication is only available on macOS')
+        }
+        return this.electron.systemPreferences.promptTouchID(reason)
+    }
+
+    async isSecureStorageAvailable (): Promise<boolean> {
+        // safeStorage is available via main process IPC
+        if (this.hostApp.platform !== Platform.macOS) {
+            return false
+        }
+        return this.electron.ipcRenderer.invoke('app:safe-storage-available')
+    }
+
+    async secureStorePassphrase (passphrase: string): Promise<void> {
+        const encrypted: Buffer = await this.electron.ipcRenderer.invoke('app:safe-storage-encrypt', passphrase)
+        this.loadTouchIdCache()
+        if (!this.touchIdCache) {
+            this.touchIdCache = { encrypted: [], timestamp: 0 }
+        }
+        this.touchIdCache.encrypted = Array.from(encrypted)
+        this.touchIdCache.timestamp = Date.now()
+        this.touchIdCache.bootTime = this.getBootTime()
+        await this.saveTouchIdCache()
+    }
+
+    async secureRetrievePassphrase (): Promise<string|null> {
+        try {
+            this.loadTouchIdCache()
+            if (!this.touchIdCache?.encrypted.length) {
+                return null
+            }
+            const encrypted = Buffer.from(this.touchIdCache.encrypted)
+            const decrypted: string = await this.electron.ipcRenderer.invoke('app:safe-storage-decrypt', encrypted)
+            return decrypted
+        } catch {
+            return null
+        }
+    }
+
+    async secureDeletePassphrase (): Promise<void> {
+        this.loadTouchIdCache()
+        if (!this.touchIdCache) {
+            return
+        }
+
+        this.touchIdCache.encrypted = []
+        this.touchIdCache.timestamp = 0
+        this.touchIdCache.bootTime = undefined
+        await this.saveTouchIdCache()
+    }
+
+    getSecureStorageTimestamp (): number|null {
+        this.loadTouchIdCache()
+        return this.touchIdCache?.timestamp ?? null
+    }
+
+    getTouchIdSettings (): { enabled: boolean, expireDays: number, expireOnRestart: boolean } {
+        this.loadTouchIdCache()
+        return {
+            enabled: this.touchIdCache?.enabled ?? false,
+            expireDays: this.touchIdCache?.expireDays ?? 1,
+            expireOnRestart: this.touchIdCache?.expireOnRestart ?? false,
+        }
+    }
+
+    async setTouchIdSettings (enabled: boolean, expireDays: number, expireOnRestart?: boolean): Promise<void> {
+        this.loadTouchIdCache()
+        if (!this.touchIdCache) {
+            this.touchIdCache = { encrypted: [], timestamp: 0 }
+        }
+        this.touchIdCache.enabled = enabled
+        this.touchIdCache.expireDays = expireDays
+        this.touchIdCache.expireOnRestart = expireOnRestart ?? false
+        await this.saveTouchIdCache()
+    }
+
+    isTouchIdExpired (): boolean {
+        this.loadTouchIdCache()
+        if (!this.touchIdCache?.enabled) {
+            return true
+        }
+
+        // Check restart-based expiration
+        if (this.touchIdCache.expireOnRestart) {
+            const storedBootTime = this.touchIdCache.bootTime
+            const currentBootTime = this.getBootTime()
+            // Allow 5 second tolerance for boot time comparison
+            if (!storedBootTime || Math.abs(currentBootTime - storedBootTime) > 5000) {
+                return true
+            }
+        }
+
+        // Check time-based expiration
+        const timestamp = this.touchIdCache.timestamp
+        const expireDays = this.touchIdCache.expireDays ?? 1
+        if (expireDays > 0 && timestamp) {
+            const expireMs = expireDays * 24 * 60 * 60 * 1000
+            if (Date.now() - timestamp > expireMs) {
+                return true
+            }
+        }
+
+        return false
+    }
 }
 
 class ElectronFileUpload extends FileUpload {
