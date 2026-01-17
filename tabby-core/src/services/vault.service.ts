@@ -114,6 +114,7 @@ export class VaultService {
         private zone: NgZone,
         private notifications: NotificationsService,
         private ngbModal: NgbModal,
+        private platform: PlatformService,
     ) {
         this.getPassphrase = serializeFunction(this.getPassphrase.bind(this))
     }
@@ -178,12 +179,26 @@ export class VaultService {
     async getPassphrase (): Promise<string> {
         if (!_rememberedPassphrase) {
             const modal = this.ngbModal.open(UnlockVaultModalComponent)
-            const { passphrase, rememberFor } = await modal.result
+            const result = await modal.result
+            if (!result) {
+                throw new Error('Vault unlock cancelled')
+            }
+            const { passphrase, rememberFor, updateTouchId } = result
             setTimeout(() => {
                 _rememberedPassphrase = null
                 // avoid multiple consequent prompts
             }, Math.max(1000, rememberFor * 60000))
             _rememberedPassphrase = passphrase
+
+            // Update Touch ID storage if needed (e.g., after expiration)
+            if (updateTouchId) {
+                try {
+                    await this.platform.secureStorePassphrase(passphrase)
+                } catch (e) {
+                    // Silently fail, Touch ID update is optional
+                    console.error('Failed to update Touch ID storage:', e)
+                }
+            }
         }
 
         return _rememberedPassphrase!

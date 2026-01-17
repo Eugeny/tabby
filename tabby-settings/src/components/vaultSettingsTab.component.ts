@@ -15,6 +15,17 @@ export class VaultSettingsTabComponent extends BaseComponent {
     vaultContents: Vault|null = null
     VAULT_SECRET_TYPE_FILE = VAULT_SECRET_TYPE_FILE
 
+    // Touch ID support
+    touchIdAvailable = false
+    touchIdExpireOptions = [
+        { value: 1, label: '1 day' },
+        { value: 7, label: '7 days' },
+        { value: 30, label: '30 days' },
+        { value: 0, label: 'Never expire' },
+    ]
+
+    customExpireDays = 1
+
     @HostBinding('class.content-box') true
 
     constructor (
@@ -28,6 +39,67 @@ export class VaultSettingsTabComponent extends BaseComponent {
         if (vault.isOpen()) {
             this.loadVault()
         }
+        this.checkTouchIdAvailability()
+    }
+
+    async checkTouchIdAvailability (): Promise<void> {
+        this.touchIdAvailable = await this.platform.isBiometricAuthAvailable()
+    }
+
+    get touchIdEnabled (): boolean {
+        return this.platform.getTouchIdSettings().enabled
+    }
+
+    get touchIdExpireDays (): number {
+        return this.platform.getTouchIdSettings().expireDays
+    }
+
+    get touchIdExpireOnRestart (): boolean {
+        return this.platform.getTouchIdSettings().expireOnRestart
+    }
+
+    async enableTouchId (): Promise<void> {
+        try {
+            // Prompt for Touch ID to confirm
+            await this.platform.promptBiometricAuth(this.translate.instant('Enable Touch ID for Vault'))
+
+            // Get the current passphrase and store it securely
+            const passphrase = await this.vault.getPassphrase()
+            await this.platform.secureStorePassphrase(passphrase)
+
+            // Update settings in separate file (not affected by vault encryption)
+            await this.platform.setTouchIdSettings(true, this.touchIdExpireDays)
+        } catch (e: any) {
+            // User cancelled or Touch ID failed
+            console.error('Failed to enable Touch ID:', e)
+        }
+    }
+
+    async disableTouchId (): Promise<void> {
+        await this.platform.secureDeletePassphrase()
+    }
+
+    async toggleTouchId (): Promise<void> {
+        if (this.touchIdEnabled) {
+            await this.disableTouchId()
+        } else {
+            await this.enableTouchId()
+        }
+    }
+
+    async setTouchIdExpireDays (days: number): Promise<void> {
+        await this.platform.setTouchIdSettings(true, days, this.touchIdExpireOnRestart)
+    }
+
+    async setTouchIdExpireOnRestart (value: boolean): Promise<void> {
+        await this.platform.setTouchIdSettings(true, this.touchIdExpireDays, value)
+    }
+
+    async setCustomExpireDays (days: number): Promise<void> {
+        // Validate: max 30 days, min 1 day
+        days = Math.max(1, Math.min(30, Math.floor(days)))
+        this.customExpireDays = days
+        await this.platform.setTouchIdSettings(true, days, this.touchIdExpireOnRestart)
     }
 
     async loadVault (): Promise<void> {
@@ -56,6 +128,10 @@ export class VaultSettingsTabComponent extends BaseComponent {
                 cancelId: 1,
             },
         )).response === 0) {
+            // Also disable Touch ID when vault is disabled
+            if (this.touchIdEnabled) {
+                await this.disableTouchId()
+            }
             await this.vault.setEnabled(false)
         }
     }
@@ -71,6 +147,10 @@ export class VaultSettingsTabComponent extends BaseComponent {
         const newPassphrase = await modal.result.catch(() => null)
         if (newPassphrase) {
             this.vault.save(this.vaultContents, newPassphrase)
+            // Update Touch ID storage if enabled
+            if (this.touchIdEnabled) {
+                await this.platform.secureStorePassphrase(newPassphrase)
+            }
         }
     }
 
