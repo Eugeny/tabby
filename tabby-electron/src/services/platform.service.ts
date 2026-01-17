@@ -339,7 +339,7 @@ export class ElectronPlatformService extends PlatformService {
 
     private getBootTime (): number {
         // Calculate boot time from current time minus uptime
-        return Date.now() - (os.uptime() * 1000)
+        return Date.now() - os.uptime() * 1000
     }
 
     private loadTouchIdCache (): void {
@@ -399,7 +399,7 @@ export class ElectronPlatformService extends PlatformService {
     async secureRetrievePassphrase (): Promise<string|null> {
         try {
             this.loadTouchIdCache()
-            if (!this.touchIdCache || !this.touchIdCache.encrypted?.length) {
+            if (!this.touchIdCache?.encrypted.length) {
                 return null
             }
             const encrypted = Buffer.from(this.touchIdCache.encrypted)
