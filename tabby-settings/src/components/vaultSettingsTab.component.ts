@@ -118,15 +118,15 @@ export class VaultSettingsTabComponent extends BaseComponent {
     async setTouchIdExpireDays (days: number): Promise<void> {
         if (days === -1) {
             this.customExpireSelected = true
-            await this.platform.setTouchIdSettings(true, this.customExpireDays, this.touchIdExpireOnRestart)
+            await this.platform.setTouchIdSettings(this.touchIdEnabled, this.customExpireDays, this.touchIdExpireOnRestart)
             return
         }
         this.customExpireSelected = false
-        await this.platform.setTouchIdSettings(true, days, this.touchIdExpireOnRestart)
+        await this.platform.setTouchIdSettings(this.touchIdEnabled, days, this.touchIdExpireOnRestart)
     }
 
     async setTouchIdExpireOnRestart (value: boolean): Promise<void> {
-        await this.platform.setTouchIdSettings(true, this.touchIdExpireDays, value)
+        await this.platform.setTouchIdSettings(this.touchIdEnabled, this.touchIdExpireDays, value)
     }
 
     async setCustomExpireDays (days: number): Promise<void> {
@@ -141,7 +141,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
         } else {
             this.customExpireDays = validatedDays
         }
-        await this.platform.setTouchIdSettings(true, validatedDays, this.touchIdExpireOnRestart)
+        await this.platform.setTouchIdSettings(this.touchIdEnabled, validatedDays, this.touchIdExpireOnRestart)
     }
 
     async loadVault (): Promise<void> {
