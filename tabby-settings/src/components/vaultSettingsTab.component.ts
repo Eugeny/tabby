@@ -47,8 +47,8 @@ export class VaultSettingsTabComponent extends BaseComponent {
     }
 
     async checkTouchIdAvailability (): Promise<void> {
-        const biometricAvailable = await this.platform.isBiometricAuthAvailable()
-        const secureStorageAvailable = this.platform.isSecureStorageAvailable()
+        const biometricAvailable = await (this.platform.isBiometricAuthAvailable() as any)
+        const secureStorageAvailable = await (this.platform.isSecureStorageAvailable() as any)
         this.touchIdAvailable = biometricAvailable && secureStorageAvailable
 
         let expireDays = this.platform.getTouchIdSettings().expireDays

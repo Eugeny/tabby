@@ -280,7 +280,7 @@ export abstract class PlatformService {
     }
 
     // Secure storage for vault passphrase (uses macOS Keychain via safeStorage)
-    isSecureStorageAvailable (): boolean {
+    async isSecureStorageAvailable (): Promise<boolean> {
         return false
     }
 

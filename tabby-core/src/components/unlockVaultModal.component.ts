@@ -28,7 +28,10 @@ export class UnlockVaultModalComponent {
         this.rememberFor = parseInt(window.localStorage.vaultRememberPassphraseFor ?? 0)
 
         // Check Touch ID availability and status
-        this.touchIdAvailable = await this.platform.isBiometricAuthAvailable()
+        const biometricAvailable = await (this.platform.isBiometricAuthAvailable() as any)
+        const secureStorageAvailable = await (this.platform.isSecureStorageAvailable() as any)
+        this.touchIdAvailable = biometricAvailable && secureStorageAvailable
+
         const touchIdSettings = this.platform.getTouchIdSettings()
         this.touchIdEnabled = touchIdSettings.enabled
 

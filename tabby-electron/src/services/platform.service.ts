@@ -379,9 +379,12 @@ export class ElectronPlatformService extends PlatformService {
         return this.electron.systemPreferences.promptTouchID(reason)
     }
 
-    isSecureStorageAvailable (): boolean {
+    async isSecureStorageAvailable (): Promise<boolean> {
         // safeStorage is available via main process IPC
-        return this.hostApp.platform === Platform.macOS
+        if (this.hostApp.platform !== Platform.macOS) {
+            return false
+        }
+        return this.electron.ipcRenderer.invoke('app:safe-storage-available')
     }
 
     async secureStorePassphrase (passphrase: string): Promise<void> {
