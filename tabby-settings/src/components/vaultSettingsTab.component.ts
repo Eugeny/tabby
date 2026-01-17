@@ -137,7 +137,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
         await this.platform.setTouchIdSettings(this.touchIdEnabled, this.touchIdExpireDays, value)
     }
 
-    async setCustomExpireDays (days: number): Promise<void> {
+    async setCustomExpireDays (days: number|null|undefined): Promise<void> {
         if (days === null || days === undefined) {
             return
         }
