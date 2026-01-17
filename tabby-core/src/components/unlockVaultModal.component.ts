@@ -60,6 +60,8 @@ export class UnlockVaultModalComponent {
                 })
             } else {
                 this.touchIdError = this.translate.instant('Could not retrieve passphrase')
+                // Hide Touch ID button since the stored passphrase seems invalid
+                this.touchIdEnabled = false
             }
         } catch (e: any) {
             // User cancelled or Touch ID failed
