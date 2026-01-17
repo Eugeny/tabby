@@ -358,6 +358,11 @@ export class ElectronPlatformService extends PlatformService {
     private async saveTouchIdCache (): Promise<void> {
         if (this.touchIdCache) {
             await fs.writeFile(this.touchIdStoragePath, JSON.stringify(this.touchIdCache), 'utf8')
+            try {
+                await fs.chmod(this.touchIdStoragePath, 0o600)
+            } catch {
+                // Ignore permission-setting errors to avoid breaking functionality on unsupported platforms
+            }
         }
     }
 
