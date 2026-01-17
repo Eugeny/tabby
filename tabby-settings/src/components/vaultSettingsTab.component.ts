@@ -24,6 +24,8 @@ export class VaultSettingsTabComponent extends BaseComponent {
         { value: 0, label: 'Never expire' },
     ]
 
+    private touchIdExpirePresetValues = [1, 7, 30, 0]
+
     customExpireDays = 1
 
     @HostBinding('class.content-box') true
@@ -46,6 +48,11 @@ export class VaultSettingsTabComponent extends BaseComponent {
         const biometricAvailable = await this.platform.isBiometricAuthAvailable()
         const secureStorageAvailable = this.platform.isSecureStorageAvailable()
         this.touchIdAvailable = biometricAvailable && secureStorageAvailable
+
+        const expireDays = this.platform.getTouchIdSettings().expireDays
+        if (expireDays > 0 && !this.touchIdExpirePresetValues.includes(expireDays)) {
+            this.customExpireDays = expireDays
+        }
     }
 
     get touchIdEnabled (): boolean {
@@ -54,6 +61,14 @@ export class VaultSettingsTabComponent extends BaseComponent {
 
     get touchIdExpireDays (): number {
         return this.platform.getTouchIdSettings().expireDays
+    }
+
+    get touchIdExpireSelection (): number {
+        const expireDays = this.touchIdExpireDays
+        if (expireDays > 0 && !this.touchIdExpirePresetValues.includes(expireDays)) {
+            return -1
+        }
+        return expireDays
     }
 
     get touchIdExpireOnRestart (): boolean {
@@ -92,6 +107,10 @@ export class VaultSettingsTabComponent extends BaseComponent {
     }
 
     async setTouchIdExpireDays (days: number): Promise<void> {
+        if (days === -1) {
+            await this.platform.setTouchIdSettings(true, this.customExpireDays, this.touchIdExpireOnRestart)
+            return
+        }
         await this.platform.setTouchIdSettings(true, days, this.touchIdExpireOnRestart)
     }
 

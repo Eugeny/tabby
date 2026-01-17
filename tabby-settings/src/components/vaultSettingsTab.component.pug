@@ -82,7 +82,7 @@ div(*ngIf='vault.isEnabled()')
             .d-flex.align-items-center.gap-2
                 select.form-control(
                     style='width: auto',
-                    [ngModel]='touchIdExpireDays',
+                    [ngModel]='touchIdExpireSelection',
                     (ngModelChange)='setTouchIdExpireDays($event)',
                 )
                     option(
@@ -91,7 +91,7 @@ div(*ngIf='vault.isEnabled()')
                     ) {{opt.label | translate}}
                     option([ngValue]='-1', translate) Custom
                 // Custom days input (show when custom is selected)
-                .input-group(*ngIf='touchIdExpireDays === -1 || (touchIdExpireDays > 0 && touchIdExpireDays !== 1 && touchIdExpireDays !== 7 && touchIdExpireDays !== 30)', style='width: 120px')
+                .input-group(*ngIf='touchIdExpireSelection === -1', style='width: 120px')
                     input.form-control(
                         type='number',
                         min='1',
