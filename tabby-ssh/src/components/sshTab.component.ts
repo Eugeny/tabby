@@ -3,7 +3,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Platform, ProfilesService } from 'tabby-core'
+import { Platform, ProfilesService, PartialProfile } from 'tabby-core'
 import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
@@ -76,7 +76,30 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
             session = new SSHSession(injector, profile)
 
             if (profile.options.jumpHost) {
-                const jumpConnection = (await this.profilesService.getProfiles()).find(x => x.id === profile.options.jumpHost)
+                const allProfiles = await this.profilesService.getProfiles()
+                let jumpConnection = allProfiles.find(x => x.id === profile.options.jumpHost)
+
+                // If not found by ID, try to find by hostname (for SSH profiles)
+                // This handles cases where the jumpHost might be a hostname or the ID format doesn't match
+                if (!jumpConnection && profile.options.jumpHost.includes(':')) {
+                    // If it looks like an openssh-config ID, try to find by hostname
+                    const hostnameMatch = profile.options.jumpHost.split(':').pop()
+                    if (hostnameMatch) {
+                        jumpConnection = allProfiles.find(x =>
+                            x.type === 'ssh' &&
+                            (x as PartialProfile<SSHProfile>).options?.host === hostnameMatch,
+                        )
+                    }
+                }
+
+                // If still not found, try to find by name (for imported profiles)
+                if (!jumpConnection) {
+                    jumpConnection = allProfiles.find(x =>
+                        x.type === 'ssh' &&
+                        (x.name === profile.options.jumpHost ||
+                         x.name === `${profile.options.jumpHost} (.ssh/config)`),
+                    )
+                }
 
                 if (!jumpConnection) {
                     throw new Error(`${profile.options.host}: jump host "${profile.options.jumpHost}" not found in your config`)
@@ -94,6 +117,17 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                         session.destroy()
                     }
                 })
+
+                // Ensure jump session is fully started and connected before using it
+                if (!jumpSession.open) {
+                    this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to jump host ${jumpConnection.name}\r\n`)
+                    this.startSpinner(this.translate.instant(_('Connecting')))
+                    try {
+                        await jumpSession.start()
+                    } finally {
+                        this.stopSpinner()
+                    }
+                }
 
                 if (!(jumpSession.ssh instanceof russh.AuthenticatedSSHClient)) {
                     throw new Error('Jump session is not authenticated yet somehow')
