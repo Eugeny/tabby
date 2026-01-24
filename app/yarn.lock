@@ -3023,10 +3023,10 @@ node-gyp@^10.0.0, node-gyp@^5.0.2, node-gyp@^5.1.1:
     tar "^6.1.2"
     which "^4.0.0"
 
-node-pty@^1.2.0-beta.3:
-  version "1.2.0-beta.3"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-1.2.0-beta.3.tgz#0a773dcc49d4342aada73636fc5639d924055fe0"
-  integrity sha512-SeAwG9LgWijWLtWldBWPwUUA1rAg2OKBG37dtSGOTYvBkUstWxAi2hXS0pX9JXbHPDxs0DnVc5tXrXsY821E+w==
+node-pty@^1.2.0-beta.8:
+  version "1.2.0-beta.8"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-1.2.0-beta.8.tgz#f23f0d69885bf521e57a3f7abc2de80764b88163"
+  integrity sha512-2gDjTGB/VaMV8cmFMg0d7IfLcWkxtyekn9VSqpq+tUOiu5+nnLfVXYHZbjZCq1kXhnxbdlBjaKLvvVWIbFkicw==
   dependencies:
     node-addon-api "^7.1.0"
 
