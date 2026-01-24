@@ -161,7 +161,7 @@ export class SSHSession {
     async init (): Promise<void> {
         this.allAuthMethods = [{ type: 'none' }]
         if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
-            if (this.profile.options.privateKeys?.length) {
+            if (this.profile.options.privateKeys.length) {
                 for (let pk of this.profile.options.privateKeys) {
                     // eslint-disable-next-line @typescript-eslint/init-declarations
                     let contents: Buffer
@@ -207,7 +207,7 @@ export class SSHSession {
             } else {
                 // If user configured specific private keys, try to load their corresponding
                 // .pub files and use them first for agent-identity authentication
-                if (this.profile.options.privateKeys?.length) {
+                if (this.profile.options.privateKeys.length) {
                     for (let pk of this.profile.options.privateKeys) {
                         pk = pk.replace('%h', this.profile.options.host)
                         pk = pk.replace('%r', this.profile.options.user)
@@ -352,7 +352,7 @@ export class SSHSession {
 
         const algorithms = {}
         for (const key of Object.values(SSHAlgorithmType)) {
-            algorithms[key] = this.profile.options.algorithms![key].filter(x => supportedAlgorithms[key].includes(x))
+            algorithms[key] = this.profile.options.algorithms[key].filter(x => supportedAlgorithms[key].includes(x))
         }
 
         // eslint-disable-next-line @typescript-eslint/init-declarations
@@ -396,13 +396,13 @@ export class SSHSession {
             },
             {
                 preferred: {
-                    ciphers: this.profile.options.algorithms?.[SSHAlgorithmType.CIPHER]?.filter(x => supportedAlgorithms[SSHAlgorithmType.CIPHER].includes(x)),
-                    kex: this.profile.options.algorithms?.[SSHAlgorithmType.KEX]?.filter(x => supportedAlgorithms[SSHAlgorithmType.KEX].includes(x)),
-                    mac: this.profile.options.algorithms?.[SSHAlgorithmType.HMAC]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HMAC].includes(x)),
-                    key: this.profile.options.algorithms?.[SSHAlgorithmType.HOSTKEY]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HOSTKEY].includes(x)),
-                    compression: this.profile.options.algorithms?.[SSHAlgorithmType.COMPRESSION]?.filter(x => supportedAlgorithms[SSHAlgorithmType.COMPRESSION].includes(x)),
+                    ciphers: this.profile.options.algorithms[SSHAlgorithmType.CIPHER].filter(x => supportedAlgorithms[SSHAlgorithmType.CIPHER].includes(x)),
+                    kex: this.profile.options.algorithms[SSHAlgorithmType.KEX].filter(x => supportedAlgorithms[SSHAlgorithmType.KEX].includes(x)),
+                    mac: this.profile.options.algorithms[SSHAlgorithmType.HMAC].filter(x => supportedAlgorithms[SSHAlgorithmType.HMAC].includes(x)),
+                    key: this.profile.options.algorithms[SSHAlgorithmType.HOSTKEY].filter(x => supportedAlgorithms[SSHAlgorithmType.HOSTKEY].includes(x)),
+                    compression: this.profile.options.algorithms[SSHAlgorithmType.COMPRESSION].filter(x => supportedAlgorithms[SSHAlgorithmType.COMPRESSION].includes(x)),
                 },
-                keepaliveIntervalSeconds: Math.round((this.profile.options.keepaliveInterval ?? 15000) / 1000),
+                keepaliveIntervalSeconds: Math.round(this.profile.options.keepaliveInterval / 1000),
                 keepaliveCountMax: this.profile.options.keepaliveCountMax,
                 connectionTimeoutSeconds: this.profile.options.readyTimeout ? Math.round(this.profile.options.readyTimeout / 1000) : undefined,
             },
@@ -466,7 +466,7 @@ export class SSHSession {
             this.passwordStorage.savePassword(this.profile, this.savedPassword, this.authUsername ?? undefined)
         }
 
-        for (const fw of this.profile.options.forwardedPorts ?? []) {
+        for (const fw of this.profile.options.forwardedPorts) {
             this.addPortForward(Object.assign(new ForwardedPort(), fw))
         }
 
@@ -566,7 +566,7 @@ export class SSHSession {
 
         const keyDigest = crypto.createHash('sha256').update(key.bytes()).digest('base64')
 
-        const knownHost = this.knownHosts.getFor(selector)
+        const knownHost = this.profile.options.host ? this.knownHosts.getFor(selector) : null
         if (!knownHost || knownHost.digest !== keyDigest) {
             const modal = this.ngbModal.open(HostKeyPromptModalComponent)
             modal.componentInstance.selector = selector

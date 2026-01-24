@@ -3,7 +3,7 @@ import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService } from 'tabby-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined } from 'tabby-core'
 
 import { BaseSession } from '../session'
 
@@ -97,7 +97,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     frontendReady = new Subject<void>()
     size: ResizeEvent
 
-    profile: P
+    profile: FullyDefined<P>
 
     /**
      * Enables normal passthrough from session output to terminal input

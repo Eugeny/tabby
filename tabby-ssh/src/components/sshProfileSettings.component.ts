@@ -3,19 +3,21 @@ import { Component, ViewChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { firstBy } from 'thenby'
 
-import { FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile, ProfilesService } from 'tabby-core'
+import { FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile, ProfilesService, ProfileSettingsComponent } from 'tabby-core'
 import { LoginScriptsSettingsComponent } from 'tabby-terminal'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
 import { supportedAlgorithms } from '../algorithms'
+import { FullyDefined, ProxifiedConfig } from 'tabby-core/src/services/config.service'
+import { SSHProfilesService } from '../profiles'
 
 /** @hidden */
 @Component({
     templateUrl: './sshProfileSettings.component.pug',
 })
-export class SSHProfileSettingsComponent {
+export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSHProfile, SSHProfilesService> {
     Platform = Platform
-    profile: SSHProfile
+    profile: ProxifiedConfig<FullyDefined<SSHProfile>>
     hasSavedPassword: boolean
 
     connectionMode: 'direct'|'proxyCommand'|'jumpHost'|'socksProxy'|'httpProxy' = 'direct'
@@ -39,13 +41,10 @@ export class SSHProfileSettingsComponent {
 
         for (const k of Object.values(SSHAlgorithmType)) {
             this.algorithms[k] = {}
-            for (const alg of this.profile.options.algorithms?.[k] ?? []) {
+            for (const alg of this.profile.options.algorithms[k]) {
                 this.algorithms[k][alg] = true
             }
         }
-
-        this.profile.options.auth = this.profile.options.auth ?? null
-        this.profile.options.privateKeys ??= []
 
         if (this.profile.options.proxyCommand) {
             this.connectionMode = 'proxyCommand'
@@ -92,49 +91,48 @@ export class SSHProfileSettingsComponent {
         const ref = await this.fileProviders.selectAndStoreFile(`private key for ${this.profile.name}`).catch(() => null)
         if (ref) {
             this.profile.options.privateKeys = [
-                ...this.profile.options.privateKeys!,
+                ...this.profile.options.privateKeys,
                 ref,
             ]
         }
     }
 
     removePrivateKey (path: string) {
-        this.profile.options.privateKeys = this.profile.options.privateKeys?.filter(x => x !== path)
+        this.profile.options.privateKeys = this.profile.options.privateKeys.filter(x => x !== path)
     }
 
     save () {
         for (const k of Object.values(SSHAlgorithmType)) {
-            this.profile.options.algorithms![k] = Object.entries(this.algorithms[k])
+            this.profile.options.algorithms[k] = Object.entries(this.algorithms[k])
                 .filter(([_, v]) => !!v)
                 .map(([key, _]) => key)
-            if(k !== SSHAlgorithmType.COMPRESSION) { this.profile.options.algorithms![k].sort() }
+            if(k !== SSHAlgorithmType.COMPRESSION) { this.profile.options.algorithms[k].sort() }
         }
 
         if (this.connectionMode !== 'jumpHost') {
-            this.profile.options.jumpHost = undefined
+            this.profile.options.jumpHost = null
         }
         if (this.connectionMode !== 'proxyCommand') {
-            this.profile.options.proxyCommand = undefined
+            this.profile.options.proxyCommand = null
         }
         if (this.connectionMode !== 'socksProxy') {
-            this.profile.options.socksProxyHost = undefined
-            this.profile.options.socksProxyPort = undefined
+            this.profile.options.socksProxyHost = null
+            this.profile.options.socksProxyPort = null
         }
         if (this.connectionMode !== 'httpProxy') {
-            this.profile.options.httpProxyHost = undefined
-            this.profile.options.httpProxyPort = undefined
+            this.profile.options.httpProxyHost = null
+            this.profile.options.httpProxyPort = null
         }
 
         this.loginScriptsSettings?.save()
     }
 
     onForwardAdded (fw: ForwardedPortConfig) {
-        this.profile.options.forwardedPorts = this.profile.options.forwardedPorts ?? []
         this.profile.options.forwardedPorts.push(fw)
     }
 
     onForwardRemoved (fw: ForwardedPortConfig) {
-        this.profile.options.forwardedPorts = this.profile.options.forwardedPorts?.filter(x => x !== fw)
+        this.profile.options.forwardedPorts = this.profile.options.forwardedPorts.filter(x => x !== fw)
     }
 
     getConnectionDropdownTitle () {

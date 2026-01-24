@@ -14,7 +14,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
     settingsComponent = SSHProfileSettingsComponent
     configDefaults = {
         options: {
-            host: null,
+            host: '',
             port: 22,
             user: 'root',
             auth: null,

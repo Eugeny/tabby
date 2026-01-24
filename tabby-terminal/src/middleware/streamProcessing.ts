@@ -12,10 +12,10 @@ export type OutputMode = null | 'hex'
 export type NewlineMode = null | 'cr' | 'lf' | 'crlf' | 'implicit_cr' | 'implicit_lf'
 
 export interface StreamProcessingOptions {
-    inputMode?: InputMode
-    inputNewlines?: NewlineMode
-    outputMode?: OutputMode
-    outputNewlines?: NewlineMode
+    inputMode: InputMode
+    inputNewlines: NewlineMode
+    outputMode: OutputMode
+    outputNewlines: NewlineMode
 }
 
 export class TerminalStreamProcessor extends SessionMiddleware {

@@ -32,16 +32,15 @@ export abstract class ShellProvider {
 
 
 export interface SessionOptions {
-    restoreFromPTYID?: string
-    name?: string
+    restoreFromPTYID: string | null
     command: string
-    args?: string[]
-    cwd?: string
-    env?: Record<string, string>
-    width?: number
-    height?: number
-    pauseAfterExit?: boolean
-    runAsAdministrator?: boolean
+    args: string[]
+    cwd: string | null
+    env: Record<string, string>
+    width: number | null
+    height: number | null
+    pauseAfterExit: boolean
+    runAsAdministrator: boolean
 }
 
 export interface LocalProfile extends BaseTerminalProfile {

@@ -385,7 +385,7 @@ export class XTermFrontend extends Frontend {
         this.xtermCore._scrollToBottom()
     }
 
-    private configureColors (scheme: TerminalColorScheme|undefined): void {
+    private configureColors (scheme: TerminalColorScheme | null): void {
         const appColorScheme = this.themes._getActiveColorScheme() as TerminalColorScheme
 
         scheme = scheme ?? appColorScheme

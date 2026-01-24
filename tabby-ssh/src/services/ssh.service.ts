@@ -44,7 +44,7 @@ export class SSHService {
                     uri += `;x-tunnelpasswordplain=${encodeURIComponent(jumpPassword)}`
                 }
             }
-            if (jumpHostProfile.options.auth === 'publicKey' && jumpHostProfile.options.privateKeys && jumpHostProfile.options.privateKeys.length > 0) {
+            if (jumpHostProfile.options.auth === 'publicKey' && jumpHostProfile.options.privateKeys.length > 0) {
                 const privateKeyPairs = await this.convertPrivateKeyFileToPuTTYFormat(jumpHostProfile)
                 tmpFile = privateKeyPairs.privateKeyFile
                 if (tmpFile) {
@@ -80,7 +80,7 @@ export class SSHService {
     }
 
     async convertPrivateKeyFileToPuTTYFormat (profile: SSHProfile): Promise<{ passphrase: string|null, privateKeyFile: tmp.FileResult|null }> {
-        if (!profile.options.privateKeys || profile.options.privateKeys.length === 0) {
+        if (profile.options.privateKeys.length === 0) {
             throw new Error('No private keys in profile')
         }
         const path = this.getWinSCPPath()
@@ -122,7 +122,7 @@ export class SSHService {
 
         let tmpFile: tmp.FileResult|null = null
         try {
-            if (session.activePrivateKey && session.profile.options.privateKeys && session.profile.options.privateKeys.length > 0) {
+            if (session.activePrivateKey && session.profile.options.privateKeys.length > 0) {
                 const profile = session.profile
                 const privateKeyPairs = await this.convertPrivateKeyFileToPuTTYFormat(profile)
                 tmpFile = privateKeyPairs.privateKeyFile

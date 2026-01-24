@@ -67,7 +67,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             base = await this.selector.show(
                 this.translate.instant('Select a base profile to use as a template'),
                 profiles.map(p => ({
-                    icon: p.icon,
+                    icon: p.icon ?? undefined,
                     description: this.profilesService.getDescription(p) ?? undefined,
                     name: p.group ? `${this.profilesService.resolveProfileGroupName(p.group)} / ${p.name}` : p.name,
                     result: p,
