@@ -352,7 +352,9 @@ export class SSHSession {
 
         const algorithms = {}
         for (const key of Object.values(SSHAlgorithmType)) {
+             if(key !== SSHAlgorithmType.COMPRESSION) { 
             algorithms[key] = this.profile.options.algorithms![key].filter(x => supportedAlgorithms[key].includes(x))
+             }
         }
 
         // eslint-disable-next-line @typescript-eslint/init-declarations
