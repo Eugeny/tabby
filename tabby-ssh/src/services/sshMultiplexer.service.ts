@@ -30,7 +30,29 @@ export class SSHMultiplexerService {
     private async getMultiplexerKey (profile: SSHProfile) {
         let key = `${profile.options.host}:${profile.options.port}:${profile.options.user}:${profile.options.proxyCommand}:${profile.options.socksProxyHost}:${profile.options.socksProxyPort}:${profile.options.httpProxyHost}:${profile.options.httpProxyPort}`
         if (profile.options.jumpHost) {
-            const jumpConnection = (await this.profilesService.getProfiles()).find(x => x.id === profile.options.jumpHost)
+            const allProfiles = await this.profilesService.getProfiles()
+            let jumpConnection = allProfiles.find(x => x.id === profile.options.jumpHost)
+
+            // If not found by ID, try to find by hostname (for SSH profiles)
+            if (!jumpConnection && profile.options.jumpHost.includes(':')) {
+                const hostnameMatch = profile.options.jumpHost.split(':').pop()
+                if (hostnameMatch) {
+                    jumpConnection = allProfiles.find(x =>
+                        x.type === 'ssh' &&
+                        (x as PartialProfile<SSHProfile>).options?.host === hostnameMatch,
+                    )
+                }
+            }
+
+            // If still not found, try to find by name (for imported profiles)
+            if (!jumpConnection) {
+                jumpConnection = allProfiles.find(x =>
+                    x.type === 'ssh' &&
+                    (x.name === profile.options.jumpHost ||
+                     x.name === `${profile.options.jumpHost} (.ssh/config)`),
+                )
+            }
+
             if (!jumpConnection) {
                 return key
             }
