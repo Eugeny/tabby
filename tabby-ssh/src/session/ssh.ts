@@ -37,18 +37,18 @@ type AuthMethod = {
     type: 'publickey'
     name: string
     contents: Buffer
-} | {
+} | ({
     type: 'agent',
+    publicKey?: russh.SshPublicKey
+} & ({
     kind: 'unix-socket',
     path: string
 } | {
-    type: 'agent',
     kind: 'named-pipe',
     path: string
 } | {
-    type: 'agent',
     kind: 'pageant',
-}
+}))
 
 function sshAuthTypeForMethod (m: AuthMethod): string {
     switch (m.type) {
@@ -174,6 +174,21 @@ export class SSHSession {
                         continue
                     }
 
+                    // If the file parses as a public key, it was likely a .pub file
+                    // mistakenly configured in the privateKeys list. In that case,
+                    // skip it here and warn the user instead of treating it as a
+                    // private key.
+                    try {
+                        russh.parsePublicKey(contents.toString('utf-8'))
+                        this.emitServiceMessage(
+                            colors.bgYellow.yellow.black(' ! ') +
+                            ` Expected a private key, but ${pk} appears to be a public key. Skipping it for private key authentication.`,
+                        )
+                        continue
+                    } catch {
+                        // Not a valid public key; treat the file contents as a private key below.
+                    }
+
                     this.addPublicKeyAuthMethod(pk, contents)
                 }
             } else {
@@ -190,6 +205,39 @@ export class SSHSession {
             if (!spec) {
                 this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
             } else {
+                // If user configured specific private keys, try to load their corresponding
+                // .pub files and use them first for agent-identity authentication
+                if (this.profile.options.privateKeys?.length) {
+                    for (let pk of this.profile.options.privateKeys) {
+                        pk = pk.replace('%h', this.profile.options.host)
+                        pk = pk.replace('%r', this.profile.options.user)
+
+                        // Try to load as public key file
+                        let pubKeyPath = pk
+                        if (!pk.endsWith('.pub')) {
+                            pubKeyPath = pk + '.pub'
+                        }
+
+                        try {
+                            const pubKeyContent = await this.fileProviders.retrieveFile(pubKeyPath)
+                            const publicKey = russh.parsePublicKey(pubKeyContent.toString('utf-8'))
+                            this.allAuthMethods.push({
+                                type: 'agent',
+                                ...spec,
+                                publicKey,
+                            } as AuthMethod)
+                            this.emitServiceMessage(`Loaded public key for agent auth: ${pubKeyPath}`)
+                        } catch (error) {
+                            // Not a public key file or doesn't exist, skip
+                            this.emitServiceMessage(
+                                `Could not load public key for agent auth from ${pubKeyPath}: ${error}. ` +
+                                `Agent-identity authentication will not be attempted for this key.`,
+                            )
+                        }
+                    }
+                }
+
+                // Always add fallback agent auth that tries all keys
                 this.allAuthMethods.push({
                     type: 'agent',
                     ...spec,
@@ -248,7 +296,17 @@ export class SSHSession {
     private async getAgentConnectionSpec (): Promise<russh.AgentConnectionSpec|null> {
         if (this.hostApp.platform === Platform.Windows) {
             if (this.config.store.ssh.agentType === 'auto') {
-                if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+                let pipeExists = false
+                try {
+                    await fs.stat(WINDOWS_OPENSSH_AGENT_PIPE)
+                    pipeExists = true
+                } catch (e) {
+                    if (e.code === 'EBUSY') {
+                        pipeExists = true
+                    }
+                }
+
+                if (pipeExists) {
                     return {
                         kind: 'named-pipe',
                         path: WINDOWS_OPENSSH_AGENT_PIPE,
@@ -437,10 +495,9 @@ export class SSHSession {
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
                 channel.close()
             })
-            channel.data$.subscribe(data => socket.write(data))
-            socket.on('data', data => channel.write(Uint8Array.from(data)))
-            channel.closed$.subscribe(() => socket.destroy())
-            socket.on('close', () => channel.close())
+
+            this.setupSocketChannelEvents(channel, socket, 'Remote forward')
+
             socket.on('connect', () => {
                 this.logger.info('Connection forwarded')
             })
@@ -461,19 +518,7 @@ export class SSHSession {
             try {
                 const x11Stream = await socket.connect(displaySpec)
                 this.logger.info('Connection forwarded')
-
-                channel.data$.subscribe(data => {
-                    x11Stream.write(data)
-                })
-                x11Stream.on('data', data => {
-                    channel.write(Uint8Array.from(data))
-                })
-                channel.closed$.subscribe(() => {
-                    socket.destroy()
-                })
-                x11Stream.on('close', () => {
-                    channel.close()
-                })
+                this.setupSocketChannelEvents(channel, x11Stream, 'X11 forward')
             } catch (e) {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server: ${e}`)
@@ -563,6 +608,7 @@ export class SSHSession {
         }
     }
 
+    // eslint-disable-next-line max-statements
     private async _handleAuth (): Promise<russh.AuthenticatedSSHClient|null> {
         this.activePrivateKey = null
 
@@ -694,13 +740,14 @@ export class SSHSession {
             }
             if (method.type === 'agent') {
                 try {
-                    const result = await this.ssh.authenticateWithAgent(this.authUsername, method)
+                    const result = method.publicKey ? await this.ssh.authenticateWithAgentIdentity(this.authUsername, method, method.publicKey) : await this.ssh.authenticateWithAgent(this.authUsername, method)
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
                     maybeSetRemainingMethods(result)
                 } catch (e) {
-                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent: ${e}`)
+                    const identitySuffix = method.publicKey ? ` with identity ${method.publicKey.fingerprint()}` : ''
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent${identitySuffix}: ${e}`)
                     continue
                 }
             }
@@ -728,10 +775,8 @@ export class SSHSession {
                     throw err
                 }))
                 const socket = accept()
-                channel.data$.subscribe(data => socket.write(data))
-                socket.on('data', data => channel.write(Uint8Array.from(data)))
-                channel.closed$.subscribe(() => socket.destroy())
-                socket.on('close', () => channel.close())
+
+                this.setupSocketChannelEvents(channel, socket, 'Local forward')
             }).then(() => {
                 this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwarded ${fw}`)
                 this.forwardedPorts.push(fw)
@@ -803,6 +848,57 @@ export class SSHSession {
         }
         await ch.requestShell()
         return ch
+    }
+
+    private setupSocketChannelEvents (channel: russh.Channel, socket: Socket, logPrefix: string): void {
+        // Channel → Socket data flow with error handling
+        channel.data$.subscribe({
+            next: data => socket.write(data),
+            error: err => {
+                this.logger.error(`${logPrefix}: channel data error: ${err}`)
+                socket.destroy()
+            },
+        })
+
+        // Socket → Channel data flow with proper conversion
+        socket.on('data', data => {
+            try {
+                channel.write(new Uint8Array(data.buffer, data.byteOffset, data.byteLength))
+            } catch (err) {
+                this.logger.error(`${logPrefix}: channel write error: ${err}`)
+                socket.destroy(new Error(`${logPrefix}failed to write to channel: ${err}`))
+            }
+        })
+
+        // Handle EOF from remote
+        channel.eof$.subscribe(() => {
+            this.logger.debug(`${logPrefix}: channel EOF received, ending socket`)
+            socket.end()
+        })
+
+        // Handle channel close
+        channel.closed$.subscribe(() => {
+            this.logger.debug(`${logPrefix}: channel closed, destroying socket`)
+            socket.destroy()
+        })
+
+        // Handle socket errors
+        socket.on('error', err => {
+            this.logger.error(`${logPrefix}: socket error: ${err}`)
+            channel.close()
+        })
+
+        // Handle socket close
+        socket.on('close', () => {
+            this.logger.debug(`${logPrefix}: socket closed, closing channel`)
+            channel.close()
+        })
+
+        // Handle EOF from local
+        socket.on('end', () => {
+            this.logger.debug(`${logPrefix}: socket end, sending EOF to channel`)
+            channel.eof()
+        })
     }
 
     async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<russh.KeyPair> {

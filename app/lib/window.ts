@@ -259,8 +259,12 @@ export class Window {
         if (process.platform === 'darwin') {
             // Lose focus
             Menu.sendActionToFirstResponder('hide:')
+            // Don't disable docked window styles when hiding - keep dock hidden if feature is enabled
             if (this.isDockedOnTop()) {
-                await this.enableDockedWindowStyles(false)
+                // Temporarily disable always-on-top and other properties while hidden
+                if (this.window.isAlwaysOnTop()) {
+                    this.window.setAlwaysOnTop(false)
+                }
             }
         }
         this.window.blur()
