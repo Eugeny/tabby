@@ -11,7 +11,7 @@ jobs:
     if: >
       (
         github.event_name == 'push' &&
-        github.ref == 'refs/heads/zlx-base-f7b767aab3c78a65eb3563981b2a695ecd24bf54'
+        startsWith(github.ref, 'refs/heads/zlx-base-')
       ) ||
       (
         github.event_name == 'pull_request' &&
