@@ -1,4 +1,4 @@
-import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions, WebContents } from 'electron'
+import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions, WebContents, safeStorage } from 'electron'
 import promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
 import { exec } from 'mz/child_process'
@@ -34,6 +34,25 @@ export class Application {
         ipcMain.handle('app:save-config', async (event, config) => {
             await saveConfig(config)
             this.broadcastExcept('host:config-change', event.sender, config)
+        })
+
+        // safeStorage IPC handlers for vault Touch ID support
+        ipcMain.handle('app:safe-storage-available', () => {
+            return safeStorage.isEncryptionAvailable()
+        })
+
+        ipcMain.handle('app:safe-storage-encrypt', (_event, plainText: string) => {
+            if (!safeStorage.isEncryptionAvailable()) {
+                throw new Error('Encryption is not available')
+            }
+            return safeStorage.encryptString(plainText)
+        })
+
+        ipcMain.handle('app:safe-storage-decrypt', (_event, encrypted: Buffer) => {
+            if (!safeStorage.isEncryptionAvailable()) {
+                throw new Error('Encryption is not available')
+            }
+            return safeStorage.decryptString(Buffer.from(encrypted as unknown as ArrayBuffer))
         })
 
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {
