@@ -55,9 +55,12 @@ export class ProfileCLIHandler extends CLIHandler {
     }
 
     private async handleOpenQuickConnect (providerId: string, query: string) {
-        const provider = this.profiles.getProviders().find(x => x.id === providerId)
-        if(!provider || !(provider instanceof QuickConnectProfileProvider)) {
-            console.error(`Requested provider "${providerId}" not found`)
+        const quickConnectProviders = this.profiles.getProviders()
+            .filter((x): x is QuickConnectProfileProvider<any> => x instanceof QuickConnectProfileProvider)
+        const provider = quickConnectProviders.find(x => x.id === providerId)
+        if(!provider) {
+            const available = quickConnectProviders.map(x => x.id).join(', ')
+            console.error(`Requested provider "${providerId}" not found. Available providers: ${available}`)
             return
         }
         const profile = provider.quickConnect(query)
