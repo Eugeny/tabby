@@ -1382,6 +1382,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Gelix",
+      "name": "Gelix",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2097385?v=4",
+      "profile": "https://github.com/Gelix",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
