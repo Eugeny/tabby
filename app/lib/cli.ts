@@ -22,8 +22,6 @@ interface ParserConfig {
     version: string
 }
 
-const QUICK_CONNECT_PROVIDERS = ['ssh', 'telnet'] as const
-
 export function createParserConfig (cwd: string): ParserConfig {
     return {
         usage: 'tabby [command] [arguments]',
@@ -77,7 +75,6 @@ export function createParserConfig (cwd: string): ParserConfig {
                     providerId: {
                         describe: 'The name of a quick connect profile provider',
                         type: 'string',
-                        choices: [...QUICK_CONNECT_PROVIDERS],
                     },
                     query: {
                         describe: 'The quick connect query string',
