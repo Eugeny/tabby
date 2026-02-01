@@ -3,6 +3,10 @@ appId: org.tabby
 productName: Tabby
 compression: normal
 npmRebuild: false
+protocols:
+  - name: Tabby URL
+    schemes:
+      - tabby
 files:
 - '**/*'
 - dist
@@ -74,6 +78,7 @@ linux:
   desktop:
     entry:
       StartupWMClass: tabby
+      MimeType: x-scheme-handler/tabby
 snap:
   plugs:
   - default

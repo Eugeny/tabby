@@ -21,15 +21,15 @@ export class ProfileCLIHandler extends CLIHandler {
         const op = event.argv._[0]
 
         if (op === 'profile') {
-            this.handleOpenProfile(event.argv.profileName)
+            this.handleOpenProfile(event.argv.profileName!)
             return true
         }
         if (op === 'recent') {
-            this.handleOpenRecentProfile(event.argv.profileNumber)
+            this.handleOpenRecentProfile(event.argv.profileNumber!)
             return true
         }
         if (op === 'quickConnect') {
-            this.handleOpenQuickConnect(event.argv.providerId, event.argv.query)
+            this.handleOpenQuickConnect(event.argv.providerId!, event.argv.query!)
             return true
         }
         return false

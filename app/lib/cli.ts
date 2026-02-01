@@ -1,52 +1,133 @@
 import { app } from 'electron'
 
-export function parseArgs (argv: string[], cwd: string): any {
-    if (argv[0].includes('node')) {
-        argv = argv.slice(1)
-    }
+interface YargsOption {
+    type?: 'string' | 'number' | 'boolean' | 'array'
+    alias?: string
+    describe?: string
+    default?: any
+    choices?: string[]
+}
 
-    return require('yargs/yargs')(argv.slice(1))
-        .usage('tabby [command] [arguments]')
-        .command('open [directory]', 'open a shell in a directory', {
-            directory: { type: 'string', 'default': cwd },
-        })
-        .command(['run [command...]', '/k'], 'run a command in the terminal', {
-            command: { type: 'string' },
-        })
-        .command('profile [profileName]', 'open a tab with specified profile', {
-            profileName: { type: 'string' },
-        })
-        .command('paste [text]', 'paste stdin into the active tab', yargs => {
-            return yargs.option('escape', {
-                alias: 'e',
+interface CommandConfig {
+    command: string | string[]
+    description: string
+    options?: Record<string, YargsOption>
+    positionals?: Record<string, YargsOption>
+}
+
+interface ParserConfig {
+    usage: string
+    commands: CommandConfig[]
+    options: Record<string, YargsOption>
+    version: string
+}
+
+export function createParserConfig (cwd: string): ParserConfig {
+    return {
+        usage: 'tabby [command] [arguments]',
+        commands: [
+            {
+                command: 'open [directory]',
+                description: 'open a shell in a directory',
+                options: {
+                    directory: { type: 'string', 'default': cwd },
+                },
+            },
+            {
+                command: ['run [command...]', '/k'],
+                description: 'run a command in the terminal',
+                options: {
+                    command: { type: 'array' },
+                },
+            },
+            {
+                command: 'profile [profileName]',
+                description: 'open a tab with specified profile',
+                options: {
+                    profileName: { type: 'string' },
+                },
+            },
+            {
+                command: 'paste [text]',
+                description: 'paste stdin into the active tab',
+                options: {
+                    escape: {
+                        alias: 'e',
+                        type: 'boolean',
+                        describe: 'Perform shell escaping',
+                    },
+                },
+                positionals: {
+                    text: { type: 'string' },
+                },
+            },
+            {
+                command: 'recent [index]',
+                description: 'open a tab with a recent profile',
+                options: {
+                    profileNumber: { type: 'number' },
+                },
+            },
+            {
+                command: 'quickConnect <providerId> <query>',
+                description: 'open a tab for specified quick connect provider',
+                positionals: {
+                    providerId: {
+                        describe: 'The name of a quick connect profile provider',
+                        type: 'string',
+                    },
+                    query: {
+                        describe: 'The quick connect query string',
+                        type: 'string',
+                    },
+                },
+            },
+        ],
+        options: {
+            debug: {
+                alias: 'd',
+                describe: 'Show DevTools on start',
                 type: 'boolean',
-                describe: 'Perform shell escaping',
-            }).positional('text', {
-                type: 'string',
-            })
-        })
-        .command('recent [index]', 'open a tab with a recent profile', {
-            profileNumber: { type: 'number' },
-        })
-        .command('quickConnect <providerId> <query>', 'open a tab for specified quick connect provider', yargs => {
-            return yargs.positional('providerId', {
-                describe: 'The name of a quick connect profile provider (e.g., ssh, telnet)',
-                type: 'string',
-            }).positional('query', {
-                describe: 'The quick connect query string',
-                type: 'string',
-            })
-        })
-        .version(app.getVersion())
-        .option('debug', {
-            alias: 'd',
-            describe: 'Show DevTools on start',
-            type: 'boolean',
-        })
-        .option('hidden', {
-            describe: 'Start minimized',
-            type: 'boolean',
-        })
-        .help('help')
-        .parse()
+            },
+            hidden: {
+                describe: 'Start minimized',
+                type: 'boolean',
+            },
+        },
+        version: app.getVersion(),
+    }
+}
+
+function applyOptionsToYargs (yargsInstance: any, options: Record<string, YargsOption>, method: 'option' | 'positional') {
+    return Object.entries(options).reduce(
+        (yargs, [key, value]) => yargs[method](key, value),
+        yargsInstance,
+    )
+}
+
+function createParserFromConfig (config: ParserConfig) {
+    const yargs = require('yargs/yargs')
+    let parser = yargs().usage(config.usage)
+    config.commands.forEach(cmd => {
+        const builder = (yargsInstance: any) => {
+            let instance = yargsInstance
+            if (cmd.options) {
+                instance = applyOptionsToYargs(instance, cmd.options, 'option')
+            }
+            if (cmd.positionals) {
+                instance = applyOptionsToYargs(instance, cmd.positionals, 'positional')
+            }
+            return instance
+        }
+        parser = parser.command(cmd.command, cmd.description, builder)
+    })
+    parser = applyOptionsToYargs(parser, config.options, 'option')
+    return parser.version(config.version).help('help')
+}
+
+export function parseArgs (argv: string[], cwd: string): any {
+    const args = argv[0].includes('node') ? argv.slice(2) : argv.slice(1)
+    const config = createParserConfig(cwd)
+    const parser = createParserFromConfig(config)
+    return parser.parse(args)
 }
