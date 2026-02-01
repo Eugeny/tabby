@@ -1,6 +1,6 @@
 {
   "name": "tabby-auto-sudo-password",
-  "version": "1.0.197-nightly.1",
+  "version": "1.0.231-nightly.0",
   "description": "Offers to automatically paste saved sudo password in SSH sessions",
   "keywords": [
     "tabby-builtin-plugin"
