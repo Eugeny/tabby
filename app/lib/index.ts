@@ -15,7 +15,7 @@ import './sentry'
 import './lru'
 import { parseArgs } from './cli'
 import { Application } from './app'
-import electronDebug = require('electron-debug')
+import electronDebug from 'electron-debug'
 import { loadConfig } from './config'
 
 
@@ -109,4 +109,3 @@ app.on('ready', async () => {
     window.passCliArguments(process.argv, process.cwd(), false)
     window.focus()
 })
-

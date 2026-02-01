@@ -20,9 +20,9 @@ export class TerminalCLIHandler extends CLIHandler {
         const op = event.argv._[0]
 
         if (op === 'open') {
-            this.handleOpenDirectory(path.resolve(event.cwd, event.argv.directory))
+            this.handleOpenDirectory(path.resolve(event.cwd, event.argv.directory!))
         } else if (op === 'run') {
-            this.handleRunCommand(event.argv.command)
+            this.handleRunCommand(event.argv.command!)
         } else {
             return false
         }

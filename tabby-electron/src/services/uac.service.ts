@@ -32,7 +32,7 @@ export class ElectronUACService extends UACService {
         }
 
         const options = { ...sessionOptions }
-        options.args = [options.command, ...options.args ?? []]
+        options.args = [options.command, ...options.args]
         options.command = helperPath
         return options
     }
