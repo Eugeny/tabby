@@ -3,12 +3,55 @@ import { Injectable } from '@angular/core'
 import { TerminalDecorator, BaseTerminalTabComponent, XTermFrontend, SessionMiddleware } from 'tabby-terminal'
 import { SSHProfile, SSHTabComponent, PasswordStorageService } from 'tabby-ssh'
 
-const SUDO_PROMPT_REGEX = /^\[sudo\] password for ([^:]+):\s*$/im
+// Multi-language sudo prompt patterns
+// Each pattern captures the username in a capture group
+const SUDO_PROMPT_PATTERNS: RegExp[] = [
+    // English: [sudo] password for username:
+    /^\[sudo\] password for ([^:]+):\s*$/im,
+    // German: [sudo] Passwort für username:
+    /^\[sudo\] Passwort für ([^:]+):\s*$/im,
+    // French: [sudo] Mot de passe de username :
+    /^\[sudo\] Mot de passe de ([^:]+)\s+:\s*$/im,
+    // Spanish: [sudo] contraseña para username:
+    /^\[sudo\] [Cc]ontraseña para ([^:]+):\s*$/im,
+    // Portuguese: [sudo] senha para username:
+    /^\[sudo\] [Ss]enha para ([^:]+):\s*$/im,
+    // Italian: [sudo] password di username:
+    /^\[sudo\] [Pp]assword di ([^:]+):\s*$/im,
+    // Simplified Chinese: [sudo] username 的密码：
+    /^\[sudo\] ([^\s]+) 的密码[：:]\s*$/im,
+    // Traditional Chinese: [sudo] username 的密碼：
+    /^\[sudo\] ([^\s]+) 的密碼[：:]\s*$/im,
+    // Japanese: [sudo] username のパスワード:
+    /^\[sudo\] ([^\s]+) のパスワード[：:]\s*$/im,
+    // Korean: [sudo] username 암호:
+    /^\[sudo\] ([^\s]+) 암호[：:]\s*$/im,
+    // Russian: [sudo] пароль для username:
+    /^\[sudo\] пароль для ([^:]+):\s*$/im,
+    // Polish: [sudo] hasło użytkownika username:
+    /^\[sudo\] hasło użytkownika ([^:]+):\s*$/im,
+    // Turkish: [sudo] username için parola:
+    /^\[sudo\] ([^\s]+) için parola:\s*$/im,
+    // Czech: [sudo] heslo pro username:
+    /^\[sudo\] [Hh]eslo pro ([^:]+):\s*$/im,
+    // Swedish: [sudo] lösenord för username:
+    /^\[sudo\] lösenord för ([^:]+):\s*$/im,
+    // Danish: [sudo] adgangskode for username:
+    /^\[sudo\] adgangskode for ([^:]+):\s*$/im,
+    // Indonesian: [sudo] kata sandi untuk username:
+    /^\[sudo\] kata sandi untuk ([^:]+):\s*$/im,
+    // Ukrainian: [sudo] пароль до username:
+    /^\[sudo\] пароль до ([^:]+):\s*$/im,
+    // Croatian: [sudo] lozinka za username:
+    /^\[sudo\] lozinka za ([^:]+):\s*$/im,
+]
 
 export class AutoSudoPasswordMiddleware extends SessionMiddleware {
     private pendingPasswordToPaste: string | null = null
     private pasteHint = `${colors.black.bgBlackBright(' Tabby ')} ${colors.gray('Press Enter to paste saved password')}`
     private pasteHintLength = colors.stripColor(this.pasteHint).length
+    // Cache the last matched pattern index for performance optimization
+    private lastMatchedPatternIndex = 0
 
     constructor (
         private profile: SSHProfile,
@@ -17,10 +60,18 @@ export class AutoSudoPasswordMiddleware extends SessionMiddleware {
 
     feedFromSession (data: Buffer): void {
         const text = data.toString('utf-8')
-        const match = SUDO_PROMPT_REGEX.exec(text)
-        if (match) {
-            const username = match[1]
-            this.handlePrompt(username)
+        // Try patterns starting from the last successful match for better performance
+        const patternCount = SUDO_PROMPT_PATTERNS.length
+        for (let i = 0; i < patternCount; i++) {
+            const idx = (this.lastMatchedPatternIndex + i) % patternCount
+            const pattern = SUDO_PROMPT_PATTERNS[idx]
+            const match = pattern.exec(text)
+            if (match) {
+                this.lastMatchedPatternIndex = idx // Remember this pattern for next time
+                const username = match[1]
+                this.handlePrompt(username)
+                break
+            }
         }
         this.outputToTerminal.next(data)
     }
