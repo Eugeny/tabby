@@ -4,6 +4,16 @@
 
 .prompt-text {{prompt.prompts[step].prompt}}
 
+
+.totp-info.mt-2(*ngIf='isTOTP() && profile.options.totpSecret')
+    .d-flex.align-items-center
+        .totp-code.me-3
+            strong {{totpCode}}
+        .totp-timer
+            small {{totpTimeRemaining}}s remaining
+        .ms-auto
+            small.text-muted Auto-filled
+
 input.form-control.mt-2(
     #input,
     autofocus,
