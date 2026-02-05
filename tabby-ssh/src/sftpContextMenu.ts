@@ -39,6 +39,13 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
             })
         }
 
+        if (!item.isDirectory) {
+            items.push({
+                click: () => panel.downloadItem(item),
+                label: this.translate.instant('Download'),
+            })
+        }
+
         items.push({
             click: async () => {
                 if ((await this.platform.showMessageBox({
