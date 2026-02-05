@@ -19,10 +19,31 @@
                     (click)='rememberFor = x',
                 ) {{getRememberForDisplay(x)}}
 
+    // Touch ID expired warning
+    .alert.alert-warning.mb-3(*ngIf='touchIdExpired')
+        i.fas.fa-clock.me-2
+        span(translate) Touch ID has expired. Please enter your passphrase.
+
+    // Touch ID error message
+    .alert.alert-danger.mb-3(*ngIf='touchIdError')
+        i.fas.fa-exclamation-triangle.me-2
+        span {{touchIdError}}
+
+    // Touch ID button (show when available, enabled, and not expired)
+    .d-flex.justify-content-center.mb-3(*ngIf='touchIdAvailable && touchIdEnabled && !touchIdExpired')
+        button.btn.btn-lg.btn-outline-primary((click)='unlockWithTouchId()')
+            i.fas.fa-fingerprint.me-2
+            span(translate) Unlock with Touch ID
+
+    // Divider when Touch ID is available
+    .d-flex.align-items-center.mb-3(*ngIf='touchIdAvailable && touchIdEnabled && !touchIdExpired')
+        hr.flex-grow-1.me-2
+        span.text-muted(translate) or enter passphrase
+        hr.flex-grow-1.ms-2
+
     .input-group
         input.form-control.form-control-lg(
             type='password',
-            autofocus,
             [(ngModel)]='passphrase',
             #input,
             placeholder='Master passphrase',

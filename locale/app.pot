@@ -2410,8 +2410,60 @@ msgstr ""
 msgid "Vault is locked"
 msgstr ""
 
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:23
+msgid "Touch ID has expired. Please enter your passphrase."
+msgstr ""
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:33
+msgid "Unlock with Touch ID"
+msgstr ""
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:40
+msgid "or enter passphrase"
+msgstr ""
+
+#: tabby-core/src/components/unlockVaultModal.component.ts:53
+msgid "Unlock Tabby Vault"
+msgstr ""
+
+#: tabby-core/src/components/unlockVaultModal.component.ts:62
+msgid "Could not retrieve passphrase"
+msgstr ""
+
+#: tabby-core/src/components/unlockVaultModal.component.ts:66
+msgid "Touch ID failed"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:3
 msgid "Vault is not configured"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:49
+msgid "Use Touch ID to unlock"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:50
+msgid "Unlock the vault using Touch ID instead of entering the passphrase"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:55
+msgid "Touch ID expires after"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:56
+msgid "After this period, you will need to enter the passphrase again"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:66
+msgid "Expire on restart"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:67
+msgid "Require passphrase after computer restart"
+msgstr ""
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:68
+msgid "Enable Touch ID for Vault"
 msgstr ""
 
 #: tabby-core/src/services/fileProviders.service.ts:40
