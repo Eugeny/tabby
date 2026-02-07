@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { TerminalDecorator, BaseTerminalTabComponent, XTermFrontend, SessionMiddleware } from 'tabby-terminal'
 import { SSHProfile, SSHTabComponent, PasswordStorageService } from 'tabby-ssh'
 
+const SUDO_PROMPT_MARKER = '[sudo]'
 // Multi-language sudo prompt patterns
 // Each pattern captures the username in a capture group
 const SUDO_PROMPT_PATTERNS: RegExp[] = [
@@ -54,6 +55,10 @@ export class AutoSudoPasswordMiddleware extends SessionMiddleware {
 
     feedFromSession (data: Buffer): void {
         const text = data.toString('utf-8')
+        if (!text.toLowerCase().includes(SUDO_PROMPT_MARKER)) {
+            this.outputToTerminal.next(data)
+            return
+        }
         // Try patterns starting from the last successful match for better performance
         const patternCount = SUDO_PROMPT_PATTERNS.length
         for (let i = 0; i < patternCount; i++) {
