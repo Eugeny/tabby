@@ -31,7 +31,7 @@
 
     // Touch ID button (show when available, enabled, and not expired)
     .d-flex.justify-content-center.mb-3(*ngIf='touchIdAvailable && touchIdEnabled && !touchIdExpired')
-        button.btn.btn-lg.btn-outline-primary((click)='unlockWithTouchId()')
+        button.btn.btn-lg.btn-primary((click)='unlockWithTouchId()')
             i.fas.fa-fingerprint.me-2
             span(translate) Unlock with Touch ID
 
