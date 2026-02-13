@@ -22,26 +22,19 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
     }
 
     async getItems (item: SFTPFile, panel: SFTPPanelComponent): Promise<MenuItemOptions[]> {
-        const items: MenuItemOptions[] = [
-            {
-                click: async () => {
-                    await panel.openCreateDirectoryModal()
-                },
-                label: this.translate.instant('Create directory'),
-            },
-        ]
+        const items: MenuItemOptions[] = []
 
         // Add download folder option for directories (only in electron)
         if (item.isDirectory && this.hostApp.platform !== Platform.Web) {
             items.push({
-                click: () => panel.downloadFolder(item),
+                click: () => this.downloadFolder(item, panel),
                 label: this.translate.instant('Download directory'),
             })
         }
 
         if (!item.isDirectory) {
             items.push({
-                click: () => panel.downloadItem(item),
+                click: () => this.downloadItem(item, panel),
                 label: this.translate.instant('Download'),
             })
         }
@@ -58,8 +51,10 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
                         this.translate.instant('Cancel'),
                     ],
                 })).response === 0) {
-                    await this.deleteItem(item, panel.sftp)
-                    panel.navigate(panel.path)
+                    if (panel.sftp) {
+                        await this.deleteItem(item, panel.sftp)
+                        this.refreshPanel(panel)
+                    }
                 }
             },
             label: this.translate.instant('Delete'),
@@ -73,5 +68,20 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
         modal.componentInstance.item = item
         modal.componentInstance.sftp = session
         await modal.result.catch(() => null)
+    }
+
+    downloadFolder (item: SFTPFile, panel: SFTPPanelComponent): void {
+        // TODO: Implement folder download functionality
+        console.log('Download folder:', item)
+    }
+
+    downloadItem (item: SFTPFile, panel: SFTPPanelComponent): void {
+        // TODO: Implement item download functionality
+        console.log('Download item:', item)
+    }
+
+    refreshPanel (panel: SFTPPanelComponent): void {
+        // TODO: Implement panel refresh functionality
+        console.log('Refresh panel')
     }
 }

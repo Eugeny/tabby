@@ -31,7 +31,11 @@ export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
         ]
         if (!item.isDirectory) {
             items.push({
-                click: () => this.edit(item, panel.sftp),
+                click: () => {
+                    if (panel.sftp) {
+                        this.edit(item, panel.sftp)
+                    }
+                },
                 label: this.translate.instant('Edit locally'),
             })
         }

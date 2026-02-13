@@ -69,6 +69,7 @@ export class AppRootComponent {
     @HostBinding('class.platform-win32') platformClassWindows = process.platform === 'win32'
     @HostBinding('class.platform-darwin') platformClassMacOS = process.platform === 'darwin'
     @HostBinding('class.platform-linux') platformClassLinux = process.platform === 'linux'
+    @HostBinding('class.fullscreen') get isFullscreen () { return this.hostWindow.isFullscreen }
     @HostBinding('class.no-tabs') noTabs = true
     @ViewChildren(TabBodyComponent) tabBodies: TabBodyComponent[]
     @ViewChild('activeTransfersDropdown') activeTransfersDropdown: NgbDropdown

@@ -16,6 +16,7 @@ export class ElectronHostWindow extends HostWindowService {
 
     private _isFullscreen = false
     private _isMaximized = false
+    private repaintScheduled = false
 
     constructor (
         zone: NgZone,
@@ -31,7 +32,10 @@ export class ElectronHostWindow extends HostWindowService {
             this._isFullscreen = false
         }))
 
-        electron.ipcRenderer.on('host:window-shown', () => zone.run(() => this.windowShown.next()))
+        electron.ipcRenderer.on('host:window-shown', () => zone.run(() => {
+            this.windowShown.next()
+            this.scheduleRepaint()
+        }))
 
         electron.ipcRenderer.on('host:window-close-request', () => zone.run(() => {
             this.windowCloseRequest.next()
@@ -43,6 +47,7 @@ export class ElectronHostWindow extends HostWindowService {
 
         electron.ipcRenderer.on('host:window-focused', () => zone.run(() => {
             this.windowFocused.next()
+            this.scheduleRepaint()
         }))
 
         electron.ipcRenderer.on('host:became-main-window', () => zone.run(() => {
@@ -126,5 +131,23 @@ export class ElectronHostWindow extends HostWindowService {
 
     bringToFront (): void {
         this.electron.ipcRenderer.send('window-bring-to-front')
+    }
+
+    private scheduleRepaint (): void {
+        if (this.repaintScheduled) {
+            return
+        }
+        this.repaintScheduled = true
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                this.repaintScheduled = false
+                try {
+                    window.dispatchEvent(new Event('resize'))
+                } catch {}
+                try {
+                    this.getWindow().webContents.invalidate()
+                } catch {}
+            })
+        })
     }
 }

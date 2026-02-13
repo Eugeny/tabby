@@ -4,15 +4,36 @@
     z-index: 5;
     transition: 0.125s background;
 
+    &::after {
+        content: '';
+        position: absolute;
+        background: #d3d3d3;
+        display: block;
+    }
+
     &.v {
         cursor: ns-resize;
         height: 10px;
         margin-top: -5px;
+
+        &::after {
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+        }
     }
 
     &.h {
         cursor: ew-resize;
         width: 10px;
         margin-left: -5px;
+
+        &::after {
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+        }
     }
 }

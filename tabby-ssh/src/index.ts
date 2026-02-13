@@ -14,9 +14,11 @@ import { SSHPortForwardingConfigComponent } from './components/sshPortForwarding
 import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { SFTPPanelComponent } from './components/sftpPanel.component'
+import { FileBrowserPaneComponent } from './components/fileBrowserPane.component'
 import { SFTPDeleteModalComponent } from './components/sftpDeleteModal.component'
 import { KeyboardInteractiveAuthComponent } from './components/keyboardInteractiveAuthPanel.component'
 import { HostKeyPromptModalComponent } from './components/hostKeyPromptModal.component'
+import { LocalFileManagerTabComponent } from './components/localFileManagerTab.component'
 
 import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
@@ -27,6 +29,10 @@ import { SSHProfilesService } from './profiles'
 import { SFTPContextMenuItemProvider } from './api/contextMenu'
 import { CommonSFTPContextMenu } from './sftpContextMenu'
 import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirectoryModal.component'
+import { LocalFileManagerTabProvider } from './localFileManagerTabProvider'
+import { LocalFileManagerButtonProvider } from './localFileManagerButtonProvider'
+import { LocalFileManagerCommandProvider } from './localFileManagerCommandProvider'
+import { ToolbarButtonProvider, CommandProvider } from 'tabby-core'
 
 /** @hidden */
 @NgModule({
@@ -47,6 +53,9 @@ import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirect
         { provide: TabContextMenuItemProvider, useClass: SFTPContextMenu, multi: true },
         { provide: ProfileProvider, useExisting: SSHProfilesService, multi: true },
         { provide: SFTPContextMenuItemProvider, useClass: CommonSFTPContextMenu, multi: true },
+        { provide: TabContextMenuItemProvider, useClass: LocalFileManagerTabProvider, multi: true },
+        { provide: ToolbarButtonProvider, useClass: LocalFileManagerButtonProvider, multi: true },
+        { provide: CommandProvider, useClass: LocalFileManagerCommandProvider, multi: true },
     ],
     declarations: [
         SSHProfileSettingsComponent,
@@ -57,8 +66,10 @@ import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirect
         SSHSettingsTabComponent,
         SSHTabComponent,
         SFTPPanelComponent,
+        FileBrowserPaneComponent,
         KeyboardInteractiveAuthComponent,
         HostKeyPromptModalComponent,
+        LocalFileManagerTabComponent,
     ],
 })
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class

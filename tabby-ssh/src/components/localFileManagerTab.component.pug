@@ -1,0 +1,66 @@
+.d-flex.flex-column.h-100
+    .toolbar.d-flex.align-items-center.px-3.py-2.border-bottom
+        .btn-group.me-2
+            button.btn.btn-sm.btn-secondary(
+                (click)='goToPath("left", "/")',
+                title='Go to root'
+            )
+                i.fas.fa-hdd.me-1
+                span Root
+            button.btn.btn-sm.btn-secondary(
+                (click)='goToPath("left", leftPane?.fs?.resolve("~"))',
+                title='Go to home'
+            )
+                i.fas.fa-home.me-1
+                span Home
+
+        .btn-group.me-2(*ngIf='rightPane')
+            button.btn.btn-sm.btn-secondary(
+                (click)='goToPath("right", "/")',
+                title='Go to root'
+            )
+                i.fas.fa-hdd.me-1
+            button.btn.btn-sm.btn-secondary(
+                (click)='goToPath("right", rightPane?.fs?.resolve("~"))',
+                title='Go to home'
+            )
+                i.fas.fa-home.me-1
+
+        .flex-grow-1
+
+        button.btn.btn-sm.btn-secondary.me-2(
+            (click)='swapPanes()',
+            *ngIf='leftPane && rightPane',
+            title='Swap panes'
+        )
+            i.fas.fa-exchange-alt.me-1
+            span Swap
+
+        button.btn.btn-sm.btn-secondary(
+            (click)='rightPane ? closeRightPane() : showSplitView()',
+            title='Toggle split view'
+        )
+            i.fas.fa-columns.me-1
+            span {{rightPane ? 'Single view' : 'Split view'}}
+
+    .d-flex.flex-grow-1.h-0
+        file-browser-pane.h-100.d-flex.flex-column.flex-grow-1(
+            *ngIf='leftPane',
+            [fileSystem]='leftPane.fs',
+            [(path)]='leftPane.path',
+            [paneType]='"left"'
+        )
+
+        .separator(*ngIf='leftPane && rightPane')
+            button.btn.btn-sm.btn-link.swap-btn(
+                (click)='swapPanes()',
+                title='Swap panes'
+            )
+                i.fas.fa-exchange-alt
+
+        file-browser-pane.h-100.d-flex.flex-column.flex-grow-1(
+            *ngIf='rightPane',
+            [fileSystem]='rightPane.fs',
+            [(path)]='rightPane.path',
+            [paneType]='"right"'
+        )
