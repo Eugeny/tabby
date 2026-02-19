@@ -15,6 +15,7 @@ import { ImageAddon } from '@xterm/addon-image'
 import { CanvasAddon } from '@xterm/addon-canvas'
 import { BaseTerminalProfile, TerminalColorScheme } from '../api/interfaces'
 import { getTerminalBackgroundColor } from '../helpers'
+import { generate256Palette } from '../generate256Palette'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -402,6 +403,14 @@ export class XTermFrontend extends Frontend {
 
         for (let i = 0; i < COLOR_NAMES.length; i++) {
             theme[COLOR_NAMES[i]] = scheme.colors[i]
+        }
+
+        if (this.configService.store.terminal.generate256ColorPalette) {
+            theme.extendedAnsi = generate256Palette(
+                scheme.colors,
+                scheme.background,
+                scheme.foreground,
+            )
         }
 
         theme.scrollbarSliderBackground = theme.brightBlack
