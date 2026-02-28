@@ -77,6 +77,8 @@ export class AppRootComponent {
     activeTransfers: FileTransfer[] = []
     private logger: Logger
 
+    private forceQuit = false
+
     constructor (
         private hotkeys: HotkeysService,
         private commands: CommandService,
@@ -142,7 +144,17 @@ export class AppRootComponent {
             }
         })
 
+        require('electron').ipcRenderer.on('quit-request', () => {
+            this.forceQuit = true
+            this.app.closeWindow()
+        })
+
         this.hostWindow.windowCloseRequest$.subscribe(async () => {
+            if(this.config.store.minimizeInsteadOfExit && !this.forceQuit) {
+                // minimize
+                require('electron').ipcRenderer.send('toggle-window-switch-status')
+                return
+            }
             this.app.closeWindow()
         })
 

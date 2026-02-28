@@ -25,6 +25,13 @@ export class Application {
     private quitRequested = false
     userPluginsPath: string
 
+    // set quit requested if the user didn't open "minimize instead of quit feature"
+    private setQuitRequest (force = false) {
+        if (!this.configStore.minimizeInsteadOfExit || force) {
+            this.quitRequested = true
+        }
+    }
+
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     constructor (private configStore: any) {
         remote.initialize()
@@ -41,6 +48,10 @@ export class Application {
             for (const spec of specs) {
                 globalShortcut.register(spec, () => this.globalHotkey$.next())
             }
+        })
+
+        ipcMain.on('toggle-window-switch-status', () => {
+            this.onGlobalHotkey()
         })
 
         this.globalHotkey$.pipe(throttleTime(100)).subscribe(() => {
@@ -93,7 +104,7 @@ export class Application {
         }
 
         app.on('before-quit', () => {
-            this.quitRequested = true
+            this.setQuitRequest()
         })
 
         app.on('window-all-closed', () => {
@@ -196,9 +207,17 @@ export class Application {
 
         this.tray.on('click', () => setTimeout(() => this.focus()))
 
+
         const contextMenu = Menu.buildFromTemplate([{
             label: 'Show',
             click: () => this.focus(),
+        }, {
+            label: 'Quit',
+            click: () => {
+                this.setQuitRequest(true)
+                this.broadcast('quit-request')
+                app.quit()
+            },
         }])
 
         if (process.platform !== 'darwin') {
@@ -272,7 +291,7 @@ export class Application {
                         label: 'Quit',
                         accelerator: 'Cmd+Q',
                         click: () => {
-                            this.quitRequested = true
+                            this.setQuitRequest()
                             app.quit()
                         },
                     },
