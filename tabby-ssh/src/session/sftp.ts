@@ -3,19 +3,12 @@ import { Subject, Observable } from 'rxjs'
 import { posix as posixPath } from 'path'
 import { Injector } from '@angular/core'
 import { FileDownload, FileUpload, Logger, LogService } from 'tabby-core'
+import { FileSystem, FileEntry, FileHandle } from '../api/fileSystem'
 import * as russh from 'russh'
 
-export interface SFTPFile {
-    name: string
-    fullPath: string
-    isDirectory: boolean
-    isSymlink: boolean
-    mode: number
-    size: number
-    modified: Date
-}
+export type SFTPFile = FileEntry
 
-export class SFTPFileHandle {
+export class SFTPFileHandle implements FileHandle {
     position = 0
 
     constructor (
@@ -42,12 +35,33 @@ export class SFTPFileHandle {
     }
 }
 
-export class SFTPSession {
+export class SFTPSession extends FileSystem {
+    get pathSeparator (): string {
+        return '/'
+    }
+
+    join (...paths: string[]): string {
+        return posixPath.join(...paths)
+    }
+
+    dirname (p: string): string {
+        return posixPath.dirname(p)
+    }
+
+    basename (p: string): string {
+        return posixPath.basename(p)
+    }
+
+    resolve (p: string): string {
+        return posixPath.resolve(p)
+    }
+
     get closed$ (): Observable<void> { return this.closed }
     private closed = new Subject<void>()
     private logger: Logger
 
     constructor (private sftp: russh.SFTP, injector: Injector) {
+        super()
         this.logger = injector.get(LogService).create('sftp')
         sftp.closed$.subscribe(() => {
             this.closed.next()

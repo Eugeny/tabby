@@ -530,6 +530,21 @@ export class XTermFrontend extends Frontend {
         return this.xterm.buffer.active.type === 'alternate'
     }
 
+    forceResize (): void {
+        // 强制重新计算大小并重绘
+        try {
+            if (this.xterm.element && getComputedStyle(this.xterm.element).getPropertyValue('height') !== 'auto') {
+                this.fitAddon.fit()
+                // 清除纹理图集以强制重新渲染
+                this.webGLAddon?.clearTextureAtlas()
+                this.canvasAddon?.clearTextureAtlas()
+                this.xterm.refresh(0, this.xterm.rows - 1)
+            }
+        } catch (e) {
+            console.warn('Could not resize xterm', e)
+        }
+    }
+
     private setFontSize () {
         const scale = Math.pow(1.1, this.zoom)
         this.xterm.options.fontSize = this.configuredFontSize * scale

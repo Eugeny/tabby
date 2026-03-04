@@ -13,7 +13,7 @@ title-bar(
     [class.tabs-on-right]='hasVerticalTabs() && config.store.appearance.tabsLocation == "right"',
 )
     .tab-bar(
-        *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
+        *ngIf='true',
         [class.tab-bar-no-controls-overlay]='hostApp.platform == Platform.macOS',
         (dblclick)='!isTitleBarNeeded() && toggleMaximize()'
     )

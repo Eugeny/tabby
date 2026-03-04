@@ -171,6 +171,13 @@ $tab-border-radius: 4px;
     }
 }
 
+:host.fullscreen {
+    .tab-bar {
+        z-index: 5000;
+        background: #222; // ensure background is opaque so content doesn't bleed through
+    }
+}
+
 .content {
     flex: 1 1 0;
     position: relative;

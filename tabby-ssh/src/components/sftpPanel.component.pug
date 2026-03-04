@@ -1,85 +1,34 @@
-.header
-    input.form-control.flex-grow-1.w-0(
-        *ngIf='editingPath !== null',
-        type='text',
-        autofocus,
-        (keydown.enter)='confirmPath()',
-        (keydown.esc)='editingPath = null',
-        (blur)='editingPath = null',
-        [(ngModel)]='editingPath'
-    )
-    .breadcrumb(*ngIf='editingPath === null', (dblclick)='editPath()')
-        a.breadcrumb-item.text-decoration-none((click)='navigate("/")') SFTP
-        a.breadcrumb-item.text-decoration-none(
-            *ngFor='let segment of pathSegments',
-            (click)='navigate(segment.path)'
-        ) {{segment.name}}
-
-    .breadcrumb-spacer.flex-grow-1.h-100((dblclick)='editPath()')
-
-    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex(*ngIf='!showFilter', (click)='showFilter = true')
-        i.fas.fa-filter.me-1
-        div(translate) Filter
-
-    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='openCreateDirectoryModal()')
-        i.fas.fa-plus.me-1
-        div(translate) Create directory
-
-    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='upload()')
-        i.fas.fa-upload.me-1
-        div(translate) Upload files
-
-    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='uploadFolder()')
-        i.fas.fa-upload.me-1
-        div(translate) Upload folder
-
-    button.btn.btn-link.text-decoration-none((click)='close()') !{require('../../../tabby-core/src/icons/times.svg')}
-
-.filter-bar.px-3.py-2.border-bottom(*ngIf='showFilter')
-    .input-group
-        input.form-control(
-            type='text',
-            placeholder='Filter...',
-            autofocus,
-            [(ngModel)]='filterText',
-            (input)='onFilterChange()',
-            (keydown.escape)='clearFilter()'
+.d-flex.flex-column.h-100
+    .d-flex.flex-grow-1.h-0
+        file-browser-pane.h-100.d-flex.flex-column.flex-grow-1(
+            *ngIf='leftPane',
+            [fileSystem]='leftPane.fs',
+            [path]='leftPane.path',
+            (pathChange)='onPanePathChange("left", $event)',
+            [cwdDetectionAvailable]='leftPane.fs === sftp ? cwdDetectionAvailable : true',
+            [paneType]='"left"'
         )
-        button.btn.btn-secondary((click)='clearFilter()')
-            i.fas.fa-times
 
-.body(dropZone, (transfer)='uploadOneFolder($event)')
-    a.alert.alert-info.d-flex.align-items-center(
-        *ngIf='shouldShowCWDTip && !cwdDetectionAvailable',
-        (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")'
-    )
-        .me-auto
-            strong(translate) Working directory detection
-            div(translate) Learn how to allow Tabby to detect remote shell's working directory.
-        button.close((click)='dismissCWDTip()')
-            i.fas.fa-close
+        .separator(*ngIf='leftPane && rightPane')
+            button.btn.btn-sm.btn-link.swap-btn((click)='swapPanes()', title='Swap panes')
+                i.fas.fa-exchange-alt
 
-    div(*ngIf='!sftp', translate) Connecting
-    div(*ngIf='sftp')
-        div(*ngIf='fileList === null', translate) Loading
-        .list-group.list-group-light(*ngIf='fileList !== null')
-            .list-group-item.list-group-item-action.d-flex.align-items-center(
-                *ngIf='path !== "/" && (!showFilter || filterText.trim() === "")',
-                (click)='goUp()'
-            )
-                i.fas.fa-fw.fa-level-up-alt
-                div(translate) Go up
-            .list-group-item.list-group-item-action.d-flex.align-items-center(
-                *ngFor='let item of filteredFileList',
-                (contextmenu)='showContextMenu(item, $event)',
-                (click)='open(item)'
-            )
-                i.fa-fw([class]='getIcon(item)')
-                div {{item.name}}
-                .me-auto
-                .size(*ngIf='!item.isDirectory') {{item.size|filesize}}
-                .date {{item.modified|tabbyDate}}
-                .mode {{getModeString(item)}}
-        .alert.alert-info.text-center.mt-3(*ngIf='fileList !== null && filteredFileList.length === 0 && showFilter && filterText.trim() !== ""')
-            i.fas.fa-search.me-2
-            span(translate) No files match the filter "{{filterText}}"
+        file-browser-pane.h-100.d-flex.flex-column.flex-grow-1(
+            *ngIf='rightPane',
+            [fileSystem]='rightPane.fs',
+            [path]='rightPane.path',
+            (pathChange)='onPanePathChange("right", $event)',
+            [cwdDetectionAvailable]='rightPane.fs === sftp ? cwdDetectionAvailable : true',
+            [paneType]='"right"'
+        )
+
+    .toolbar.d-flex.align-items-center.px-3.py-2.border-top
+        button.btn.btn-sm.btn-secondary.me-2((click)='swapPanes()', *ngIf='leftPane && rightPane')
+            i.fas.fa-exchange-alt.me-2
+            span(translate) Swap sides
+        button.btn.btn-sm.btn-secondary((click)='showRemoteSplit()', *ngIf='!rightPane')
+            i.fas.fa-columns.me-2
+            span(translate) Split view
+        button.btn.btn-sm.btn-secondary((click)='closeLocal()', *ngIf='rightPane')
+            i.fas.fa-times.me-2
+            span(translate) Close split

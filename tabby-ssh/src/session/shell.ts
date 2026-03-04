@@ -1,4 +1,4 @@
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, Subscription } from 'rxjs'
 import stripAnsi from 'strip-ansi'
 import { Injector } from '@angular/core'
 import { LogService } from 'tabby-core'
@@ -13,11 +13,17 @@ export class SSHShellSession extends BaseSession {
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
     private ssh: SSHSession|null
+    private cwdReportingInstalled = false
+    private restoredDirectory = false
+    private restoreAttempts = 0
+    private restoreDeadline = 0
+    private cwdSubscription?: Subscription
 
     constructor (
         injector: Injector,
         ssh: SSHSession,
         private profile: SSHProfile,
+        private initialDirectory?: string|null,
     ) {
         super(injector.get(LogService).create(`ssh-shell-${profile.options.host}-${profile.options.port}`))
         this.ssh = ssh
@@ -52,6 +58,12 @@ export class SSHShellSession extends BaseSession {
         this.logger.debug('Shell open')
 
         this.loginScriptProcessor?.executeUnconditionalScripts()
+        this.installCwdReporting()
+        this.restoreDeadline = Date.now() + 15000
+        this.cwdSubscription = this.oscProcessor.cwdReported$.subscribe(cwd => {
+            this.maybeRestoreDirectory(cwd)
+        })
+        this.restoreInitialDirectory()
 
         this.shell.data$.subscribe(data => {
             this.emitOutput(Buffer.from(data))
@@ -85,6 +97,87 @@ export class SSHShellSession extends BaseSession {
         }
     }
 
+    private installCwdReporting (): void {
+        if (this.cwdReportingInstalled) {
+            return
+        }
+        this.cwdReportingInstalled = true
+
+        const snippet = [
+            'if [ -n "$BASH_VERSION" ]; then',
+            '  __tabby_osc_cwd(){ printf "\\033]1337;CurrentDir=%s\\007" "$PWD"; }',
+            '  case ";$PROMPT_COMMAND;" in',
+            '    *";__tabby_osc_cwd;"*) ;;',
+            '    *) PROMPT_COMMAND="__tabby_osc_cwd${PROMPT_COMMAND:+;$PROMPT_COMMAND}";;',
+            '  esac',
+            '  __tabby_osc_cwd',
+            'elif [ -n "$ZSH_VERSION" ]; then',
+            '  __tabby_osc_cwd(){ print -n "\\033]1337;CurrentDir=$PWD\\007"; }',
+            '  (( ${precmd_functions[(Ie)__tabby_osc_cwd]} )) || precmd_functions+=(__tabby_osc_cwd)',
+            '  __tabby_osc_cwd',
+            'fi',
+        ].join('\n')
+
+        this.write(Buffer.from(snippet + '\n'))
+    }
+
+
+    private restoreInitialDirectory (): void {
+        if (this.restoredDirectory) {
+            return
+        }
+        this.restoredDirectory = true
+        this.attemptRestoreDirectory()
+    }
+
+    private maybeRestoreDirectory (currentDir: string): void {
+        const desired = this.getDesiredDirectory()
+        if (!desired) {
+            return
+        }
+        if (Date.now() > this.restoreDeadline) {
+            this.cwdSubscription?.unsubscribe()
+            return
+        }
+        if (this.normalizeDirectory(currentDir) === desired) {
+            this.cwdSubscription?.unsubscribe()
+            return
+        }
+        this.attemptRestoreDirectory()
+    }
+
+    private attemptRestoreDirectory (): void {
+        const desired = this.getDesiredDirectory()
+        if (!desired || desired === '/') {
+            return
+        }
+        if (this.restoreAttempts >= 3) {
+            return
+        }
+        this.restoreAttempts++
+        this.write(Buffer.from(`cd -- ${this.shellEscape(desired)}\n`))
+    }
+
+    private getDesiredDirectory (): string|null {
+        if (!this.initialDirectory) {
+            return null
+        }
+        return this.normalizeDirectory(this.initialDirectory)
+    }
+
+    private normalizeDirectory (value: string): string {
+        value = value.trim()
+        if (value === '/') {
+            return value
+        }
+        value = value.replace(/\/+$/g, '')
+        return value || '/'
+    }
+
+    private shellEscape (value: string): string {
+        return "'" + value.replace(/'/g, "'\\''") + "'"
+    }
+
     kill (_signal?: string): void {
         // this.shell?.signal(signal ?? 'TERM')
     }
@@ -92,6 +185,7 @@ export class SSHShellSession extends BaseSession {
     async destroy (): Promise<void> {
         this.logger.debug('Closing shell')
         this.serviceMessage.complete()
+        this.cwdSubscription?.unsubscribe()
         this.kill()
         this.ssh?.unref()
         this.ssh = null

@@ -7,15 +7,15 @@ import { SessionOptions, ChildProcess, PTYInterface, PTYProxy } from './api'
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 
-function mergeEnv (...envs) {
-    const result = {}
-    const keyMap = {}
+function mergeEnv (...envs: Array<Record<string, unknown>>) : Record<string, string> {
+    const result: Record<string, string> = {}
+    const keyMap: Record<string, string> = {}
     for (const env of envs) {
         for (const [key, value] of Object.entries(env)) {
             // const lookup = process.platform === 'win32' ? key.toLowerCase() : key
             const lookup = key.toLowerCase()
             keyMap[lookup] ??= key
-            result[keyMap[lookup]] = value
+            result[keyMap[lookup]] = value?.toString() ?? ''
         }
     }
     return result
@@ -94,6 +94,15 @@ export class Session extends BaseSession {
                     LC_COLLATE: locale,
                     LC_MONETARY: locale,
                 })
+            }
+            if (this.hostApp.platform === Platform.macOS) {
+                if (!env.CLICOLOR || env.CLICOLOR === '0' || env.CLICOLOR.toLowerCase() === 'false') {
+                    env.CLICOLOR = '1'
+                }
+                if (!env.CLICOLOR_FORCE || env.CLICOLOR_FORCE === '0' || env.CLICOLOR_FORCE.toLowerCase() === 'false') {
+                    env.CLICOLOR_FORCE = '1'
+                }
+                env.LSCOLORS ??= 'exfxcxdxbxegedabagacad'
             }
 
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing

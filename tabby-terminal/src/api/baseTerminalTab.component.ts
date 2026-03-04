@@ -447,7 +447,13 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             .subscribe(visibility => {
                 if (this.frontend instanceof XTermFrontend) {
                     if (visibility) {
+                        // Tab 变为可见时，强制重新渲染终端
+                        this.frontend.xterm.clearTextureAtlas?.()
                         this.frontend.xterm.refresh(0, this.frontend.xterm.rows - 1)
+                        // 触发一个小的 resize 事件来强制重绘
+                        setTimeout(() => {
+                            ;(this.frontend as XTermFrontend)?.forceResize?.()
+                        }, 50)
                     } else {
                         this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
                             c.height = c.width = 0

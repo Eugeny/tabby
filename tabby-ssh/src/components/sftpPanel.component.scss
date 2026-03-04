@@ -1,12 +1,14 @@
 :host {
     display: flex;
     flex-direction: column;
+    background: var(--bs-body-bg);
 
     > .header {
         padding: 5px 15px 0 20px;
         display: flex;
         align-items: center;
         flex: none;
+        background: var(--bs-body-bg);
     }
 
     > .filter-bar {
@@ -17,6 +19,35 @@
         padding: 10px 20px;
         flex: 1 1 0;
         overflow-y: auto;
+        position: relative;
+        background: var(--bs-body-bg);
+
+        &.drag-over {
+            background: rgba(var(--bs-primary-rgb), 0.1);
+        }
+
+        .drag-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(var(--bs-primary-rgb), 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            border: 3px dashed var(--bs-primary);
+            border-radius: 8px;
+            margin: 10px;
+
+            .drag-message {
+                text-align: center;
+                color: var(--bs-primary);
+                font-weight: bold;
+                font-size: 1.2em;
+            }
+        }
     }
 
     .breadcrumb {
@@ -34,8 +65,19 @@
     }
 
     .list-group-item-action {
+        cursor: pointer;
+        transition: background-color 0.2s;
+
         &:hover {
-            background: rgba(white, .05);
+            background: rgba(white, .1);
+        }
+
+        &[draggable="true"] {
+            cursor: grab;
+
+            &:active {
+                cursor: grabbing;
+            }
         }
     }
 
@@ -58,4 +100,53 @@
 
 .btn-link svg {
     width: 12px;
+}
+
+.panes-container {
+    height: 100%;
+    overflow: hidden;
+
+    .separator {
+        width: 8px;
+        background: var(--bs-border-color);
+        cursor: col-resize;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: background 0.2s;
+
+        &:hover {
+            background: var(--bs-primary);
+        }
+
+        .swap-btn {
+            position: absolute;
+            padding: 2px 6px;
+            font-size: 10px;
+            background: var(--bs-secondary);
+            border: none;
+            color: white;
+            border-radius: 3px;
+            opacity: 0;
+            transition: opacity 0.2s;
+
+            &:hover {
+                background: var(--bs-primary);
+            }
+        }
+
+        &:hover .swap-btn {
+            opacity: 1;
+        }
+    }
+
+    .pane {
+        overflow: hidden;
+    }
+
+    .pane-header {
+        background: var(--theme-bg-more-2);
+    }
 }

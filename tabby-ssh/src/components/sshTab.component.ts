@@ -28,6 +28,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     session: SSHShellSession|null = null
     sftpPanelVisible = false
     sftpPath = '/'
+    lastRemoteCwd: string|null = null
     enableToolbar = true
     activeKIPrompt: KeyboardInteractivePrompt|null = null
 
@@ -157,13 +158,16 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
 
     private async initializeSessionMaybeMultiplex (multiplex = true): Promise<void> {
         this.sshSession = await this.setupOneSession(this.injector, this.profile, multiplex)
-        const session = new SSHShellSession(this.injector, this.sshSession, this.profile)
+        const session = new SSHShellSession(this.injector, this.sshSession, this.profile, this.lastRemoteCwd)
 
         this.setSession(session)
         this.attachSessionHandler(session.serviceMessage$, msg => {
             msg = msg.replace(/\n/g, '\r\n      ')
             this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
             session.resize(this.size.columns, this.size.rows)
+        })
+        this.attachSessionHandler(session.oscProcessor.cwdReported$, cwd => {
+            this.lastRemoteCwd = cwd
         })
 
         await session.start()

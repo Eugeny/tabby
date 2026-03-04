@@ -323,6 +323,9 @@ export class Window {
         this.window.on('show', () => {
             this.visible.next(true)
             this.send('host:window-shown')
+            try {
+                this.window.webContents.invalidate()
+            } catch {}
         })
 
         this.window.on('hide', () => {
@@ -373,6 +376,15 @@ export class Window {
 
         this.window.on('focus', () => {
             this.send('host:window-focused')
+            try {
+                this.window.webContents.invalidate()
+            } catch {}
+        })
+
+        this.window.on('restore', () => {
+            try {
+                this.window.webContents.invalidate()
+            } catch {}
         })
 
         this.on('ready', () => {
