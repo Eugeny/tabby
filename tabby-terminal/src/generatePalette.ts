@@ -89,9 +89,10 @@ function rgbToHex (rgb: RGB): string {
  * @param colors - Array of hex color strings (at least 16; entries beyond 16 are user-defined extended colors)
  * @param bg - Background color as hex string
  * @param fg - Foreground color as hex string
+ * @param harmonious - If true, disable light-theme inversion
  * @returns Array of 240 hex color strings for indices 16-255
  */
-export function generate256Palette (colors: string[], bg: string, fg: string): string[] {
+export function generatePalette (colors: string[], bg: string, fg: string, harmonious: boolean): string[] {
     const base8Lab: LAB[] = []
     for (let i = 0; i < 8; i++) {
         base8Lab.push(rgbToLab(parseHexColor(colors[i])))
@@ -99,16 +100,21 @@ export function generate256Palette (colors: string[], bg: string, fg: string): s
     const bgLab = rgbToLab(parseHexColor(bg))
     const fgLab = rgbToLab(parseHexColor(fg))
 
+    const isLightTheme = fgLab.l < bgLab.l
+    const invert = isLightTheme && !harmonious
+    const corner0 = invert ? fgLab : bgLab
+    const corner7 = invert ? bgLab : fgLab
+
     const palette: string[] = []
 
     // Color cube (indices 16-231): 6x6x6
     let idx = 16
     for (let ri = 0; ri < 6; ri++) {
         const tr = ri / 5.0
-        const c0 = lerpLab(tr, bgLab, base8Lab[1])
+        const c0 = lerpLab(tr, corner0, base8Lab[1])
         const c1 = lerpLab(tr, base8Lab[2], base8Lab[3])
         const c2 = lerpLab(tr, base8Lab[4], base8Lab[5])
-        const c3 = lerpLab(tr, base8Lab[6], fgLab)
+        const c3 = lerpLab(tr, base8Lab[6], corner7)
         for (let gi = 0; gi < 6; gi++) {
             const tg = gi / 5.0
             const c4 = lerpLab(tg, c0, c1)
@@ -131,7 +137,7 @@ export function generate256Palette (colors: string[], bg: string, fg: string): s
             palette.push(colors[idx])
         } else {
             const t = (i + 1) / 25.0
-            palette.push(rgbToHex(labToRgb(lerpLab(t, bgLab, fgLab))))
+            palette.push(rgbToHex(labToRgb(lerpLab(t, corner0, corner7))))
         }
         idx++
     }
