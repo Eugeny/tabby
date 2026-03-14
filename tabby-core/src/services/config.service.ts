@@ -336,15 +336,19 @@ export class ConfigService {
     }
 
     private extractPlatformSections (store: any): void {
-        const keys = ['windows', 'macos', 'linux'] as const
         this._platformSections = {}
-        for (const key of keys) {
-            if (store[key]) {
-                this._platformSections[key] = deepClone(store[key])
-            }
-            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-            delete store[key]
+        if (store.windows) {
+            this._platformSections.windows = deepClone(store.windows)
         }
+        if (store.macos) {
+            this._platformSections.macos = deepClone(store.macos)
+        }
+        if (store.linux) {
+            this._platformSections.linux = deepClone(store.linux)
+        }
+        delete store.windows
+        delete store.macos
+        delete store.linux
     }
 
     private reattachPlatformSections (store: any): void {
