@@ -7,7 +7,7 @@ import { Injectable, Inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { ConfigProvider } from '../api/configProvider'
 import { PlatformService } from '../api/platform'
-import { HostAppService } from '../api/hostApp'
+import { HostAppService, Platform } from '../api/hostApp'
 import { Vault, VaultService } from './vault.service'
 import { serializeFunction } from '../utils'
 import { PartialProfileGroup, ProfileGroup } from '../api/profileProvider'
@@ -160,6 +160,7 @@ export class ConfigService {
     private _store: any
     private defaults: any
     private servicesCache: Record<string, Function[]>|null = null // eslint-disable-line @typescript-eslint/ban-types
+    private _platformSections: Record<string, any> = {}
 
     get changed$ (): Observable<void> { return this.changed }
 
@@ -222,6 +223,16 @@ export class ConfigService {
             this._store = { version: LATEST_VERSION }
         }
         this._store = await this.maybeDecryptConfig(this._store)
+
+        // Extract platform-specific sections before migration
+        this.extractPlatformSections(this._store)
+
+        // Merge current platform's overrides onto base config
+        const platformKey = this.getPlatformConfigKey()
+        if (platformKey && this._platformSections[platformKey]) {
+            this._store = configMerge(this._store, this._platformSections[platformKey])
+        }
+
         this.migrate(this._store)
         this.store = new ConfigProxy(this._store, this.defaults)
         this.vault.setStore(this.store.vault)
@@ -234,6 +245,8 @@ export class ConfigService {
         }
         // Scrub undefined values
         let cleanStore = JSON.parse(JSON.stringify(this._store))
+        // Re-attach platform sections so they persist in the saved file
+        this.reattachPlatformSections(cleanStore)
         cleanStore = await this.maybeEncryptConfig(cleanStore)
         await this.platform.saveConfig(yaml.dump(cleanStore))
         this.emitChange()
@@ -245,6 +258,8 @@ export class ConfigService {
     readRaw (): string {
         // Scrub undefined values
         const cleanStore = JSON.parse(JSON.stringify(this._store))
+        // Re-attach platform sections so they're visible in the raw editor
+        this.reattachPlatformSections(cleanStore)
         return yaml.dump(cleanStore)
     }
 
@@ -309,6 +324,32 @@ export class ConfigService {
     private emitChange (): void {
         this.vault.setStore(this.store.vault)
         this.changed.next()
+    }
+
+    private getPlatformConfigKey (): string | null {
+        switch (this.hostApp.platform) {
+            case Platform.Windows: return 'windows'
+            case Platform.macOS: return 'macos'
+            case Platform.Linux: return 'linux'
+            default: return null
+        }
+    }
+
+    private extractPlatformSections (store: any): void {
+        const keys = ['windows', 'macos', 'linux']
+        this._platformSections = {}
+        for (const key of keys) {
+            if (store[key]) {
+                this._platformSections[key] = deepClone(store[key])
+            }
+            delete store[key]
+        }
+    }
+
+    private reattachPlatformSections (store: any): void {
+        for (const key of Object.keys(this._platformSections)) {
+            store[key] = deepClone(this._platformSections[key])
+        }
     }
 
     // eslint-disable-next-line max-statements
