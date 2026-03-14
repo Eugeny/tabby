@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { compare as semverCompare } from 'semver'
-import { Observable, from, forkJoin, map, of } from 'rxjs'
+import { Observable, from, forkJoin, map, of, catchError } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'tabby-core'
 import { PLUGIN_BLACKLIST } from '../../../app/src/pluginBlacklist'
@@ -29,8 +29,10 @@ export class PluginManagerService {
         return forkJoin(
             this._listAvailableInternal('tabby-', 'tabby-plugin', query),
             this._listAvailableInternal('terminus-', 'terminus-plugin', query),
+            this._fetchExactPlugin(query),
         ).pipe(
             map(x => x.reduce((a, b) => a.concat(b), [])),
+            map(x => x.sort((a, b) => (b.searchScore ?? 0) - (a.searchScore ?? 0))),
             map(x => {
                 const names = new Set<string>()
                 return x.filter(item => {
@@ -41,7 +43,6 @@ export class PluginManagerService {
                     return true
                 })
             }),
-            map(x => x.sort((a, b) => a.name.localeCompare(b.name))),
         )
     }
 
@@ -63,6 +64,7 @@ export class PluginManagerService {
                     homepage: item.package.links.homepage,
                     author: item.package.author?.name,
                     isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
+                    searchScore: item.searchScore ?? 0,
                 })),
             ),
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
@@ -79,7 +81,46 @@ export class PluginManagerService {
                     return list[0]
                 })
             }),
-            map(plugins => plugins.sort((a, b) => a.name.localeCompare(b.name))),
+        )
+    }
+
+    _fetchExactPlugin (query?: string): Observable<PluginInfo[]> {
+        const trimmed = (query ?? '').trim()
+        if (!trimmed) {
+            return of([])
+        }
+
+        const npmUrlMatch = trimmed.match(/npmjs\.com\/package\/([^/]+)/)
+        const packageName = npmUrlMatch ? npmUrlMatch[1] : trimmed
+
+        const candidates = [packageName]
+        if (!packageName.startsWith('tabby-') && !packageName.startsWith('terminus-')) {
+            candidates.unshift(`tabby-${packageName}`)
+        }
+
+        return forkJoin(
+            candidates.map(name =>
+                from(axios.get(`https://registry.npmjs.com/${encodeURIComponent(name)}/latest`)).pipe(
+                    map(response => ({
+                        name: response.data.name.replace(/^(tabby-|terminus-)/, ''),
+                        packageName: response.data.name,
+                        description: response.data.description ?? '',
+                        version: response.data.version,
+                        homepage: response.data.homepage ?? '',
+                        author: typeof response.data.author === 'string'
+                            ? response.data.author
+                            : response.data.author?.name ?? '',
+                        isBuiltin: false,
+                        isLegacy: response.data.name.startsWith('terminus-'),
+                        isOfficial: false,
+                        searchScore: Number.MAX_SAFE_INTEGER,
+                    } as PluginInfo)),
+                    catchError(() => of(null)),
+                ),
+            ),
+        ).pipe(
+            map(results => results.filter((r): r is PluginInfo => r !== null)),
+            map(results => results.filter(r => !PLUGIN_BLACKLIST.includes(r.packageName))),
         )
     }
 
