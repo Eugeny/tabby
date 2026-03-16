@@ -354,21 +354,43 @@ async function convertToSSHProfiles (config: SSHConfig): Promise<PartialProfile<
 }
 
 
+let _openSSHCache: PartialProfile<SSHProfile>[] | null = null
+let _openSSHCacheMtime: number | null = null
+let _openSSHCachePromise: Promise<PartialProfile<SSHProfile>[]> | null = null
+
 @Injectable({ providedIn: 'root' })
 export class OpenSSHImporter extends SSHProfileImporter {
     async getProfiles (): Promise<PartialProfile<SSHProfile>[]> {
+        if (_openSSHCachePromise) {
+            return _openSSHCachePromise
+        }
 
         const configPath = path.join(process.env.HOME ?? '~', '.ssh', 'config')
 
-        try {
-            const config: SSHConfig = await parseSSHConfigFile(configPath)
-            return await convertToSSHProfiles(config)
-        } catch (e) {
-            if (e.code === 'ENOENT') {
-                return []
+        _openSSHCachePromise = (async () => {
+            try {
+                const stat = await fs.stat(configPath)
+                const mtime = stat.mtimeMs
+
+                if (_openSSHCache && _openSSHCacheMtime === mtime) {
+                    return _openSSHCache
+                }
+
+                const config: SSHConfig = await parseSSHConfigFile(configPath)
+                _openSSHCache = await convertToSSHProfiles(config)
+                _openSSHCacheMtime = mtime
+                return _openSSHCache
+            } catch (e) {
+                if (e.code === 'ENOENT') {
+                    return []
+                }
+                throw e
+            } finally {
+                _openSSHCachePromise = null
             }
-            throw e
-        }
+        })()
+
+        return _openSSHCachePromise
     }
 }
 
