@@ -107,6 +107,7 @@ body {
     --bs-list-group-disabled-bg: var(--bs-body-bg);
     --bs-list-group-active-color: var(--bs-primary-color);
     --bs-list-group-active-bg: var(--bs-primary-bg);
+    --bs-list-group-hover-bg: var(--theme-bg-more-2);
 }
 
 .nav {
@@ -336,6 +337,11 @@ hotkey-input-modal {
         background: transparent;
         border-radius: $border-radius;
         margin: 0 !important;
+
+        &:hover {
+            cursor: pointer;
+            background: var(--bs-list-group-hover-bg);
+        }
 
         &.active {
             background-color: var(--bs-list-group-active-bg);
