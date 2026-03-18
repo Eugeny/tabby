@@ -358,8 +358,20 @@ let _openSSHCache: PartialProfile<SSHProfile>[] | null = null
 let _openSSHCacheMtime: number | null = null
 let _openSSHCachePromise: Promise<PartialProfile<SSHProfile>[]> | null = null
 
+interface SSHProfileDiskCache {
+    mtime: number
+    profiles: PartialProfile<SSHProfile>[]
+}
+
 @Injectable({ providedIn: 'root' })
 export class OpenSSHImporter extends SSHProfileImporter {
+    private diskCachePath: string
+
+    constructor (electron: ElectronService) {
+        super()
+        this.diskCachePath = path.join(electron.app.getPath('userData'), 'ssh-profiles-cache.json')
+    }
+
     async getProfiles (): Promise<PartialProfile<SSHProfile>[]> {
         if (_openSSHCachePromise) {
             return _openSSHCachePromise
@@ -376,9 +388,26 @@ export class OpenSSHImporter extends SSHProfileImporter {
                     return _openSSHCache
                 }
 
+                // Try disk cache first
+                try {
+                    const diskCache: SSHProfileDiskCache = JSON.parse(
+                        await fs.readFile(this.diskCachePath, 'utf8')
+                    )
+                    if (diskCache.mtime === mtime) {
+                        _openSSHCache = diskCache.profiles
+                        _openSSHCacheMtime = mtime
+                        return _openSSHCache
+                    }
+                } catch { /* no cache or invalid */ }
+
                 const config: SSHConfig = await parseSSHConfigFile(configPath)
                 _openSSHCache = await convertToSSHProfiles(config)
                 _openSSHCacheMtime = mtime
+
+                // Save to disk cache (fire and forget)
+                fs.writeFile(this.diskCachePath, JSON.stringify({ mtime, profiles: _openSSHCache }))
+                    .catch(() => { /* ignore write errors */ })
+
                 return _openSSHCache
             } catch (e) {
                 if (e.code === 'ENOENT') {

@@ -5,7 +5,7 @@ import { BaseTabComponent } from '../components/baseTab.component'
 import { QuickConnectProfileProvider, PartialProfile, PartialProfileGroup, Profile, ProfileGroup, ProfileProvider } from '../api/profileProvider'
 import { SelectorOption } from '../api/selector'
 import { AppService } from './app.service'
-import { configMerge, ConfigProxy, ConfigService, FullyDefined } from './config.service'
+import { configMerge, ConfigProxy, ConfigService } from './config.service'
 import { NotificationsService } from './notifications.service'
 import { SelectorService } from './selector.service'
 import deepClone from 'clone-deep'
@@ -14,7 +14,7 @@ import slugify from 'slugify'
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
-    private profileDefaults: Profile = {
+    private profileDefaults = {
         id: '',
         type: '',
         name: '',
@@ -26,6 +26,7 @@ export class ProfilesService {
         weight: 0,
         isBuiltin: false,
         isTemplate: false,
+        terminalColorScheme: null,
         behaviorOnSessionEnd: 'auto',
     }
 
@@ -52,7 +53,7 @@ export class ProfilesService {
     }
 
     getDescription <P extends Profile> (profile: PartialProfile<P>): string|null {
-        profile = this.getConfigProxyForProfile(profile) as PartialProfile<P>
+        profile = this.getConfigProxyForProfile(profile)
         return this.providerForProfile(profile)?.getDescription(profile) ?? null
     }
 
@@ -65,9 +66,9 @@ export class ProfilesService {
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     * arg: skipGroupDefaults -> do not merge parent group provider defaults in ConfigProxy
     */
-    getConfigProxyForProfile <P extends Profile> (profile: PartialProfile<P>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): FullyDefined<P> & ConfigProxy<FullyDefined<P>> {
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): T {
         const defaults = this.getProfileDefaults(profile, options).reduce(configMerge, {})
-        return new ConfigProxy(profile, defaults) as any
+        return new ConfigProxy(profile, defaults) as unknown as T
     }
 
     /**
@@ -213,10 +214,7 @@ export class ProfilesService {
         const provider = this.providerForProfile(fullProfile)
         const freeInputEquivalent = provider instanceof QuickConnectProfileProvider ? provider.intoQuickConnectString(fullProfile) ?? undefined : undefined
         return {
-            name: profile.name,
-            icon: profile.icon ?? undefined,
-            color: profile.color ?? undefined,
-            weight: profile.weight,
+            ...profile,
             group: this.resolveProfileGroupName(profile.group ?? ''),
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
@@ -236,7 +234,7 @@ export class ProfilesService {
                     ...this.selectorOptionForProfile(p),
                     group: this.translate.instant('Recent'),
                     icon: 'fas fa-history',
-                    color: p.color ?? undefined,
+                    color: p.color,
                     weight: i - (recentProfiles.length + 1),
                     callback: async () => {
                         if (p.id) {
@@ -510,7 +508,7 @@ export class ProfilesService {
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     */
     getProviderProfileGroupDefaults (groupId: string, provider: ProfileProvider<Profile>): any {
-        return this.getSyncProfileGroups().find(g => g.id === groupId)?.defaults?.[provider.id] ?? {}
+        return (this.config.store.groups ?? []).find(g => g.id === groupId)?.defaults?.[provider.id] ?? {}
     }
 
 }

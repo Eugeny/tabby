@@ -7,6 +7,7 @@ import { PlatformService } from '../api/platform'
 })
 export class FastHtmlBindDirective implements OnChanges {
     @Input() fastHtmlBind?: string
+    private _lastValue?: string
 
     constructor (
         private el: ElementRef,
@@ -14,6 +15,10 @@ export class FastHtmlBindDirective implements OnChanges {
     ) { }
 
     ngOnChanges (): void {
+        if (this.fastHtmlBind === this._lastValue) {
+            return
+        }
+        this._lastValue = this.fastHtmlBind
         this.el.nativeElement.innerHTML = this.fastHtmlBind ?? ''
         for (const link of this.el.nativeElement.querySelectorAll('a')) {
             link.addEventListener('click', event => {
