@@ -391,7 +391,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
                 // Try disk cache first
                 try {
                     const diskCache: SSHProfileDiskCache = JSON.parse(
-                        await fs.readFile(this.diskCachePath, 'utf8')
+                        await fs.readFile(this.diskCachePath, 'utf8'),
                     )
                     if (diskCache.mtime === mtime) {
                         _openSSHCache = diskCache.profiles
