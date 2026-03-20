@@ -223,7 +223,6 @@ export class XTermFrontend extends Frontend {
         // use onScroll for pin state. Re-pinning happens only via:
         //   - wheel/keyboard event listeners (below)
         //   - explicit scrollToBottom() calls
-        //   - resize handler reconciliation
 
         this.resizeHandler = () => {
             try {
@@ -412,9 +411,9 @@ export class XTermFrontend extends Frontend {
     }
 
     async write (data: string): Promise<void> {
-        // Capture pinned state before the write — onScroll can fire during
-        // flowControl.write() and falsely re-pin if viewportY transiently
-        // equals baseY during xterm's internal processing.
+        // Capture pinned state before the write — the async write yields
+        // to the event loop, and RAF callbacks (e.g. from wheel events)
+        // could change pinnedToBottom mid-write.
         const wasPinned = this.pinnedToBottom
         const savedViewportY = this.xterm.buffer.active.viewportY
         await this.flowControl.write(data)
