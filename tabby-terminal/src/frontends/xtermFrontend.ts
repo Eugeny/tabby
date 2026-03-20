@@ -223,7 +223,7 @@ export class XTermFrontend extends Frontend {
         // unpin here — only re-pin when at bottom. Unpinning is handled
         // exclusively by wheel/keyboard event listeners below.
         this.xterm.onScroll(() => {
-            if (!this.element || this.element.offsetParent === null) {
+            if (this.element?.offsetParent == null) {
                 return
             }
             if (this.isAtBottom()) {
@@ -342,8 +342,9 @@ export class XTermFrontend extends Frontend {
         }, { passive: true })
 
         host.addEventListener('keydown', (event: KeyboardEvent) => {
-            if (event.key === 'PageUp' || event.key === 'PageDown' ||
-                ((event.metaKey || event.ctrlKey) && (event.key === 'ArrowUp' || event.key === 'ArrowDown'))) {
+            const isScrollKey = event.key === 'PageUp' || event.key === 'PageDown' ||
+                (event.metaKey || event.ctrlKey) && (event.key === 'ArrowUp' || event.key === 'ArrowDown')
+            if (isScrollKey) {
                 requestAnimationFrame(() => this.updatePinnedState())
             }
         })
