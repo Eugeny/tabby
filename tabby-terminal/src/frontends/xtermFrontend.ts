@@ -410,9 +410,19 @@ export class XTermFrontend extends Frontend {
     }
 
     async write (data: string): Promise<void> {
+        const savedViewportY = this.xterm.buffer.active.viewportY
         await this.flowControl.write(data)
         if (this.pinnedToBottom) {
             this.xtermCore._scrollToBottom()
+        } else {
+            // Restore scroll position — xterm internally disturbs viewportY
+            // during fast output, and the patched-out scrollToBottom no-op
+            // prevents xterm from correcting it.
+            const maxScroll = this.xterm.buffer.active.baseY
+            const targetY = Math.min(savedViewportY, maxScroll)
+            if (this.xterm.buffer.active.viewportY !== targetY) {
+                this.xterm.scrollToLine(targetY)
+            }
         }
     }
 
