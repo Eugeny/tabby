@@ -216,30 +216,18 @@ export class XTermFrontend extends Frontend {
         this.xtermCore._scrollToBottom = this.xtermCore.scrollToBottom.bind(this.xtermCore)
         this.xtermCore.scrollToBottom = () => null
 
-        // Re-pin when content-driven scroll reaches bottom.
-        // IMPORTANT: onScroll only fires for content-driven scroll (new lines),
+        // NOTE: xterm.onScroll only fires for content-driven scroll (new lines),
         // NOT for user wheel/keyboard scroll (xterm.js #3864, #3201). During
-        // fast output, viewportY briefly lags behind baseY, so we must NOT
-        // unpin here — only re-pin when at bottom. Unpinning is handled
-        // exclusively by wheel/keyboard event listeners below.
-        this.xterm.onScroll(() => {
-            if (this.element?.offsetParent == null) {
-                return
-            }
-            if (this.isAtBottom()) {
-                this.pinnedToBottom = true
-            }
-        })
+        // fast output, viewportY transiently equals baseY during xterm's
+        // internal processing, so onScroll would falsely re-pin. We do NOT
+        // use onScroll for pin state. Re-pinning happens only via:
+        //   - wheel/keyboard event listeners (below)
+        //   - explicit scrollToBottom() calls
+        //   - resize handler reconciliation
 
         this.resizeHandler = () => {
             try {
                 if (this.xterm.element && getComputedStyle(this.xterm.element).getPropertyValue('height') !== 'auto') {
-                    // Reconcile: if flag says unpinned but viewport is actually
-                    // at bottom, correct it before acting on the flag.
-                    if (!this.pinnedToBottom && this.isAtBottom()) {
-                        this.pinnedToBottom = true
-                    }
-
                     const savedPinned = this.pinnedToBottom
                     const savedViewportY = this.xterm.buffer.active.viewportY
 
@@ -336,18 +324,30 @@ export class XTermFrontend extends Frontend {
 
         // User-initiated scroll detection: only wheel and keyboard events
         // should unpin. xterm.onScroll is content-driven only and must never
-        // unpin (see constructor comment).
-        host.addEventListener('wheel', () => {
+        // unpin (see constructor comment). Use capture phase — xterm.js
+        // handles wheel/key events on its internal viewport element and may
+        // stop propagation, so bubbling listeners on host would never fire.
+        host.addEventListener('wheel', (event: WheelEvent) => {
+            // Immediately unpin on scroll-up so that writes arriving before
+            // the next animation frame don't yank the viewport back down.
+            if (event.deltaY < 0) {
+                this.pinnedToBottom = false
+            }
             requestAnimationFrame(() => this.updatePinnedState())
-        }, { passive: true })
+        }, { capture: true, passive: true })
 
         host.addEventListener('keydown', (event: KeyboardEvent) => {
-            const isScrollKey = event.key === 'PageUp' || event.key === 'PageDown' ||
-                (event.metaKey || event.ctrlKey) && (event.key === 'ArrowUp' || event.key === 'ArrowDown')
+            const isScrollUpKey = event.key === 'PageUp' ||
+                ((event.metaKey || event.ctrlKey) && event.key === 'ArrowUp')
+            const isScrollKey = isScrollUpKey || event.key === 'PageDown' ||
+                ((event.metaKey || event.ctrlKey) && event.key === 'ArrowDown')
+            if (isScrollUpKey) {
+                this.pinnedToBottom = false
+            }
             if (isScrollKey) {
                 requestAnimationFrame(() => this.updatePinnedState())
             }
-        })
+        }, { capture: true })
 
         host.addEventListener('dragOver', (event: any) => this.dragOver.next(event))
         host.addEventListener('drop', event => this.drop.next(event))
@@ -411,9 +411,13 @@ export class XTermFrontend extends Frontend {
     }
 
     async write (data: string): Promise<void> {
+        // Capture pinned state before the write — onScroll can fire during
+        // flowControl.write() and falsely re-pin if viewportY transiently
+        // equals baseY during xterm's internal processing.
+        const wasPinned = this.pinnedToBottom
         const savedViewportY = this.xterm.buffer.active.viewportY
         await this.flowControl.write(data)
-        if (this.pinnedToBottom) {
+        if (wasPinned) {
             this.xtermCore._scrollToBottom()
         } else {
             // Restore scroll position — xterm internally disturbs viewportY
