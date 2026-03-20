@@ -337,10 +337,11 @@ export class XTermFrontend extends Frontend {
         }, { capture: true, passive: true })
 
         host.addEventListener('keydown', (event: KeyboardEvent) => {
+            const modKey = event.metaKey || event.ctrlKey
             const isScrollUpKey = event.key === 'PageUp' ||
-                ((event.metaKey || event.ctrlKey) && event.key === 'ArrowUp')
+                modKey && event.key === 'ArrowUp'
             const isScrollKey = isScrollUpKey || event.key === 'PageDown' ||
-                ((event.metaKey || event.ctrlKey) && event.key === 'ArrowDown')
+                modKey && event.key === 'ArrowDown'
             if (isScrollUpKey) {
                 this.pinnedToBottom = false
             }
