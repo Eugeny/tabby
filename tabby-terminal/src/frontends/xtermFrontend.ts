@@ -82,6 +82,7 @@ export class XTermFrontend extends Frontend {
     private opened = false
     private resizeObserver?: any
     private flowControl: FlowControl
+    private pinnedToBottom = true
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -215,11 +216,44 @@ export class XTermFrontend extends Frontend {
         this.xtermCore._scrollToBottom = this.xtermCore.scrollToBottom.bind(this.xtermCore)
         this.xtermCore.scrollToBottom = () => null
 
+        // Re-pin when content-driven scroll reaches bottom.
+        // IMPORTANT: onScroll only fires for content-driven scroll (new lines),
+        // NOT for user wheel/keyboard scroll (xterm.js #3864, #3201). During
+        // fast output, viewportY briefly lags behind baseY, so we must NOT
+        // unpin here — only re-pin when at bottom. Unpinning is handled
+        // exclusively by wheel/keyboard event listeners below.
+        this.xterm.onScroll(() => {
+            if (!this.element || this.element.offsetParent === null) {
+                return
+            }
+            if (this.isAtBottom()) {
+                this.pinnedToBottom = true
+            }
+        })
+
         this.resizeHandler = () => {
             try {
                 if (this.xterm.element && getComputedStyle(this.xterm.element).getPropertyValue('height') !== 'auto') {
+                    // Reconcile: if flag says unpinned but viewport is actually
+                    // at bottom, correct it before acting on the flag.
+                    if (!this.pinnedToBottom && this.isAtBottom()) {
+                        this.pinnedToBottom = true
+                    }
+
+                    const savedPinned = this.pinnedToBottom
+                    const savedViewportY = this.xterm.buffer.active.viewportY
+
                     this.fitAddon.fit()
                     this.xterm.refresh(0, this.xterm.rows - 1)
+
+                    if (savedPinned) {
+                        this.xtermCore._scrollToBottom()
+                    } else {
+                        // Restore the previous scroll position after fit
+                        const maxScroll = this.xterm.buffer.active.baseY
+                        const targetY = Math.min(savedViewportY, maxScroll)
+                        this.xterm.scrollToLine(targetY)
+                    }
                 }
             } catch (e) {
                 // tends to throw when element wasn't shown yet
@@ -240,6 +274,15 @@ export class XTermFrontend extends Frontend {
             this.alternateScreenActive.next(altBufferActive)
         })
 
+    }
+
+    private isAtBottom (): boolean {
+        const buffer = this.xterm.buffer.active
+        return buffer.viewportY >= buffer.baseY - 1
+    }
+
+    private updatePinnedState (): void {
+        this.pinnedToBottom = this.isAtBottom()
     }
 
     async attach (host: HTMLElement, profile: BaseTerminalProfile): Promise<void> {
@@ -290,6 +333,20 @@ export class XTermFrontend extends Frontend {
 
         // Allow an animation frame
         await new Promise(r => setTimeout(r, 0))
+
+        // User-initiated scroll detection: only wheel and keyboard events
+        // should unpin. xterm.onScroll is content-driven only and must never
+        // unpin (see constructor comment).
+        host.addEventListener('wheel', () => {
+            requestAnimationFrame(() => this.updatePinnedState())
+        }, { passive: true })
+
+        host.addEventListener('keydown', (event: KeyboardEvent) => {
+            if (event.key === 'PageUp' || event.key === 'PageDown' ||
+                ((event.metaKey || event.ctrlKey) && (event.key === 'ArrowUp' || event.key === 'ArrowDown'))) {
+                requestAnimationFrame(() => this.updatePinnedState())
+            }
+        })
 
         host.addEventListener('dragOver', (event: any) => this.dragOver.next(event))
         host.addEventListener('drop', event => this.drop.next(event))
@@ -354,6 +411,9 @@ export class XTermFrontend extends Frontend {
 
     async write (data: string): Promise<void> {
         await this.flowControl.write(data)
+        if (this.pinnedToBottom) {
+            this.xtermCore._scrollToBottom()
+        }
     }
 
     clear (): void {
@@ -370,18 +430,22 @@ export class XTermFrontend extends Frontend {
     }
 
     scrollToTop (): void {
+        this.pinnedToBottom = false
         this.xterm.scrollToTop()
     }
 
     scrollPages (pages: number): void {
         this.xterm.scrollPages(pages)
+        this.updatePinnedState()
     }
 
     scrollLines (amount: number): void {
         this.xterm.scrollLines(amount)
+        this.updatePinnedState()
     }
 
     scrollToBottom (): void {
+        this.pinnedToBottom = true
         this.xtermCore._scrollToBottom()
     }
 
