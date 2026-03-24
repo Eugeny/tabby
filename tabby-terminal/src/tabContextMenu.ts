@@ -1,13 +1,12 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile, ElectronService } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
 import { ConnectableTerminalTabComponent } from './api/connectableTerminalTab.component'
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
-import * as fs from 'fs'
 
 /** @hidden */
 @Injectable()
@@ -216,39 +215,3 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
     }
 }
 
-/** @hidden */
-@Injectable()
-export class ExportContextMenu extends TabContextMenuItemProvider {
-    weight = 0
-
-    constructor (
-        private electron: ElectronService,
-        private notifications: NotificationsService,
-        private translate: TranslateService,
-    ) {
-        super()
-    }
-
-    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
-        if (tab instanceof BaseTerminalTabComponent) {
-            return [
-                {
-                    label: this.translate.instant('Export to file'),
-                    click: async () => {
-                        const result = await this.electron.dialog.showSaveDialog({
-                            defaultPath: 'terminal.txt',
-                        })
-                        if (result.filePath) {
-                            tab.frontend.selectAll()
-                            const content = tab.frontend.getSelection()
-                            tab.frontend.clearSelection()
-                            await fs.promises.writeFile(result.filePath, content)
-                            this.notifications.info(this.translate.instant('Saved to {path}', { path: result.filePath }))
-                        }
-                    },
-                },
-            ]
-        }
-        return []
-    }
-}
