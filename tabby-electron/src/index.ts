@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider, TabContextMenuItemProvider } from 'tabby-core'
-import { TerminalColorSchemeProvider, TerminalDecorator } from 'tabby-terminal'
+import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
+import { TerminalColorSchemeProvider, TerminalContextMenuItemProvider, TerminalDecorator } from 'tabby-terminal'
 import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
 import { PTYInterface, ShellProvider, UACService } from 'tabby-local'
 import { auditTime } from 'rxjs'
@@ -77,7 +77,7 @@ import { VSDevToolsProvider } from './shells/vs'
 
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
 
-        { provide: TabContextMenuItemProvider, useClass: ExportTerminalContextMenu, multi: true },
+        { provide: TerminalContextMenuItemProvider, useClass: ExportTerminalContextMenu, multi: true },
 
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,

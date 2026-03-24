@@ -1,12 +1,12 @@
 import * as fs from 'fs'
 import { Injectable } from '@angular/core'
-import { BaseTabComponent, MenuItemOptions, NotificationsService, TabContextMenuItemProvider, TranslateService } from 'tabby-core'
-import { BaseTerminalTabComponent } from 'tabby-terminal'
+import { MenuItemOptions, NotificationsService, TranslateService } from 'tabby-core'
+import { BaseTerminalTabComponent, TerminalContextMenuItemProvider } from 'tabby-terminal'
 import { ElectronService } from './services/electron.service'
 
 /** @hidden */
 @Injectable()
-export class ExportTerminalContextMenu extends TabContextMenuItemProvider {
+export class ExportTerminalContextMenu extends TerminalContextMenuItemProvider {
     weight = 0
 
     constructor (
@@ -17,11 +17,7 @@ export class ExportTerminalContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
-        if (!(tab instanceof BaseTerminalTabComponent)) {
-            return []
-        }
-
+    async getItems (tab: BaseTerminalTabComponent<any>): Promise<MenuItemOptions[]> {
         return [
             {
                 label: this.translate.instant('Export to file'),
