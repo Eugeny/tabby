@@ -8,14 +8,14 @@ export class DockMenuService {
     appVersion: string
 
     private constructor (
-        config: ConfigService,
+        private configService: ConfigService,
         private electron: ElectronService,
         private hostApp: HostAppService,
         private zone: NgZone,
         private profilesService: ProfilesService,
         private translate: TranslateService,
     ) {
-        config.changed$.subscribe(() => this.update())
+        this.configService.changed$.subscribe(() => this.update())
     }
 
     async update (): Promise<void> {
