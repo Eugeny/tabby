@@ -35,16 +35,18 @@ export class VaultSettingsTabComponent extends BaseComponent {
         this.vaultContents = await this.vault.load()
         this.filteredSecrets = this.vaultContents?.secrets ?? []
     }
-    updateFilteredSecrets() {
-        if (!this.vaultContents || !this.vaultContents.secrets) {
-            this.filteredSecrets = [];
-            return;
+
+    updateFilteredSecrets () {
+        if (!this.vaultContents?.secrets) {
+            this.filteredSecrets = []
+            return
         }
-        const term = this.searchTerm.toLowerCase();
-        this.filteredSecrets = this.vaultContents.secrets.filter(secret =>
-            this.getSecretLabel(secret).toLowerCase().includes(term)
-        );
+        const term = this.searchTerm.toLowerCase()
+        this.filteredSecrets = this.vaultContents.secrets.filter((secret) =>
+            this.getSecretLabel(secret).toLowerCase().includes(term),
+        )
     }
+
     async enableVault () {
         const modal = this.ngbModal.open(SetVaultPassphraseModalComponent)
         const newPassphrase = await modal.result.catch(() => null)
