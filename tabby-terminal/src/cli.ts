@@ -19,8 +19,8 @@ export class TerminalCLIHandler extends CLIHandler {
         const op = event.argv._[0]
 
         if (op === 'paste') {
-            let text = event.argv.text
-            if (event.argv.escape) {
+            let text = event.argv.text!
+            if (event.argv.escape!) {
                 text = shellQuote.quote([text])
             }
             this.handlePaste(text)

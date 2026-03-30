@@ -6,6 +6,7 @@ import { DemoTerminalTabComponent } from './components/terminalTab.component'
 export class DemoProfilesService extends ProfileProvider<Profile> {
     id = 'demo'
     name = 'Demo'
+    configDefaults = { options: {} }
 
     async getBuiltinProfiles (): Promise<PartialProfile<Profile>[]> {
         return [

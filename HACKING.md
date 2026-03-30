@@ -60,7 +60,7 @@ tabby
 |  ├─ src                               # Electron renderer code
 |  └─ main.js                           # Electron main entry point
 ├─ build
-├─ clink                                # Clink distributive, for Windows
+├─ clink                                # Clink distribution, for Windows
 ├─ scripts                              # Maintenance scripts
 ├─ tabby-community-color-schemes     # Plugin that provides color schemes
 ├─ tabby-core                        # Plugin that provides base UI and tab management

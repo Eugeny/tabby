@@ -179,6 +179,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
             try {
                 await this.initializeSessionMaybeMultiplex(false)
             } catch (e) {
+                console.error('SSH session initialization failed', e)
                 this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
                 return
             }
@@ -194,7 +195,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         if (!this.session?.open) {
             return true
         }
-        if (!(this.profile.options.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
+        if (!this.profile.options.warnOnClose) {
             return true
         }
         return (await this.platform.showMessageBox(

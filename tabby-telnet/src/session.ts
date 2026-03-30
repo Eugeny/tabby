@@ -14,7 +14,7 @@ export interface TelnetProfile extends ConnectableTerminalProfile {
 
 export interface TelnetProfileOptions extends StreamProcessingOptions, LoginScriptsOptions {
     host: string
-    port?: number
+    port: number | null
     input: InputProcessingOptions,
 }
 

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core'
-import { registerLocaleData } from '@angular/common'
+import { Injectable, Pipe, PipeTransform } from '@angular/core'
+import { formatDate, registerLocaleData } from '@angular/common'
 import { TranslateService, MissingTranslationHandler } from '@ngx-translate/core'
 import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler'
 
@@ -255,5 +255,17 @@ export class LocaleService {
 
     getLocale (): string {
         return this.locale
+    }
+}
+
+@Pipe({
+    name: 'tabbyDate',
+})
+export class TabbyFormatedDatePipe implements PipeTransform {
+
+    constructor (private locale: LocaleService) {}
+
+    transform (date: string): string {
+        return formatDate(date, 'medium', this.locale.getLocale())
     }
 }

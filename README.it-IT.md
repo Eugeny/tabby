@@ -107,18 +107,19 @@ Tabby può essere eseguito come app portatile su Windows, se crei una cartella `
 <a name="plugins"></a>
 # Plugin
 
-Plugins and themes can be installed directly from the Settings view inside Tabby.
+I plugin e i temi possono essere installati direttamente dalla vista Impostazioni all'interno di Tabby.
 
-* [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
-* [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-* [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
-* [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
-* [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
-* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - allows creating custom workspace profiles based on the given config
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
-* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
-
+* [docker](https://github.com/Eugeny/tabby-docker) - connessione ai container Docker
+* [title-control](https://github.com/kbjr/terminus-title-control) - consente di modificare il titolo delle schede del terminale fornendo un prefisso, un suffisso e/o stringhe da rimuovere
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - invia rapidamente comandi a una o tutte le schede del terminale
+* [save-output](https://github.com/Eugeny/tabby-save-output) - registra l'output del terminale in un file
+* [sync-config](https://github.com/starxg/terminus-sync-config) - sincronizza la configurazione con Gist o Gitee
+* [clippy](https://github.com/Eugeny/tabby-clippy) - un esempio di plugin che ti infastidisce tutto il tempo
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - consente di creare profili di spazio di lavoro personalizzati basati sulla configurazione fornita
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - apre il browser di sistema predefinito con un testo selezionato dalla scheda di Tabby
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - apre una scheda SFTP per la connessione SSH come SecureCRT
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - Popup di autenticazione web in-app (costruito principalmente per l'autenticazione in-browser di Warpgate)
+* [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - Potente integrazione del server Model Context Protocol per Tabby che si connette perfettamente con assistenti AI attraverso client MCP come Cursor e Windsurf, migliorando il tuo flusso di lavoro del terminale con capacità AI intelligenti.
 <a name="themes"></a>
 # Temi
 
@@ -342,6 +343,10 @@ Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/do
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/geodic"><img src="https://avatars.githubusercontent.com/u/64704703?v=4?s=100" width="100px;" alt="geodic"/><br /><sub><b>geodic</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=geodic" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://p.foundation/"><img src="https://avatars.githubusercontent.com/u/80860929?v=4?s=100" width="100px;" alt="P Foundation"/><br /><sub><b>P Foundation</b></sub></a><br /><a href="#financial-pfoundation" title="Financial">💵</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/et304383"><img src="https://avatars.githubusercontent.com/u/2693414?v=4?s=100" width="100px;" alt="et304383"/><br /><sub><b>et304383</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=et304383" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ajkrj"><img src="https://avatars.githubusercontent.com/u/210226755?v=4?s=100" width="100px;" alt="ajkrj"/><br /><sub><b>ajkrj</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ajkrj" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/leoberbert/"><img src="https://avatars.githubusercontent.com/u/16724862?v=4?s=100" width="100px;" alt="Leonardo Berbert"/><br /><sub><b>Leonardo Berbert</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=leoberbert" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

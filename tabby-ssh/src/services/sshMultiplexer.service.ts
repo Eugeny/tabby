@@ -28,7 +28,7 @@ export class SSHMultiplexerService {
     }
 
     private async getMultiplexerKey (profile: SSHProfile) {
-        let key = `${profile.options.host}:${profile.options.port}:${profile.options.user}:${profile.options.proxyCommand}:${profile.options.socksProxyHost}:${profile.options.socksProxyPort}`
+        let key = `${profile.options.host}:${profile.options.port}:${profile.options.user}:${profile.options.proxyCommand}:${profile.options.socksProxyHost}:${profile.options.socksProxyPort}:${profile.options.httpProxyHost}:${profile.options.httpProxyPort}`
         if (profile.options.jumpHost) {
             const jumpConnection = (await this.profilesService.getProfiles()).find(x => x.id === profile.options.jumpHost)
             if (!jumpConnection) {

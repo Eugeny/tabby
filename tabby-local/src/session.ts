@@ -63,7 +63,7 @@ export class Session extends BaseSession {
 
         if (options.restoreFromPTYID) {
             pty = await this.ptyInterface.restore(options.restoreFromPTYID)
-            options.restoreFromPTYID = undefined
+            options.restoreFromPTYID = null
         }
 
         if (!pty) {
@@ -74,7 +74,7 @@ export class Session extends BaseSession {
                     TERM: 'xterm-256color',
                     TERM_PROGRAM: 'Tabby',
                 },
-                substituteEnv(options.env ?? {}),
+                substituteEnv(options.env),
                 this.config.store.terminal.environment || {},
             )
 
@@ -104,7 +104,7 @@ export class Session extends BaseSession {
                 cwd = undefined
             }
 
-            pty = await this.ptyInterface.spawn(options.command, options.args ?? [], {
+            pty = await this.ptyInterface.spawn(options.command, options.args, {
                 name: 'xterm-256color',
                 cols: options.width ?? 80,
                 rows: options.height ?? 30,
@@ -152,7 +152,7 @@ export class Session extends BaseSession {
             }
         })
 
-        this.pauseAfterExit = options.pauseAfterExit ?? false
+        this.pauseAfterExit = options.pauseAfterExit
 
         this.destroyed$.subscribe(() => this.pty!.unsubscribeAll())
     }

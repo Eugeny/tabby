@@ -15,7 +15,7 @@ import './sentry'
 import './lru'
 import { parseArgs } from './cli'
 import { Application } from './app'
-import electronDebug = require('electron-debug')
+import electronDebug from 'electron-debug'
 import { loadConfig } from './config'
 
 
@@ -34,6 +34,15 @@ try {
 process.mainModule = module
 
 const application = new Application(configStore)
+
+// Register tabby:// URL scheme
+if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+        app.setAsDefaultProtocolClient('tabby', process.execPath, [process.argv[1]])
+    }
+} else {
+    app.setAsDefaultProtocolClient('tabby')
+}
 
 ipcMain.on('app:new-window', () => {
     application.newWindow()
@@ -57,6 +66,18 @@ app.on('activate', async () => {
         application.newWindow()
     } else {
         application.focus()
+    }
+})
+
+// Handle URL scheme on macOS
+app.on('open-url', async (event, url) => {
+    event.preventDefault()
+    console.log('Received open-url event:', url)
+    if (!application.hasWindows()) {
+        process.argv.push(url)
+    } else {
+        await app.whenReady()
+        application.handleSecondInstance([url], process.cwd())
     }
 })
 

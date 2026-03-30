@@ -285,7 +285,13 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                 .w-75
                     div(*ngFor='let alg of supportedAlgorithms.serverHostKey')
                         checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
-
+                        
+            .form-line.align-items-start
+                .header
+                    .title Compression
+                .w-75
+                    div(*ngFor='let alg of supportedAlgorithms.compression')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.compression[alg]')
     li(ngbNavItem)
         a(ngbNavLink, translate) Colors
         ng-template(ngbNavContent)

@@ -68,6 +68,7 @@ $tab-border-radius: 4px;
 
     &>.inset {
         opacity: 0;
+        width: 100%;
     }
 
     ::ng-deep tab-header {

@@ -35,7 +35,8 @@ title-bar(
                 [@animateTab]='{value: "in", params: {size: targetTabSize}}',
                 [@.disabled]='hasVerticalTabs() || !config.store.accessibility.animations',
                 (click)='app.selectTab(tab)',
-                [class.fully-draggable]='hostApp.platform !== Platform.macOS'
+                [class.fully-draggable]='hostApp.platform !== Platform.macOS',
+                [ngbTooltip]='tab.customTitle || tab.title'
             )
 
         .btn-group.background
@@ -43,7 +44,7 @@ title-bar(
                 *ngFor='let button of leftToolbarButtons'
             )
                 button.btn.btn-secondary.btn-tab-bar(
-                    [title]='button.label',
+                    [ngbTooltip]='button.label',
                     (click)='button.run && button.run()',
                     [fastHtmlBind]='button.icon'
                 )
@@ -55,7 +56,7 @@ title-bar(
             )
                 button.btn.btn-secondary.btn-tab-bar(
                     [hidden]='activeTransfers.length == 0',
-                    title='File transfers',
+                    [ngbTooltip]='"File transfers"|translate',
                     ngbDropdownToggle
                 ) !{require('../icons/transfers.svg')}
                 transfers-menu(
@@ -75,14 +76,14 @@ title-bar(
                 *ngFor='let button of rightToolbarButtons'
             )
                 button.btn.btn-secondary.btn-tab-bar(
-                    [title]='button.label',
+                    [ngbTooltip]='button.label',
                     (click)='button.run && button.run()',
                     [fastHtmlBind]='button.icon'
                 )
 
             button.btn.btn-secondary.btn-tab-bar.btn-update(
                 *ngIf='updatesAvailable',
-                title='Update available - Click to install',
+                [ngbTooltip]='"Update available - Click to install"|translate',
                 (click)='updater.update()'
             ) !{require('../icons/gift.svg')}
 

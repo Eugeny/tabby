@@ -40,7 +40,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                     click: async () => {
                         let workingDirectory = profile.options.cwd
                         if (!workingDirectory && tab instanceof TerminalTabComponent) {
-                            workingDirectory = await tab.session?.getWorkingDirectory() ?? undefined
+                            workingDirectory = await tab.session?.getWorkingDirectory() ?? null
                         }
                         await this.terminalService.openTab(profile, workingDirectory)
                     },

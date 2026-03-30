@@ -27,7 +27,7 @@ class ZModemMiddleware extends SessionMiddleware {
         this.logger = log.create('zmodem')
         this.sentry = new ZModem.Sentry({
             to_terminal: data => {
-                if (this.isActive) {
+                if (this.isActive && this.activeSession) {
                     this.outputToTerminal.next(Buffer.from(data))
                 }
             },
@@ -42,25 +42,32 @@ class ZModemMiddleware extends SessionMiddleware {
             },
             on_retract: () => {
                 this.showMessage('transfer cancelled')
+                this.activeSession = null
+                this.isActive = false
             },
         })
     }
 
     feedFromSession (data: Buffer): void {
-        const chunkSize = 1024
-        for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
+        if (this.isActive || this.activeSession) {
             try {
-                this.sentry.consume(Buffer.from(data.slice(i * chunkSize, (i + 1) * chunkSize)))
+                this.sentry.consume(data)
             } catch (e) {
                 this.showMessage(colors.bgRed.black(' Error ') + ' ' + e)
                 this.logger.error('protocol error', e)
-                this.activeSession.abort()
+                this.activeSession?.abort()
                 this.activeSession = null
                 this.isActive = false
+                // Don't forward the problematic data to terminal
                 return
             }
-        }
-        if (!this.isActive) {
+        } else {
+            try {
+                this.sentry.consume(data)
+            } catch (e) {
+                this.logger.error('zmodem detection error', e)
+            }
+
             this.outputToTerminal.next(data)
         }
     }
@@ -73,25 +80,35 @@ class ZModemMiddleware extends SessionMiddleware {
         this.activeSession = zsession
         this.logger.info('new session', zsession)
 
-        if (zsession.type === 'send') {
-            const transfers = await this.platform.startUpload({ multiple: true })
-            let filesRemaining = transfers.length
-            let sizeRemaining = transfers.reduce((a, b) => a + b.getSize(), 0)
-            for (const transfer of transfers) {
-                await this.sendFile(zsession, transfer, filesRemaining, sizeRemaining)
-                filesRemaining--
-                sizeRemaining -= transfer.getSize()
+        try {
+            if (zsession.type === 'send') {
+                const transfers = await this.platform.startUpload({ multiple: true })
+                let filesRemaining = transfers.length
+                let sizeRemaining = transfers.reduce((a, b) => a + b.getSize(), 0)
+                for (const transfer of transfers) {
+                    await this.sendFile(zsession, transfer, filesRemaining, sizeRemaining)
+                    filesRemaining--
+                    sizeRemaining -= transfer.getSize()
+                }
+                await zsession.close()
+            } else {
+                zsession.on('offer', xfer => {
+                    this.receiveFile(xfer, zsession)
+                })
+
+                zsession.start()
+
+                await new Promise(resolve => zsession.on('session_end', resolve))
             }
-            this.activeSession = null
-            await zsession.close()
-        } else {
-            zsession.on('offer', xfer => {
-                this.receiveFile(xfer, zsession)
-            })
 
-            zsession.start()
-
-            await new Promise(resolve => zsession.on('session_end', resolve))
+            this.showMessage(colors.bgBlue.black(' ZMODEM ') + ' Complete')
+        } catch (error) {
+            this.logger.error('ZMODEM session error', error)
+            this.showMessage(colors.bgRed.black(' ZMODEM ') + ` Session failed: ${error.message}`)
+            try {
+                zsession.abort()
+            } catch { }
+        } finally {
             this.activeSession = null
         }
     }

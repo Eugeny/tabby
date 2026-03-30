@@ -4,7 +4,7 @@ import { ConfigService, ThemesService } from 'tabby-core'
 export function getTerminalBackgroundColor (
     config: ConfigService,
     themes: ThemesService,
-    scheme?: TerminalColorScheme,
+    scheme: TerminalColorScheme | null,
 ): string|null {
     const appTheme = themes.findCurrentTheme()
     const appColorScheme = themes._getActiveColorScheme() as TerminalColorScheme

@@ -1355,6 +1355,42 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "pfoundation",
+      "name": "P Foundation",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80860929?v=4",
+      "profile": "https://p.foundation/",
+      "contributions": [
+        "financial"
+      ]
+    },
+    {
+      "login": "et304383",
+      "name": "et304383",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2693414?v=4",
+      "profile": "https://github.com/et304383",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ajkrj",
+      "name": "ajkrj",
+      "avatar_url": "https://avatars.githubusercontent.com/u/210226755?v=4",
+      "profile": "https://github.com/ajkrj",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "leoberbert",
+      "name": "Leonardo Berbert",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16724862?v=4",
+      "profile": "https://www.linkedin.com/in/leoberbert/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

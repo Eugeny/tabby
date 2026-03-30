@@ -120,7 +120,9 @@ Los plugins y los temas se pueden instalar directamente desde la vista de Config
 * [clippy](https://github.com/Eugeny/tabby-clippy) - un ejemplo de plugin que te molesta todo el tiempo
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - permite crear perfiles de espacio de trabajo personalizados basados en la configuración dada
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - abre el navegador del sistema por defecto con un texto seleccionado en la pestaña de Tabby's
-* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - abre una pestaña sftp para la conexión ssh como SecureCRT
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - Ventanas emergentes de autenticación web dentro de la app (Construidas principalmente para la autenticación en el navegador de warpgate)
+* [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - Potente integración del servidor de Protocolo de Contexto de Modelo para Tabby que se conecta sin problemas con asistentes de IA a través de clientes MCP como Cursor y Windsurf, mejorando tu flujo de trabajo en terminal con capacidades inteligentes de IA.
 <a name="themes"></a>
 
 # Temas
@@ -349,6 +351,10 @@ Gracias a estas maravillosas personas ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/geodic"><img src="https://avatars.githubusercontent.com/u/64704703?v=4?s=100" width="100px;" alt="geodic"/><br /><sub><b>geodic</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=geodic" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://p.foundation/"><img src="https://avatars.githubusercontent.com/u/80860929?v=4?s=100" width="100px;" alt="P Foundation"/><br /><sub><b>P Foundation</b></sub></a><br /><a href="#financial-pfoundation" title="Financial">💵</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/et304383"><img src="https://avatars.githubusercontent.com/u/2693414?v=4?s=100" width="100px;" alt="et304383"/><br /><sub><b>et304383</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=et304383" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ajkrj"><img src="https://avatars.githubusercontent.com/u/210226755?v=4?s=100" width="100px;" alt="ajkrj"/><br /><sub><b>ajkrj</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ajkrj" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/leoberbert/"><img src="https://avatars.githubusercontent.com/u/16724862?v=4?s=100" width="100px;" alt="Leonardo Berbert"/><br /><sub><b>Leonardo Berbert</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=leoberbert" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

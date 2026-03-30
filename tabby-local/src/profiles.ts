@@ -51,13 +51,13 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
 
         if (!profile.options.cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
-                profile.options.cwd = await this.app.activeTab.session.getWorkingDirectory() ?? undefined
+                profile.options.cwd = await this.app.activeTab.session.getWorkingDirectory() ?? null
             }
             if (this.app.activeTab instanceof SplitTabComponent) {
                 const focusedTab = this.app.activeTab.getFocusedTab()
 
                 if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
-                    profile.options.cwd = await focusedTab.session.getWorkingDirectory() ?? undefined
+                    profile.options.cwd = await focusedTab.session.getWorkingDirectory() ?? null
                 }
             }
         }
@@ -77,10 +77,11 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
 
     optionsFromShell (shell: Shell): SessionOptions {
         return {
+            ...this.configDefaults.options,
             command: shell.command,
             args: shell.args ?? [],
             env: shell.env,
-            cwd: shell.cwd,
+            cwd: shell.cwd ?? null,
         }
     }
 

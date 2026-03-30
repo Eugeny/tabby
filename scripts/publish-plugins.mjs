@@ -8,6 +8,6 @@ vars.allPackages.forEach(plugin => {
     log.info('bump', plugin)
     sh.cd(plugin)
     sh.exec('npm --no-git-tag-version version ' + vars.version, { fatal: true })
-    execSync('npm publish', { stdio: 'inherit' })
+    execSync('npm publish --tag latest', { stdio: 'inherit' })
     sh.cd('..')
 })

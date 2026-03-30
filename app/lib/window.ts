@@ -11,6 +11,7 @@ import { compare as compareVersions } from 'compare-versions'
 
 import type { Application } from './app'
 import { parseArgs } from './cli'
+import { parseTabbyURL, isTabbyURL } from './urlHandler'
 
 let DwmEnableBlurBehindWindow: any = null
 if (process.platform === 'win32') {
@@ -254,8 +255,12 @@ export class Window {
         if (process.platform === 'darwin') {
             // Lose focus
             Menu.sendActionToFirstResponder('hide:')
+            // Don't disable docked window styles when hiding - keep dock hidden if feature is enabled
             if (this.isDockedOnTop()) {
-                await this.enableDockedWindowStyles(false)
+                // Temporarily disable always-on-top and other properties while hidden
+                if (this.window.isAlwaysOnTop()) {
+                    this.window.setAlwaysOnTop(false)
+                }
             }
         }
         this.window.blur()
@@ -274,7 +279,12 @@ export class Window {
     }
 
     passCliArguments (argv: string[], cwd: string, secondInstance: boolean): void {
-        this.send('cli', parseArgs(argv, cwd), cwd, secondInstance)
+        const urlArg = argv.find(arg => isTabbyURL(arg))
+        if (urlArg) {
+            this.send('cli', parseTabbyURL(urlArg, cwd), cwd, secondInstance)
+        } else {
+            this.send('cli', parseArgs(argv, cwd), cwd, secondInstance)
+        }
     }
 
     private async enableDockedWindowStyles (enabled: boolean) {

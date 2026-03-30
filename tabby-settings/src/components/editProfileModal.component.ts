@@ -2,7 +2,7 @@
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigProxy, PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider } from 'tabby-core'
+import { PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider, FullyDefined, ConfigProxy } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -15,17 +15,17 @@ const iconsClassList = Object.keys(iconsData).map(
 @Component({
     templateUrl: './editProfileModal.component.pug',
 })
-export class EditProfileModalComponent<P extends Profile> {
-    @Input() profile: P & ConfigProxy
-    @Input() profileProvider: ProfileProvider<P>
-    @Input() settingsComponent: new () => ProfileSettingsComponent<P>
+export class EditProfileModalComponent<P extends Profile, PP extends ProfileProvider<P>> {
+    @Input('profile') _profile: P
+    @Input() profileProvider: PP
+    @Input() settingsComponent: new () => ProfileSettingsComponent<P, PP>
     @Input() defaultsMode: 'enabled'|'group'|'disabled' = 'disabled'
     @Input() profileGroup: PartialProfileGroup<ProfileGroup> | undefined
     groups: PartialProfileGroup<ProfileGroup>[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
-    private _profile: Profile
-    private settingsComponentInstance?: ProfileSettingsComponent<P>
+    protected profile: FullyDefined<P> & ConfigProxy<FullyDefined<P>>
+    private settingsComponentInstance?: ProfileSettingsComponent<P, PP>
 
     constructor (
         private injector: Injector,
@@ -56,8 +56,7 @@ export class EditProfileModalComponent<P extends Profile> {
     }
 
     ngOnInit () {
-        this._profile = this.profile
-        this.profile = this.profilesService.getConfigProxyForProfile(this.profile, { skipGlobalDefaults: this.defaultsMode === 'enabled', skipGroupDefaults: this.defaultsMode === 'group' })
+        this.profile = this.profilesService.getConfigProxyForProfile<P>(this._profile, { skipGlobalDefaults: this.defaultsMode === 'enabled', skipGroupDefaults: this.defaultsMode === 'group' })
     }
 
     ngAfterViewInit () {
@@ -90,7 +89,7 @@ export class EditProfileModalComponent<P extends Profile> {
 
     save () {
         if (!this.profileGroup) {
-            this.profile.group = undefined
+            this.profile.group = ''
         } else {
             this.profile.group = this.profileGroup.id
         }

@@ -5,15 +5,11 @@
     src: url(../fonts/SourceCodePro.ttf) format("truetype");
 }
 
-.xterm-viewport::-webkit-scrollbar {
-    background: rgba(0, 0, 0, .125);
-}
-
-.xterm-viewport::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, .25);
-}
-
 .xterm-decoration-overview-ruler {
     right: 1px;
     pointer-events: none;
+}
+
+.xterm-viewport {
+    background: none !important;
 }

@@ -2,7 +2,7 @@ import '@vaadin/vaadin-context-menu'
 import copyToClipboard from 'copy-text-to-clipboard'
 import { Injectable, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { PlatformService, ClipboardContent, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileUploadOptions, FileDownload, HTMLFileUpload, DirectoryUpload } from 'tabby-core'
+import { PlatformService, ClipboardContent, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileUploadOptions, FileDownload, DirectoryDownload, HTMLFileUpload, DirectoryUpload } from 'tabby-core'
 
 // eslint-disable-next-line no-duplicate-imports
 import type { ContextMenuElement, ContextMenuItem } from '@vaadin/vaadin-context-menu'
@@ -112,6 +112,10 @@ export class WebPlatformService extends PlatformService {
         const transfer = new HTMLFileDownload(name, mode, size)
         this.fileTransferStarted.next(transfer)
         return transfer
+    }
+
+    async startDownloadDirectory (_name: string, _estimatedSize?: number): Promise<DirectoryDownload|null> {
+        throw new Error('Unsupported')
     }
 
     startUpload (options?: FileUploadOptions): Promise<FileUpload[]> {

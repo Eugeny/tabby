@@ -4,7 +4,7 @@
   "private": true,
   "repository": "https://github.com/Eugeny/tabby",
   "author": {
-    "name": "Eugene Pankov",
+    "name": "Tabby Developers",
     "email": "e@ajenti.org"
   },
   "main": "dist/main.js",
@@ -16,8 +16,9 @@
   },
   "dependencies": {
     "@electron/remote": "^2",
-    "node-pty": "^1.0.0",
+    "atomically": "^2.0.2",
     "any-promise": "^1.3.0",
+    "dunder-proto": "^1",
     "electron-config": "2.0.0",
     "electron-debug": "^3.2.0",
     "electron-promise-ipc": "^2.2.4",
@@ -28,29 +29,27 @@
     "keytar": "^7.9.0",
     "mz": "^2.7.0",
     "native-process-working-directory": "^1.0.2",
+    "node-pty": "^1.2.0-beta.8",
     "npm": "6",
+    "russh": "0.1.36",
     "rxjs": "^7.5.7",
-    "russh": "0.1.24",
     "source-map-support": "^0.5.20",
     "v8-compile-cache": "^2.3.0",
     "yargs": "^17.7.2"
   },
   "optionalDependencies": {
     "@tabby-gang/windows-blurbehind": "^3.1.0",
+    "@tabby-gang/windows-process-tree": "^0.6.1",
     "macos-native-processlist": "^2.1.0",
-    "patch-package": "^6.5.0",
+    "patch-package": "^8",
     "serialport": "11.0.1",
     "serialport-binding-webserialapi": "^1.0.3",
-    "windows-native-registry": "^3.2.1",
-    "@tabby-gang/windows-process-tree": "^0.6.1"
+    "windows-native-registry": "^3.2.1"
   },
   "devDependencies": {
     "@ngx-translate/core": "^14.0.0",
     "@types/mz": "2.7.4",
-    "@types/node": "20.3.1",
-    "atomically": "^2.0.2",
-    "filesize": "^9",
-    "ngx-filesize": "^3.0.2"
+    "@types/node": "20.3.1"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",
@@ -64,9 +63,9 @@
     "tabby-terminal": "*"
   },
   "resolutions": {
-    "*/node-abi": "^3",
+    "node-abi": "4.9.0",
     "node-gyp": "^10.0.0",
-    "nan": "2.22.0",
+    "nan": "2.22.2",
     "node-addon-api": "^8.3.0"
   }
 }

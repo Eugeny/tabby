@@ -17,7 +17,7 @@ export interface TerminalColorScheme {
 }
 
 export interface BaseTerminalProfile extends Profile {
-    terminalColorScheme?: TerminalColorScheme
+    terminalColorScheme: TerminalColorScheme | null
 }
 
 export interface ConnectableTerminalProfile extends BaseTerminalProfile, ConnectableProfile {}

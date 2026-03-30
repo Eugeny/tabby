@@ -14,7 +14,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
     settingsComponent = SSHProfileSettingsComponent
     configDefaults = {
         options: {
-            host: null,
+            host: '',
             port: 22,
             user: 'root',
             auth: null,
@@ -33,6 +33,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
                 kex: [] as string[],
                 cipher: [] as string[],
                 serverHostKey: [] as string[],
+                compression: [] as string[],
             },
             proxyCommand: null,
             forwardedPorts: [],
@@ -55,7 +56,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
         super()
         for (const k of Object.values(SSHAlgorithmType)) {
             this.configDefaults.options.algorithms[k] = [...defaultAlgorithms[k]]
-            this.configDefaults.options.algorithms[k].sort()
+            if (k !== SSHAlgorithmType.COMPRESSION) { this.configDefaults.options.algorithms[k].sort() }
         }
     }
 
