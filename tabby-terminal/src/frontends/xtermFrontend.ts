@@ -218,8 +218,13 @@ export class XTermFrontend extends Frontend {
         this.resizeHandler = () => {
             try {
                 if (this.xterm.element && getComputedStyle(this.xterm.element).getPropertyValue('height') !== 'auto') {
+                    const savedYdisp = this.xtermCore.buffer.ydisp
                     this.fitAddon.fit()
                     this.xterm.refresh(0, this.xterm.rows - 1)
+                    if (this.xtermCore.buffer.ydisp !== savedYdisp) {
+                        this.xtermCore.buffer.ydisp = savedYdisp
+                        this.xterm.refresh(0, this.xterm.rows - 1)
+                    }
                 }
             } catch (e) {
                 // tends to throw when element wasn't shown yet
