@@ -509,6 +509,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.frontend?.scrollToBottom()
         }
     }
+
     /**
      * Feeds input into the terminal frontend
      */
