@@ -60,6 +60,22 @@ export abstract class BaseTabComponent extends BaseComponent {
     set icon (value: string|null) { this._icon = value }
     private _icon: string|null = null
 
+    get pinned (): boolean { return this._pinned }
+    set pinned (value: boolean) {
+        this._pinned = value
+        this.recoveryStateChangedHint.next()
+    }
+    private _pinned = false
+    get effectivelyPinned (): boolean {
+        let current: BaseTabComponent | null = this
+        while (current) {
+            if (current.pinned) {
+                return true
+            }
+            current = current.parent ?? null
+        }
+        return false
+    }
     hasFocus = false
 
     /**

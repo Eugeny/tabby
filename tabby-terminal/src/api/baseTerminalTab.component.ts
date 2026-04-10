@@ -492,12 +492,23 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         if (!(data instanceof Buffer)) {
             data = Buffer.from(data, 'utf-8')
         }
+
+        const isCtrlD =
+            data.length === 1 &&
+            data[0] === 0x04 &&
+            this.effectivelyPinned &&
+            !this.frontend?.isAlternateScreenActive()
+
+        if (isCtrlD) {
+            this.notifications.notice(this.translate.instant('You can’t close a pinned tab'))
+            return
+        }
+
         this.session?.feedFromTerminal(data)
         if (this.config.store.terminal.scrollOnInput && !data.equals(OSC_FOCUS_IN) && !data.equals(OSC_FOCUS_OUT)) {
             this.frontend?.scrollToBottom()
         }
     }
-
     /**
      * Feeds input into the terminal frontend
      */
@@ -829,6 +840,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      * Method called when session is closed.
      */
     protected onSessionClosed (destroyOnSessionClose = false): void {
+        if (this.effectivelyPinned) {
+            return
+        }
         if (destroyOnSessionClose || this.shouldTabBeDestroyedOnSessionClose()) {
             this.destroy()
         }
