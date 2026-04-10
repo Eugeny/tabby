@@ -1,6 +1,7 @@
 import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions, WebContents } from 'electron'
 import promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
+import { execSync } from 'child_process'
 import { exec } from 'mz/child_process'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -38,6 +39,9 @@ export class Application {
 
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {
             globalShortcut.unregisterAll()
+            if (!this.shouldRegisterGlobalHotkeys()) {
+                return
+            }
             for (const spec of specs) {
                 globalShortcut.register(spec, () => this.globalHotkey$.next())
             }
@@ -218,6 +222,74 @@ export class Application {
 
     hasWindows (): boolean {
         return !!this.windows.length
+    }
+
+    private shouldRegisterGlobalHotkeys (): boolean {
+        const hotkeyMode = this.configStore.hacks?.globalHotkey
+        if (hotkeyMode === 'on' || hotkeyMode === true) {
+            return true
+        }
+        if (hotkeyMode === 'off' || hotkeyMode === false) {
+            return false
+        }
+
+        if (process.platform !== 'linux') {
+            return true
+        }
+        if (!this.isWaylandSession()) {
+            return true
+        }
+        if (!this.isPlasmaSession()) {
+            return true
+        }
+
+        const plasmaVersion = this.getPlasmaVersion()
+        return plasmaVersion ? this.compareVersions(plasmaVersion, [6, 6, 0]) >= 0 : false
+    }
+
+    private isWaylandSession (): boolean {
+        return (process.env.XDG_SESSION_TYPE ?? '').toLowerCase() === 'wayland' || !!process.env.WAYLAND_DISPLAY
+    }
+
+    private isPlasmaSession (): boolean {
+        const sessionInfo = [
+            process.env.XDG_CURRENT_DESKTOP,
+            process.env.DESKTOP_SESSION,
+            process.env.GDMSESSION,
+        ].join(':').toLowerCase()
+
+        return process.env.KDE_FULL_SESSION === 'true' || sessionInfo.includes('kde') || sessionInfo.includes('plasma')
+    }
+
+    private getPlasmaVersion (): [number, number, number]|null {
+        try {
+            const output = execSync('plasmashell --version 2>&1', {
+                encoding: 'utf8',
+                stdio: 'pipe',
+            })
+            const plasmaVersionRegex = /(\d+)\.(\d+)(?:\.(\d+))?/
+            const match = plasmaVersionRegex.exec(output)
+            if (!match) {
+                return null
+            }
+            const patchVersion = match.length > 3 ? parseInt(match[3], 10) : 0
+            return [
+                parseInt(match[1], 10),
+                parseInt(match[2], 10),
+                patchVersion,
+            ]
+        } catch {
+            return null
+        }
+    }
+
+    private compareVersions (a: [number, number, number], b: [number, number, number]): number {
+        for (let i = 0; i < 3; i++) {
+            if (a[i] !== b[i]) {
+                return a[i] - b[i]
+            }
+        }
+        return 0
     }
 
     focus (): void {
