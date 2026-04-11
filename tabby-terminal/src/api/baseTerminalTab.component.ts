@@ -493,17 +493,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             data = Buffer.from(data, 'utf-8')
         }
 
-        const isCtrlD =
-            data.length === 1 &&
-            data[0] === 0x04 &&
-            this.effectivelyPinned &&
-            !this.frontend?.isAlternateScreenActive()
-
-        if (isCtrlD) {
-            this.notifications.notice(this.translate.instant('You can’t close a pinned tab'))
-            return
-        }
-
         this.session?.feedFromTerminal(data)
         if (this.config.store.terminal.scrollOnInput && !data.equals(OSC_FOCUS_IN) && !data.equals(OSC_FOCUS_OUT)) {
             this.frontend?.scrollToBottom()
@@ -842,8 +831,24 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      */
     protected onSessionClosed (destroyOnSessionClose = false): void {
         if (this.effectivelyPinned) {
+            const target = this.topmostParent ?? this
+
+            this.notifications.notice(this.translate.instant('You can’t close a pinned tab'))
+
+            setTimeout(async () => {
+                if (!this.app.tabs.includes(target)) {
+                    return
+                }
+
+                const restarted = await this.app.restartTab(target)
+                if (!restarted) {
+                    this.notifications.error(this.translate.instant('Failed to restart pinned tab'))
+                }
+            }, 50)
+
             return
         }
+
         if (destroyOnSessionClose || this.shouldTabBeDestroyedOnSessionClose()) {
             this.destroy()
         }

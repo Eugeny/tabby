@@ -454,15 +454,22 @@ export class AppService {
         if (!this.tabs.includes(tab)) {
             return null
         }
-        if (!await tab.canClose()) {
+
+        const token = await this.tabRecovery.getFullRecoveryToken(tab, { includeState: true })
+        if (!token) {
             return null
         }
-        const dup = await this.duplicateTab(tab)
-        if (!dup) {
+
+        const recoveredTab = await this.tabRecovery.recoverTab(token)
+        if (!recoveredTab) {
             return null
         }
+
+        const reopened = this.tabsService.create(recoveredTab)
+        this.addTabRaw(reopened, this.tabs.indexOf(tab) + 1)
         await this.closeTab(tab, false, true)
-        return dup
+
+        return reopened
     }
 
     /**
