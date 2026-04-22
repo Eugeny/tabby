@@ -1400,6 +1400,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "astex",
+      "name": "Phil Condreay",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2158805?v=4",
+      "profile": "https://github.com/astex",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
