@@ -1400,6 +1400,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "superm1",
+      "name": "Mario Limonciello",
+      "avatar_url": "https://avatars.githubusercontent.com/u/494526?v=4",
+      "profile": "https://github.com/superm1",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
