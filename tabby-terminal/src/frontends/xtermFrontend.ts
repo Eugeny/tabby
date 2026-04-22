@@ -335,19 +335,28 @@ export class XTermFrontend extends Frontend {
             requestAnimationFrame(() => this.updatePinnedState())
         }, { capture: true, passive: true })
 
-        host.addEventListener('keydown', (event: KeyboardEvent) => {
-            const modKey = event.metaKey || event.ctrlKey
-            const isScrollUpKey = event.key === 'PageUp' ||
-                modKey && event.key === 'ArrowUp'
-            const isScrollKey = isScrollUpKey || event.key === 'PageDown' ||
-                modKey && event.key === 'ArrowDown'
-            if (isScrollUpKey) {
-                this.pinnedToBottom = false
-            }
-            if (isScrollKey) {
+
+        this.hotkeysService.hotkey$
+            .pipe(
+                takeUntil(this.destroyed$),
+                filter(hk => [
+                    'scroll-up',
+                    'scroll-down',
+                    'scroll-page-up',
+                    'scroll-page-down',
+                    'scroll-to-top',
+                    'scroll-to-bottom',
+                ].includes(hk)),
+            ).subscribe(hk => {
+                if ([
+                    'scroll-up',
+                    'scroll-page-up',
+                    'scroll-to-top',
+                ].includes(hk)) {
+                    this.pinnedToBottom = false
+                }
                 requestAnimationFrame(() => this.updatePinnedState())
-            }
-        }, { capture: true })
+            })
 
         host.addEventListener('dragOver', (event: any) => this.dragOver.next(event))
         host.addEventListener('drop', event => this.drop.next(event))
