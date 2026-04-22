@@ -1,7 +1,7 @@
 import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions, WebContents } from 'electron'
 import promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
-import { execSync } from 'child_process'
+import { spawnSync } from 'child_process'
 import { exec } from 'mz/child_process'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -22,6 +22,7 @@ export class Application {
     private tray?: Tray
     private ptyManager = new PTYManager()
     private windows: Window[] = []
+    private cachedPlasmaVersion?: [number, number] | null
     private globalHotkey$ = new Subject<void>()
     private quitRequested = false
     userPluginsPath: string
@@ -226,25 +227,16 @@ export class Application {
 
     private shouldRegisterGlobalHotkeys (): boolean {
         const hotkeyMode = this.configStore.hacks?.globalHotkey
-        if (hotkeyMode === 'on' || hotkeyMode === true) {
-            return true
-        }
-        if (hotkeyMode === 'off' || hotkeyMode === false) {
-            return false
+        if (hotkeyMode != null) {
+            return !hotkeyMode
         }
 
-        if (process.platform !== 'linux') {
-            return true
-        }
-        if (!this.isWaylandSession()) {
-            return true
-        }
-        if (!this.isPlasmaSession()) {
+        if (process.platform !== 'linux' || !this.isWaylandSession() || !this.isPlasmaSession()) {
             return true
         }
 
         const plasmaVersion = this.getPlasmaVersion()
-        return plasmaVersion ? this.compareVersions(plasmaVersion, [6, 6, 0]) >= 0 : false
+        return plasmaVersion ? this.compareVersions(plasmaVersion, [6, 6]) >= 0 : false
     }
 
     private isWaylandSession (): boolean {
@@ -262,29 +254,25 @@ export class Application {
     }
 
     private getPlasmaVersion (): [number, number, number]|null {
+        if (this.cachedPlasmaVersion !== undefined) {
+            return this.cachedPlasmaVersion
+        }
         try {
-            const output = execSync('plasmashell --version 2>&1', {
-                encoding: 'utf8',
-                stdio: 'pipe',
-            })
-            const plasmaVersionRegex = /(\d+)\.(\d+)(?:\.(\d+))?/
-            const match = plasmaVersionRegex.exec(output)
-            if (!match) {
-                return null
-            }
-            const patchVersion = match.length > 3 ? parseInt(match[3], 10) : 0
-            return [
+            const result = spawnSync('plasmashell', ['--version'], { encoding: 'utf8' })
+            const output = result.stdout + result.stderr
+            const match = /(\d+)\.(\d+)(?:\.(\d+))?/.exec(output)
+            this.cachedPlasmaVersion = match ? [
                 parseInt(match[1], 10),
                 parseInt(match[2], 10),
-                patchVersion,
-            ]
+            ] : null
         } catch {
-            return null
+            this.cachedPlasmaVersion = null
         }
+        return this.cachedPlasmaVersion ?? null
     }
 
-    private compareVersions (a: [number, number, number], b: [number, number, number]): number {
-        for (let i = 0; i < 3; i++) {
+    private compareVersions (a: [number, number], b: [number, number]): number {
+        for (let i = 0; i < 2; i++) {
             if (a[i] !== b[i]) {
                 return a[i] - b[i]
             }

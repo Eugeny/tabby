@@ -58,6 +58,6 @@ hacks:
   disableGPU: false
   disableVibrancyWhileDragging: false
   enableFluentBackground: false
-  globalHotkey: auto
+  globalHotkey: null
 language: null
 defaultQuickConnectProvider: "ssh"
