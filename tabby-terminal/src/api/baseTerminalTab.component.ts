@@ -447,7 +447,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             .subscribe(visibility => {
                 if (this.frontend instanceof XTermFrontend) {
                     if (visibility) {
+                        const savedViewportY = this.frontend.xterm.buffer.active.viewportY
                         this.frontend.xterm.refresh(0, this.frontend.xterm.rows - 1)
+                        if (this.frontend.xterm.buffer.active.viewportY !== savedViewportY) {
+                            this.frontend.xterm.scrollToLine(savedViewportY)
+                        }
                     } else {
                         this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
                             c.height = c.width = 0
