@@ -9,33 +9,62 @@ export class OSCProcessor extends SessionMiddleware {
     get cwdReported$ (): Observable<string> { return this.cwdReported }
 
     private cwdReported = new Subject<string>()
+    private buffer: Buffer | null = null
 
     feedFromSession (data: Buffer): void {
+        // Prepend any buffered data from previous chunks
+        if (this.buffer) {
+            data = Buffer.concat([this.buffer, data])
+            this.buffer = null
+        }
+
         let startIndex = 0
-        while (data.includes(OSCPrefix, startIndex)) {
-            const si = startIndex
-            if (!OSCSuffixes.some(s => data.includes(s, si))) {
+        const processedData: Buffer[] = []
+
+        while (startIndex < data.length) {
+            const prefixIndex = data.indexOf(OSCPrefix, startIndex)
+
+            if (prefixIndex === -1) {
+                // No more OSC sequences, pass remaining data
+                if (startIndex < data.length) {
+                    processedData.push(data.subarray(startIndex))
+                }
                 break
             }
 
-            const params = data.subarray(data.indexOf(OSCPrefix, startIndex) + OSCPrefix.length)
+            // Pass data before this OSC sequence
+            if (prefixIndex > startIndex) {
+                processedData.push(data.subarray(startIndex, prefixIndex))
+            }
 
-            const [closesSuffix, closestSuffixIndex] = OSCSuffixes
-                .map((suffix): [Buffer, number] => [suffix, params.indexOf(suffix)])
-                .filter(([_, index]) => index !== -1)
-                .sort(([_, a], [__, b]) => a - b)[0]
+            // Look for suffix after the prefix
+            const suffixSearchStart = prefixIndex + OSCPrefix.length
+            let foundSuffix: [Buffer, number] | null = null
 
-            const oscString = params.subarray(0, closestSuffixIndex).toString()
+            for (const suffix of OSCSuffixes) {
+                const suffixIndex = data.indexOf(suffix, suffixSearchStart)
+                if (suffixIndex !== -1) {
+                    if (!foundSuffix || suffixIndex < foundSuffix[1]) {
+                        foundSuffix = [suffix, suffixIndex]
+                    }
+                }
+            }
 
-            startIndex = data.indexOf(closesSuffix, startIndex) + closesSuffix.length
+            if (!foundSuffix) {
+                // No suffix found - buffer the rest and wait for next chunk
+                this.buffer = data.subarray(prefixIndex)
+                break
+            }
 
+            // Extract OSC string (between prefix and suffix)
+            const oscString = data.subarray(suffixSearchStart, foundSuffix[1]).toString()
             const [oscCodeString, ...oscParams] = oscString.split(';')
             const oscCode = parseInt(oscCodeString)
 
             if (oscCode === 1337) {
                 const paramString = oscParams.join(';')
                 if (paramString.startsWith('CurrentDir=')) {
-                    let reportedCWD = paramString.split('=')[1]
+                    let reportedCWD = paramString.split('=', 2)[1]
                     if (reportedCWD.startsWith('~')) {
                         reportedCWD = os.homedir() + reportedCWD.substring(1)
                     }
@@ -43,11 +72,16 @@ export class OSCProcessor extends SessionMiddleware {
                 } else {
                     console.debug('Unsupported OSC 1337 parameter:', paramString)
                 }
-            } else {
-                continue
             }
+
+            // Move past this OSC sequence
+            startIndex = foundSuffix[1] + foundSuffix[0].length
         }
-        super.feedFromSession(data)
+
+        // Pass through all processed data
+        if (processedData.length > 0) {
+            super.feedFromSession(Buffer.concat(processedData))
+        }
     }
 
     close (): void {

@@ -347,6 +347,7 @@ Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/do
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/et304383"><img src="https://avatars.githubusercontent.com/u/2693414?v=4?s=100" width="100px;" alt="et304383"/><br /><sub><b>et304383</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=et304383" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ajkrj"><img src="https://avatars.githubusercontent.com/u/210226755?v=4?s=100" width="100px;" alt="ajkrj"/><br /><sub><b>ajkrj</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ajkrj" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/leoberbert/"><img src="https://avatars.githubusercontent.com/u/16724862?v=4?s=100" width="100px;" alt="Leonardo Berbert"/><br /><sub><b>Leonardo Berbert</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=leoberbert" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ToastyTheBot"><img src="https://avatars.githubusercontent.com/u/270965193?v=4?s=100" width="100px;" alt="ToastyTheBot"/><br /><sub><b>ToastyTheBot</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ToastyTheBot" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
