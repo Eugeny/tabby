@@ -253,7 +253,7 @@ export class Application {
         return process.env.KDE_FULL_SESSION === 'true' || sessionInfo.includes('kde') || sessionInfo.includes('plasma')
     }
 
-    private getPlasmaVersion (): [number, number, number]|null {
+    private getPlasmaVersion (): [number, number] | null {
         if (this.cachedPlasmaVersion !== undefined) {
             return this.cachedPlasmaVersion
         }
