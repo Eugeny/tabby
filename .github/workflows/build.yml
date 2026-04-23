@@ -319,12 +319,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Code signing with Software Trust Manager
-      uses: digicert/ssm-code-signing@v1.1.1
-      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
-      env:
-        FORCE_DOWNLOAD_TOOLS: 'true'
-
     - name: Installing Node
       uses: actions/setup-node@v4.4.0
       with:
@@ -357,6 +351,15 @@ jobs:
         echo "$SM_CLIENT_CERT_FILE_B64" | base64 --decode > $SM_CLIENT_CERT_FILE
         echo "SM_CLIENT_CERT_FILE=$SM_CLIENT_CERT_FILE" >> "$GITHUB_ENV"
       shell: bash
+
+    - name: Setup Software Trust Manager
+      uses: digicert/code-signing-software-trust-action@v1.0.0
+      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
+      env:
+        SM_HOST: ${{ vars.SM_HOST }}
+        SM_API_KEY: ${{ secrets.SM_API_KEY }}
+        SM_CLIENT_CERT_FILE: ${{ env.SM_CLIENT_CERT_FILE }}
+        SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
 
     - name: Build and sign packages
       if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
