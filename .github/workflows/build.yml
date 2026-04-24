@@ -96,7 +96,7 @@ jobs:
 
     - name: Build packages without signing
       run: scripts/build-macos.mjs
-      if: "! (github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
+      if: "! (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))"
       env:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
@@ -299,7 +299,7 @@ jobs:
 
   Windows-Build:
     runs-on: windows-latest
-    # needs: Lint
+    needs: Lint
     strategy:
       matrix:
         include:
@@ -331,6 +331,7 @@ jobs:
         echo "PATH=$newPath" >> $env:GITHUB_ENV
 
     - name: Decode certificate
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))
       env:
         SM_CLIENT_CERT_FILE_B64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
       run: |
@@ -340,6 +341,7 @@ jobs:
       shell: bash
 
     - name: Setup Software Trust Manager
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))
       uses: digicert/code-signing-software-trust-action@v1.0.0
       env:
         SM_HOST: ${{ vars.SM_HOST }}
@@ -348,6 +350,7 @@ jobs:
         SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
 
     - name: smctl diagnostics
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))
       shell: powershell
       env:
         SM_LOG_LEVEL: TRACE
@@ -376,13 +379,6 @@ jobs:
         Write-Host "=== Windows SDK signtool path(s) ==="
         Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits" -Filter "signtool.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
 
-        Write-Host "=== Relevant environment variables (secrets masked) ==="
-        Write-Host "SM_HOST=$env:SM_HOST"
-        Write-Host "SM_KEYPAIR_ALIAS=$env:SM_KEYPAIR_ALIAS"
-        Write-Host "SM_CODE_SIGNING_CERT_SHA1_HASH=$env:SM_CODE_SIGNING_CERT_SHA1_HASH"
-        Write-Host "SM_CLIENT_CERT_FILE=$env:SM_CLIENT_CERT_FILE"
-        Write-Host "SM_API_KEY=***"
-
     - name: Installing Node
       uses: actions/setup-node@v4.4.0
       with:
@@ -400,12 +396,13 @@ jobs:
       run: |
         npm i -g yarn node-gyp
         yarn --network-timeout 1000000
-        # yarn run build
-        # node scripts/prepackage-plugins.mjs
+        yarn run build
+        node scripts/prepackage-plugins.mjs
       env:
         ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))
       shell: powershell
       run: |
         Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
@@ -434,27 +431,6 @@ jobs:
         SM_KEYPAIR_ALIAS: ${{ vars.SM_KEYPAIR_ALIAS }}
         SM_LOG_LEVEL: TRACE
         # DEBUG: electron-builder,electron-builder:*
-
-    - name: Collect DigiCert Signing Manager logs
-      if: always()
-      shell: powershell
-      run: |
-        $logDir = "$env:USERPROFILE\.signingmanager\logs"
-        if (Test-Path $logDir) {
-          Copy-Item -Path $logDir -Destination "digicert-logs" -Recurse
-          Write-Host "DigiCert logs collected from: $logDir"
-        } else {
-          Write-Host "No DigiCert logs found at: $logDir"
-          New-Item -ItemType Directory -Path "digicert-logs" -Force
-        }
-
-    - uses: actions/upload-artifact@master
-      name: Upload DigiCert Signing Manager logs
-      if: always()
-      with:
-        name: DigiCert Signing Manager logs (${{matrix.arch}})
-        path: digicert-logs
-        if-no-files-found: ignore
 
     - name: Upload symbols
       run: |
