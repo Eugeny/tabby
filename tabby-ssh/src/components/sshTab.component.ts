@@ -64,6 +64,9 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                         this.ssh.launchWinSCP(this.sshSession)
                     }
                     break
+                case 'open-sftp':
+                    this.openSFTP()
+                    break
             }
         })
 
