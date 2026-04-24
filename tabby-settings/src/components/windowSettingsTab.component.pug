@@ -130,6 +130,15 @@ h3.mb-3(translate) Window
         (ngModelChange)='saveConfiguration(true)'
     )
 
+.form-line(*ngIf='hostApp.platform !== Platform.Web && hostApp.platform !== Platform.Linux')
+    .header
+        .title(translate) Minimize instead of quit
+        .description(translate) Minimize instead of quit when clicking close button. You can quit by right clicking the tray icon when minimized.
+    toggle(
+        [(ngModel)]='config.store.minimizeInsteadOfExit',
+        (ngModelChange)='saveConfiguration(false)'
+    )
+
 h3.mt-4(translate) Docking
 
 .form-line(*ngIf='docking')
