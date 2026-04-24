@@ -299,7 +299,7 @@ jobs:
 
   Windows-Build:
     runs-on: windows-latest
-    needs: Lint
+    # needs: Lint
     strategy:
       matrix:
         include:
@@ -334,15 +334,15 @@ jobs:
         npm install --global node-gyp@10.2.0
         npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
-    - name: Build
-      shell: powershell
-      run: |
-        npm i -g yarn node-gyp
-        yarn --network-timeout 1000000
-        yarn run build
-        node scripts/prepackage-plugins.mjs
-      env:
-        ARCH: ${{matrix.arch}}
+    # - name: Build
+    #   shell: powershell
+    #   run: |
+    #     npm i -g yarn node-gyp
+    #     yarn --network-timeout 1000000
+    #     yarn run build
+    #     node scripts/prepackage-plugins.mjs
+    #   env:
+    #     ARCH: ${{matrix.arch}}
 
     - name: Decode certificate
       if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH)
@@ -399,7 +399,7 @@ jobs:
         Write-Host "SM_API_KEY=***"
 
     - name: Build and sign packages
-      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH)
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || github.head_ref == env.SIGN_ON_BRANCH
       shell: powershell
       run: |
         Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
@@ -452,7 +452,7 @@ jobs:
 
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "! ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH))"
+      if: "! ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || github.head_ref == env.SIGN_ON_BRANCH)"
       env:
         ARCH: ${{matrix.arch}}
 
