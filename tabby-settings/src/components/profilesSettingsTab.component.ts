@@ -26,6 +26,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     profileGroups: PartialProfileGroup<CollapsableProfileGroup>[]
     filter = ''
     Platform = Platform
+    private descriptionCache = new Map<string, string|null>()
 
     constructor (
         public config: ConfigService,
@@ -49,10 +50,17 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     async refreshProfiles (): Promise<void> {
-        this.builtinProfiles = (await this.profilesService.getProfiles()).filter(x => x.isBuiltin)
-        this.customProfiles = (await this.profilesService.getProfiles()).filter(x => !x.isBuiltin)
-        this.templateProfiles = this.builtinProfiles.filter(x => x.isTemplate)
-        this.builtinProfiles = this.builtinProfiles.filter(x => !x.isTemplate)
+        const allProfiles = await this.profilesService.getProfiles()
+        this.builtinProfiles = allProfiles.filter(x => x.isBuiltin && !x.isTemplate)
+        this.templateProfiles = allProfiles.filter(x => x.isBuiltin && x.isTemplate)
+        this.customProfiles = allProfiles.filter(x => !x.isBuiltin)
+
+        this.descriptionCache.clear()
+        for (const p of allProfiles) {
+            if (p.id) {
+                this.descriptionCache.set(p.id, this.profilesService.getDescription(p))
+            }
+        }
     }
 
     launchProfile (profile: PartialProfile<Profile>): void {
@@ -265,6 +273,9 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     getDescription (profile: PartialProfile<Profile>): string|null {
+        if (profile.id) {
+            return this.descriptionCache.get(profile.id) ?? null
+        }
         return this.profilesService.getDescription(profile)
     }
 
