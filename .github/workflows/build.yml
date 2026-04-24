@@ -322,30 +322,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Installing Node
-      uses: actions/setup-node@v4.4.0
-      with:
-        node-version: 22
-
-    - run: rustup target add ${{matrix.rust_triple}}
-
-    - name: Update node-gyp
-      run: |
-        npm install --global node-gyp@10.2.0
-        npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
-
-    - name: Build
-      shell: powershell
-      run: |
-        npm i -g yarn node-gyp
-        yarn --network-timeout 1000000
-        # yarn run build
-        # node scripts/prepackage-plugins.mjs
-      env:
-        ARCH: ${{matrix.arch}}
 
     - name: Decode certificate
-      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH)
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.ref == env.SIGN_ON_BRANCH)
       env:
         SM_CLIENT_CERT_FILE_B64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
       run: |
@@ -397,6 +376,28 @@ jobs:
         Write-Host "SM_CODE_SIGNING_CERT_SHA1_HASH=$env:SM_CODE_SIGNING_CERT_SHA1_HASH"
         Write-Host "SM_CLIENT_CERT_FILE=$env:SM_CLIENT_CERT_FILE"
         Write-Host "SM_API_KEY=***"
+
+    - name: Installing Node
+      uses: actions/setup-node@v4.4.0
+      with:
+        node-version: 22
+
+    - run: rustup target add ${{matrix.rust_triple}}
+
+    - name: Update node-gyp
+      run: |
+        npm install --global node-gyp@10.2.0
+        npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+
+    - name: Build
+      shell: powershell
+      run: |
+        npm i -g yarn node-gyp
+        yarn --network-timeout 1000000
+        # yarn run build
+        # node scripts/prepackage-plugins.mjs
+      env:
+        ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
       if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || github.head_ref == env.SIGN_ON_BRANCH
@@ -452,7 +453,7 @@ jobs:
 
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "! ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || github.head_ref == env.SIGN_ON_BRANCH)"
+      if: "! ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || github.ref == env.SIGN_ON_BRANCH)"
       env:
         ARCH: ${{matrix.arch}}
 
