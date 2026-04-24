@@ -40,7 +40,7 @@ h3.mb-3(translate) Window
 
     toggle(
         [(ngModel)]='config.store.appearance.vibrancy',
-        (ngModelChange)='saveConfiguration()'
+        (ngModelChange)='config.save()'
     )
 
 .form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported && config.store.hacks.enableFluentBackground')
@@ -51,7 +51,7 @@ h3.mb-3(translate) Window
             type='radio',
             name='vibracy',
             [(ngModel)]='config.store.appearance.vibrancyType',
-            (ngModelChange)='saveConfiguration()',
+            (ngModelChange)='config.save()',
             id='vibrancyTypeBlur',
             [value]='"blur"'
         )
@@ -63,7 +63,7 @@ h3.mb-3(translate) Window
             type='radio',
             name='vibracy',
             [(ngModel)]='config.store.appearance.vibrancyType',
-            (ngModelChange)='saveConfiguration()',
+            (ngModelChange)='config.save()',
             id='vibrancyTypeFluent',
             [value]='"fluent"'
         )
