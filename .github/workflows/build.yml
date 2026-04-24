@@ -312,6 +312,9 @@ jobs:
     env:
       RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
       ARCH: ${{matrix.arch}}
+      # Branch name that enables DigiCert signing in PR builds for debugging.
+      # Change this value to match the feature branch you want to test signing on.
+      SIGN_ON_BRANCH: signing-debug
 
     steps:
     - name: Checkout
@@ -324,7 +327,6 @@ jobs:
       with:
         node-version: 22
 
-    - run: npm i -g npx
     - run: rustup target add ${{matrix.rust_triple}}
 
     - name: Update node-gyp
@@ -335,7 +337,7 @@ jobs:
     - name: Build
       shell: powershell
       run: |
-        npm i -g yar node-gyp
+        npm i -g yarn node-gyp
         yarn --network-timeout 1000000
         yarn run build
         node scripts/prepackage-plugins.mjs
@@ -343,7 +345,7 @@ jobs:
         ARCH: ${{matrix.arch}}
 
     - name: Decode certificate
-      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH)
       env:
         SM_CLIENT_CERT_FILE_B64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
       run: |
@@ -354,15 +356,50 @@ jobs:
 
     - name: Setup Software Trust Manager
       uses: digicert/code-signing-software-trust-action@v1.0.0
-      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH)
       env:
         SM_HOST: ${{ vars.SM_HOST }}
         SM_API_KEY: ${{ secrets.SM_API_KEY }}
         SM_CLIENT_CERT_FILE: ${{ env.SM_CLIENT_CERT_FILE }}
         SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
 
+    - name: smctl diagnostics
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH)
+      shell: powershell
+      env:
+        SM_LOG_LEVEL: TRACE
+        SM_API_KEY: ${{ secrets.SM_API_KEY }}
+        SM_HOST: ${{ vars.SM_HOST }}
+        SM_KEYPAIR_ALIAS: ${{ vars.SM_KEYPAIR_ALIAS }}
+        SM_CODE_SIGNING_CERT_SHA1_HASH: ${{ vars.SM_CODE_SIGNING_CERT_SHA1_HASH }}
+      run: |
+        Write-Host "=== smctl version ==="
+        smctl.exe --version
+
+        Write-Host "=== smctl healthcheck ==="
+        smctl.exe healthcheck
+
+        Write-Host "=== smctl healthcheck --tools ==="
+        smctl.exe healthcheck --tools
+
+        Write-Host "=== smctl keypair ls ==="
+        smctl.exe keypair ls
+
+        Write-Host "=== smctl certificate ls ==="
+        smctl.exe certificate ls
+
+        Write-Host "=== Windows SDK signtool path(s) ==="
+        Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits" -Filter "signtool.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
+
+        Write-Host "=== Relevant environment variables (secrets masked) ==="
+        Write-Host "SM_HOST=$env:SM_HOST"
+        Write-Host "SM_KEYPAIR_ALIAS=$env:SM_KEYPAIR_ALIAS"
+        Write-Host "SM_CODE_SIGNING_CERT_SHA1_HASH=$env:SM_CODE_SIGNING_CERT_SHA1_HASH"
+        Write-Host "SM_CLIENT_CERT_FILE=$env:SM_CLIENT_CERT_FILE"
+        Write-Host "SM_API_KEY=***"
+
     - name: Build and sign packages
-      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
+      if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH)
       shell: powershell
       run: |
         Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
@@ -389,11 +426,33 @@ jobs:
         SM_HOST: ${{ vars.SM_HOST }}
         SM_CODE_SIGNING_CERT_SHA1_HASH: ${{ vars.SM_CODE_SIGNING_CERT_SHA1_HASH }}
         SM_KEYPAIR_ALIAS: ${{ vars.SM_KEYPAIR_ALIAS }}
+        SM_LOG_LEVEL: TRACE
         # DEBUG: electron-builder,electron-builder:*
+
+    - name: Collect DigiCert Signing Manager logs
+      if: always()
+      shell: powershell
+      run: |
+        $logDir = "$env:USERPROFILE\.signingmanager\logs"
+        if (Test-Path $logDir) {
+          Copy-Item -Path $logDir -Destination "digicert-logs" -Recurse
+          Write-Host "DigiCert logs collected from: $logDir"
+        } else {
+          Write-Host "No DigiCert logs found at: $logDir"
+          New-Item -ItemType Directory -Path "digicert-logs" -Force
+        }
+
+    - uses: actions/upload-artifact@master
+      name: Upload DigiCert Signing Manager logs
+      if: always()
+      with:
+        name: DigiCert Signing Manager logs (${{matrix.arch}})
+        path: digicert-logs
+        if-no-files-found: ignore
 
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "! (github.event_name == 'push' && (startsWith(github.ref, 'refs/tags')))"
+      if: "! ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'pull_request' && github.head_ref == env.SIGN_ON_BRANCH))"
       env:
         ARCH: ${{matrix.arch}}
 
