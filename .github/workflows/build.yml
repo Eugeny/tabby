@@ -391,6 +391,15 @@ jobs:
         npm install --global node-gyp@10.2.0
         npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
+    - name: Download Visual C++ Redistributable
+      shell: bash
+      run: |
+        if [ "$ARCH" = "arm64" ]; then
+          curl -sSL -o build/vc_redist.exe "https://aka.ms/vs/17/release/vc_redist.arm64.exe"
+        else
+          curl -sSL -o build/vc_redist.exe "https://aka.ms/vs/17/release/vc_redist.x64.exe"
+        fi
+        ls -la build/vc_redist.exe
     - name: Build
       shell: powershell
       run: |
