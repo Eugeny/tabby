@@ -492,6 +492,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         if (!(data instanceof Buffer)) {
             data = Buffer.from(data, 'utf-8')
         }
+
         this.session?.feedFromTerminal(data)
         if (this.config.store.terminal.scrollOnInput && !data.equals(OSC_FOCUS_IN) && !data.equals(OSC_FOCUS_OUT)) {
             this.frontend?.scrollToBottom()
@@ -829,6 +830,25 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      * Method called when session is closed.
      */
     protected onSessionClosed (destroyOnSessionClose = false): void {
+        if (this.effectivelyPinned) {
+            const target = this.topmostParent ?? this
+
+            this.notifications.notice(this.translate.instant('You can’t close a pinned tab'))
+
+            setTimeout(async () => {
+                if (!this.app.tabs.includes(target)) {
+                    return
+                }
+
+                const restarted = await this.app.restartTab(target)
+                if (!restarted) {
+                    this.notifications.error(this.translate.instant('Failed to restart pinned tab'))
+                }
+            }, 50)
+
+            return
+        }
+
         if (destroyOnSessionClose || this.shouldTabBeDestroyedOnSessionClose()) {
             this.destroy()
         }
