@@ -203,7 +203,7 @@ export class SSHSession {
         if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
             const spec = await this.getAgentConnectionSpec()
             if (!spec) {
-                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
+                // getAgentConnectionSpec() already emitted a detailed reason.
             } else {
                 // If user configured specific private keys, try to load their corresponding
                 // .pub files and use them first for agent-identity authentication
@@ -329,9 +329,33 @@ export class SSHSession {
                 }
             }
         } else {
+            const configuredPath = (this.config.store.ssh.agentPath ?? '').trim()
+            const envPath = (process.env.SSH_AUTH_SOCK ?? '').trim()
+            const agentSocketPath = configuredPath || envPath
+
+            if (!agentSocketPath) {
+                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ' Agent auth selected, but SSH_AUTH_SOCK is not set')
+                return null
+            }
+
+            // Skip filesystem checks for abstract namespace sockets.
+            if (!agentSocketPath.startsWith('@')) {
+                try {
+                    const stat = await fs.stat(agentSocketPath)
+                    if (!stat.isSocket()) {
+                        this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent socket path is not a Unix socket: ${agentSocketPath}`)
+                        return null
+                    }
+                } catch (e) {
+                    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not access agent socket ${agentSocketPath}: ${e}`)
+                    return null
+                }
+            }
+
             return {
                 kind: 'unix-socket',
-                path: process.env.SSH_AUTH_SOCK!,
+                path: agentSocketPath,
             }
         }
         return null
