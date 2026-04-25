@@ -136,6 +136,10 @@ class ZModemMiddleware extends SessionMiddleware {
             canceled = true
         })
 
+        let writeQueue: Promise<void> = Promise.resolve()
+        let receivedBytes = 0
+        let lastUpdateTime = 0
+
         try {
             await Promise.race([
                 xfer.accept({
@@ -143,12 +147,27 @@ class ZModemMiddleware extends SessionMiddleware {
                         if (canceled) {
                             return
                         }
-                        transfer.write(Buffer.from(chunk))
-                        this.showMessage(colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / details.size).toString().padStart(3, ' ') + '% ') + ' ' + details.name, true)
+
+                        receivedBytes += chunk.length
+                        const now = Date.now()
+                        if (now - lastUpdateTime > 500) {
+                            lastUpdateTime = now
+                            const percent = Math.round(100 * receivedBytes / details.size)
+                            const percentStr = percent.toString().padStart(3, ' ')
+                            this.showMessage(colors.bgYellow.black(` ${percentStr}% `) + ' ' + details.name, true)
+                        }
+
+                        writeQueue = writeQueue
+                            .then(() => transfer.write(Buffer.from(chunk)))
+                            .catch(err => {
+                                this.logger.error('Zmodem write error', err)
+                            })
                     },
                 }),
                 this.cancelEvent.pipe(first()).toPromise(),
             ])
+
+            await writeQueue
 
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (canceled) {
