@@ -36,7 +36,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
         if (this.defaultsMode === 'disabled') {
             this.profilesService.getProfileGroups().then(groups => {
                 this.groups = groups
-                this.profileGroup = groups.find(g => g.id === this.profile.group)
+                this.profileGroup = groups.find(g => g.id === this._profile.group)
             })
         }
     }
