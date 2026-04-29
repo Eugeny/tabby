@@ -280,7 +280,7 @@ export class SSHSession {
             }
         }
 
-        if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
+        if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive' || this.profile.options.auth === 'password') {
             const existingSaved = this.allAuthMethods.find(method => method.type === 'keyboard-interactive' && method.savedPassword === storedPassword)
             if (!existingSaved) {
                 const updatable = this.allAuthMethods.find(method => method.type === 'keyboard-interactive' && method.savedPassword === undefined)
