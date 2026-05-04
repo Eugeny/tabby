@@ -54,6 +54,37 @@ async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], s
     return moduleRef
 }
 
+function showErrorPage (error: any): void {
+    const el = document.querySelector('.preload-logo div') as HTMLElement
+    if (!el) return
+
+    const errorMessage = String(error?.message || error?.stack || error || 'Unknown error')
+    el.innerHTML = `
+        <div style="text-align: center; padding: 40px 20px; max-width: 520px;">
+            <h1 style="color: #e06c75; font-size: 22px; font-weight: 600; margin-bottom: 16px; font-family: -apple-system, sans-serif;">
+                Startup Failed
+            </h1>
+            <p style="color: #abb2bf; font-size: 14px; margin-bottom: 12px; line-height: 1.7; font-family: -apple-system, sans-serif;">
+                Tabby could not start because the installation appears to be corrupted.<br>
+                This typically happens when an automatic update did not complete properly.
+            </p>
+            <pre style="background: #1e222a; color: #e06c75; padding: 12px; border-radius: 6px;
+                font-size: 12px; text-align: left; overflow-x: auto; margin: 16px 0; white-space: pre-wrap;
+                word-break: break-all; max-height: 180px; font-family: 'SF Mono', 'Cascadia Code', monospace;
+                border: 1px solid #3e4451;">${errorMessage}</pre>
+            <p style="color: #abb2bf; font-size: 13px; line-height: 1.8; font-family: -apple-system, sans-serif;">
+                <strong style="color: #e5c07b;">To fix this:</strong><br>
+                1. Download the latest version from
+                <a href="https://github.com/Eugeny/tabby/releases"
+                   style="color: #61afef; text-decoration: underline;">GitHub Releases</a><br>
+                2. Run the installer to reinstall — your settings will be preserved<br><br>
+                Press <kbd style="background: #3e4451; padding: 2px 7px; border-radius: 3px; border: 1px solid #5c6370;
+                font-family: monospace;">Ctrl+Shift+I</kbd> to open DevTools for detailed logs.
+            </p>
+        </div>
+    `
+}
+
 ipcRenderer.once('start', async (_$event, bootstrapData: BootstrapData) => {
     console.log('Window bootstrap data:', bootstrapData)
 
@@ -77,6 +108,7 @@ ipcRenderer.once('start', async (_$event, bootstrapData: BootstrapData) => {
             await bootstrap(bootstrapData, plugins, true)
         } catch (error2) {
             console.error('Bootstrap failed:', error2)
+            showErrorPage(error2)
         }
     }
 })
