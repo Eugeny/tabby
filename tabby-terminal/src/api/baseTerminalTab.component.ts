@@ -535,6 +535,10 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             data = data.replaceAll('\n', '\r')
         }
 
+        if (this.config.store.terminal.replaceNewlinesWithSpacesOnPaste) {
+            data = data.replace(/[\r\n]+/g, ' ')
+        }
+
         if (this.config.store.terminal.trimWhitespaceOnPaste && data.indexOf('\n') === data.length - 1) {
             // Ends with a newline and has no other line breaks
             data = data.substring(0, data.length - 1)
