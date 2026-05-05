@@ -54,9 +54,8 @@ async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], s
     return moduleRef
 }
 
-function showErrorPage (error: any): void {
-    const el = document.querySelector('.preload-logo div') as HTMLElement
-    if (!el) return
+function showErrorPage(error: any): void {
+    const el = document.querySelector('.preload-logo div')!
 
     const errorMessage = String(error?.message || error?.stack || error || 'Unknown error')
     el.innerHTML = `
