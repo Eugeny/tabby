@@ -401,6 +401,12 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
+    - name: Build packages without signing
+      run: node scripts/build-windows.mjs
+      if: "! (github.event_name == 'push' && (startsWith(github.ref, 'refs/tags')))"
+      env:
+        ARCH: ${{matrix.arch}}
+
     - name: Build and sign packages
       if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))
       shell: powershell
