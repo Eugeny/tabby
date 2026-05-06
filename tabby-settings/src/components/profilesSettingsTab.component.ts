@@ -116,7 +116,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (!provider) {
             throw new Error('Cannot edit a profile without a provider')
         }
-        modal.componentInstance.profile = deepClone(profile)
+        modal.componentInstance.partialProfile = deepClone(profile)
         modal.componentInstance.profileProvider = provider
 
         const result = await modal.result.catch(() => null)
@@ -193,7 +193,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         )
         const model = group.defaults?.[provider.id] ?? {}
         model.type = provider.id
-        modal.componentInstance.profile = Object.assign({}, model)
+        modal.componentInstance.partialProfile = Object.assign({}, model)
         modal.componentInstance.profileProvider = provider
         modal.componentInstance.defaultsMode = 'group'
 
@@ -300,7 +300,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         )
         const model = this.profilesService.getProviderDefaults(provider)
         model.type = provider.id
-        modal.componentInstance.profile = Object.assign({}, model)
+        modal.componentInstance.partialProfile = Object.assign({}, model)
         modal.componentInstance.profileProvider = provider
         modal.componentInstance.defaultsMode = 'enabled'
         const result = await modal.result.catch(() => null)

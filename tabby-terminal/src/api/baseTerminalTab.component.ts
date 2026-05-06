@@ -447,7 +447,10 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             .subscribe(visibility => {
                 if (this.frontend instanceof XTermFrontend) {
                     if (visibility) {
-                        this.frontend.xterm.refresh(0, this.frontend.xterm.rows - 1)
+                        // this.frontend.resizeHandler()
+                        const term = this.frontend.xterm as any
+                        term._core._renderService?.clear()
+                        term._core._renderService?.handleResize(term.cols, term.rows)
                     } else {
                         this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
                             c.height = c.width = 0
@@ -822,6 +825,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
 
         this.attachSessionHandler(this.session.destroyed$, () => {
             this.onSessionDestroyed()
+        })
+
+        this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
+            this.platform.setClipboard({ text: content })
+            this.notifications.notice(this.translate.instant('Copied'))
         })
     }
 

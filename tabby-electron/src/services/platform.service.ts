@@ -25,6 +25,7 @@ try {
 @Injectable({ providedIn: 'root' })
 export class ElectronPlatformService extends PlatformService {
     supportsWindowControls = true
+    private safeExternalSchemes = new Set(['http', 'https', 'ftp', 'mailto'])
     private configPath: string
 
     constructor (
@@ -140,8 +141,44 @@ export class ElectronPlatformService extends PlatformService {
         this.electron.shell.showItemInFolder(p)
     }
 
-    openExternal (url: string): void {
-        this.electron.shell.openExternal(url)
+    async openExternal (url: string): Promise<void> {
+        const scheme = this.getExternalScheme(url)
+        if (scheme && this.safeExternalSchemes.has(scheme)) {
+            await this.electron.shell.openExternal(url)
+        } else {
+            await this.confirmAndOpenExternal(url)
+        }
+    }
+
+    private getExternalScheme (url: string): string | null {
+        try {
+            const protocol = new URL(url.trim()).protocol
+            return protocol ? protocol.replace(':', '').toLowerCase() : null
+        } catch {
+            return null
+        }
+    }
+
+    private async confirmAndOpenExternal (url: string): Promise<void> {
+        const scheme = this.getExternalScheme(url)
+        const result = await this.electron.dialog.showMessageBox(
+            this.hostWindow.getWindow(),
+            {
+                type: 'warning',
+                message: this.translate.instant(`Open this app-specific "${scheme}" URI?`),
+                detail: url,
+                buttons: [
+                    this.translate.instant('Open'),
+                    this.translate.instant('Cancel'),
+                ],
+                defaultId: 0,
+                cancelId: 1,
+            },
+        )
+
+        if (result.response === 0) {
+            await this.electron.shell.openExternal(url)
+        }
     }
 
     openPath (p: string): void {

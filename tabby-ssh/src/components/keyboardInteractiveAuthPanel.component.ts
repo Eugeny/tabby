@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core'
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core'
 import { KeyboardInteractivePrompt } from '../session/ssh'
 import { SSHProfile } from '../api'
 import { PasswordStorageService } from '../services/passwordStorage.service'
@@ -9,7 +9,7 @@ import { PasswordStorageService } from '../services/passwordStorage.service'
     styleUrls: ['./keyboardInteractiveAuthPanel.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KeyboardInteractiveAuthComponent {
+export class KeyboardInteractiveAuthComponent implements OnInit {
     @Input() profile: SSHProfile
     @Input() prompt: KeyboardInteractivePrompt
     @Input() step = 0
@@ -17,7 +17,22 @@ export class KeyboardInteractiveAuthComponent {
     @ViewChild('input') input: ElementRef
     remember = false
 
-    constructor (private passwordStorage: PasswordStorageService) {}
+    constructor (
+        private passwordStorage: PasswordStorageService,
+        private cdr: ChangeDetectorRef,
+    ) {}
+
+    async ngOnInit (): Promise<void> {
+        const savedPassword = await this.passwordStorage.loadPassword(this.profile)
+        if (savedPassword) {
+            for (let i = 0; i < this.prompt.prompts.length; i++) {
+                if (this.prompt.isAPasswordPrompt(i) && !this.prompt.responses[i]) {
+                    this.prompt.responses[i] = savedPassword
+                }
+            }
+            this.cdr.markForCheck()
+        }
+    }
 
     isPassword (): boolean {
         return this.prompt.isAPasswordPrompt(this.step)

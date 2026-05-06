@@ -16,7 +16,7 @@ const iconsClassList = Object.keys(iconsData).map(
     templateUrl: './editProfileModal.component.pug',
 })
 export class EditProfileModalComponent<P extends Profile, PP extends ProfileProvider<P>> {
-    @Input('profile') _profile: P
+    @Input('profile') partialProfile: P
     @Input() profileProvider: PP
     @Input() settingsComponent: new () => ProfileSettingsComponent<P, PP>
     @Input() defaultsMode: 'enabled'|'group'|'disabled' = 'disabled'
@@ -56,7 +56,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
     }
 
     ngOnInit () {
-        this.profile = this.profilesService.getConfigProxyForProfile<P>(this._profile, { skipGlobalDefaults: this.defaultsMode === 'enabled', skipGroupDefaults: this.defaultsMode === 'group' })
+        this.profile = this.profilesService.getConfigProxyForProfile<P>(this.partialProfile, { skipGlobalDefaults: this.defaultsMode === 'enabled', skipGroupDefaults: this.defaultsMode === 'group' })
     }
 
     ngAfterViewInit () {
@@ -96,7 +96,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
 
         this.settingsComponentInstance?.save?.()
         this.profile.__cleanup()
-        this.modalInstance.close(this._profile)
+        this.modalInstance.close(this.partialProfile)
     }
 
     cancel () {
