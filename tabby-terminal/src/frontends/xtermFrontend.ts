@@ -14,6 +14,7 @@ import { ImageAddon } from '@xterm/addon-image'
 import { CanvasAddon } from '@xterm/addon-canvas'
 import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
+import { generatePalette } from '../generatePalette'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -469,6 +470,15 @@ export class XTermFrontend extends Frontend {
 
         for (let i = 0; i < COLOR_NAMES.length; i++) {
             theme[COLOR_NAMES[i]] = scheme.colors[i]
+        }
+
+        if (this.configService.store.terminal.paletteGenerate) {
+            theme.extendedAnsi = generatePalette(
+                scheme.colors,
+                scheme.background,
+                scheme.foreground,
+                this.configService.store.terminal.paletteHarmonious,
+            )
         }
 
         if (!deepEqual(this.configuredTheme, theme)) {
