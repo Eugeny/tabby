@@ -1,11 +1,10 @@
-import { TerminalColorScheme } from './api/interfaces'
-import { ConfigService, ThemesService } from 'tabby-core'
+import { ConfigService, ThemesService, Theme, TerminalColorScheme } from 'tabby-core'
 
 function getActiveTerminalTheme (
     themes: ThemesService,
-): { appTheme: ReturnType<ThemesService['findCurrentTheme']>, appColorScheme: TerminalColorScheme } {
+): { appTheme: Theme, appColorScheme: TerminalColorScheme } {
     const appTheme = themes.findCurrentTheme()
-    const appColorScheme = themes._getActiveColorScheme() as TerminalColorScheme
+    const appColorScheme = themes._getActiveColorScheme()
 
     return { appTheme, appColorScheme }
 }
