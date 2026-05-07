@@ -454,7 +454,7 @@ export class XTermFrontend extends Frontend {
     }
 
     private configureColors (scheme: TerminalColorScheme | null): void {
-        const appColorScheme = this.themes._getActiveColorScheme() as TerminalColorScheme
+        const appColorScheme = this.themes._getActiveColorScheme()
 
         scheme = scheme ?? appColorScheme
 
