@@ -349,6 +349,9 @@ Pull requests and plugins are welcome!
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ToastyTheBot"><img src="https://avatars.githubusercontent.com/u/270965193?v=4?s=100" width="100px;" alt="ToastyTheBot"/><br /><sub><b>ToastyTheBot</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ToastyTheBot" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/superm1"><img src="https://avatars.githubusercontent.com/u/494526?v=4?s=100" width="100px;" alt="Mario Limonciello"/><br /><sub><b>Mario Limonciello</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=superm1" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://sebastion.dev"><img src="https://avatars.githubusercontent.com/u/262984339?v=4?s=100" width="100px;" alt="Sebastion"/><br /><sub><b>Sebastion</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=sebastiondev" title="Code">💻</a></td>
+    </tr>
   </tbody>
 </table>
 
