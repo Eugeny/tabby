@@ -14,7 +14,7 @@ import slugify from 'slugify'
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
-    private profileDefaults: Profile = {
+    private profileDefaults = {
         id: '',
         type: '',
         name: '',
@@ -26,6 +26,7 @@ export class ProfilesService {
         weight: 0,
         isBuiltin: false,
         isTemplate: false,
+        terminalColorScheme: null,
         behaviorOnSessionEnd: 'auto',
     }
 
@@ -52,8 +53,8 @@ export class ProfilesService {
     }
 
     getDescription <P extends Profile> (profile: PartialProfile<P>): string|null {
-        profile = this.getConfigProxyForProfile(profile) as PartialProfile<P>
-        return this.providerForProfile(profile)?.getDescription(profile) ?? null
+        const fullProfile = this.getConfigProxyForProfile(profile)
+        return this.providerForProfile(fullProfile)?.getDescription(fullProfile) ?? null
     }
 
     /*
@@ -65,7 +66,7 @@ export class ProfilesService {
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     * arg: skipGroupDefaults -> do not merge parent group provider defaults in ConfigProxy
     */
-    getConfigProxyForProfile <P extends Profile> (profile: PartialProfile<P>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): FullyDefined<P> & ConfigProxy<FullyDefined<P>> {
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): FullyDefined<T> & ConfigProxy<FullyDefined<T>> {
         const defaults = this.getProfileDefaults(profile, options).reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as any
     }
@@ -213,10 +214,9 @@ export class ProfilesService {
         const provider = this.providerForProfile(fullProfile)
         const freeInputEquivalent = provider instanceof QuickConnectProfileProvider ? provider.intoQuickConnectString(fullProfile) ?? undefined : undefined
         return {
-            name: profile.name,
+            ...profile,
             icon: profile.icon ?? undefined,
             color: profile.color ?? undefined,
-            weight: profile.weight,
             group: this.resolveProfileGroupName(profile.group ?? ''),
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
@@ -510,7 +510,7 @@ export class ProfilesService {
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     */
     getProviderProfileGroupDefaults (groupId: string, provider: ProfileProvider<Profile>): any {
-        return this.getSyncProfileGroups().find(g => g.id === groupId)?.defaults?.[provider.id] ?? {}
+        return (this.config.store.groups ?? []).find(g => g.id === groupId)?.defaults?.[provider.id] ?? {}
     }
 
 }

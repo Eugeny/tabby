@@ -54,6 +54,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             minimumContrastRatio: 4,
             paletteGenerate: false,
             paletteHarmonious: false,
+            replaceNewlinesWithSpacesOnPaste: false,
             trimWhitespaceOnPaste: true,
         },
     }

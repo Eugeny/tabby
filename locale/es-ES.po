@@ -1720,6 +1720,14 @@ msgstr "Recordar por {time}"
 msgid "Remote"
 msgstr "Remoto"
 
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:120
+msgid "Replace line breaks with spaces"
+msgstr "Reemplazar los saltos de línea por espacios"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:121
+msgid "Flatten pasted text into a single line for terminals that do not support multiline paste"
+msgstr "Aplanar el texto pegado en una sola línea para terminales que no admiten pegado multilínea"
+
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
 msgid "Remove whitespace and newlines around the copied text"
 msgstr "Eliminar espacios en blanco y nuevas líneas alrededor del texto copiado"

@@ -20,6 +20,7 @@ export class PathDropDecorator extends TerminalDecorator {
     }
 
     private injectPath (terminal: BaseTerminalTabComponent<any>, path: string) {
+        path = path.replace(/[\x00-\x1F\x7F]/g, '')
         if (path.includes(' ')) {
             path = `"${path}"`
         }
