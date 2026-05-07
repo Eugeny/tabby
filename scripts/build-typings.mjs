@@ -3,7 +3,10 @@ import sh from 'shelljs'
 import * as vars from './vars.mjs'
 import log from 'npmlog'
 
-vars.builtinPlugins.forEach(plugin => {
+for (const plugin of vars.builtinPlugins) {
     log.info('typings', plugin)
-    sh.exec(`yarn tsc --project ${plugin}/tsconfig.typings.json`, { fatal: true })
-})
+    const result = sh.exec(`yarn tsc --project ${plugin}/tsconfig.typings.json`)
+    if (result.code !== 0) {
+        process.exit(result.code)
+    }
+}

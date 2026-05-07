@@ -155,6 +155,15 @@ div.mt-4
 
     .form-line
         .header
+            .title(translate) Replace line breaks with spaces
+            .description(translate) Flatten pasted text into a single line for terminals that do not support multiline paste
+        toggle(
+            [(ngModel)]='config.store.terminal.replaceNewlinesWithSpacesOnPaste',
+            (ngModelChange)='config.save()',
+        )
+
+    .form-line
+        .header
             .title(translate) Trim whitespace and newlines
             .description(translate) Remove whitespace and newlines around the copied text
         toggle(

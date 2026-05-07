@@ -130,6 +130,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [highlight](https://github.com/moemoechu/tabby-highlight) - Tabby terminal keyword highlight plugin
 * [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - In-app web authentication popups (Built primarily for warpgate in-browser auth)
 * [mcp-server](https://github.com/thuanpham582002/tabby-mcp-server) - Powerful Model Context Protocol server integration for Tabby that seamlessly connects with AI assistants through MCP clients like Cursor and Windsurf, enhancing your terminal workflow with intelligent AI capabilities.
+* [ssh-keymap](https://github.com/mathys-lopinto/tabby-ssh-keymap) - lets your synced Tabby SSH profiles reference private keys by name instead of by absolute file path. A local mapping file (never synced) translates each name to the real path on that machine * [serial-timestamp](https://github.com/WoodenNautilus/tabby-serial-timestamp) - adds timestamps to serial terminal sessions
 
 <a name="themes"></a>
 
@@ -370,6 +371,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/et304383"><img src="https://avatars.githubusercontent.com/u/2693414?v=4?s=100" width="100px;" alt="et304383"/><br /><sub><b>et304383</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=et304383" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ajkrj"><img src="https://avatars.githubusercontent.com/u/210226755?v=4?s=100" width="100px;" alt="ajkrj"/><br /><sub><b>ajkrj</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ajkrj" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/leoberbert/"><img src="https://avatars.githubusercontent.com/u/16724862?v=4?s=100" width="100px;" alt="Leonardo Berbert"/><br /><sub><b>Leonardo Berbert</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=leoberbert" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ToastyTheBot"><img src="https://avatars.githubusercontent.com/u/270965193?v=4?s=100" width="100px;" alt="ToastyTheBot"/><br /><sub><b>ToastyTheBot</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ToastyTheBot" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/superm1"><img src="https://avatars.githubusercontent.com/u/494526?v=4?s=100" width="100px;" alt="Mario Limonciello"/><br /><sub><b>Mario Limonciello</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=superm1" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

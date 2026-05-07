@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
-import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rxjs'
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, first, tap, switchMap, map } from 'rxjs'
 import semverGt from 'semver/functions/gt'
 
 import { Component, HostBinding, Input } from '@angular/core'
@@ -48,7 +48,7 @@ export class PluginsSettingsTabComponent {
             .pipe(
                 debounceTime(200),
                 distinctUntilChanged(),
-                flatMap(query => {
+                switchMap(query => {
                     this.availablePluginsReady = false
                     return this.pluginManager.listAvailable(query).pipe(tap(() => {
                         this.availablePluginsReady = true
@@ -69,7 +69,7 @@ export class PluginsSettingsTabComponent {
             .pipe(
                 debounceTime(200),
                 distinctUntilChanged(),
-                flatMap(query => {
+                switchMap(query => {
                     return this.pluginManager.listInstalled(query)
                 }),
             ).subscribe(plugin => {

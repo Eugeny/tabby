@@ -50,7 +50,7 @@ $tab-border-radius: 4px;
     overflow-y: auto;
     overflow-x: hidden;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.25);
+    background: var(--theme-bg-more-2);
 
     .tabs {
         width: var(--side-tab-width);
