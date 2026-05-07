@@ -38,9 +38,12 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         this.jumpHosts = (await this.profilesService.getProfiles({ includeBuiltin: false })).filter(x => x.type === 'ssh' && x !== this.profile)
         this.jumpHosts.sort(firstBy(x => this.getJumpHostLabel(x)))
 
+        const configuredAlgorithmsByType = this.profile.options.algorithms as Partial<Record<SSHAlgorithmType, string[]>> | undefined
         for (const k of Object.values(SSHAlgorithmType)) {
             this.algorithms[k] = {}
-            for (const alg of this.profile.options.algorithms[k]) {
+            const configuredAlgorithms = configuredAlgorithmsByType?.[k]
+            const selectedAlgorithms = Array.isArray(configuredAlgorithms) ? configuredAlgorithms : []
+            for (const alg of selectedAlgorithms) {
                 this.algorithms[k][alg] = true
             }
         }

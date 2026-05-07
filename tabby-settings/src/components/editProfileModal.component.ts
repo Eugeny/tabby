@@ -2,7 +2,7 @@
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider, FullyDefined, ConfigProxy } from 'tabby-core'
+import { PartialProfile, PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider, FullyDefined, ConfigProxy } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -95,8 +95,10 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
         }
 
         this.settingsComponentInstance?.save?.()
-        this.profile.__cleanup()
-        this.modalInstance.close(this.partialProfile)
+        if (typeof this.profile.__cleanup === 'function') {
+            this.profile.__cleanup()
+        }
+        this.modalInstance.close(JSON.parse(JSON.stringify(this.profile)) as PartialProfile<P>)
     }
 
     cancel () {
