@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
-import { CLIHandler, CLIEvent, AppService, ConfigService, HostWindowService, ProfilesService, NotificationsService } from 'tabby-core'
+import { CLIHandler, CLIEvent, AppService, ConfigService, HostWindowService, ProfilesService, NotificationsService, PlatformService, TranslateService } from 'tabby-core'
 import { TerminalService } from './services/terminal.service'
 
 @Injectable()
@@ -12,6 +12,8 @@ export class TerminalCLIHandler extends CLIHandler {
     constructor (
         private hostWindow: HostWindowService,
         private terminal: TerminalService,
+        private platform: PlatformService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -22,7 +24,7 @@ export class TerminalCLIHandler extends CLIHandler {
         if (op === 'open') {
             this.handleOpenDirectory(path.resolve(event.cwd, event.argv.directory!))
         } else if (op === 'run') {
-            this.handleRunCommand(event.argv.command!)
+            await this.handleRunCommand(event.argv.command!)
         } else {
             return false
         }
@@ -42,7 +44,20 @@ export class TerminalCLIHandler extends CLIHandler {
         }
     }
 
-    private handleRunCommand (command: string[]) {
+    private async handleRunCommand (command: string[]) {
+        if ((await this.platform.showMessageBox({
+            type: 'warning',
+            message: this.translate.instant(`Run "{command}"?`, { command: command.join(' ') }),
+            buttons: [
+                this.translate.instant('Run'),
+                this.translate.instant('Cancel'),
+            ],
+            defaultId: 0,
+            cancelId: 1,
+        })).response === 1) {
+            return
+        }
+
         this.terminal.openTab({
             type: 'local',
             name: '',

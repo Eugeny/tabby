@@ -7,9 +7,11 @@ const OSCSuffixes = [Buffer.from('\x07'), Buffer.from('\x1b\\')]
 
 export class OSCProcessor extends SessionMiddleware {
     get cwdReported$ (): Observable<string> { return this.cwdReported }
+    get copyRequested$ (): Observable<string> { return this.copyRequested }
 
     private cwdReported = new Subject<string>()
     private buffer: Buffer | null = null
+    private copyRequested = new Subject<string>()
 
     feedFromSession (data: Buffer): void {
         // Prepend any buffered data from previous chunks
@@ -72,6 +74,11 @@ export class OSCProcessor extends SessionMiddleware {
                 } else {
                     console.debug('Unsupported OSC 1337 parameter:', paramString)
                 }
+            } else if (oscCode === 52) {
+                if (oscParams[0] === 'c' || oscParams[0] === '') {
+                    const content = Buffer.from(oscParams[1], 'base64')
+                    this.copyRequested.next(content.toString())
+                }
             }
 
             // Move past this OSC sequence
@@ -86,6 +93,7 @@ export class OSCProcessor extends SessionMiddleware {
 
     close (): void {
         this.cwdReported.complete()
+        this.copyRequested.complete()
         super.close()
     }
 }

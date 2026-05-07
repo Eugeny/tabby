@@ -7,7 +7,7 @@
 input.form-control.mt-2(
     #input,
     autofocus,
-    [type]='isPassword() ? "password": "text"',
+    [type]='shouldEcho() ? "text" : "password"',
     placeholder='Response',
     (keyup.enter)='next()',
     [(ngModel)]='prompt.responses[step]'

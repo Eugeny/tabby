@@ -63,14 +63,15 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (!base) {
             let profiles = await this.profilesService.getProfiles()
             profiles = profiles.filter(x => !this.isProfileBlacklisted(x))
-            profiles.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
             base = await this.selector.show(
                 this.translate.instant('Select a base profile to use as a template'),
                 profiles.map(p => ({
                     icon: p.icon ?? undefined,
                     description: this.profilesService.getDescription(p) ?? undefined,
                     name: p.group ? `${this.profilesService.resolveProfileGroupName(p.group)} / ${p.name}` : p.name,
+                    group: p.isTemplate ? this.translate.instant('Template') : this.translate.instant('Duplicate an existing profile'),
                     result: p,
+                    weight: p.isTemplate ? 0 : 1,
                 })),
             ).catch(() => undefined)
             if (!base) {
@@ -116,7 +117,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (!provider) {
             throw new Error('Cannot edit a profile without a provider')
         }
-        modal.componentInstance.profile = deepClone(profile)
+        modal.componentInstance.partialProfile = deepClone(profile)
         modal.componentInstance.profileProvider = provider
 
         const result = await modal.result.catch(() => null)
@@ -193,7 +194,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         )
         const model = group.defaults?.[provider.id] ?? {}
         model.type = provider.id
-        modal.componentInstance.profile = Object.assign({}, model)
+        modal.componentInstance.partialProfile = Object.assign({}, model)
         modal.componentInstance.profileProvider = provider
         modal.componentInstance.defaultsMode = 'group'
 
@@ -300,7 +301,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         )
         const model = this.profilesService.getProviderDefaults(provider)
         model.type = provider.id
-        modal.componentInstance.profile = Object.assign({}, model)
+        modal.componentInstance.partialProfile = Object.assign({}, model)
         modal.componentInstance.profileProvider = provider
         modal.componentInstance.defaultsMode = 'enabled'
         const result = await modal.result.catch(() => null)

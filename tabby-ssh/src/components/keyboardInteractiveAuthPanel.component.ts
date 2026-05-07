@@ -38,6 +38,10 @@ export class KeyboardInteractiveAuthComponent implements OnInit {
         return this.prompt.isAPasswordPrompt(this.step)
     }
 
+    shouldEcho (): boolean {
+        return this.prompt.prompts[this.step].echo ?? false
+    }
+
     previous (): void {
         if (this.step > 0) {
             this.step--

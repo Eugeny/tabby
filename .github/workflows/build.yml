@@ -250,7 +250,7 @@ jobs:
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
 
     - name: Upload packages to packagecloud.io
-      uses: TykTechnologies/packagecloud-action@7add92bc6a06914be404cf7fa00a6ccb302e6ac5
+      uses: TykTechnologies/packagecloud-action@7add92bc6a06914be404cf7fa00a6ccb302e6ac5 # main
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
       env:
         PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
@@ -342,7 +342,7 @@ jobs:
 
     - name: Setup Software Trust Manager
       if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))
-      uses: digicert/code-signing-software-trust-action@v1.0.0
+      uses: digicert/code-signing-software-trust-action@cb502242630f8556eb815a4f9c1e8c64d2a2d2a3 # v1.0.0
       env:
         SM_HOST: ${{ vars.SM_HOST }}
         SM_API_KEY: ${{ secrets.SM_API_KEY }}
@@ -398,6 +398,12 @@ jobs:
         yarn --network-timeout 1000000
         yarn run build
         node scripts/prepackage-plugins.mjs
+      env:
+        ARCH: ${{matrix.arch}}
+
+    - name: Build packages without signing
+      run: node scripts/build-windows.mjs
+      if: "! (github.event_name == 'push' && (startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
 
