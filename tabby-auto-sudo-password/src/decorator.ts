@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core'
 import { TerminalDecorator, BaseTerminalTabComponent, XTermFrontend, SessionMiddleware } from 'tabby-terminal'
 import { SSHProfile, SSHTabComponent, PasswordStorageService } from 'tabby-ssh'
 
-const SUDO_PROMPT_MARKER = '[sudo]'
+const SUDO_PROMPT_MARKER = '[sudo'
 // Multi-language sudo prompt patterns
-// Each pattern captures the username in a capture group
+// Each pattern captures the username in a capture group (empty for sudo-rs)
 const SUDO_PROMPT_PATTERNS: RegExp[] = [
+    // Traditional sudo patterns (with username)
     // English: [sudo] password for username:
     /^\[sudo\] password for ([^:]+):\s*$/im,
     // German: [sudo] Passwort für username:
@@ -45,6 +46,10 @@ const SUDO_PROMPT_PATTERNS: RegExp[] = [
     /^\[sudo\] пароль до ([^:]+):\s*$/im,
     // Croatian: [sudo] lozinka za username:
     /^\[sudo\] lozinka za ([^:]+):\s*$/im,
+
+    // sudo-rs pattern (no username displayed, use empty capture group)
+    // Matches: [sudo: authenticate] <password word>:
+    /^\[sudo: authenticate\] .+?[：:]\s*$/im,
 ]
 
 export class AutoSudoPasswordMiddleware extends SessionMiddleware {
@@ -73,7 +78,8 @@ export class AutoSudoPasswordMiddleware extends SessionMiddleware {
             const match = pattern.exec(text)
             if (match) {
                 this.lastMatchedPatternIndex = idx // Remember this pattern for next time
-                const username = match[1]
+                // For sudo-rs patterns, match[1] is undefined, use current SSH user
+                const username = match[1] || this.profile.options.user
                 this.handlePrompt(username)
                 break
             }
