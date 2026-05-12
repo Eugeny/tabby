@@ -360,6 +360,17 @@ export class XTermFrontend extends Frontend {
         delete this.resizeObserver
     }
 
+    reactivateAfterVisibilityChange (): void {
+        this.resizeHandler()
+    }
+
+    deactivateAfterVisibilityChange (): void {
+        this.xterm.element?.querySelectorAll('canvas').forEach(c => {
+            c.height = c.width = 0
+            c.style.height = c.style.width = '0px'
+        })
+    }
+
     destroy (): void {
         super.destroy()
         this.webGLAddon?.dispose()
