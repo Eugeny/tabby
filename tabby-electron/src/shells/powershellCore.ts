@@ -39,6 +39,7 @@ export class PowerShellCoreShellProvider extends WindowsBaseShellProvider {
             args: ['-nologo'],
             icon: require('../icons/powershell-core.svg'),
             env: this.getEnvironment(),
+            shellType: 'powershell',
         }]
     }
 }
