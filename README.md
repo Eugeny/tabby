@@ -119,7 +119,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 
 * [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
 * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
+* [quick-cmds](https://github.com/minyoad/tabby-quick-cmds) - quickly send commands to one or all terminal tabs
 * [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
 * [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
 * [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
