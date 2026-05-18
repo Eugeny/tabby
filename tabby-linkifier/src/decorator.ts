@@ -20,9 +20,17 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
             return
         }
 
+        const allowedSchemes = ['http:', 'https:', 'ftp:', 'mailto:', 'ssh:']
         tab.frontend.xterm.options.linkHandler = {
             activate: (event, uri) => {
                 if (!this.willHandleEvent(event)) {
+                    return
+                }
+                try {
+                    if (!allowedSchemes.includes(new URL(uri).protocol)) {
+                        return
+                    }
+                } catch {
                     return
                 }
                 this.platform.openExternal(uri)

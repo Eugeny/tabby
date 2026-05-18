@@ -21,6 +21,14 @@ export class URLHandler extends LinkHandler {
     }
 
     handle (uri: string): void {
+        const allowed = ['http:', 'https:', 'ftp:', 'mailto:', 'ssh:']
+        try {
+            if (!allowed.includes(new URL(uri).protocol)) {
+                return
+            }
+        } catch {
+            return
+        }
         this.platform.openExternal(uri)
     }
 }
