@@ -434,6 +434,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             if (this.config.store.terminal.bell === 'audible') {
                 this.bellPlayer.play()
             }
+            if (!this.hasFocus) {
+                this.displayActivity()
+            }
         })
 
         this.frontend.focus()
