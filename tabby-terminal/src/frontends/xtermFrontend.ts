@@ -98,19 +98,20 @@ export class XTermFrontend extends Frontend {
         this.hostApp = injector.get(HostAppService)
         this.themes = injector.get(ThemesService)
 
-        this.xterm = new Terminal({
+        const terminalOptions = {
             allowTransparency: true,
             allowProposedApi: true,
-            overviewRuler: {
-                width: 8,
-                showBottomBorder: false,
-                showTopBorder: false,
-            },
             windowsPty: process.platform === 'win32' ? {
-                backend: this.configService.store.terminal.useConPTY ? 'conpty' : 'winpty',
+                backend: this.configService.store.terminal.useConPTY ? 'conpty' as const : 'winpty' as const,
                 buildNumber: getWindows10Build(),
             } : undefined,
-        })
+        }
+        ;(terminalOptions as Record<string, unknown>).overviewRuler = {
+            width: 8,
+            showBottomBorder: false,
+            showTopBorder: false,
+        }
+        this.xterm = new Terminal(terminalOptions)
         this.flowControl = new FlowControl(this.xterm)
         this.xtermCore = this.xterm['_core']
 
