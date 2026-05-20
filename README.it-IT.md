@@ -350,6 +350,9 @@ Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/do
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ToastyTheBot"><img src="https://avatars.githubusercontent.com/u/270965193?v=4?s=100" width="100px;" alt="ToastyTheBot"/><br /><sub><b>ToastyTheBot</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ToastyTheBot" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/superm1"><img src="https://avatars.githubusercontent.com/u/494526?v=4?s=100" width="100px;" alt="Mario Limonciello"/><br /><sub><b>Mario Limonciello</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=superm1" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.brighter-than-dawning.blue"><img src="https://avatars.githubusercontent.com/u/24561326?v=4?s=100" width="100px;" alt="KaniPan"/><br /><sub><b>KaniPan</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=bluekani" title="Code">💻</a></td>
+    </tr>
   </tbody>
 </table>
 
