@@ -87,7 +87,7 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
             profile.options.baudrate = await this.selector.show(
                 this.translate.instant('Baud rate'),
                 BAUD_RATES.map(x => ({
-                    name: x.toString(), result: x,
+                    name: x.toString(), result: x, weight: x,
                 })),
             )
         }

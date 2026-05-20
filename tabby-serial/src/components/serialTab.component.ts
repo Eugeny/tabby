@@ -92,7 +92,7 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
         const rate = await this.selector.show(
             this.translate.instant(_('Baud rate')),
             BAUD_RATES.map(x => ({
-                name: x.toString(), result: x,
+                name: x.toString(), result: x, weight: x,
             })),
         )
         this.session?.serial?.update({ baudRate: rate })
