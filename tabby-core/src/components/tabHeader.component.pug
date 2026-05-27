@@ -7,7 +7,7 @@
 .index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform !== Platform.macOS') {{index + 1}}
 
 profile-icon(
-    *ngIf='config.store.terminal.showTabProfileIcon && tab.icon',
+    *ngIf='shouldShowProfileIcon() && tab.icon',
     [icon]='tab.icon',
     [color]='tab.color ?? undefined'
 )
