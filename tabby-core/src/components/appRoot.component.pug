@@ -11,6 +11,7 @@ title-bar(
     [class.tabs-on-left]='hasVerticalTabs() && config.store.appearance.tabsLocation == "left"',
     [class.tabs-titlebar-enabled]='isTitleBarNeeded()',
     [class.tabs-on-right]='hasVerticalTabs() && config.store.appearance.tabsLocation == "right"',
+    [class.tabs-collapsed]='isVerticalTabsCollapseEnabled()',
 )
     .tab-bar(
         *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
