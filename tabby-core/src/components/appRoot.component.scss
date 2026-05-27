@@ -107,6 +107,17 @@ $tab-border-radius: 4px;
         padding: 0;
     }
 
+    .btn-group {
+        width: var(--collapsed-side-tab-width);
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-group > .d-flex {
+        width: 100%;
+        justify-content: center;
+    }
+
     &:hover,
     &:focus-within {
         width: var(--side-tab-width);
@@ -118,6 +129,16 @@ $tab-border-radius: 4px;
         .btn-tab-bar {
             width: auto;
             padding: 0 12px;
+        }
+
+        .btn-group {
+            width: auto;
+            flex-direction: row;
+            align-items: stretch;
+        }
+
+        .btn-group > .d-flex {
+            width: auto;
         }
     }
 
