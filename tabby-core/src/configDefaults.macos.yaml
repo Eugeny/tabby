@@ -12,6 +12,8 @@ hotkeys:
     - 'Ctrl-Tab'
   previous-tab:
     - 'Ctrl-Shift-Tab'
+  next-mru-tab: []
+  previous-mru-tab: []
   move-tab-left:
     - '⌘-Shift-Left'
   move-tab-right:
