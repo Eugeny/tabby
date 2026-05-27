@@ -335,6 +335,20 @@ h3.mt-4(translate) Tabs
 
 .form-line
     .header
+        .title(translate) Sidebar width
+        .description(translate) Adjusts fixed left and right tab sidebar width
+    input(
+        type='range',
+        [(ngModel)]='config.store.appearance.tabsSidebarWidth',
+        (ngModelChange)='saveConfiguration()',
+        min='0.5',
+        max='3',
+        step='0.05',
+        [disabled]='!isTabsSidebarWidthEnabled()'
+    )
+
+.form-line
+    .header
         .title(translate) Show tabs in fullscreen mode
 
     toggle(
