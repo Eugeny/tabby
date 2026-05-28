@@ -236,49 +236,21 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
         progress(index, foundPlugins.length)
     }
 
-    function loadPluginModule (packageModule: any, foundPlugin: PluginInfo): any {
-        if (foundPlugin.packageName.startsWith('tabby-')) {
-            cachedBuiltinModules[foundPlugin.packageName.replace('tabby-', 'terminus-')] = packageModule
-        }
-        const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
-        pluginModule.pluginName = foundPlugin.name
-        pluginModule.bootstrap = packageModule.bootstrap
-        return pluginModule
-    }
-
-    function getAsarPluginPath (pluginPath: string): string {
-        return path.join((process as any).resourcesPath, 'app.asar', 'builtin-plugins', path.basename(pluginPath))
-    }
-
     progress(0, 1)
     for (const foundPlugin of foundPlugins) {
         pluginsPromises.push(new Promise(x => {
             console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
             try {
                 const packageModule = nodeRequire(foundPlugin.path)
-                plugins.push(loadPluginModule(packageModule, foundPlugin))
+                if (foundPlugin.packageName.startsWith('tabby-')) {
+                    cachedBuiltinModules[foundPlugin.packageName.replace('tabby-', 'terminus-')] = packageModule
+                }
+                const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
+                pluginModule.pluginName = foundPlugin.name
+                pluginModule.bootstrap = packageModule.bootstrap
+                plugins.push(pluginModule)
             } catch (error) {
-                const isBuiltin = foundPlugin.isBuiltin && !process.env.TABBY_DEV
-                let loaded = false
-
-                // Fall back to loading from inside app.asar when the external
-                // builtin-plugins directory is stale (auto-update corruption)
-                if (isBuiltin) {
-                    const asarPath = getAsarPluginPath(foundPlugin.path)
-                    try {
-                        console.info(`Falling back to ASAR for ${foundPlugin.name}: ${asarPath}`)
-                        const asarModule = nodeRequire(asarPath)
-                        plugins.push(loadPluginModule(asarModule, foundPlugin))
-                        loaded = true
-                    } catch (asarError) {
-                        console.error(`Could not load ${foundPlugin.name}:`, error)
-                        console.error(`ASAR fallback also failed for ${foundPlugin.name}:`, asarError)
-                    }
-                }
-
-                if (!loaded) {
-                    console.error(`Could not load ${foundPlugin.name}:`, error)
-                }
+                console.error(`Could not load ${foundPlugin.name}:`, error)
             }
             setProgress()
             setTimeout(x, 50)
