@@ -252,8 +252,8 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
             } catch (error) {
                 console.error(`Could not load ${foundPlugin.name}:`, error)
                 if (foundPlugin.isBuiltin) {
-                    const pluginError = new Error(`Could not load bundled plugin ${foundPlugin.packageName} from ${foundPlugin.path}: ${(error as any)?.message ?? error}`)
-                    pluginError.stack = (error as any)?.stack ?? pluginError.stack
+                    const pluginError = new Error(`Could not load bundled plugin ${foundPlugin.packageName} from ${foundPlugin.path}: ${error?.message ?? error}`)
+                    pluginError.stack = error?.stack ?? pluginError.stack
                     setProgress()
                     reject(pluginError)
                     return
