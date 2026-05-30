@@ -44,6 +44,15 @@ class ZModemMiddleware extends SessionMiddleware {
                     defaultId: 0,
                     cancelId: 1,
                 })).response === 1) {
+                    // Accept the detection to get a session, then immediately
+                    // abort so that proper ZABORT frames are sent to the remote
+                    // side, causing the remote rz/sz process to terminate.
+                    try {
+                        const zsession = detection.confirm()
+                        zsession.abort()
+                    } catch { }
+                    // Clean up terminal output after rejection
+                    this.showMessage(colors.bgRed.black(' Rejected ') + ' ZMODEM session')
                     return
                 }
 
