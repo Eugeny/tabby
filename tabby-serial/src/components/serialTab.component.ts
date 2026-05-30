@@ -89,14 +89,45 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
     }
 
     async changeBaudRate () {
-        const rate = await this.selector.show(
-            this.translate.instant(_('Baud rate')),
-            BAUD_RATES.map(x => ({
-                name: x.toString(), result: x, weight: x,
-            })),
-        )
-        this.session?.serial?.update({ baudRate: rate })
-        this.profile.options.baudrate = rate
+        let selectedRate: number|undefined = undefined
+
+        try {
+            selectedRate = await this.selector.show(
+                this.translate.instant(_('Baud rate')),
+                [
+                    ...BAUD_RATES.map(x => ({
+                        name: x.toString(), result: x, weight: x,
+                    })),
+                    {
+                        name: this.translate.instant(_('Custom baud rate')),
+                        freeInputPattern: this.translate.instant(_('%s')),
+                        weight: Number.MAX_SAFE_INTEGER,
+                        callback: query => {
+                            const parsed = Number.parseInt((query ?? '').trim(), 10)
+                            if (Number.isInteger(parsed) && parsed > 0) {
+                                selectedRate = parsed
+                            }
+                        },
+                    },
+                ],
+            )
+        } catch {
+            return
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 0))
+
+        const rate = selectedRate
+
+        if (!Number.isInteger(rate) || rate <= 0) {
+            this.notifications.error(this.translate.instant(_('Invalid baud rate')))
+            return
+        }
+
+        const baudRate: number = rate
+
+        this.session?.serial?.update({ baudRate })
+        this.profile.options.baudrate = baudRate
     }
 
     protected isSessionExplicitlyTerminated (): boolean {
