@@ -129,13 +129,15 @@ class ZModemMiddleware extends SessionMiddleware {
                 }
                 await zsession.close()
             } else {
+                const pendingReceives: Promise<void>[] = []
                 zsession.on('offer', xfer => {
-                    this.receiveFile(xfer, zsession)
+                    pendingReceives.push(this.receiveFile(xfer, zsession))
                 })
 
                 zsession.start()
 
                 await new Promise(resolve => zsession.on('session_end', resolve))
+                await Promise.all(pendingReceives)
             }
 
             this.showMessage(colors.bgBlue.black(' ZMODEM ') + ' Complete')
