@@ -4,6 +4,7 @@ import { Injector } from '@angular/core'
 import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { SessionOptions, ChildProcess, PTYInterface, PTYProxy } from './api'
+import { getWindowsEnvironment } from './windowsEnvironment'
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 
@@ -67,8 +68,12 @@ export class Session extends BaseSession {
         }
 
         if (!pty) {
+            const baseEnv = this.hostApp.platform === Platform.Windows && this.config.store.terminal.windowsRefreshEnvironment
+                ? getWindowsEnvironment()
+                : process.env
+
             let env = mergeEnv(
-                process.env,
+                baseEnv,
                 {
                     COLORTERM: 'truecolor',
                     TERM: 'xterm-256color',
