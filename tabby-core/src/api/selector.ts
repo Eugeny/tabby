@@ -5,6 +5,7 @@ export interface SelectorOption<T> {
     result?: T
     icon?: string
     freeInputPattern?: string
+    freeInputPlacement?: 'top'|'bottom'
     freeInputEquivalent?: string
     color?: string
     weight?: number

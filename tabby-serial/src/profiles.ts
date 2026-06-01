@@ -97,7 +97,8 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
                         {
                             name: this.translate.instant('Custom baud rate'),
                             freeInputPattern: this.translate.instant('%s'),
-                            weight: Number.MAX_SAFE_INTEGER,
+                            freeInputPlacement: 'top',
+                            weight: -1,
                             callback: query => {
                                 const parsed = Number.parseInt((query ?? '').trim(), 10)
                                 if (Number.isInteger(parsed) && parsed > 0) {

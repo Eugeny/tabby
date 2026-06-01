@@ -101,7 +101,8 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
                     {
                         name: this.translate.instant(_('Custom baud rate')),
                         freeInputPattern: this.translate.instant(_('%s')),
-                        weight: Number.MAX_SAFE_INTEGER,
+                        freeInputPlacement: 'top',
+                        weight: -1,
                         callback: query => {
                             const parsed = Number.parseInt((query ?? '').trim(), 10)
                             if (Number.isInteger(parsed) && parsed > 0) {
