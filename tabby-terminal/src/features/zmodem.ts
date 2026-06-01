@@ -16,6 +16,24 @@ class ZModemMiddleware extends SessionMiddleware {
     private activeSession: any = null
     private cancelEvent: Observable<any>
 
+    // While non-null, terminal output is buffered here instead of being sent
+    // straight to the terminal. Used to hold back a receive session's trailing
+    // bytes (the shell prompt redrawn after sz exits) until after the final
+    // "Received"/"Complete" messages have been printed, so the prompt is not
+    // overwritten by showMessage()'s leading "\r".
+    private trailingBuffer: Buffer[] | null = null
+
+    private flushTrailingBuffer () {
+        const buffered = this.trailingBuffer
+        this.trailingBuffer = null
+        if (!buffered?.length) {
+            return
+        }
+        for (const chunk of buffered) {
+            this.outputToTerminal.next(chunk)
+        }
+    }
+
     private log = inject(LogService)
     private translate = inject(TranslateService)
     private platform = inject(PlatformService)
@@ -26,8 +44,20 @@ class ZModemMiddleware extends SessionMiddleware {
 
         this.logger = this.log.create('zmodem')
         this.sentry = new ZModem.Sentry({
+            // to_terminal is zmodem.js' single terminal-output channel. It
+            // receives normal passthrough data (while no session is active),
+            // protocol "garbage", and crucially the trailing bytes that follow
+            // a session's "OO" terminator (e.g. the shell prompt redrawn after
+            // sz/rz exits). These trailing bytes are emitted synchronously from
+            // within the same consume() call that fires session_end, so any
+            // guard based on isActive/activeSession would drop them on platforms
+            // where "OO" and the prompt arrive in the same chunk (Linux).
+            // While trailingBuffer is active they are queued so the final
+            // status messages can be printed first; otherwise forward directly.
             to_terminal: data => {
-                if (this.isActive && this.activeSession) {
+                if (this.trailingBuffer) {
+                    this.trailingBuffer.push(Buffer.from(data))
+                } else {
                     this.outputToTerminal.next(Buffer.from(data))
                 }
             },
@@ -99,13 +129,16 @@ class ZModemMiddleware extends SessionMiddleware {
                 return
             }
         } else {
+            // No active session: sentry.consume() routes everything straight
+            // back through to_terminal, so we must not output here as well or
+            // the data would be duplicated. Only on a consume() failure do we
+            // forward the raw data as a fallback so nothing is lost.
             try {
                 this.sentry.consume(data)
             } catch (e) {
                 this.logger.error('zmodem detection error', e)
+                this.outputToTerminal.next(data)
             }
-
-            this.outputToTerminal.next(data)
         }
     }
 
@@ -128,19 +161,33 @@ class ZModemMiddleware extends SessionMiddleware {
                     sizeRemaining -= transfer.getSize()
                 }
                 await zsession.close()
+
+                this.showMessage(colors.bgBlue.black(' ZMODEM ') + ' Complete')
             } else {
                 const pendingReceives: Promise<void>[] = []
                 zsession.on('offer', xfer => {
                     pendingReceives.push(this.receiveFile(xfer, zsession))
                 })
 
+                // session_end fires synchronously inside sentry.consume(),
+                // immediately before the session's trailing bytes (the shell
+                // prompt redrawn after sz exits) are flushed via to_terminal.
+                // Start buffering here so those bytes are held back until after
+                // all "Received" messages and the "Complete" message have been
+                // printed; otherwise the prompt would be emitted first and then
+                // overwritten by showMessage()'s leading "\r".
+                zsession.on('session_end', () => {
+                    this.trailingBuffer = []
+                })
+
                 zsession.start()
 
                 await new Promise(resolve => zsession.on('session_end', resolve))
                 await Promise.all(pendingReceives)
-            }
 
-            this.showMessage(colors.bgBlue.black(' ZMODEM ') + ' Complete')
+                this.showMessage(colors.bgBlue.black(' ZMODEM ') + ' Complete')
+                this.flushTrailingBuffer()
+            }
         } catch (error) {
             this.logger.error('ZMODEM session error', error)
             this.showMessage(colors.bgRed.black(' ZMODEM ') + ` Session failed: ${error.message}`)
@@ -149,6 +196,13 @@ class ZModemMiddleware extends SessionMiddleware {
             } catch { }
         } finally {
             this.activeSession = null
+
+            // Safety net: if an error left bytes buffered (e.g. session_end
+            // started buffering but the flush above was skipped), release them
+            // so terminal output is never permanently swallowed.
+            if (this.trailingBuffer) {
+                this.flushTrailingBuffer()
+            }
         }
     }
 
