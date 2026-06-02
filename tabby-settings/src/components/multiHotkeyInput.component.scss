@@ -1,10 +1,6 @@
 :host {
     display: flex;
     flex-wrap: nowrap;
-
-    &:hover .add {
-      display: initial;
-    }
 }
 
 .item {
@@ -26,10 +22,7 @@
 }
 
 .add {
-    flex: auto;
-    display: none;
-
-    &:first-child {
-        display: block;
-    }
+    flex: none;
+    display: block;
+    white-space: nowrap;
 }
