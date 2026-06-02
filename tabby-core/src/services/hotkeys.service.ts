@@ -73,6 +73,7 @@ export class HotkeysService {
     private pressedKeystroke: Keystroke|null = null
     private lastKeystrokes: PastKeystroke[] = []
     private recognitionPhase = true
+    private suppressNextKeyupKeystroke = false
     private lastEventTimestamp = 0
     private lastMiddleClickTimestamp: number|null = null
 
@@ -164,11 +165,16 @@ export class HotkeysService {
         if (eventName === 'keydown') {
             this.addPressedKey(keyName, eventData)
             this.recognitionPhase = true
+            if (!(nativeEvent as KeyboardEvent).repeat) {
+                this.suppressNextKeyupKeystroke = false
+            }
             this.updateModifiers(eventData)
         }
         if (eventName === 'keyup') {
+            const shouldSuppressKeystroke = this.suppressNextKeyupKeystroke
+            this.suppressNextKeyupKeystroke = false
             const keystroke = getKeystrokeName([...this.pressedKeys])
-            if (keystroke && this.recognitionPhase) {
+            if (!shouldSuppressKeystroke && keystroke && this.recognitionPhase) {
                 this._keystroke.next(keystroke)
                 this.lastKeystrokes.push({
                     keystroke,
@@ -191,6 +197,7 @@ export class HotkeysService {
             })
             this.pressedKeystroke = keystroke
             this.recognitionPhase = true
+            this.suppressNextKeyupKeystroke = true
         }
 
         if (this.pressedKeys.size) {
@@ -223,6 +230,7 @@ export class HotkeysService {
         }
 
         if (eventName === 'wheel' || eventName === 'mouseup' || eventName === 'auxclick') {
+            this.recognitionPhase = false
             this.pressedKeys.clear()
             this.pressedKeyTimestamps.clear()
             this.pressedKeystroke = null

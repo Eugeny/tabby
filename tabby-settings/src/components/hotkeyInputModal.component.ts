@@ -55,16 +55,8 @@ export class HotkeyInputModalComponent extends BaseComponent {
         })
         this.subscribeUntilDestroyed(hotkeys.keystroke$, keystroke => {
             this.lastKeyEvent = performance.now()
-            if (this.isWheelKeystroke(keystroke) && this.value.length && this.isWheelKeystroke(this.value[this.value.length - 1])) {
-                this.value[this.value.length - 1] = keystroke
-                return
-            }
             this.value.push(keystroke)
         })
-    }
-
-    private isWheelKeystroke (keystroke: Keystroke): boolean {
-        return /(^|-)Wheel(Up|Down|Left|Right)$/.test(keystroke)
     }
 
     splitKeys (keys: string): string[] {
