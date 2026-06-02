@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HotkeyInputModalComponent } from './hotkeyInputModal.component'
 import { Hotkey } from 'tabby-core'
-import deepEqual from 'deep-equal'
 
 /** @hidden */
 @Component({
@@ -23,23 +22,43 @@ export class MultiHotkeyInputComponent {
         this.hotkeys = this.hotkeys.map(hotkey => typeof hotkey.strokes === 'string' ? { ...hotkey, strokes: [hotkey.strokes] } : hotkey)
     }
 
-    editItem (item: Hotkey): void {
+    editItem (index: number): void {
         this.ngbModal.open(HotkeyInputModalComponent).result.then((newStrokes: string[]) => {
-            this.hotkeys.find(hotkey => deepEqual(hotkey.strokes, item.strokes))!.strokes = newStrokes
-            this.storeUpdatedHotkeys()
+            if (this.hotkeys[index]) {
+                this.hotkeys[index].strokes = newStrokes
+                this.storeUpdatedHotkeys()
+            }
         })
+    }
+
+    openEditorByMouse (event: MouseEvent, index: number): void {
+        if (event.button !== 0) {
+            return
+        }
+        event.preventDefault()
+        event.stopPropagation()
+        this.editItem(index)
     }
 
     addItem (): void {
         this.ngbModal.open(HotkeyInputModalComponent).result.then((value: string[]) => {
-            this.hotkeys.push({ strokes: value, isDuplicate: false })
+            this.hotkeys = [...this.hotkeys, { strokes: value, isDuplicate: false }]
             this.storeUpdatedHotkeys()
         })
     }
 
-    removeItem (item: Hotkey): void {
-        this.hotkeys = this.hotkeys.filter(x => x !== item)
+    removeItem (index: number): void {
+        this.hotkeys = this.hotkeys.filter((_, i) => i !== index)
         this.storeUpdatedHotkeys()
+    }
+
+    removeByMouse (event: MouseEvent, index: number): void {
+        if (event.button !== 0) {
+            return
+        }
+        event.preventDefault()
+        event.stopPropagation()
+        this.removeItem(index)
     }
 
     private storeUpdatedHotkeys () {
