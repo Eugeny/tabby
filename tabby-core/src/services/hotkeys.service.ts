@@ -156,8 +156,8 @@ export class HotkeysService {
 
         const keyName = getKeyName(eventData)
 
-        // After the first wheel event, ignore additional wheel events for a short interval
-        if (eventName === 'wheel') {
+        // During hotkey recording, ignore additional wheel events for a short interval
+        if (eventName === 'wheel' && !this.isEnabled()) {
             if (this.lastWheelTimestamp !== null && nativeEvent.timeStamp - this.lastWheelTimestamp < WHEEL_EVENT_INTERVAL_MS) {
                 return
             }
