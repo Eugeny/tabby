@@ -17,6 +17,8 @@ interface PastKeystroke {
     time: number
 }
 
+const WHEEL_EVENT_INTERVAL_MS = 250
+
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
     /** @hidden @deprecated */
@@ -75,7 +77,7 @@ export class HotkeysService {
     private recognitionPhase = true
     private suppressNextKeyupKeystroke = false
     private lastEventTimestamp = 0
-    private lastMiddleClickTimestamp: number|null = null
+    private lastWheelTimestamp: number|null = null
 
     private constructor (
         private zone: NgZone,
@@ -153,13 +155,13 @@ export class HotkeysService {
         }
 
         const keyName = getKeyName(eventData)
-        if (keyName === 'MiddleClick') {
-            if (eventName === 'auxclick' && this.lastMiddleClickTimestamp !== null && nativeEvent.timeStamp - this.lastMiddleClickTimestamp < 300) {
+
+        // After the first wheel event, ignore additional wheel events for a short interval
+        if (eventName === 'wheel') {
+            if (this.lastWheelTimestamp !== null && nativeEvent.timeStamp - this.lastWheelTimestamp < WHEEL_EVENT_INTERVAL_MS) {
                 return
             }
-            if (eventName === 'mouseup') {
-                this.lastMiddleClickTimestamp = nativeEvent.timeStamp
-            }
+            this.lastWheelTimestamp = nativeEvent.timeStamp
         }
 
         if (eventName === 'keydown') {
