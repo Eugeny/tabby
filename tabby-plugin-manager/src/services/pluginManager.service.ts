@@ -41,7 +41,7 @@ export class PluginManagerService {
                     return true
                 })
             }),
-            map(x => x.sort((a, b) => b.searchScore - a.searchScore)),
+            map(x => x.sort((a, b) => b.searchScore! - a.searchScore!)),
         )
     }
 
