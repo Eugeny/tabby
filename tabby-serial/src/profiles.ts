@@ -83,6 +83,30 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
     }
 
     async getNewTabParameters (profile: SerialProfile): Promise<NewTabParameters<SerialTabComponent>> {
+        // Show port selector first if not set
+        if (!profile.options.port) {
+            profile = deepClone(profile)
+            let port: string|undefined = undefined
+
+            try {
+                const ports = await this.serial.listPorts()
+
+                port = await this.selector.show(
+                    this.translate.instant('Select port'),
+                    [
+                        ...ports.map(x => ({
+                            name: x.description ? `${x.name} (${x.description})` : x.name, result: x.name, weight: 0,
+                        })),
+                    ],
+                )
+            } catch {
+                throw new Error('Port selection canceled')
+            }
+
+            profile.options.port = port
+        }
+
+        // Then show baudrate selector if not set
         if (!profile.options.baudrate) {
             profile = deepClone(profile)
             let baudrate: number|undefined = undefined
@@ -132,6 +156,6 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
     }
 
     getDescription (profile: SerialProfile): string {
-        return profile.options.port
+        return profile.options.port ?? ''
     }
 }
