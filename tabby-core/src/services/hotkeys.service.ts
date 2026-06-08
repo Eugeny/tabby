@@ -17,10 +17,12 @@ interface PastKeystroke {
     time: number
 }
 
+const WHEEL_EVENT_INTERVAL_MS = 250
+
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
     /** @hidden @deprecated */
-    key = new EventEmitter<KeyboardEvent>()
+    key = new EventEmitter<KeyboardEvent|WheelEvent|MouseEvent>()
 
     /** @hidden @deprecated */
     matchedHotkey = new EventEmitter<string>()
@@ -52,7 +54,7 @@ export class HotkeysService {
     /**
      * Fired for each key event
      */
-    get keyEvent$ (): Observable<KeyboardEvent> { return this._keyEvent }
+    get keyEvent$ (): Observable<KeyboardEvent|WheelEvent|MouseEvent> { return this._keyEvent }
 
     /**
      * Fired for each singular key combination
@@ -61,7 +63,7 @@ export class HotkeysService {
 
     private _hotkey = new Subject<string>()
     private _hotkeyOff = new Subject<string>()
-    private _keyEvent = new Subject<KeyboardEvent>()
+    private _keyEvent = new Subject<KeyboardEvent|WheelEvent|MouseEvent>()
     private _key = new Subject<KeyName>()
     private _keystroke = new Subject<Keystroke>()
     private disabledLevel = 0
@@ -73,7 +75,9 @@ export class HotkeysService {
     private pressedKeystroke: Keystroke|null = null
     private lastKeystrokes: PastKeystroke[] = []
     private recognitionPhase = true
+    private suppressNextKeyupKeystroke = false
     private lastEventTimestamp = 0
+    private lastWheelTimestamp: number|null = null
 
     private constructor (
         private zone: NgZone,
@@ -84,18 +88,29 @@ export class HotkeysService {
         this.config.ready$.toPromise().then(async () => {
             const hotkeys = await this.getHotkeyDescriptions()
             this.hotkeyDescriptions = hotkeys
-            const events = ['keydown', 'keyup']
 
-            events.forEach(eventType => {
-                document.addEventListener(eventType, (nativeEvent: KeyboardEvent) => {
-                    this._keyEvent.next(nativeEvent)
-                    this.pushKeyEvent(eventType, nativeEvent)
+            const registerEvent = (
+                eventType: 'keydown'|'keyup'|'wheel'|'mouseup'|'auxclick',
+                filterEvent?: (event: KeyboardEvent|WheelEvent|MouseEvent) => boolean,
+            ) => {
+                document.addEventListener(eventType, event => {
+                    if (filterEvent && !filterEvent(event)) {
+                        return
+                    }
+                    this._keyEvent.next(event)
+                    this.pushKeyEvent(eventType, event)
                     if (hostApp.platform === Platform.Web && this.matchActiveHotkey(true) !== null) {
-                        nativeEvent.preventDefault()
-                        nativeEvent.stopPropagation()
+                        event.preventDefault()
+                        event.stopPropagation()
                     }
                 })
-            })
+            }
+
+            registerEvent('keydown')
+            registerEvent('keyup')
+            registerEvent('wheel')
+            registerEvent('mouseup', event => 'button' in event && event.button === 1)
+            registerEvent('auxclick', event => 'button' in event && event.button === 1)
         })
 
         // deprecated
@@ -111,7 +126,7 @@ export class HotkeysService {
      * @param eventName DOM event name
      * @param nativeEvent event object
      */
-    pushKeyEvent (eventName: string, nativeEvent: KeyboardEvent): void {
+    pushKeyEvent (eventName: string, nativeEvent: KeyboardEvent|WheelEvent|MouseEvent): void {
         if (nativeEvent.timeStamp === this.lastEventTimestamp) {
             return
         }
@@ -123,8 +138,11 @@ export class HotkeysService {
             metaKey: nativeEvent.metaKey,
             altKey: nativeEvent.altKey,
             shiftKey: nativeEvent.shiftKey,
-            code: nativeEvent.code,
-            key: nativeEvent.key,
+            code: 'code' in nativeEvent ? nativeEvent.code : '',
+            key: 'key' in nativeEvent ? nativeEvent.key : '',
+            deltaX: 'deltaX' in nativeEvent ? nativeEvent.deltaX : undefined,
+            deltaY: 'deltaY' in nativeEvent ? nativeEvent.deltaY : undefined,
+            button: 'button' in nativeEvent ? nativeEvent.button : undefined,
             eventName,
             time: nativeEvent.timeStamp,
             registrationTime: performance.now(),
@@ -137,14 +155,28 @@ export class HotkeysService {
         }
 
         const keyName = getKeyName(eventData)
+
+        // During hotkey recording, ignore additional wheel events for a short interval
+        if (eventName === 'wheel' && !this.isEnabled()) {
+            if (this.lastWheelTimestamp !== null && nativeEvent.timeStamp - this.lastWheelTimestamp < WHEEL_EVENT_INTERVAL_MS) {
+                return
+            }
+            this.lastWheelTimestamp = nativeEvent.timeStamp
+        }
+
         if (eventName === 'keydown') {
             this.addPressedKey(keyName, eventData)
             this.recognitionPhase = true
+            if (!(nativeEvent as KeyboardEvent).repeat) {
+                this.suppressNextKeyupKeystroke = false
+            }
             this.updateModifiers(eventData)
         }
         if (eventName === 'keyup') {
+            const shouldSuppressKeystroke = this.suppressNextKeyupKeystroke
+            this.suppressNextKeyupKeystroke = false
             const keystroke = getKeystrokeName([...this.pressedKeys])
-            if (this.recognitionPhase) {
+            if (!shouldSuppressKeystroke && keystroke && this.recognitionPhase) {
                 this._keystroke.next(keystroke)
                 this.lastKeystrokes.push({
                     keystroke,
@@ -155,6 +187,19 @@ export class HotkeysService {
             this.pressedKeys.clear()
             this.pressedKeyTimestamps.clear()
             this.removePressedKey(keyName)
+        }
+        if (eventName === 'wheel' || eventName === 'mouseup' || eventName === 'auxclick') {
+            this.updateModifiers(eventData)
+            this.addPressedKey(keyName, eventData)
+            const keystroke = getKeystrokeName([...this.pressedKeys])
+            this._keystroke.next(keystroke)
+            this.lastKeystrokes.push({
+                keystroke,
+                time: performance.now(),
+            })
+            this.pressedKeystroke = keystroke
+            this.recognitionPhase = true
+            this.suppressNextKeyupKeystroke = true
         }
 
         if (this.pressedKeys.size) {
@@ -168,6 +213,9 @@ export class HotkeysService {
             if (matched) {
                 if (this.recognitionPhase) {
                     this.emitHotkeyOn(matched)
+                    if (eventName === 'wheel' || eventName === 'mouseup' || eventName === 'auxclick') {
+                        this.emitHotkeyOff(matched)
+                    }
                 }
             } else if (this.pressedHotkey) {
                 this.emitHotkeyOff(this.pressedHotkey)
@@ -181,6 +229,13 @@ export class HotkeysService {
         if (process.platform === 'darwin' && eventData.metaKey && eventName === 'keydown' && !['Ctrl', 'Shift', altKeyName, metaKeyName, 'Enter'].includes(keyName)) {
             // macOS will swallow non-modified keyups if Cmd is held down
             this.pushKeyEvent('keyup', nativeEvent)
+        }
+
+        if (eventName === 'wheel' || eventName === 'mouseup' || eventName === 'auxclick') {
+            this.recognitionPhase = false
+            this.pressedKeys.clear()
+            this.pressedKeyTimestamps.clear()
+            this.pressedKeystroke = null
         }
 
         this.lastEventTimestamp = nativeEvent.timeStamp
