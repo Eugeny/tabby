@@ -13,6 +13,7 @@
 
     --tabs-height: calc(38px * var(--spaciness));
     --side-tab-width: calc(200px * var(--spaciness));
+    --collapsed-side-tab-width: calc(48px * var(--spaciness));
 }
 
 $tab-border-radius: 4px;
@@ -87,6 +88,93 @@ $tab-border-radius: 4px;
         // Account for WCO on Windows.
         padding-top: 36px;
     }
+}
+
+.content.tabs-collapsed.tabs-on-left > .tab-bar, .content.tabs-collapsed.tabs-on-right > .tab-bar {
+    width: var(--collapsed-side-tab-width);
+    position: relative;
+    z-index: 2;
+    transition: width 0.125s ease-out, margin 0.125s ease-out;
+
+    .tabs {
+        width: var(--collapsed-side-tab-width);
+        transition: width 0.125s ease-out;
+    }
+
+    .btn-tab-bar {
+        width: var(--collapsed-side-tab-width);
+        justify-content: center;
+        padding: 0;
+    }
+
+    .btn-group {
+        width: var(--collapsed-side-tab-width);
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-group > .d-flex {
+        width: 100%;
+        justify-content: center;
+    }
+
+    &:hover,
+    &:focus-within {
+        width: var(--side-tab-width);
+
+        .tabs {
+            width: var(--side-tab-width);
+        }
+
+        .btn-tab-bar {
+            width: auto;
+            padding: 0 12px;
+        }
+
+        .btn-group {
+            width: auto;
+            flex-direction: row;
+            align-items: stretch;
+        }
+
+        .btn-group > .d-flex {
+            width: auto;
+        }
+    }
+
+    &:not(:hover):not(:focus-within) {
+        ::ng-deep tab-header {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+
+            .name,
+            .buttons {
+                width: 0;
+                flex: 0 0 0;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            profile-icon {
+                margin-right: 0;
+            }
+
+            .index {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+.content.tabs-collapsed.tabs-on-left > .tab-bar:hover,
+.content.tabs-collapsed.tabs-on-left > .tab-bar:focus-within {
+    margin-right: calc(var(--collapsed-side-tab-width) - var(--side-tab-width));
+}
+
+.content.tabs-collapsed.tabs-on-right > .tab-bar:hover,
+.content.tabs-collapsed.tabs-on-right > .tab-bar:focus-within {
+    margin-left: calc(var(--collapsed-side-tab-width) - var(--side-tab-width));
 }
 
 .tab-bar {

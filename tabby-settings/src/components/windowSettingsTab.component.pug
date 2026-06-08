@@ -335,6 +335,17 @@ h3.mt-4(translate) Tabs
 
 .form-line
     .header
+        .title(translate) Collapse vertical tabs
+        .description(translate) Shows icons only until the tab sidebar is hovered
+
+    toggle(
+        [(ngModel)]='config.store.appearance.collapseVerticalTabs',
+        [disabled]='!hasVerticalTabs()',
+        (ngModelChange)='saveConfiguration();',
+    )
+
+.form-line
+    .header
         .title(translate) Show tabs in fullscreen mode
 
     toggle(

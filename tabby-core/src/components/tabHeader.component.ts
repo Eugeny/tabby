@@ -93,6 +93,17 @@ export class TabHeaderComponent extends BaseComponent {
         return this.config.store.appearance.flexTabs
     }
 
+    shouldShowProfileIcon (): boolean {
+        return this.config.store.terminal.showTabProfileIcon || this.isVerticalTabsCollapseEnabled()
+    }
+
+    private isVerticalTabsCollapseEnabled (): boolean {
+        return (
+            (this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right')
+            && this.config.store.appearance.collapseVerticalTabs
+        )
+    }
+
     @HostListener('dblclick', ['$event']) onDoubleClick ($event: MouseEvent): void {
         this.app.renameTab(this.tab)
         $event.stopPropagation()

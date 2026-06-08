@@ -207,6 +207,10 @@ export class AppRootComponent {
         return this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right'
     }
 
+    isVerticalTabsCollapseEnabled () {
+        return this.hasVerticalTabs() && this.config.store.appearance.collapseVerticalTabs
+    }
+
     get targetTabSize (): any {
         if (this.hasVerticalTabs()) {
             return '*'
