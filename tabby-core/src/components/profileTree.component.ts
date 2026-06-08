@@ -251,8 +251,9 @@ export class ProfileTreeComponent extends BaseComponent {
     }
 
     @HostListener('document:mouseup')
-    stopResize (): void {
+    stopResize (): boolean {
         this.panelIsResizing = false
+        return true
     }
 
     @HostBinding('style.width.px')
