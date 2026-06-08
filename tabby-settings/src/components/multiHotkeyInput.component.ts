@@ -31,15 +31,6 @@ export class MultiHotkeyInputComponent {
         })
     }
 
-    openEditorByMouse (event: MouseEvent, index: number): void {
-        if (event.button !== 0) {
-            return
-        }
-        event.preventDefault()
-        event.stopPropagation()
-        this.editItem(index)
-    }
-
     addItem (): void {
         this.ngbModal.open(HotkeyInputModalComponent).result.then((value: string[]) => {
             this.hotkeys = [...this.hotkeys, { strokes: value, isDuplicate: false }]
@@ -50,15 +41,6 @@ export class MultiHotkeyInputComponent {
     removeItem (index: number): void {
         this.hotkeys = this.hotkeys.filter((_, i) => i !== index)
         this.storeUpdatedHotkeys()
-    }
-
-    removeByMouse (event: MouseEvent, index: number): void {
-        if (event.button !== 0) {
-            return
-        }
-        event.preventDefault()
-        event.stopPropagation()
-        this.removeItem(index)
     }
 
     private storeUpdatedHotkeys () {
