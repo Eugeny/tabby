@@ -13,6 +13,10 @@ export class SSHHotkeyProvider extends HotkeyProvider {
             id: 'launch-winscp',
             name: this.translate.instant('Launch WinSCP for current SSH session'),
         },
+        {
+            id: 'open-sftp',
+            name: this.translate.instant('Open SFTP panel'),
+        },
     ]
 
     constructor (private translate: TranslateService) { super() }

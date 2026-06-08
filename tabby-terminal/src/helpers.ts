@@ -1,13 +1,20 @@
-import { TerminalColorScheme } from './api/interfaces'
-import { ConfigService, ThemesService } from 'tabby-core'
+import { ConfigService, ThemesService, Theme, TerminalColorScheme } from 'tabby-core'
+
+function getActiveTerminalTheme (
+    themes: ThemesService,
+): { appTheme: Theme, appColorScheme: TerminalColorScheme } {
+    const appTheme = themes.findCurrentTheme()
+    const appColorScheme = themes._getActiveColorScheme()
+
+    return { appTheme, appColorScheme }
+}
 
 export function getTerminalBackgroundColor (
     config: ConfigService,
     themes: ThemesService,
-    scheme?: TerminalColorScheme,
+    scheme: TerminalColorScheme | null,
 ): string|null {
-    const appTheme = themes.findCurrentTheme()
-    const appColorScheme = themes._getActiveColorScheme() as TerminalColorScheme
+    const { appTheme, appColorScheme } = getActiveTerminalTheme(themes)
 
     // Use non transparent background when:
     // - legacy theme and user choses colorScheme based BG
@@ -18,4 +25,18 @@ export function getTerminalBackgroundColor (
         || appTheme.followsColorScheme && scheme?.name !== appColorScheme.name
 
     return shouldUseCSBackground && scheme ? scheme.background : null
+}
+
+export function getXtermBackgroundColor (
+    config: ConfigService,
+    themes: ThemesService,
+    scheme: TerminalColorScheme | null,
+): string {
+    const configuredBackground = getTerminalBackgroundColor(config, themes, scheme)
+    if (configuredBackground) {
+        return configuredBackground
+    }
+
+    const { appTheme, appColorScheme } = getActiveTerminalTheme(themes)
+    return appTheme.followsColorScheme ? appColorScheme.background : appTheme.terminalBackground
 }

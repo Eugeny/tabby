@@ -3,7 +3,7 @@ import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService } from 'tabby-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined } from 'tabby-core'
 
 import { BaseSession } from '../session'
 
@@ -25,8 +25,8 @@ const OSC_FOCUS_OUT = Buffer.from('\x1b[O')
  */
 @Component({ template: '' })
 export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends BaseTabComponent implements OnInit, OnDestroy {
-    static template: string = require<string>('../components/baseTerminalTab.component.pug')
-    static styles: string[] = [require<string>('../components/baseTerminalTab.component.scss')]
+    static template: string = require('../components/baseTerminalTab.component.pug')
+    static styles: string[] = [require('../components/baseTerminalTab.component.scss')]
     static animations: AnimationTriggerMetadata[] = [
         trigger('toolbarSlide', [
             transition(':enter', [
@@ -97,7 +97,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     frontendReady = new Subject<void>()
     size: ResizeEvent
 
-    profile: P
+    profile: FullyDefined<P>
 
     /**
      * Enables normal passthrough from session output to terminal input
@@ -330,7 +330,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         })
 
         this.bellPlayer = document.createElement('audio')
-        this.bellPlayer.src = require<string>('../bell.ogg')
+        this.bellPlayer.src = require('../bell.ogg')
         this.bellPlayer.load()
 
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
@@ -449,8 +449,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     if (visibility) {
                         // this.frontend.resizeHandler()
                         const term = this.frontend.xterm as any
-                        term._core._renderService.clear()
-                        term._core._renderService.handleResize(term.cols, term.rows)
+                        term._core._renderService?.clear()
+                        term._core._renderService?.handleResize(term.cols, term.rows)
                     } else {
                         this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
                             c.height = c.width = 0
@@ -536,6 +536,10 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             data = data.replaceAll('\r\n', '\r')
         } else {
             data = data.replaceAll('\n', '\r')
+        }
+
+        if (this.config.store.terminal.replaceNewlinesWithSpacesOnPaste) {
+            data = data.replace(/[\r\n]+/g, ' ')
         }
 
         if (this.config.store.terminal.trimWhitespaceOnPaste && data.indexOf('\n') === data.length - 1) {

@@ -1,7 +1,7 @@
 import deepEqual from 'deep-equal'
 import { BehaviorSubject, filter, firstValueFrom, takeUntil } from 'rxjs'
 import { Injector } from '@angular/core'
-import { ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService, Platform, PlatformService, ThemesService } from 'tabby-core'
+import { ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService, Platform, PlatformService, TerminalColorScheme, ThemesService } from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
@@ -12,8 +12,9 @@ import { Unicode11Addon } from '@xterm/addon-unicode11'
 import { SerializeAddon } from '@xterm/addon-serialize'
 import { ImageAddon } from '@xterm/addon-image'
 import { CanvasAddon } from '@xterm/addon-canvas'
-import { BaseTerminalProfile, TerminalColorScheme } from '../api/interfaces'
-import { getTerminalBackgroundColor } from '../helpers'
+import { BaseTerminalProfile } from '../api/interfaces'
+import { getXtermBackgroundColor } from '../helpers'
+import { generatePalette } from '../generatePalette'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -81,6 +82,7 @@ export class XTermFrontend extends Frontend {
     private opened = false
     private resizeObserver?: any
     private flowControl: FlowControl
+    private pinnedToBottom = true
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -196,11 +198,31 @@ export class XTermFrontend extends Frontend {
         this.xtermCore._scrollToBottom = this.xtermCore.scrollToBottom.bind(this.xtermCore)
         this.xtermCore.scrollToBottom = () => null
 
+        // NOTE: xterm.onScroll only fires for content-driven scroll (new lines),
+        // NOT for user wheel/keyboard scroll (xterm.js #3864, #3201). During
+        // fast output, viewportY transiently equals baseY during xterm's
+        // internal processing, so onScroll would falsely re-pin. We do NOT
+        // use onScroll for pin state. Re-pinning happens only via:
+        //   - wheel/keyboard event listeners (below)
+        //   - explicit scrollToBottom() calls
+
         this.resizeHandler = () => {
             try {
                 if (this.xterm.element && getComputedStyle(this.xterm.element).getPropertyValue('height') !== 'auto') {
+                    const savedPinned = this.pinnedToBottom
+                    const savedViewportY = this.xterm.buffer.active.viewportY
+
                     this.fitAddon.fit()
                     this.xtermCore.viewport._refresh()
+
+                    if (savedPinned) {
+                        this.xtermCore._scrollToBottom()
+                    } else {
+                        // Restore the previous scroll position after fit
+                        const maxScroll = this.xterm.buffer.active.baseY
+                        const targetY = Math.min(savedViewportY, maxScroll)
+                        this.xterm.scrollToLine(targetY)
+                    }
                 }
             } catch (e) {
                 // tends to throw when element wasn't shown yet
@@ -220,6 +242,15 @@ export class XTermFrontend extends Frontend {
             const altBufferActive = this.xterm.buffer.active.type === 'alternate'
             this.alternateScreenActive.next(altBufferActive)
         })
+    }
+
+    private isAtBottom (): boolean {
+        const buffer = this.xterm.buffer.active
+        return buffer.viewportY >= buffer.baseY - 1
+    }
+
+    private updatePinnedState (): void {
+        this.pinnedToBottom = this.isAtBottom()
     }
 
     async attach (host: HTMLElement, profile: BaseTerminalProfile): Promise<void> {
@@ -270,6 +301,43 @@ export class XTermFrontend extends Frontend {
 
         // Allow an animation frame
         await new Promise(r => setTimeout(r, 0))
+
+        // User-initiated scroll detection: only wheel and keyboard events
+        // should unpin. xterm.onScroll is content-driven only and must never
+        // unpin (see constructor comment). Use capture phase — xterm.js
+        // handles wheel/key events on its internal viewport element and may
+        // stop propagation, so bubbling listeners on host would never fire.
+        host.addEventListener('wheel', (event: WheelEvent) => {
+            // Immediately unpin on scroll-up so that writes arriving before
+            // the next animation frame don't yank the viewport back down.
+            if (event.deltaY < 0) {
+                this.pinnedToBottom = false
+            }
+            requestAnimationFrame(() => this.updatePinnedState())
+        }, { capture: true, passive: true })
+
+
+        this.hotkeysService.hotkey$
+            .pipe(
+                takeUntil(this.destroyed$),
+                filter(hk => [
+                    'scroll-up',
+                    'scroll-down',
+                    'scroll-page-up',
+                    'scroll-page-down',
+                    'scroll-to-top',
+                    'scroll-to-bottom',
+                ].includes(hk)),
+            ).subscribe(hk => {
+                if ([
+                    'scroll-up',
+                    'scroll-page-up',
+                    'scroll-to-top',
+                ].includes(hk)) {
+                    this.pinnedToBottom = false
+                }
+                requestAnimationFrame(() => this.updatePinnedState())
+            })
 
         host.addEventListener('dragOver', (event: any) => this.dragOver.next(event))
         host.addEventListener('drop', event => this.drop.next(event))
@@ -333,7 +401,24 @@ export class XTermFrontend extends Frontend {
     }
 
     async write (data: string): Promise<void> {
+        // Capture pinned state before the write — the async write yields
+        // to the event loop, and RAF callbacks (e.g. from wheel events)
+        // could change pinnedToBottom mid-write.
+        const wasPinned = this.pinnedToBottom
+        const savedViewportY = this.xterm.buffer.active.viewportY
         await this.flowControl.write(data)
+        if (wasPinned) {
+            this.xtermCore._scrollToBottom()
+        } else {
+            // Restore scroll position — xterm internally disturbs viewportY
+            // during fast output, and the patched-out scrollToBottom no-op
+            // prevents xterm from correcting it.
+            const maxScroll = this.xterm.buffer.active.baseY
+            const targetY = Math.min(savedViewportY, maxScroll)
+            if (this.xterm.buffer.active.viewportY !== targetY) {
+                this.xterm.scrollToLine(targetY)
+            }
+        }
     }
 
     clear (): void {
@@ -350,23 +435,27 @@ export class XTermFrontend extends Frontend {
     }
 
     scrollToTop (): void {
+        this.pinnedToBottom = false
         this.xterm.scrollToTop()
     }
 
     scrollPages (pages: number): void {
         this.xterm.scrollPages(pages)
+        this.updatePinnedState()
     }
 
     scrollLines (amount: number): void {
         this.xterm.scrollLines(amount)
+        this.updatePinnedState()
     }
 
     scrollToBottom (): void {
+        this.pinnedToBottom = true
         this.xtermCore._scrollToBottom()
     }
 
-    private configureColors (scheme: TerminalColorScheme|undefined): void {
-        const appColorScheme = this.themes._getActiveColorScheme() as TerminalColorScheme
+    private configureColors (scheme: TerminalColorScheme | null): void {
+        const appColorScheme = this.themes._getActiveColorScheme()
 
         scheme = scheme ?? appColorScheme
 
@@ -374,13 +463,22 @@ export class XTermFrontend extends Frontend {
             foreground: scheme.foreground,
             selectionBackground: scheme.selection ?? '#88888888',
             selectionForeground: scheme.selectionForeground ?? undefined,
-            background: getTerminalBackgroundColor(this.configService, this.themes, scheme) ?? '#00000000',
+            background: getXtermBackgroundColor(this.configService, this.themes, scheme),
             cursor: scheme.cursor,
             cursorAccent: scheme.cursorAccent,
         }
 
         for (let i = 0; i < COLOR_NAMES.length; i++) {
             theme[COLOR_NAMES[i]] = scheme.colors[i]
+        }
+
+        if (this.configService.store.terminal.paletteGenerate) {
+            theme.extendedAnsi = generatePalette(
+                scheme.colors,
+                scheme.background,
+                scheme.foreground,
+                this.configService.store.terminal.paletteHarmonious,
+            )
         }
 
         if (!deepEqual(this.configuredTheme, theme)) {

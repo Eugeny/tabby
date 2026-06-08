@@ -12,15 +12,15 @@ export interface SerialProfile extends ConnectableTerminalProfile {
 
 export interface SerialProfileOptions extends StreamProcessingOptions, LoginScriptsOptions {
     port: string
-    baudrate?: number
-    databits?: number
-    stopbits?: number
-    parity?: string
-    rtscts?: boolean
-    xon?: boolean
-    xoff?: boolean
-    xany?: boolean
-    slowSend?: boolean
+    baudrate: number | null
+    databits: 5 | 6 | 7 | 8
+    stopbits: 1 | 1.5 | 2
+    parity: string
+    rtscts: boolean
+    xon: boolean
+    xoff: boolean
+    xany: boolean
+    slowSend: boolean
     input: InputProcessingOptions,
 }
 
@@ -81,13 +81,13 @@ export class SerialSession extends BaseSession {
             path: this.profile.options.port,
             autoOpen: false,
             baudRate: parseInt(this.profile.options.baudrate as any),
-            dataBits: this.profile.options.databits ?? 8 as any,
-            stopBits: this.profile.options.stopbits ?? 1 as any,
-            parity: this.profile.options.parity ?? 'none',
-            rtscts: this.profile.options.rtscts ?? false,
-            xon: this.profile.options.xon ?? false,
-            xoff: this.profile.options.xoff ?? false,
-            xany: this.profile.options.xany ?? false,
+            dataBits: this.profile.options.databits,
+            stopBits: this.profile.options.stopbits,
+            parity: this.profile.options.parity,
+            rtscts: this.profile.options.rtscts,
+            xon: this.profile.options.xon,
+            xoff: this.profile.options.xoff,
+            xany: this.profile.options.xany,
         })
         let connected = false
         await new Promise(async (resolve, reject) => {

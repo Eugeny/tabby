@@ -2313,6 +2313,14 @@ msgstr ""
 msgid "Trim whitespace and newlines"
 msgstr ""
 
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:120
+msgid "Replace line breaks with spaces"
+msgstr ""
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:121
+msgid "Flatten pasted text into a single line for terminals that do not support multiline paste"
+msgstr ""
+
 #: tabby-core/src/services/config.service.ts:428
 msgid "Try again"
 msgstr ""

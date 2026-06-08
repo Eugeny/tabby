@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { TerminalColorSchemeProvider, TerminalColorScheme } from 'tabby-terminal'
 
-const schemeContents = require.context('../schemes/', false, /.*/)
+const schemeContents = (require as any).context('../schemes/', false, /.*/)
 
 @Injectable()
 export class ColorSchemes extends TerminalColorSchemeProvider {

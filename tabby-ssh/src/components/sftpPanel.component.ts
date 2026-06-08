@@ -170,6 +170,26 @@ export class SFTPPanelComponent {
         }
     }
 
+    async downloadItem (item: SFTPFile): Promise<void> {
+        if (item.isDirectory) {
+            await this.downloadFolder(item)
+            return
+        }
+
+        if (item.isSymlink) {
+            const target = path.resolve(this.path, await this.sftp.readlink(item.fullPath))
+            const stat = await this.sftp.stat(target)
+            if (stat.isDirectory) {
+                await this.downloadFolder(item)
+                return
+            }
+            await this.download(item.fullPath, stat.mode, stat.size)
+            return
+        }
+
+        await this.download(item.fullPath, item.mode, item.size)
+    }
+
     async openCreateDirectoryModal (): Promise<void> {
         const modal = this.ngbModal.open(SFTPCreateDirectoryModalComponent)
         const directoryName = await modal.result.catch(() => null)

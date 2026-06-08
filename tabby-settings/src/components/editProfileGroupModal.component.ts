@@ -16,7 +16,7 @@ const iconsClassList = Object.keys(iconsData).map(
     templateUrl: './editProfileGroupModal.component.pug',
 })
 export class EditProfileGroupModalComponent<G extends ProfileGroup> {
-    @Input() group: G & ConfigProxy
+    @Input() group: G & ConfigProxy<G>
     @Input() providers: ProfileProvider<Profile>[]
     @Input() selectedParentGroup: PartialProfileGroup<ProfileGroup> | undefined
     groups: PartialProfileGroup<ProfileGroup>[]

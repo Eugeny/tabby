@@ -19,7 +19,7 @@ export class LoginScriptsSettingsComponent {
     ) { }
 
     ngOnInit () {
-        this.scripts = this.options.scripts ?? []
+        this.scripts = this.options.scripts
     }
 
     async deleteScript (script: LoginScript) {

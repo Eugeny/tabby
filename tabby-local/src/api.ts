@@ -1,5 +1,7 @@
 import { BaseTerminalProfile } from 'tabby-terminal'
 
+export type ShellType = 'unix' | 'powershell' | 'cmd'
+
 export interface Shell {
     id: string
     name: string
@@ -20,6 +22,8 @@ export interface Shell {
      */
     icon?: string
 
+    shellType?: ShellType
+
     hidden?: boolean
 }
 
@@ -32,16 +36,16 @@ export abstract class ShellProvider {
 
 
 export interface SessionOptions {
-    restoreFromPTYID?: string
-    name?: string
+    restoreFromPTYID: string | null
     command: string
-    args?: string[]
-    cwd?: string
-    env?: Record<string, string>
-    width?: number
-    height?: number
-    pauseAfterExit?: boolean
-    runAsAdministrator?: boolean
+    args: string[]
+    cwd: string | null
+    env: Record<string, string>
+    width: number | null
+    height: number | null
+    shellType: ShellType | null
+    pauseAfterExit: boolean
+    runAsAdministrator: boolean
 }
 
 export interface LocalProfile extends BaseTerminalProfile {

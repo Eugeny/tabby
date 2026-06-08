@@ -36,20 +36,21 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                         ng-template(ngbPanelContent)
                             .row
                                 .col-4
-                                    button.btn.btn-primary.btn-block.justify-content-center(
-                                        (click)='installPlugin(plugin)',
-                                        [disabled]='busy.has(plugin.name)'
-                                    )
-                                        i.fas.fa-fw.fa-cloud-download(*ngIf='busy.get(plugin.name) != BusyState.Installing')
-                                        i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
-                                        span.ms-2(translate) Get
-
-                                    button.btn.btn-secondary.btn-block.justify-content-center(
-                                        *ngIf='plugin.homepage',
-                                        (click)='showPluginHomepage(plugin)'
-                                    )
-                                        i.fas.fa-fw.fa-external-link-alt
-                                        span.ms-2(translate) Homepage
+                                    div.d-flex.flex-column.flex-md-row.gap-2
+                                        button.btn.btn-primary.btn-block.justify-content-center(
+                                            (click)='installPlugin(plugin)',
+                                            [disabled]='busy.has(plugin.name)'
+                                        )
+                                            i.fas.fa-fw.fa-cloud-download(*ngIf='busy.get(plugin.name) != BusyState.Installing')
+                                            i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
+                                            span.ms-2(translate) Get
+    
+                                        button.btn.btn-secondary.btn-block.justify-content-center(
+                                            *ngIf='plugin.homepage',
+                                            (click)='showPluginHomepage(plugin)'
+                                        )
+                                            i.fas.fa-fw.fa-external-link-alt
+                                            span.ms-2(translate) Homepage
 
                                 .col-8
                                     ng-container(*ngTemplateOutlet='pluginInfo; context: { plugin }')

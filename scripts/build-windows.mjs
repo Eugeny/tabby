@@ -36,15 +36,21 @@ builder({
                     console.log('Signing', configuration)
                     if (configuration.path) {
                         try {
-                            const out = execSync(
-                                `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`
-                            )
+                            const cmd = `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`
+                            console.log(cmd)
+                            const out = execSync(cmd)
                             if (out.toString().includes('FAILED')) {
                                 throw new Error(out.toString())
                             }
                             console.log(out.toString())
                         } catch (e) {
                             console.error(`Failed to sign ${configuration.path}`)
+                            if (e.stdout) {
+                                console.error('stdout:', e.stdout.toString())
+                            }
+                            if (e.stderr) {
+                                console.error('stderr:', e.stderr.toString())
+                            }
                             console.error(e)
                             process.exit(1)
                         }

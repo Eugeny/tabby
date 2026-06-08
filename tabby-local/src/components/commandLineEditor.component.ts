@@ -40,7 +40,7 @@ export class CommandLineEditorComponent {
     updateCommand () {
         this.command = shellQuote.quote([
             this.model.command,
-            ...this.model.args ?? [],
+            ...this.model.args,
         ])
     }
 
