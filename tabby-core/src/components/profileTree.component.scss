@@ -1,9 +1,7 @@
 :host {
     background-color: var(--theme-bg-more-2);
-    height: 100vh;
     position: relative;
     border-right: 1px solid var(--theme-secondary);
-    
 }
 
 input {
@@ -74,6 +72,20 @@ input {
     }
 }
 
+
+:host(.mac-inset) {
+    padding-top: var(--tabs-height);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--tabs-height);
+        -webkit-app-region: drag;
+    }
+}
 
 .grabber {
     position: absolute;

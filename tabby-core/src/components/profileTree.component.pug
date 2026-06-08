@@ -1,10 +1,10 @@
-.div.p-2.h-100.d-flex.flex-column
+.p-2.h-100.d-flex.flex-column
     input.form-control.form-control-sm.mb-1(
         type='text',
         [(ngModel)]='filter',
-        placeholder='Filter',
+        [placeholder]='"Filter"|translate',
         (ngModelChange)='onFilterChange()'
-    )   
+    )
 
     .profile-tree.h-100
         .d-flex.flex-column.p-2.profile-tree-container
@@ -25,7 +25,7 @@
                     .fw-20
                         profile-icon.ms-1([icon]='group.icon ?? "far fa-folder"', [color]='group?.color')
                     span.ms-2.me-auto {{ group.name || ("Ungrouped"|translate) }}
-                
+
                 ng-container(*ngIf='!group.collapsed')
                     ng-container(*ngFor='let profile of group.profiles')
                         a.tree-item(
@@ -41,11 +41,7 @@
                             .actions
                                 .action((click)='launchProfile(profile)')
                                     .fa.fa-fw.fas.fa-play
-                                //- .action
-                                //-     .fa.fa-fw.fas.fa-eject
 
-
-                            
                     ng-container(*ngFor='let child of group.children')
                         ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: child, depth: depth + 1}')
 .grabber(

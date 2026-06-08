@@ -33,7 +33,7 @@ export class ProfileTreeComponent extends BaseComponent {
 
     panelMinWidth = 200
     panelMaxWidth = 600
-    panelInternalWidth: number = parseInt(window.localStorage.profileTreeWidth ?? 300)
+    panelInternalWidth: number = parseInt(window.localStorage.profileTreeWidth ?? '300')
     panelStartWidth = this.panelInternalWidth
     panelIsResizing = false
     panelStartX = 0
@@ -51,7 +51,6 @@ export class ProfileTreeComponent extends BaseComponent {
 
     async ngOnInit (): Promise<void> {
         await this.loadTreeItems()
-        this.subscribeUntilDestroyed(this.config.changed$, () => this.loadTreeItems())
         this.subscribeUntilDestroyed(this.config.changed$, () => this.loadTreeItems())
         this.app.tabsChanged$.subscribe(() => this.tabStateChanged())
         this.app.activeTabChange$.subscribe(() => this.tabStateChanged())
@@ -91,7 +90,7 @@ export class ProfileTreeComponent extends BaseComponent {
         const provider = this.profilesService.providerForProfile(profile)
         if (!provider) { throw new Error('Cannot edit a profile without a provider') }
 
-        modal.componentInstance.profile = deepClone(profile)
+        modal.componentInstance.partialProfile = deepClone(profile)
         modal.componentInstance.profileProvider = provider
 
         const result = await modal.result.catch(() => null)

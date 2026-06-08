@@ -63,11 +63,12 @@ export class EditProfileGroupModalComponent<G extends ProfileGroup> {
         private profilesService: ProfilesService,
         private platform: PlatformService,
         private translate: TranslateService,
-    ) {
-        this.profilesService.getProfileGroups().then(groups => {
-            this.groups = this.getValidParents(groups, this.group.id)
-            this.selectedParentGroup = groups.find(g => g.id === this.group.parentGroupId) ?? undefined
-        })
+    ) { }
+
+    async ngOnInit () {
+        const groups = await this.profilesService.getProfileGroups()
+        this.groups = this.getValidParents(groups, this.group.id)
+        this.selectedParentGroup = groups.find(g => g.id === this.group.parentGroupId) ?? undefined
     }
 
     colorsAutocomplete = text$ => text$.pipe(

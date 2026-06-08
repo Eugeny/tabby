@@ -59,7 +59,7 @@ export class Window {
 
         const maximized = this.windowConfig.get('maximized')
         const bwOptions: BrowserWindowConstructorOptions = {
-            width: 1150,
+            width: 800,
             height: 600,
             title: 'Tabby',
             minWidth: 400,
