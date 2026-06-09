@@ -1,6 +1,5 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import slugify from 'slugify'
-import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
 import { NewTabParameters, SelectorService, HostAppService, Platform, TranslateService, ConnectableProfileProvider, NotificationsService } from 'tabby-core'
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
@@ -83,9 +82,11 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
     }
 
     async getNewTabParameters (profile: SerialProfile): Promise<NewTabParameters<SerialTabComponent>> {
+        // Create a temporary profile for setting port and baudrate without modifying the original
+        const tabProfile: SerialProfile = JSON.parse(JSON.stringify(profile))
+
         // Show port selector first if not set
-        if (!profile.options.port) {
-            profile = deepClone(profile)
+        if (!tabProfile.options.port) {
             let port: string|undefined = undefined
 
             try {
@@ -103,12 +104,11 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
                 throw new Error('Port selection canceled')
             }
 
-            profile.options.port = port
+            tabProfile.options.port = port
         }
 
         // Then show baudrate selector if not set
-        if (!profile.options.baudrate) {
-            profile = deepClone(profile)
+        if (!tabProfile.options.baudrate) {
             let baudrate: number|undefined = undefined
 
             try {
@@ -143,11 +143,11 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
                 throw new Error('Invalid baud rate')
             }
 
-            profile.options.baudrate = baudrate
+            tabProfile.options.baudrate = baudrate
         }
         return {
             type: SerialTabComponent,
-            inputs: { profile },
+            inputs: { profile: tabProfile },
         }
     }
 
