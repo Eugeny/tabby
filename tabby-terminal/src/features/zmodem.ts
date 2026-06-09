@@ -1,11 +1,11 @@
 import colors from 'ansi-colors'
 import * as ZModem from 'zmodem.js'
 import { Observable, filter, first } from 'rxjs'
-import { Injectable } from '@angular/core'
+import { EnvironmentInjector, inject, Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { SessionMiddleware } from '../api/middleware'
-import { LogService, Logger, HotkeysService, PlatformService, FileUpload } from 'tabby-core'
+import { LogService, Logger, PlatformService, FileUpload, TranslateService } from 'tabby-core'
 
 const SPACER = '            '
 
@@ -16,15 +16,15 @@ class ZModemMiddleware extends SessionMiddleware {
     private activeSession: any = null
     private cancelEvent: Observable<any>
 
-    constructor (
-        log: LogService,
-        hotkeys: HotkeysService,
-        private platform: PlatformService,
-    ) {
+    private log = inject(LogService)
+    private translate = inject(TranslateService)
+    private platform = inject(PlatformService)
+
+    constructor () {
         super()
         this.cancelEvent = this.outputToSession$.pipe(filter(x => x.length === 1 && x[0] === 3))
 
-        this.logger = log.create('zmodem')
+        this.logger = this.log.create('zmodem')
         this.sentry = new ZModem.Sentry({
             to_terminal: data => {
                 if (this.isActive && this.activeSession) {
@@ -33,6 +33,20 @@ class ZModemMiddleware extends SessionMiddleware {
             },
             sender: data => this.outputToSession.next(Buffer.from(data)),
             on_detect: async detection => {
+                if ((await this.platform.showMessageBox({
+                    type: 'warning',
+                    message: this.translate.instant('Accept a ZMODEM session?'),
+                    detail: this.translate.instant('If you have not requested it, it could be a sign of malicious activity.'),
+                    buttons: [
+                        this.translate.instant('Accept'),
+                        this.translate.instant('Reject'),
+                    ],
+                    defaultId: 0,
+                    cancelId: 1,
+                })).response === 1) {
+                    return
+                }
+
                 try {
                     this.isActive = true
                     await this.process(detection)
@@ -136,6 +150,10 @@ class ZModemMiddleware extends SessionMiddleware {
             canceled = true
         })
 
+        let writeQueue: Promise<void> = Promise.resolve()
+        let receivedBytes = 0
+        let lastUpdateTime = 0
+
         try {
             await Promise.race([
                 xfer.accept({
@@ -143,12 +161,27 @@ class ZModemMiddleware extends SessionMiddleware {
                         if (canceled) {
                             return
                         }
-                        transfer.write(Buffer.from(chunk))
-                        this.showMessage(colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / details.size).toString().padStart(3, ' ') + '% ') + ' ' + details.name, true)
+
+                        receivedBytes += chunk.length
+                        const now = Date.now()
+                        if (now - lastUpdateTime > 500) {
+                            lastUpdateTime = now
+                            const percent = Math.round(100 * receivedBytes / details.size)
+                            const percentStr = percent.toString().padStart(3, ' ')
+                            this.showMessage(colors.bgYellow.black(` ${percentStr}% `) + ' ' + details.name, true)
+                        }
+
+                        writeQueue = writeQueue
+                            .then(() => transfer.write(Buffer.from(chunk)))
+                            .catch(err => {
+                                this.logger.error('Zmodem write error', err)
+                            })
                     },
                 }),
                 this.cancelEvent.pipe(first()).toPromise(),
             ])
+
+            await writeQueue
 
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (canceled) {
@@ -229,13 +262,7 @@ class ZModemMiddleware extends SessionMiddleware {
 /** @hidden */
 @Injectable()
 export class ZModemDecorator extends TerminalDecorator {
-    constructor (
-        private log: LogService,
-        private hotkeys: HotkeysService,
-        private platform: PlatformService,
-    ) {
-        super()
-    }
+    #injector = inject(EnvironmentInjector)
 
     attach (terminal: BaseTerminalTabComponent<any>): void {
         setTimeout(() => {
@@ -250,6 +277,6 @@ export class ZModemDecorator extends TerminalDecorator {
         if (!terminal.session) {
             return
         }
-        terminal.session.middleware.unshift(new ZModemMiddleware(this.log, this.hotkeys, this.platform))
+        terminal.session.middleware.unshift(this.#injector.runInContext(() => new ZModemMiddleware()))
     }
 }

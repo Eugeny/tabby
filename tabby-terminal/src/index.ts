@@ -105,3 +105,4 @@ export * from './api/middleware'
 export * from './session'
 export { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }
 export { MultifocusService } from './services/multifocus.service'
+export { TerminalColorScheme } from 'tabby-core' // was previously defined in this plugin

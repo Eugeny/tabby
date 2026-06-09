@@ -9,6 +9,7 @@ import { BaseSession } from '../session'
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
+import { syncTerminalVisibility } from '../frontends/visibility'
 import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
@@ -446,14 +447,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             .pipe(debounce(visibility => interval(visibility ? 0 : INACTIVE_TAB_UNLOAD_DELAY)))
             .subscribe(visibility => {
                 if (this.frontend instanceof XTermFrontend) {
-                    if (visibility) {
-                        this.frontend.xterm.refresh(0, this.frontend.xterm.rows - 1)
-                    } else {
-                        this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
-                            c.height = c.width = 0
-                            c.style.height = c.style.width = '0px'
-                        })
-                    }
+                    syncTerminalVisibility(this.frontend, visibility)
                 }
             })
     }
@@ -533,6 +527,10 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             data = data.replaceAll('\r\n', '\r')
         } else {
             data = data.replaceAll('\n', '\r')
+        }
+
+        if (this.config.store.terminal.replaceNewlinesWithSpacesOnPaste) {
+            data = data.replace(/[\r\n]+/g, ' ')
         }
 
         if (this.config.store.terminal.trimWhitespaceOnPaste && data.indexOf('\n') === data.length - 1) {
@@ -822,6 +820,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
 
         this.attachSessionHandler(this.session.destroyed$, () => {
             this.onSessionDestroyed()
+        })
+
+        this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
+            this.platform.setClipboard({ text: content })
+            this.notifications.notice(this.translate.instant('Copied'))
         })
     }
 

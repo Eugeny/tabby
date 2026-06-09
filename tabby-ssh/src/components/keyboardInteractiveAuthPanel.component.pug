@@ -2,12 +2,20 @@
     strong(translate) Keyboard-interactive auth
     .ms-2 {{prompt.name}}
 
-.prompt-text {{prompt.prompts[step].prompt}}
+.prompt-text
+    span(*ngFor='let part of getPromptParts()')
+        a(
+            *ngIf='part.url',
+            [href]='part.url',
+            rel='noreferrer noopener',
+            (click)='openPromptLink(part.url, $event)'
+        ) {{part.text}}
+        span(*ngIf='!part.url') {{part.text}}
 
 input.form-control.mt-2(
     #input,
     autofocus,
-    [type]='isPassword() ? "password": "text"',
+    [type]='shouldEcho() ? "text" : "password"',
     placeholder='Response',
     (keyup.enter)='next()',
     [(ngModel)]='prompt.responses[step]'

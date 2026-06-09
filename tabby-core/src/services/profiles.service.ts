@@ -14,7 +14,7 @@ import slugify from 'slugify'
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
-    private profileDefaults: Profile = {
+    private profileDefaults = {
         id: '',
         type: '',
         name: '',
@@ -26,6 +26,7 @@ export class ProfilesService {
         weight: 0,
         isBuiltin: false,
         isTemplate: false,
+        terminalColorScheme: null,
         behaviorOnSessionEnd: 'auto',
     }
 
@@ -52,8 +53,8 @@ export class ProfilesService {
     }
 
     getDescription <P extends Profile> (profile: PartialProfile<P>): string|null {
-        profile = this.getConfigProxyForProfile(profile) as PartialProfile<P>
-        return this.providerForProfile(profile)?.getDescription(profile) ?? null
+        const fullProfile = this.getConfigProxyForProfile(profile)
+        return this.providerForProfile(fullProfile)?.getDescription(fullProfile) ?? null
     }
 
     /*
@@ -65,7 +66,7 @@ export class ProfilesService {
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     * arg: skipGroupDefaults -> do not merge parent group provider defaults in ConfigProxy
     */
-    getConfigProxyForProfile <P extends Profile> (profile: PartialProfile<P>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): FullyDefined<P> & ConfigProxy<FullyDefined<P>> {
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): FullyDefined<T> & ConfigProxy<FullyDefined<T>> {
         const defaults = this.getProfileDefaults(profile, options).reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as any
     }
@@ -213,17 +214,40 @@ export class ProfilesService {
         const provider = this.providerForProfile(fullProfile)
         const freeInputEquivalent = provider instanceof QuickConnectProfileProvider ? provider.intoQuickConnectString(fullProfile) ?? undefined : undefined
         return {
-            name: profile.name,
+            ...profile,
             icon: profile.icon ?? undefined,
             color: profile.color ?? undefined,
-            weight: profile.weight,
-            group: this.resolveProfileGroupName(profile.group ?? ''),
+            group: this.resolveProfileGroupPath(profile.group ?? '').join(' 🡒 '),
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
         }
     }
 
-    showProfileSelector (): Promise<PartialProfile<Profile>|null> {
+    buildGroupTree (groups: PartialProfileGroup<ProfileGroup & { children: any }>[]): PartialProfileGroup<ProfileGroup & { children: any }>[] {
+        const map = new Map<string, PartialProfileGroup<ProfileGroup & { children: any }>>()
+
+        for (const group of groups) {
+            group.children = []
+            map.set(group.id, group)
+        }
+
+        const roots: PartialProfileGroup<ProfileGroup & { children: any }>[] = []
+
+        for (const group of groups) {
+            if (group.parentGroupId) {
+                const parent = map.get(group.parentGroupId)
+                if (parent) {
+                    parent.children.push(group)
+                } else { roots.push(group) } // Orphaned group, treat as root
+            } else {
+                roots.push(group)
+            }
+        }
+
+        return roots
+    }
+
+    showProfileSelector (): Promise<PartialProfile<Profile> | null> {
         if (this.selector.active) {
             return Promise.resolve(null)
         }
@@ -263,6 +287,12 @@ export class ProfilesService {
 
                 if (!this.config.store.terminal.showBuiltinProfiles) {
                     profiles = profiles.filter(x => !x.isBuiltin)
+                } else {
+                    profiles = profiles.map(p => {
+                        if (p.isBuiltin) { p.group = 'Built-in' }
+                        if (!p.icon) { p.icon = 'fas fa-network-wired' }
+                        return p
+                    })
                 }
 
                 profiles = profiles.filter(x => !x.isTemplate)
@@ -501,7 +531,37 @@ export class ProfilesService {
     * Resolve and return ProfileGroup Name from ProfileGroup ID
     */
     resolveProfileGroupName (groupId: string): string {
-        return this.config.store.groups.find(g => g.id === groupId)?.name ?? groupId
+        const group = this.resolveProfileGroup(groupId)
+        return group?.name ?? groupId
+    }
+
+    resolveProfileGroupPath (groupId: string): string[] {
+        const groupNames: string[] = []
+        let currentGroupId: string | undefined = groupId
+        let depth = 0
+
+        while (currentGroupId && depth <= 30) {
+            const group = this.resolveProfileGroup(currentGroupId)
+            if (!group) {
+                groupNames.unshift(currentGroupId)
+                break
+            }
+
+            if (group.name) { groupNames.unshift(group.name) }
+
+            if (!group.parentGroupId) { break }
+            currentGroupId = group.parentGroupId
+            depth++
+        }
+
+        return groupNames
+    }
+
+    /**
+    * Resolve and return ProfileGroup | null from ProfileGroup ID
+    */
+    resolveProfileGroup (groupId: string): PartialProfileGroup<ProfileGroup> | null {
+        return this.config.store.groups.find(g => g.id === groupId) ?? null
     }
 
     /**
@@ -510,7 +570,7 @@ export class ProfilesService {
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     */
     getProviderProfileGroupDefaults (groupId: string, provider: ProfileProvider<Profile>): any {
-        return this.getSyncProfileGroups().find(g => g.id === groupId)?.defaults?.[provider.id] ?? {}
+        return (this.config.store.groups ?? []).find(g => g.id === groupId)?.defaults?.[provider.id] ?? {}
     }
 
 }

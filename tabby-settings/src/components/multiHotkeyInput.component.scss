@@ -3,7 +3,7 @@
     flex-wrap: nowrap;
 
     &:hover .add {
-      display: initial;
+        opacity: 1;
     }
 }
 
@@ -27,9 +27,9 @@
 
 .add {
     flex: auto;
-    display: none;
+    opacity: 0;
 
     &:first-child {
-        display: block;
+        opacity: 1;
     }
 }

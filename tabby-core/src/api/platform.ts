@@ -262,7 +262,7 @@ export abstract class PlatformService {
 
     abstract getOSRelease (): string
     abstract getAppVersion (): string
-    abstract openExternal (url: string): void
+    abstract openExternal (url: string): Promise<void>
     abstract listFonts (): Promise<string[]>
     abstract setErrorHandler (handler: (_: any) => void): void
     abstract popupContextMenu (menu: MenuItemOptions[], event?: MouseEvent): void

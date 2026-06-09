@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { TerminalColorScheme } from './api/interfaces'
 import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
+import { TerminalColorScheme } from 'tabby-core'
 
 @Injectable({ providedIn: 'root' })
 export class DefaultColorSchemes extends TerminalColorSchemeProvider {
