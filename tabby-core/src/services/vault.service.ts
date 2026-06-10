@@ -179,11 +179,11 @@ export class VaultService {
         if (!_rememberedPassphrase) {
             const modal = this.ngbModal.open(UnlockVaultModalComponent)
             const { passphrase, rememberFor } = await modal.result
+            _rememberedPassphrase = passphrase
             setTimeout(() => {
                 _rememberedPassphrase = null
                 // avoid multiple consequent prompts
-            }, Math.max(1000, rememberFor * 60000))
-            _rememberedPassphrase = passphrase
+            }, rememberFor > 0 ? rememberFor * 60000 : 1000)
         }
 
         return _rememberedPassphrase!
