@@ -20,9 +20,17 @@ export class FastHtmlBindDirective implements OnChanges {
         }
         this._lastValue = this.fastHtmlBind
         this.el.nativeElement.innerHTML = this.fastHtmlBind ?? ''
+        const allowedSchemes = ['http:', 'https:', 'ftp:', 'mailto:', 'ssh:']
         for (const link of this.el.nativeElement.querySelectorAll('a')) {
             link.addEventListener('click', event => {
                 event.preventDefault()
+                try {
+                    if (!allowedSchemes.includes(new URL(link.href).protocol)) {
+                        return
+                    }
+                } catch {
+                    return
+                }
                 this.platform.openExternal(link.href)
             })
         }
