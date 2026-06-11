@@ -145,6 +145,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             id: 'debug-paste-output',
             name: this.translate.instant('Paste session output (debug)'),
         },
+        {
+            id: 'insert-new-line',
+            name: this.translate.instant('Insert new line'),
+        },
     ]
 
     constructor (private translate: TranslateService) { super() }
