@@ -306,6 +306,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                         }[this.hostApp.platform])
                     })
                     break
+                case 'insert-new-line':
+                    this.forEachFocusedTerminalPane(tab => {
+                        tab.sendInput('\x1b\r')
+                    })
+                    break
                 case 'copy-current-path':
                     this.copyCurrentPath()
                     break
