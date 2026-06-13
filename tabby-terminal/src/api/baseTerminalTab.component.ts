@@ -438,6 +438,14 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
 
         this.frontend.focus()
 
+        window.addEventListener('focus', () => {
+            setTimeout(() => {
+                if (this.frontend && typeof (this.frontend as any).checkAndRecover === 'function') {
+                    (this.frontend as any).checkAndRecover()
+                }
+            }, 100)
+        })
+
         this.blurred$.subscribe(() => {
             this.multifocus.cancel()
         })
@@ -447,15 +455,12 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             .subscribe(visibility => {
                 if (this.frontend instanceof XTermFrontend) {
                     if (visibility) {
-                        // this.frontend.resizeHandler()
+                        if (typeof (this.frontend as any).checkAndRecover === 'function') {
+                            (this.frontend as any).checkAndRecover()
+                        }
                         const term = this.frontend.xterm as any
                         term._core._renderService?.clear()
                         term._core._renderService?.handleResize(term.cols, term.rows)
-                    } else {
-                        this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
-                            c.height = c.width = 0
-                            c.style.height = c.style.width = '0px'
-                        })
                     }
                 }
             })

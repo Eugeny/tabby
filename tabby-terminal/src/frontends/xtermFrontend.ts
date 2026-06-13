@@ -83,6 +83,8 @@ export class XTermFrontend extends Frontend {
     private resizeObserver?: any
     private flowControl: FlowControl
     private pinnedToBottom = true
+    private recoveryRetries = 0
+    private isContextLost = false
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -258,6 +260,8 @@ export class XTermFrontend extends Frontend {
 
         this.xterm.open(host)
         this.opened = true
+        
+        this.setupContextLossListeners()
 
         // Work around font loading bugs
         await new Promise(resolve => setTimeout(resolve, this.hostApp.platform === Platform.Web ? 1000 : 0))
@@ -606,6 +610,104 @@ export class XTermFrontend extends Frontend {
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         this.xterm.options.lineHeight = Math.max(1, (this.configuredFontSize + this.configuredLinePadding * 2) / this.configuredFontSize)
         this.resizeHandler()
+    }
+
+    private recreateRenderer(): void {
+        try {
+            if (this.webGLAddon) {
+                this.webGLAddon.dispose()
+                this.webGLAddon = undefined
+            }
+            if (this.canvasAddon) {
+                this.canvasAddon.dispose()
+                this.canvasAddon = undefined
+            }
+
+            if (this.recoveryRetries < 3) {
+                this.recoveryRetries++
+                this.webGLAddon = new WebglAddon()
+                this.xterm.loadAddon(this.webGLAddon)
+                console.log(`[Tabby] Recovered WebGL renderer (Retry ${this.recoveryRetries})`)
+            } else {
+                console.log('[Tabby] WebGL recovery exhausted. Falling back to DOM renderer directly.')
+                this.enableWebGL = false
+            }
+
+            this.setupContextLossListeners()
+            const term = this.xterm as any
+            term._core._renderService?.clear()
+            term._core._renderService?.handleResize(term.cols, term.rows)
+        } catch (err) {
+            console.error('[Tabby] Failed to recreate renderer:', err)
+        }
+    }
+
+    private triggerRecovery(): void {
+        this.isContextLost = true
+        this.checkAndRecover()
+    }
+
+    private setupContextLossListeners(): void {
+        setTimeout(() => {
+            const host = this.element
+            if (!host) return
+
+            const observer = new MutationObserver(() => {
+                const canvases = host.querySelectorAll('canvas')
+                canvases.forEach(canvas => {
+                    if (!(canvas as any)._contextLossListenerBound) {
+                        canvas.addEventListener('webglcontextlost', (e) => {
+                            e.preventDefault()
+                            console.warn('[Tabby] WebGL context lost detected via event.')
+                            this.triggerRecovery()
+                        }, false)
+                        ;(canvas as any)._contextLossListenerBound = true
+                    }
+                })
+            })
+            observer.observe(host, { childList: true, subtree: true })
+
+            const canvases = host.querySelectorAll('canvas')
+            canvases.forEach(canvas => {
+                if (!(canvas as any)._contextLossListenerBound) {
+                    canvas.addEventListener('webglcontextlost', (e) => {
+                        e.preventDefault()
+                        console.warn('[Tabby] WebGL context lost detected via event.')
+                        this.triggerRecovery()
+                    }, false)
+                    ;(canvas as any)._contextLossListenerBound = true
+                }
+            })
+        }, 500)
+    }
+
+    public isContextLostNow(): boolean {
+        if (!this.element) return false
+        const canvases = this.element.querySelectorAll('canvas')
+        for (let i = 0; i < canvases.length; i++) {
+            const gl = canvases[i].getContext('webgl2') || canvases[i].getContext('webgl')
+            if (gl && gl.isContextLost()) {
+                return true
+            }
+        }
+        return false
+    }
+
+    public checkAndRecover(): void {
+        if (this.isContextLostNow()) {
+            this.isContextLost = true
+        }
+
+        if (this.isContextLost) {
+            const host = this.element
+            if (host && host.offsetParent !== null) {
+                console.log('[Tabby] Tab is visible. Proceeding with recovery.')
+                this.recreateRenderer()
+                this.isContextLost = false
+            } else {
+                console.log('[Tabby] Tab is hidden. Deferring recovery.')
+            }
+        }
     }
 
     private getSelectionAsHTML (): string {
