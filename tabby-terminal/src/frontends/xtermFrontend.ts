@@ -260,7 +260,7 @@ export class XTermFrontend extends Frontend {
 
         this.xterm.open(host)
         this.opened = true
-        
+
         this.setupContextLossListeners()
 
         // Work around font loading bugs
@@ -612,7 +612,7 @@ export class XTermFrontend extends Frontend {
         this.resizeHandler()
     }
 
-    private recreateRenderer(): void {
+    private recreateRenderer (): void {
         try {
             if (this.webGLAddon) {
                 this.webGLAddon.dispose()
@@ -642,15 +642,17 @@ export class XTermFrontend extends Frontend {
         }
     }
 
-    private triggerRecovery(): void {
+    private triggerRecovery (): void {
         this.isContextLost = true
         this.checkAndRecover()
     }
 
-    private setupContextLossListeners(): void {
+    private setupContextLossListeners (): void {
         setTimeout(() => {
             const host = this.element
-            if (!host) return
+            if (!host) {
+                return
+            }
 
             const observer = new MutationObserver(() => {
                 const canvases = host.querySelectorAll('canvas')
@@ -681,11 +683,13 @@ export class XTermFrontend extends Frontend {
         }, 500)
     }
 
-    public isContextLostNow(): boolean {
-        if (!this.element) return false
+    isContextLostNow (): boolean {
+        if (!this.element) {
+            return false
+        }
         const canvases = this.element.querySelectorAll('canvas')
-        for (let i = 0; i < canvases.length; i++) {
-            const gl = canvases[i].getContext('webgl2') || canvases[i].getContext('webgl')
+        for (const canvas of Array.from(canvases)) {
+            const gl = canvas.getContext('webgl2') ?? canvas.getContext('webgl')
             if (gl && gl.isContextLost()) {
                 return true
             }
@@ -693,14 +697,14 @@ export class XTermFrontend extends Frontend {
         return false
     }
 
-    public checkAndRecover(): void {
+    checkAndRecover (): void {
         if (this.isContextLostNow()) {
             this.isContextLost = true
         }
 
         if (this.isContextLost) {
             const host = this.element
-            if (host && host.offsetParent !== null) {
+            if (host?.offsetParent !== null) {
                 console.log('[Tabby] Tab is visible. Proceeding with recovery.')
                 this.recreateRenderer()
                 this.isContextLost = false
