@@ -466,6 +466,9 @@ export class ConfigService {
                 decryptedVault = await this.vault.decrypt(store.vault, passphrase)
                 break
             } catch (e) {
+                if (e.toString().includes('Vault unlock cancelled')) {
+                    continue
+                }
                 let result = await this.platform.showMessageBox({
                     type: 'error',
                     message: this.translate.instant('Could not decrypt config'),
