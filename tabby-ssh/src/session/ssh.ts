@@ -245,12 +245,12 @@ export class SSHSession {
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
-            if (this.profile.options.password != null) {
+            if (typeof this.profile.options.password === 'string') {
                 this.allAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
-            if (this.profile.options.password != null) {
+            if (typeof this.profile.options.password === 'string') {
                 this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword: this.profile.options.password })
             }
             this.allAuthMethods.push({ type: 'keyboard-interactive' })
