@@ -57,7 +57,7 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
 
         if (this.profile.options.user) {
             try {
-                this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.profile)
+                this.hasSavedPassword = (await this.passwordStorage.loadPassword(this.profile)) != null
             } catch (e) {
                 console.error('Could not check for saved password', e)
             }
@@ -74,7 +74,7 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         modal.componentInstance.password = true
         try {
             const result = await modal.result.catch(() => null)
-            if (result?.value) {
+            if (result != null) {
                 this.passwordStorage.savePassword(this.profile, result.value)
                 this.hasSavedPassword = true
             }
