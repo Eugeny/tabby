@@ -232,9 +232,10 @@ int wmain(int argc, wchar_t* argv[])
 
 		std::wstring cmd = L"--pipe " + std::wstring(pipeName) + L" ";
 		for (int i = 1; i < argc; i++) {
+			if (i > 1) { cmd += L' '; }
 			cmd += L"\"";
 			cmd += argv[i];
-			cmd += L"\" ";
+			cmd += L"\"";
 		}
 
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -277,9 +278,10 @@ int wmain(int argc, wchar_t* argv[])
 	pipeControl = CreateFile((std::wstring(argv[2]) + L"-control").c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
 	std::wstring cmd = L"";
 	for (int i = 3; i < argc; i++) {
+		if (i > 3) { cmd += L' '; }
 		cmd += L"\"";
 		cmd += argv[i];
-		cmd += L"\" ";
+		cmd += L"\"";
 	}
 
 	//  Create the Pseudo Console and pipes to it
