@@ -59,6 +59,7 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
     async initializeSession (): Promise<void> {
         this.reconnectOffered = false
         this.isDisconnectedByHand = false
+        this.userSentEOT = false
     }
 
     /**
