@@ -90,6 +90,62 @@ function convertSSHConfigValuesToString (arg: string | string[] | object[]): str
         .join(' ')
 }
 
+function resolveSSHIncludePath (value: string): string {
+    if (path.isAbsolute(value)) {
+        return value
+    }
+    if (value.startsWith('~')) {
+        return path.join(process.env.HOME ?? '~', value.slice(1))
+    }
+    return path.join(process.env.HOME ?? '~', '.ssh', value)
+}
+
+async function collectSSHConfigMtimes (
+    filePath: string,
+    visited = new Set<string>(),
+    mtimes: number[] = [],
+): Promise<void> {
+    if (visited.has(filePath)) {
+        return
+    }
+    visited.add(filePath)
+
+    let raw = ''
+    try {
+        const stat = await fs.stat(filePath)
+        mtimes.push(stat.mtimeMs)
+        raw = await fs.readFile(filePath, 'utf8')
+    } catch (err) {
+        console.error(`Error reading SSH config file: ${filePath}`, err)
+        return
+    }
+
+    const parsed = SSHConfig.parse(raw)
+    for (const entry of parsed) {
+        if (entry.type === LineType.DIRECTIVE && entry.param.toLowerCase() === 'include') {
+            const directive = entry as Directive
+            if (typeof directive.value !== 'string') {
+                continue
+            }
+
+            const matches = glob.sync(resolveSSHIncludePath(directive.value))
+            for (const match of matches) {
+                const stat = await fs.stat(match)
+                if (stat.isDirectory()) {
+                    continue
+                }
+                await collectSSHConfigMtimes(match, visited, mtimes)
+            }
+        }
+    }
+}
+
+async function getSSHConfigRevision (configPath: string): Promise<number> {
+    const mtimes: number[] = []
+    await collectSSHConfigMtimes(configPath, new Set(), mtimes)
+    return mtimes.length ? Math.max(...mtimes) : 0
+}
+
 // Function to read in the SSH config file recursively and parse any Include directives
 async function parseSSHConfigFile (
     filePath: string,
@@ -118,17 +174,7 @@ async function parseSSHConfigFile (
                 continue
             }
 
-            // ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
-            let incPath = ''
-            if (path.isAbsolute(directive.value)) {
-                incPath = directive.value
-            } else if (directive.value.startsWith('~')) {
-                incPath = path.join(process.env.HOME ?? '~', directive.value.slice(1))
-            } else {
-                incPath = path.join(process.env.HOME ?? '~', '.ssh', directive.value)
-            }
-
-            const matches = glob.sync(incPath)
+            const matches = glob.sync(resolveSSHIncludePath(directive.value))
             for (const match of matches) {
                 const stat = await fs.stat(match)
                 if (stat.isDirectory()) {
@@ -381,8 +427,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
 
         _openSSHCachePromise = (async () => {
             try {
-                const stat = await fs.stat(configPath)
-                const mtime = stat.mtimeMs
+                const mtime = await getSSHConfigRevision(configPath)
 
                 if (_openSSHCache && _openSSHCacheMtime === mtime) {
                     return _openSSHCache
@@ -400,7 +445,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
                     }
                 } catch { /* no cache or invalid */ }
 
-                const config: SSHConfig = await parseSSHConfigFile(configPath)
+                const config = await parseSSHConfigFile(configPath)
                 _openSSHCache = await convertToSSHProfiles(config)
                 _openSSHCacheMtime = mtime
 

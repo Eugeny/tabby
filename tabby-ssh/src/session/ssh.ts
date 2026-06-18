@@ -16,6 +16,7 @@ import { SSHAlgorithmType, SSHProfile, AutoPrivateKeyLocator, PortForwardType } 
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
+import { resolveSSHConnectionTarget } from '../connectionTarget'
 import * as russh from 'russh'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
@@ -371,8 +372,14 @@ export class SSHSession {
         return new SFTPSession(this.sftp, this.injector)
     }
 
+    private getConnectionTarget () {
+        return resolveSSHConnectionTarget(this.profile.options.host, this.profile.options.port)
+    }
+
     async start (): Promise<void> {
         await this.init()
+
+        const { host, port } = this.getConnectionTarget()
 
         const algorithms = {}
         for (const key of Object.values(SSHAlgorithmType)) {
@@ -394,19 +401,19 @@ export class SSHSession {
             transport = await russh.SshTransport.newSocksProxy(
                 this.profile.options.socksProxyHost,
                 this.profile.options.socksProxyPort ?? 1080,
-                this.profile.options.host,
-                this.profile.options.port ?? 22,
+                host,
+                port,
             )
         } else if (this.profile.options.httpProxyHost) {
             this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.httpProxyHost}:${this.profile.options.httpProxyPort}`)
             transport = await russh.SshTransport.newHttpProxy(
                 this.profile.options.httpProxyHost,
                 this.profile.options.httpProxyPort ?? 8080,
-                this.profile.options.host,
-                this.profile.options.port ?? 22,
+                host,
+                port,
             )
         } else {
-            transport = await russh.SshTransport.newSocket(`${this.profile.options.host.trim()}:${this.profile.options.port ?? 22}`)
+            transport = await russh.SshTransport.newSocket(`${host}:${port}`)
         }
 
         this.ssh = await russh.SSHClient.connect(
@@ -582,9 +589,10 @@ export class SSHSession {
         if (!this.config.store.ssh.verifyHostKeys) {
             return true
         }
+        const { host, port } = this.getConnectionTarget()
         const selector = {
-            host: this.profile.options.host,
-            port: this.profile.options.port ?? 22,
+            host,
+            port,
             type: key.algorithm(),
         }
 
