@@ -75,7 +75,9 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         modal.componentInstance.password = true
         try {
             const result = await modal.result.catch(() => null)
-            if (result != null) {
+            // Allow saving a blank password (empty string), but guard against a
+            // malformed modal result that carries no string value.
+            if (typeof result?.value === 'string') {
                 this.passwordStorage.savePassword(this.profile, result.value)
                 this.hasSavedPassword = true
             }
