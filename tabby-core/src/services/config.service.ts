@@ -467,6 +467,21 @@ export class ConfigService {
                 break
             } catch (e) {
                 if (e.toString().includes('Vault unlock cancelled')) {
+                    const cancelResult = await this.platform.showMessageBox({
+                        type: 'warning',
+                        message: this.translate.instant('Vault is locked'),
+                        detail: this.translate.instant('The vault must be unlocked to load your configuration.'),
+                        buttons: [
+                            this.translate.instant('Try again'),
+                            this.translate.instant('Quit'),
+                        ],
+                        defaultId: 0,
+                        cancelId: 1,
+                    })
+                    if (cancelResult.response === 1) {
+                        this.platform.quit()
+                        return {}
+                    }
                     continue
                 }
                 let result = await this.platform.showMessageBox({
