@@ -137,7 +137,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected binaryOutput = new Subject<Buffer>()
     protected sessionChanged = new Subject<BaseSession|null>()
     protected recentInputs = ''
-    protected userSentEOT = false
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions = new SubscriptionContainer()
     private sessionHandlers = new SubscriptionContainer()
@@ -764,7 +763,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                 this.setSession(null)
             }
             this.detachSessionHandlers()
-            this.userSentEOT = false
+            this.recentInputs = ''
             this.session = session
             this.attachSessionHandlers(destroyOnSessionClose)
         } else {
@@ -912,15 +911,15 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      * Return true if the user explicitly exit the session
      */
     protected isSessionExplicitlyTerminated (): boolean {
-        return this.userSentEOT
+        // EOT (Ctrl+D) as the most recent keystroke means the user asked the
+        // shell to exit. Checking the trailing byte (rather than "ever seen")
+        // avoids false positives when Ctrl+D is used for EOF inside a pager,
+        // REPL, etc. and the session later ends for an unrelated reason.
+        return this.recentInputs.endsWith('\x04')
     }
 
     protected recordRecentInput (data: Buffer): void {
-        const chunk = data.toString('latin1')
-        this.recentInputs += chunk
+        this.recentInputs += data.toString('latin1')
         this.recentInputs = this.recentInputs.substring(this.recentInputs.length - 32)
-        if (chunk.includes('\x04')) {
-            this.userSentEOT = true
-        }
     }
 }
