@@ -3,7 +3,7 @@ import * as path from 'path'
 import untildify from 'untildify'
 import { Injectable } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
-import { PlatformService } from 'tabby-core'
+import { PlatformService, isURLSchemeAllowed } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 
 import { LinkHandler } from './api'
@@ -21,12 +21,7 @@ export class URLHandler extends LinkHandler {
     }
 
     handle (uri: string): void {
-        const allowed = ['http:', 'https:', 'ftp:', 'mailto:', 'ssh:']
-        try {
-            if (!allowed.includes(new URL(uri).protocol)) {
-                return
-            }
-        } catch {
+        if (!isURLSchemeAllowed(uri)) {
             return
         }
         this.platform.openExternal(uri)

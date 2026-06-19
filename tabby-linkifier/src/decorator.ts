@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { ConfigService, PlatformService } from 'tabby-core'
+import { ConfigService, PlatformService, isURLSchemeAllowed } from 'tabby-core'
 import { TerminalDecorator, BaseTerminalTabComponent, XTermFrontend } from 'tabby-terminal'
 import { WebLinksAddon } from '@xterm/addon-web-links'
 import { LinkHandler } from './api'
@@ -20,17 +20,12 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
             return
         }
 
-        const allowedSchemes = ['http:', 'https:', 'ftp:', 'mailto:', 'ssh:']
         tab.frontend.xterm.options.linkHandler = {
             activate: (event, uri) => {
                 if (!this.willHandleEvent(event)) {
                     return
                 }
-                try {
-                    if (!allowedSchemes.includes(new URL(uri).protocol)) {
-                        return
-                    }
-                } catch {
+                if (!isURLSchemeAllowed(uri)) {
                     return
                 }
                 this.platform.openExternal(uri)
