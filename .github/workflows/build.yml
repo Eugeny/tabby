@@ -298,7 +298,7 @@ jobs:
       if: matrix.build-arch == 'x64'
 
   Windows-Build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: Lint
     strategy:
       matrix:
