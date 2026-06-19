@@ -456,6 +456,42 @@ jobs:
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
 
+    - name: Add VC Runtime to portable zip
+      shell: powershell
+      env:
+        ARCH: ${{matrix.arch}}
+      run: |
+        # Copy VC Runtime DLLs from Visual Studio
+        mkdir "vc-runtime" -Force | Out-Null
+
+        $arch = if ("$env:ARCH" -eq "x64") { "x64" } else { "arm64" }
+        $crtDir = Get-ChildItem "C:\Program Files\Microsoft Visual Studio\2022\*\VC\Redist\MSVC\*\$arch\Microsoft.VC*.CRT" -Directory -ErrorAction SilentlyContinue | Select-Object -First 1
+        if ($crtDir) {
+          @("vcruntime140.dll", "vcruntime140_1.dll", "msvcp140.dll") | ForEach-Object {
+            $src = Join-Path $crtDir.FullName $_
+            if (Test-Path $src) {
+              Copy-Item $src "vc-runtime/"
+              Write-Host "Copied $_ from $src"
+            }
+          }
+        }
+
+        # Add VC Runtime DLLs to portable zip
+        $portableZip = Get-ChildItem dist/*-portable-*.zip | Select-Object -First 1
+        if ($portableZip) {
+          Add-Type -AssemblyName System.IO.Compression
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+          # Open zip in update mode and add DLL files
+          $zip = [System.IO.Compression.ZipFile]::Open($portableZip.FullName, [System.IO.Compression.ZipArchiveMode]::Update)
+          Get-ChildItem "vc-runtime" -Filter "*.dll" | ForEach-Object {
+            [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $_.FullName, $_.Name) | Out-Null
+            Write-Host "Added $($_.Name) to portable zip"
+          }
+          $zip.Dispose()
+          Write-Host "Portable zip updated with VC Runtime"
+        }
+
     - name: Package artifacts
       run: |
         mkdir artifact-setup
