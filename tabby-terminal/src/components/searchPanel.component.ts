@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, NgZone } from '@angular/core'
+import { Component, Input, Output, EventEmitter, NgZone, OnChanges, SimpleChange } from '@angular/core'
 import { Subject, debounceTime } from 'rxjs'
 import { Frontend, SearchOptions, SearchState } from '../frontends/frontend'
 import { ConfigService, NotificationsService, TranslateService } from 'tabby-core'
@@ -8,7 +8,8 @@ import { ConfigService, NotificationsService, TranslateService } from 'tabby-cor
     templateUrl: './searchPanel.component.pug',
     styleUrls: ['./searchPanel.component.scss'],
 })
-export class SearchPanelComponent {
+export class SearchPanelComponent implements OnChanges {
+    private savedQuery = ''
     @Input() query: string
     @Input() frontend: Frontend
     state: SearchState = { resultCount: 0 }
@@ -49,6 +50,17 @@ export class SearchPanelComponent {
     onQueryChange (): void {
         this.state = { resultCount: 0 }
         this.queryChanged.next(this.query)
+    }
+
+    ngOnChanges (changes: { query?: SimpleChange }): void {
+        if (changes.query) {
+            if (this.savedQuery && !changes.query.currentValue) {
+                // Parent cleared the query (e.g. tab regained focus) → restore
+                this.query = this.savedQuery
+            } else if (changes.query.currentValue) {
+                this.savedQuery = changes.query.currentValue
+            }
+        }
     }
 
     onKeyDown (event: KeyboardEvent): void {
