@@ -11,6 +11,7 @@ export interface PluginInfo {
     homepage?: string
     path?: string
     info?: any
+    searchScore?: number
 }
 
 export interface BootstrapData {

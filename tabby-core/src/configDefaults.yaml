@@ -61,3 +61,4 @@ hacks:
   globalHotkey: null
 language: null
 defaultQuickConnectProvider: "ssh"
+showProfileTree: false

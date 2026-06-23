@@ -41,7 +41,7 @@ export class PluginManagerService {
                     return true
                 })
             }),
-            map(x => x.sort((a, b) => a.name.localeCompare(b.name))),
+            map(x => x.sort((a, b) => b.searchScore! - a.searchScore!)),
         )
     }
 
@@ -63,6 +63,7 @@ export class PluginManagerService {
                     homepage: item.package.links.homepage,
                     author: item.package.author?.name,
                     isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
+                    searchScore: item.searchScore,
                 })),
             ),
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),

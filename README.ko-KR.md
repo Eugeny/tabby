@@ -349,6 +349,11 @@ Pull requests and plugins are welcome!
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ToastyTheBot"><img src="https://avatars.githubusercontent.com/u/270965193?v=4?s=100" width="100px;" alt="ToastyTheBot"/><br /><sub><b>ToastyTheBot</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ToastyTheBot" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/superm1"><img src="https://avatars.githubusercontent.com/u/494526?v=4?s=100" width="100px;" alt="Mario Limonciello"/><br /><sub><b>Mario Limonciello</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=superm1" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/puneetdixit200"><img src="https://avatars.githubusercontent.com/u/236133619?v=4?s=100" width="100px;" alt="Puneet Dixit"/><br /><sub><b>Puneet Dixit</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=puneetdixit200" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/balajieswaramoorthi"><img src="https://avatars.githubusercontent.com/u/212661894?v=4?s=100" width="100px;" alt="Balaji Eswaramoorthi"/><br /><sub><b>Balaji Eswaramoorthi</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=balajieswaramoorthi" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/linzack"><img src="https://avatars.githubusercontent.com/u/8398628?v=4?s=100" width="100px;" alt="linzack"/><br /><sub><b>linzack</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=linzack" title="Code">💻</a></td>
+    </tr>
   </tbody>
 </table>
 
