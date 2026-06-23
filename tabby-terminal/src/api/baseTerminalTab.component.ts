@@ -438,14 +438,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
 
         this.frontend.focus()
 
-        window.addEventListener('focus', () => {
-            setTimeout(() => {
-                if (this.frontend && typeof (this.frontend as any).checkAndRecover === 'function') {
-                    (this.frontend as any).checkAndRecover()
-                }
-            }, 100)
-        })
-
         this.blurred$.subscribe(() => {
             this.multifocus.cancel()
         })
@@ -453,15 +445,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.visibility$
             .pipe(debounce(visibility => interval(visibility ? 0 : INACTIVE_TAB_UNLOAD_DELAY)))
             .subscribe(visibility => {
-                if (this.frontend instanceof XTermFrontend) {
-                    if (visibility) {
-                        if (typeof (this.frontend as any).checkAndRecover === 'function') {
-                            (this.frontend as any).checkAndRecover()
-                        }
-                        const term = this.frontend.xterm as any
-                        term._core._renderService?.clear()
-                        term._core._renderService?.handleResize(term.cols, term.rows)
-                    }
+                if (visibility && this.frontend instanceof XTermFrontend) {
+                    this.frontend.reactivate()
                 }
             })
     }
