@@ -561,6 +561,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.attachTabView(newTab)
         tab.parent = null
         newTab.parent = this
+        newTab.emitVisibility(this.visibility.value)
         this.recoveryStateChangedHint.next()
         this.onAfterTabAdded(newTab)
         this.updateTitle()
