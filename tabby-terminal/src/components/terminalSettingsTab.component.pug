@@ -245,3 +245,12 @@ div.mt-4(*ngIf='hostApp.platform === Platform.Windows')
             [(ngModel)]='config.store.terminal.setComSpec',
             (ngModelChange)='config.save()',
         )
+
+    .form-line
+        .header
+            .title(translate) Refresh environment variables from registry
+            .description(translate) Reload PATH and other variables from the Windows registry for each new session
+        toggle(
+            [(ngModel)]='config.store.terminal.windowsRefreshEnvironment',
+            (ngModelChange)='config.save()',
+        )
