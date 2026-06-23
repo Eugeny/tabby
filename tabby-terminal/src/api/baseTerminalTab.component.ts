@@ -831,21 +831,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      */
     protected onSessionClosed (destroyOnSessionClose = false): void {
         if (this.effectivelyPinned) {
-            const target = this.topmostParent ?? this
-
-            this.notifications.notice(this.translate.instant('You can’t close a pinned tab'))
-
-            setTimeout(async () => {
-                if (!this.app.tabs.includes(target)) {
-                    return
-                }
-
-                const restarted = await this.app.restartTab(target)
-                if (!restarted) {
-                    this.notifications.error(this.translate.instant('Failed to restart pinned tab'))
-                }
-            }, 50)
-
+            // A pinned tab is never auto-closed or auto-restarted when its
+            // session ends — it stays in place (showing the terminated session)
+            // until the user restarts or unpins it.
             return
         }
 
