@@ -57,7 +57,7 @@ This README is also available in: <a  href="./README.md">:gb: English</a> · <a 
 
 # Apa itu Tabby dan bukan Tabby
 
-* **Tabby adalah** sebuah alternatif untuk terminal standar Windows' (conhost), PowerShell ISE, PuTTY, macOS Terminal.app dan iTerm
+* **Tabby adalah** sebuah alternatif untuk terminal standar Windows (conhost), PowerShell ISE, PuTTY, macOS Terminal.app dan iTerm
 
 * **Tabby bukan** shell yang baru atau pengganti MinGW atau Cygwin. Dan bukan aplikasi ringan - jika mengutamakan penggunaan RAM, mungkin boleh mencoba [Conemu](https://conemu.github.io) atau [Alacritty](https://github.com/jwilm/alacritty)
 
