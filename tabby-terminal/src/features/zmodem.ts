@@ -106,20 +106,6 @@ class ZModemMiddleware extends SessionMiddleware {
             try {
                 this.sentry.consume(data)
             } catch (e) {
-                if (String(e).includes('Only thing after ZFIN')) {
-                    // zmodem.js bug: when ZFIN and "OO" arrive in the same
-                    // consume() call, the do-while loop in _consume_first()
-                    // calls trim_leading_garbage() which discards "OO" (no
-                    // ZPAD found → discard_all). The session gets stuck with
-                    // _got_ZFIN=true but no _bytes_after_OO, so the next
-                    // consume() throws. By this point ZFIN was received so
-                    // the transfer is complete; abort() triggers session_end
-                    // to unblock the await in process().
-                    try { this.activeSession?.abort() } catch {}
-                    this.activeSession = null
-                    this.isActive = false
-                    return
-                }
                 this.showMessage(colors.bgRed.black(' Error ') + ' ' + e)
                 this.logger.error('protocol error', e)
                 this.activeSession?.abort()
