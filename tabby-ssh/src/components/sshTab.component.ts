@@ -11,7 +11,6 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
 import { SSHProfile } from '../api'
 import { SSHShellSession } from '../session/shell'
 import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
-import { resolveSSHConnectionTarget } from '../connectionTarget'
 
 /** @hidden */
 @Component({
@@ -104,10 +103,9 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                 }
 
                 try {
-                    const { host, port } = resolveSSHConnectionTarget(profile.options.host, profile.options.port)
                     session.jumpChannel = await jumpSession.ssh.openTCPForwardChannel({
-                        addressToConnectTo: host,
-                        portToConnectTo: port,
+                        addressToConnectTo: profile.options.host,
+                        portToConnectTo: profile.options.port ?? 22,
                         originatorAddress: '127.0.0.1',
                         originatorPort: 0,
                     })

@@ -9,7 +9,6 @@ import { PasswordStorageService } from '../services/passwordStorage.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
 import { supportedAlgorithms } from '../algorithms'
 import { SSHProfilesService } from '../profiles'
-import { coerceSSHPort } from '../connectionTarget'
 
 /** @hidden */
 @Component({
@@ -125,8 +124,6 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         }
 
         this.loginScriptsSettings?.save()
-
-        this.profile.options.port = coerceSSHPort(this.profile.options.port)
     }
 
     onForwardAdded (fw: ForwardedPortConfig) {

@@ -6,7 +6,6 @@ import { PasswordStorageService } from './services/passwordStorage.service'
 import { SSHAlgorithmType, SSHProfile } from './api'
 import { SSHProfileImporter } from './api/importer'
 import { defaultAlgorithms } from './algorithms'
-import { DEFAULT_SSH_PORT, parseSSHAddress } from './connectionTarget'
 
 @Injectable({ providedIn: 'root' })
 export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> {
@@ -113,7 +112,21 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
     }
 
     quickConnect (query: string): PartialProfile<SSHProfile> {
-        const { user, host, port } = parseSSHAddress(query)
+        let user: string|undefined = undefined
+        let host = query
+        let port = 22
+        if (host.includes('@')) {
+            const parts = host.split(/@/g)
+            host = parts[parts.length - 1]
+            user = parts.slice(0, parts.length - 1).join('@')
+        }
+        if (host.includes('[')) {
+            port = parseInt(host.split(']')[1].substring(1))
+            host = host.split(']')[0].substring(1)
+        } else if (host.includes(':')) {
+            port = parseInt(host.split(/:/g)[1])
+            host = host.split(':')[0]
+        }
 
         return {
             name: query,
@@ -131,7 +144,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
         if (profile.options.user !== 'root') {
             s = `${profile.options.user}@${s}`
         }
-        if (profile.options.port !== DEFAULT_SSH_PORT) {
+        if (profile.options.port !== 22) {
             s = `${s}:${profile.options.port}`
         }
         return s

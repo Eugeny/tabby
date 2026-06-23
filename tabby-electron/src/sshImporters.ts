@@ -100,69 +100,34 @@ function resolveSSHIncludePath (value: string): string {
     return path.join(process.env.HOME ?? '~', '.ssh', value)
 }
 
-async function collectSSHConfigMtimes (
-    filePath: string,
-    visited = new Set<string>(),
-    mtimes: number[] = [],
-): Promise<void> {
-    if (visited.has(filePath)) {
-        return
-    }
-    visited.add(filePath)
-
-    let raw = ''
-    try {
-        const stat = await fs.stat(filePath)
-        mtimes.push(stat.mtimeMs)
-        raw = await fs.readFile(filePath, 'utf8')
-    } catch (err) {
-        console.error(`Error reading SSH config file: ${filePath}`, err)
-        return
-    }
-
-    const parsed = SSHConfig.parse(raw)
-    for (const entry of parsed) {
-        if (entry.type === LineType.DIRECTIVE && entry.param.toLowerCase() === 'include') {
-            const directive = entry as Directive
-            if (typeof directive.value !== 'string') {
-                continue
-            }
-
-            const matches = glob.sync(resolveSSHIncludePath(directive.value))
-            for (const match of matches) {
-                const stat = await fs.stat(match)
-                if (stat.isDirectory()) {
-                    continue
-                }
-                await collectSSHConfigMtimes(match, visited, mtimes)
-            }
-        }
-    }
+interface ParsedSSHConfig {
+    config: SSHConfig
+    // Newest mtime across the config file and every file it Includes, so the
+    // import cache is invalidated when an included file changes — not only
+    // when the top-level ~/.ssh/config does.
+    mtime: number
 }
 
-async function getSSHConfigRevision (configPath: string): Promise<number> {
-    const mtimes: number[] = []
-    await collectSSHConfigMtimes(configPath, new Set(), mtimes)
-    return mtimes.length ? Math.max(...mtimes) : 0
-}
-
-// Function to read in the SSH config file recursively and parse any Include directives
+// Read the SSH config file recursively, merging any Include directives and
+// tracking the newest mtime among all files involved.
 async function parseSSHConfigFile (
     filePath: string,
     visited = new Set<string>(),
-): Promise<SSHConfig> {
+): Promise<ParsedSSHConfig> {
     // If we've already processed this file, return an empty config to avoid infinite recursion
     if (visited.has(filePath)) {
-        return SSHConfig.parse('')
+        return { config: SSHConfig.parse(''), mtime: 0 }
     }
     visited.add(filePath)
 
     let raw = ''
+    let mtime = 0
     try {
+        mtime = (await fs.stat(filePath)).mtimeMs
         raw = await fs.readFile(filePath, 'utf8')
     } catch (err) {
         console.error(`Error reading SSH config file: ${filePath}`, err)
-        return SSHConfig.parse('')
+        return { config: SSHConfig.parse(''), mtime: 0 }
     }
 
     const parsed = SSHConfig.parse(raw)
@@ -180,14 +145,15 @@ async function parseSSHConfigFile (
                 if (stat.isDirectory()) {
                     continue
                 }
-                const matchedConfig = await parseSSHConfigFile(match, visited)
-                merged.push(...matchedConfig)
+                const included = await parseSSHConfigFile(match, visited)
+                mtime = Math.max(mtime, included.mtime)
+                merged.push(...included.config)
             }
         } else {
             merged.push(entry)
         }
     }
-    return merged
+    return { config: merged, mtime }
 }
 
 // Function to convert an SSH Profile name into a sha256 hash-based ID
@@ -427,7 +393,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
 
         _openSSHCachePromise = (async () => {
             try {
-                const mtime = await getSSHConfigRevision(configPath)
+                const { config, mtime } = await parseSSHConfigFile(configPath)
 
                 if (_openSSHCache && _openSSHCacheMtime === mtime) {
                     return _openSSHCache
@@ -445,7 +411,6 @@ export class OpenSSHImporter extends SSHProfileImporter {
                     }
                 } catch { /* no cache or invalid */ }
 
-                const config = await parseSSHConfigFile(configPath)
                 _openSSHCache = await convertToSSHProfiles(config)
                 _openSSHCacheMtime = mtime
 
