@@ -1436,6 +1436,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sorry",
+      "name": "danny hogan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43435134?v=4",
+      "profile": "https://github.com/Sorry",
+      "contributions": [
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
