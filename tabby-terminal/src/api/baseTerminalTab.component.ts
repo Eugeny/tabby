@@ -9,6 +9,7 @@ import { BaseSession } from '../session'
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
+import { syncTerminalVisibility } from '../frontends/visibility'
 import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
