@@ -90,6 +90,7 @@ function convertSSHConfigValuesToString (arg: string | string[] | object[]): str
         .join(' ')
 }
 
+// ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
 function resolveSSHIncludePath (value: string): string {
     if (path.isAbsolute(value)) {
         return value
