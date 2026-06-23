@@ -4,7 +4,7 @@ import { Injector } from '@angular/core'
 import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { SessionOptions, ChildProcess, PTYInterface, PTYProxy } from './api'
-import { getWindowsEnvironment } from './windowsEnvironment'
+import { getEnvironment, substituteEnv } from './environment'
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 
@@ -20,21 +20,6 @@ function mergeEnv (...envs) {
         }
     }
     return result
-}
-
-function substituteEnv (env: Record<string, string>) {
-    env = { ...env }
-    const pattern = process.platform === 'win32' ? /%(\w+)%/g : /\$(\w+)\b/g
-    for (const [key, value] of Object.entries(env)) {
-        env[key] = value.toString().replace(pattern, function (substring, p1) {
-            if (process.platform === 'win32') {
-                return Object.entries(process.env).find(x => x[0].toLowerCase() === p1.toLowerCase())?.[1] ?? ''
-            } else {
-                return process.env[p1] ?? ''
-            }
-        })
-    }
-    return env
 }
 
 /** @hidden */
@@ -68,9 +53,9 @@ export class Session extends BaseSession {
         }
 
         if (!pty) {
-            const baseEnv = this.hostApp.platform === Platform.Windows && this.config.store.terminal.windowsRefreshEnvironment
-                ? getWindowsEnvironment()
-                : process.env
+            const baseEnv = getEnvironment(
+                this.hostApp.platform === Platform.Windows && this.config.store.terminal.windowsRefreshEnvironment,
+            )
 
             let env = mergeEnv(
                 baseEnv,
