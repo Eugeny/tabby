@@ -28,6 +28,7 @@
 .add {
     flex: auto;
     opacity: 0;
+    white-space: nowrap;
 
     &:first-child {
         opacity: 1;
