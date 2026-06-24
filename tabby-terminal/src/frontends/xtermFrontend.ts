@@ -338,6 +338,7 @@ export class XTermFrontend extends Frontend {
                     'scroll-page-down',
                     'scroll-to-top',
                     'scroll-to-bottom',
+                    'switch-meta-option',
                 ].includes(hk)),
             ).subscribe(hk => {
                 if ([
@@ -347,6 +348,15 @@ export class XTermFrontend extends Frontend {
                 ].includes(hk)) {
                     this.pinnedToBottom = false
                 }
+
+                if(hk === 'switch-meta-option') {
+                    const newValue = !this.xterm.options.macOptionIsMeta
+                    this.xterm.options.macOptionIsMeta = newValue
+                    this.configService.store.terminal.altIsMeta = newValue
+                    this.configService.save()
+                    //TODO send notification or show popup that this setting has been changed
+                }
+
                 requestAnimationFrame(() => this.updatePinnedState())
             })
 
