@@ -245,12 +245,12 @@ export class SSHSession {
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
-            if (this.profile.options.password) {
+            if (typeof this.profile.options.password === 'string') {
                 this.allAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
-            if (this.profile.options.password) {
+            if (typeof this.profile.options.password === 'string') {
                 this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword: this.profile.options.password })
             }
             this.allAuthMethods.push({ type: 'keyboard-interactive' })
@@ -267,7 +267,7 @@ export class SSHSession {
         }
 
         const storedPassword = await this.passwordStorage.loadPassword(this.profile, this.authUsername)
-        if (!storedPassword) {
+        if (storedPassword == null) {
             return
         }
 
@@ -486,7 +486,7 @@ export class SSHSession {
 
         // auth success
 
-        if (this.savedPassword) {
+        if (this.savedPassword != null) {
             this.passwordStorage.savePassword(this.profile, this.savedPassword, this.authUsername ?? undefined)
         }
 
@@ -682,7 +682,7 @@ export class SSHSession {
                 modal.componentInstance.password = true
                 modal.componentInstance.showRememberCheckbox = true
                 const prefilledPassword = await this.passwordStorage.loadPassword(this.profile, this.authUsername)
-                if (prefilledPassword) {
+                if (prefilledPassword != null) {
                     modal.componentInstance.value = prefilledPassword
                 }
 
@@ -739,7 +739,7 @@ export class SSHSession {
                             state.prompts(),
                         )
 
-                        if (method.savedPassword) {
+                        if (method.savedPassword != null) {
                             // eslint-disable-next-line max-depth
                             for (let i = 0; i < prompt.prompts.length; i++) {
                                 // eslint-disable-next-line max-depth
