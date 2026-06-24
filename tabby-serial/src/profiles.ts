@@ -111,6 +111,9 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
         if (query.includes('@')) {
             baudrate = parseInt(port.split('@')[1])
             port = port.split('@')[0]
+        } else if (query.includes(':')) {
+            baudrate = parseInt(port.split(':')[1])
+            port = port.split(':')[0]
         }
 
         return {
