@@ -113,6 +113,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             id: 'disconnect-tab',
             name: this.translate.instant('Disconnect current tab (Serial/Telnet/SSH)'),
         },
+        {
+            id: 'insert-new-line',
+            name: this.translate.instant('Insert new line'),
+        },
     ]
 
     constructor (private translate: TranslateService) { super() }
@@ -121,4 +125,3 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
         return this.hotkeys
     }
 }
-
