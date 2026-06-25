@@ -9,6 +9,6 @@ export default () => {
         name: 'community-color-schemes',
         dirname: __dirname,
     })
-    cfg.module.rules.push({ test: /[\\\/]schemes[\\\/]/, use: 'raw-loader' })
+    cfg.module.rules.push({ test: /[\\\/]schemes[\\\/]/, type: 'asset/source' })
     return cfg
 }
