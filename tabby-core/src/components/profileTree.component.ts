@@ -356,11 +356,11 @@ export class ProfileTreeComponent extends BaseComponent {
         }
     }
 
-    onDragStarted (event: CdkDragStart) {
+    onDragStarted (_event: CdkDragStart): void {
         this.panelStartWidth = this.panelInternalWidth
     }
 
-    onDragMoved (event: CdkDragMove) {
+    onDragMoved (event: CdkDragMove): void {
         // deltaX
         let width = this.panelStartWidth + event.distance.x
         // min_width < x < max_width
@@ -370,7 +370,7 @@ export class ProfileTreeComponent extends BaseComponent {
         event.source.setFreeDragPosition({ x: 0, y: 0 })
     }
 
-    onDragEnd (event: CdkDragEnd) {
+    onDragEnd (_event: CdkDragEnd): void {
         window.localStorage.profileTreeWidth = this.panelInternalWidth
     }
 
