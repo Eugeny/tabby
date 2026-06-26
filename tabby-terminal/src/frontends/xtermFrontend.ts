@@ -3,7 +3,7 @@ import { BehaviorSubject, filter, firstValueFrom, fromEvent, takeUntil } from 'r
 import { Injector } from '@angular/core'
 import {
     ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService,
-    NotificationsService, Platform, PlatformService, TerminalColorScheme, ThemesService
+    NotificationsService, Platform, PlatformService, TerminalColorScheme, ThemesService,
 } from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from '@xterm/xterm'
