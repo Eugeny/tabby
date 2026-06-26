@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, Input } from '@angular/core'
+import { Component, HostBinding, Input } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import deepClone from 'clone-deep'
@@ -7,10 +7,13 @@ import FuzzySearch from 'fuzzy-search'
 import { ConfigService } from '../services/config.service'
 import { ProfilesService } from '../services/profiles.service'
 import { AppService } from '../services/app.service'
+import { SelectorService } from '../services/selector.service'
+import { Platform, HostAppService } from '../api/hostApp'
 import { PlatformService } from '../api/platform'
 import { ProfileProvider } from '../api/index'
 import { PartialProfileGroup, ProfileGroup, PartialProfile, Profile } from '../index'
 import { BaseComponent } from './base.component'
+import { CdkDragStart, CdkDragMove, CdkDragEnd } from "@angular/cdk/drag-drop";
 
 interface CollapsableProfileGroup extends ProfileGroup {
     collapsed: boolean
@@ -24,25 +27,27 @@ interface CollapsableProfileGroup extends ProfileGroup {
     templateUrl: './profileTree.component.pug',
 })
 export class ProfileTreeComponent extends BaseComponent {
+    Platform = Platform
     profileGroups: PartialProfileGroup<ProfileGroup>[] = []
     rootGroups: PartialProfileGroup<ProfileGroup>[] = []
 
-    filteredProfiles: PartialProfile<Profile>[] = []
     @Input() filter = ''
-
+    @HostBinding('class.platform-macos') platformClassMacOS = process.platform === 'darwin'
+    @HostBinding('class.platform-windows') platformClassWindows = process.platform === 'win32'
 
     panelMinWidth = 200
     panelMaxWidth = 600
-    panelInternalWidth: number = parseInt(window.localStorage.profileTreeWidth ?? '300')
+    @HostBinding('style.width.px') panelInternalWidth: number = parseInt(window.localStorage.profileTreeWidth ?? 300)
+
     panelStartWidth = this.panelInternalWidth
-    panelIsResizing = false
-    panelStartX = 0
 
     constructor (
         private app: AppService,
+        public hostApp: HostAppService,
         private platform: PlatformService,
         private config: ConfigService,
         private profilesService: ProfilesService,
+        private selector: SelectorService,
         private translate: TranslateService,
         private ngbModal: NgbModal,
     ) {
@@ -51,6 +56,7 @@ export class ProfileTreeComponent extends BaseComponent {
 
     async ngOnInit (): Promise<void> {
         await this.loadTreeItems()
+        this.subscribeUntilDestroyed(this.config.changed$, () => this.loadTreeItems())
         this.subscribeUntilDestroyed(this.config.changed$, () => this.loadTreeItems())
         this.app.tabsChanged$.subscribe(() => this.tabStateChanged())
         this.app.activeTabChange$.subscribe(() => this.tabStateChanged())
@@ -99,6 +105,116 @@ export class ProfileTreeComponent extends BaseComponent {
         result.type = provider.id
 
         await this.profilesService.writeProfile(result)
+        await this.config.save()
+    }
+
+    private async duplicateProfile (base: PartialProfile<Profile>): Promise<void> {
+        const { EditProfileModalComponent } = window['nodeRequire']('tabby-settings')
+        const provider = this.profilesService.providerForProfile(base)
+        if (!provider) { throw new Error('Cannot duplicate a profile without a provider') }
+
+        const baseProfile: PartialProfile<Profile> = deepClone(base)
+        delete baseProfile.id
+        if (base.isTemplate) {
+            baseProfile.name = ''
+        } else if (!base.isBuiltin) {
+            baseProfile.name = this.translate.instant('{name} copy', base)
+        }
+        baseProfile.isBuiltin = false
+        baseProfile.isTemplate = false
+
+        const modal = this.ngbModal.open(
+            EditProfileModalComponent,
+            { size: 'lg' },
+        )
+        modal.componentInstance.partialProfile = baseProfile
+        modal.componentInstance.profileProvider = provider
+
+        const result = await modal.result.catch(() => null)
+        if (!result) { return }
+        result.type = provider.id
+
+        if (!result.name) {
+            const cfgProxy = this.profilesService.getConfigProxyForProfile(result)
+            result.name = provider.getSuggestedName(cfgProxy) ?? this.translate.instant('{name} copy', base)
+        }
+
+        await this.profilesService.newProfile(result)
+        await this.config.save()
+    }
+
+    private async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
+        if ((await this.platform.showMessageBox(
+            {
+                type: 'warning',
+                message: this.translate.instant('Delete "{name}"?', profile),
+                buttons: [
+                    this.translate.instant('Delete'),
+                    this.translate.instant('Keep'),
+                ],
+                defaultId: 1,
+                cancelId: 1,
+            },
+        )).response === 0) {
+            await this.profilesService.deleteProfile(profile)
+            await this.config.save()
+        }
+    }
+
+    private async newProfileInGroup (group: PartialProfileGroup<CollapsableProfileGroup>): Promise<void> {
+        const { EditProfileModalComponent } = window['nodeRequire']('tabby-settings')
+
+        let profiles = await this.profilesService.getProfiles()
+        profiles = profiles.filter(x => x.isTemplate)
+        profiles.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
+
+        const base = await this.selector.show(
+            this.translate.instant('Select a base profile to use as a template'),
+            profiles.map(p => ({
+                icon: p.icon ?? undefined,
+                description: this.profilesService.getDescription(p) ?? undefined,
+                name: p.group ? `${this.profilesService.resolveProfileGroupName(p.group)} / ${p.name}` : p.name,
+                result: p,
+            })),
+        ).catch(() => undefined)
+        if (!base) { return }
+
+        const provider = this.profilesService.providerForProfile(base)
+        if (!provider) { throw new Error('Cannot create a profile without a provider') }
+
+        const profile: PartialProfile<Profile> = deepClone(base)
+        delete profile.id
+        profile.name = ''
+        profile.isBuiltin = false
+        profile.isTemplate = false
+        if (group.id !== 'ungrouped') {
+            profile.group = group.id
+        } else {
+            delete profile.group
+        }
+
+        const modal = this.ngbModal.open(
+            EditProfileModalComponent,
+            { size: 'lg' },
+        )
+        modal.componentInstance.partialProfile = profile
+        modal.componentInstance.profileProvider = provider
+
+        const result = await modal.result.catch(() => null)
+        if (!result) { return }
+        result.type = provider.id
+        if (group.id !== 'ungrouped') {
+            result.group = group.id
+        } else {
+            delete result.group
+        }
+
+        if (!result.name) {
+            const cfgProxy = this.profilesService.getConfigProxyForProfile(result)
+            result.name = provider.getSuggestedName(cfgProxy) ?? this.translate.instant('{name} copy', base)
+        }
+
+        await this.profilesService.newProfile(result)
         await this.config.save()
     }
 
@@ -162,14 +278,21 @@ export class ProfileTreeComponent extends BaseComponent {
         this.platform.popupContextMenu([
             {
                 type: 'normal',
-                label: this.translate.instant('Run'),
-                click: () => this.launchProfile(profile),
+                label: this.translate.instant('Edit'),
+                click: () => this.editProfile(profile),
+                enabled: !(profile.isBuiltin ?? profile.isTemplate),
             },
             {
                 type: 'normal',
-                label: this.translate.instant('Edit profile'),
-                click: () => this.editProfile(profile),
-                enabled: !(profile.isBuiltin ?? profile.isTemplate),
+                label: this.translate.instant('Duplicate'),
+                click: () => this.duplicateProfile(profile),
+                enabled: !profile.isBuiltin,
+            },
+            {
+                type: 'normal',
+                label: this.translate.instant('Delete'),
+                click: () => this.deleteProfile(profile),
+                enabled: !profile.isBuiltin,
             },
         ])
     }
@@ -179,8 +302,9 @@ export class ProfileTreeComponent extends BaseComponent {
         this.platform.popupContextMenu([
             {
                 type: 'normal',
-                label: group.collapsed ? this.translate.instant('Expand group') : this.translate.instant('Collapse group'),
-                click: () => this.toggleGroupCollapse(group),
+                label: this.translate.instant('New profile'),
+                click: () => this.newProfileInGroup(group),
+                enabled: group.id !== 'built-in',
             },
             {
                 type: 'normal',
@@ -233,36 +357,22 @@ export class ProfileTreeComponent extends BaseComponent {
         }
     }
 
-    ////// RESIZING //////
-    startResize (event: MouseEvent): void {
-        this.panelIsResizing = true
-        this.panelStartX = event.clientX
-        this.panelStartWidth = this.panelWidth
-        event.preventDefault()
+    onDragStarted (event: CdkDragStart) {
+        this.panelStartWidth = this.panelInternalWidth
     }
 
-    @HostListener('document:mousemove', ['$event'])
-    onMouseMove (event: MouseEvent): void {
-        if (!this.panelIsResizing) { return }
-        const delta = event.clientX - this.panelStartX
-        const width = Math.min(Math.max(this.panelMinWidth, this.panelStartWidth + delta), this.panelMaxWidth)
-        this.panelWidth = width
-        window.localStorage.profileTreeWidth = width
+    onDragMoved (event: CdkDragMove) {
+        // deltaX
+        let width = this.panelStartWidth + event.distance.x
+        // min_width < x < max_width
+        width = Math.max(this.panelMinWidth, width)
+        width = Math.min(this.panelMaxWidth, width)
+        this.panelInternalWidth = width
+        event.source.setFreeDragPosition({ x: 0, y: 0 })
     }
 
-    @HostListener('document:mouseup')
-    stopResize (): boolean {
-        this.panelIsResizing = false
-        return true
-    }
-
-    @HostBinding('style.width.px')
-    get panelWidth (): number {
-        return this.panelInternalWidth
-    }
-
-    set panelWidth (value: number) {
-        this.panelInternalWidth = value
+    onDragEnd (event: CdkDragEnd) {
+        window.localStorage.profileTreeWidth = this.panelInternalWidth
     }
 
     ////// GROUP COLLAPSING //////
