@@ -13,7 +13,7 @@ import { PlatformService } from '../api/platform'
 import { ProfileProvider } from '../api/index'
 import { PartialProfileGroup, ProfileGroup, PartialProfile, Profile } from '../index'
 import { BaseComponent } from './base.component'
-import { CdkDragStart, CdkDragMove, CdkDragEnd } from "@angular/cdk/drag-drop";
+import { CdkDragStart, CdkDragMove, CdkDragEnd } from '@angular/cdk/drag-drop'
 
 interface CollapsableProfileGroup extends ProfileGroup {
     collapsed: boolean
