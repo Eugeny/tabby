@@ -255,6 +255,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             id: 'pane-decrease-horizontal',
             name: this.translate.instant('Decrease horizontal split size'),
         },
+        {
+            id: 'switch-meta-option',
+            name: this.translate.instant('Switch meta option'),
+        },
     ]
 
     constructor (
