@@ -61,12 +61,16 @@ export class SFTPPanelComponent {
 
         let p = newPath
         this.pathSegments = []
-        while (p !== '/') {
+        while (p !== '/' && p !== '.') {
             this.pathSegments.unshift({
                 name: path.basename(p),
                 path: p,
             })
-            p = path.dirname(p)
+            const parent = path.dirname(p)
+            if (parent === p) {
+                break
+            }
+            p = parent
         }
 
         this.fileList = null
