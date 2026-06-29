@@ -6,6 +6,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 import { AngularWebpackPlugin } from '@ngtools/webpack'
 import { createEs2015LinkerPlugin } from '@angular/compiler-cli/linker/babel'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 const linkerPlugin = createEs2015LinkerPlugin({
     linkerJitMode: true,
     fileSystem: {
@@ -21,7 +22,6 @@ export default () => ({
     name: 'tabby',
     target: 'node',
     entry: {
-        'index.ignore': 'file-loader?name=index.html!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
         sentry: path.resolve(__dirname, 'lib/sentry.ts'),
         preload: path.resolve(__dirname, 'src/entry.preload.ts'),
         bundle: path.resolve(__dirname, 'src/entry.ts'),
@@ -68,6 +68,12 @@ export default () => ({
                 test: /\.(png|svg|ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 type: 'asset',
             },
+            {
+                test: /\.pug$/,
+                use: [{
+                    loader: 'pug-loader',
+                }],
+            },
         ],
     },
     externals: {
@@ -89,6 +95,11 @@ export default () => ({
             tsconfig: path.resolve(__dirname, 'tsconfig.json'),
             directTemplateLoading: false,
             jitMode: true,
-        })
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './index.pug',
+            inject: false,
+        }),
     ],
 })
