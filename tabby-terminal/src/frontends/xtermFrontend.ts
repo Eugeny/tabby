@@ -485,9 +485,12 @@ export class XTermFrontend extends Frontend {
     visualBell (): void {
         if (this.element) {
             this.element.style.animation = 'none'
-            setTimeout(() => {
-                this.element!.style.animation = 'terminalShakeFrames 0.3s ease'
-            })
+            // Force a synchronous reflow so the browser registers the cleared
+            // animation before it is reassigned. Without this, repeated bells
+            // arriving while a shake is still playing coalesce into a single
+            // frame and the animation fails to restart (#11303).
+            void this.element.offsetWidth
+            this.element.style.animation = 'terminalShakeFrames 0.3s ease'
         }
     }
 
