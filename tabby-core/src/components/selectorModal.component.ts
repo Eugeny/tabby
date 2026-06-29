@@ -89,7 +89,18 @@ export class SelectorModalComponent<T> {
                 { sort: true },
             ).search(f)
 
-            this.options.filter(x => x.freeInputPattern).sort(firstBy<SelectorOption<T>, number>(x => x.weight ?? 0)).forEach(freeOption => {
+            const freeOptions = this.options
+                .filter(x => x.freeInputPattern)
+                .sort(firstBy<SelectorOption<T>, number>(x => x.weight ?? 0))
+
+            // Keep free-input options discoverable during filtering.
+            const topFreeOptions = freeOptions.filter(x => x.freeInputPlacement === 'top')
+            const bottomFreeOptions = freeOptions.filter(x => x.freeInputPlacement !== 'top')
+
+            this.filteredOptions = this.filteredOptions.filter(x => !topFreeOptions.includes(x))
+            this.filteredOptions = [...topFreeOptions, ...this.filteredOptions]
+
+            bottomFreeOptions.forEach(freeOption => {
                 if (!this.filteredOptions.includes(freeOption)) {
                     this.filteredOptions.push(freeOption)
                 }
