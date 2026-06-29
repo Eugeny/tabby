@@ -222,6 +222,13 @@ export class AppRootComponent {
         return this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right'
     }
 
+    @HostBinding('style.--tabs-sidebar-width-factor') get tabsSidebarWidthFactor (): number {
+        if (!this.hasVerticalTabs() || this.config.store.appearance.flexTabs) {
+            return 1
+        }
+        return Math.min(Math.max(this.config.store.appearance.tabsSidebarWidth ?? 1, 0.5), 3)
+    }
+
     get targetTabSize (): any {
         if (this.hasVerticalTabs()) {
             return '*'
