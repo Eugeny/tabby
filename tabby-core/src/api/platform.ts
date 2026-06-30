@@ -269,6 +269,50 @@ export abstract class PlatformService {
     abstract showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult>
     abstract pickDirectory (): Promise<string | null>
     abstract quit (): void
+
+    // Biometric authentication (Touch ID on macOS)
+    async isBiometricAuthAvailable (): Promise<boolean> {
+        return false
+    }
+
+    async promptBiometricAuth (_reason: string): Promise<void> {
+        throw new Error('Biometric authentication not available')
+    }
+
+    // Secure storage for vault passphrase (uses macOS Keychain via safeStorage)
+    async isSecureStorageAvailable (): Promise<boolean> {
+        return false
+    }
+
+    async secureStorePassphrase (_passphrase: string): Promise<void> {
+        throw new Error('Secure storage not available')
+    }
+
+    async secureRetrievePassphrase (): Promise<string|null> {
+        return null
+    }
+
+    async secureDeletePassphrase (): Promise<void> {
+        // No-op by default
+    }
+
+    getSecureStorageTimestamp (): number|null {
+        return null
+    }
+
+    // Touch ID settings (stored separately from encrypted config)
+    getTouchIdSettings (): { enabled: boolean, expireDays: number, expireOnRestart: boolean } {
+        return { enabled: false, expireDays: 1, expireOnRestart: false }
+    }
+
+    async setTouchIdSettings (_enabled: boolean, _expireDays: number, _expireOnRestart?: boolean): Promise<void> {
+        // No-op by default
+    }
+
+    // Check if Touch ID should be considered expired (including restart check)
+    isTouchIdExpired (): boolean {
+        return true
+    }
 }
 
 export class HTMLFileUpload extends FileUpload {
