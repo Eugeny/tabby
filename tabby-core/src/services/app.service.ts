@@ -294,10 +294,11 @@ export class AppService {
         }
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
-            if (tabIndex > 0) {
+            const bounds = this.getTabReorderBounds(this._activeTab)
+            if (tabIndex > bounds.min) {
                 this.swapTabs(this._activeTab, this.tabs[tabIndex - 1])
-            } else if (this.config.store.appearance.cycleTabs) {
-                this.tabs.push(this.tabs.shift()!)
+            } else if (this.config.store.appearance.cycleTabs && bounds.max > bounds.min) {
+                this.moveTabToIndex(this._activeTab, bounds.max)
             }
         }
     }
@@ -308,10 +309,11 @@ export class AppService {
         }
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
-            if (tabIndex < this.tabs.length - 1) {
+            const bounds = this.getTabReorderBounds(this._activeTab)
+            if (tabIndex < bounds.max) {
                 this.swapTabs(this._activeTab, this.tabs[tabIndex + 1])
-            } else if (this.config.store.appearance.cycleTabs) {
-                this.tabs.unshift(this.tabs.pop()!)
+            } else if (this.config.store.appearance.cycleTabs && bounds.max > bounds.min) {
+                this.moveTabToIndex(this._activeTab, bounds.min)
             }
         }
     }
@@ -319,8 +321,92 @@ export class AppService {
     swapTabs (a: BaseTabComponent, b: BaseTabComponent): void {
         const i1 = this.tabs.indexOf(a)
         const i2 = this.tabs.indexOf(b)
+        if (i1 === -1 || i2 === -1 || a.pinned !== b.pinned) {
+            return
+        }
         this.tabs[i1] = b
         this.tabs[i2] = a
+        this.tabsChanged.next()
+    }
+
+
+    getPinnedTabCount (): number {
+        return this.tabs.filter(x => x.pinned).length
+    }
+
+    pinTab (tab: BaseTabComponent): void {
+        if (tab.pinned) {
+            return
+        }
+        tab.pinned = true
+        this.moveTabToIndex(tab, this.getPinnedTabCount() - 1)
+    }
+
+    unpinTab (tab: BaseTabComponent): void {
+        if (!tab.pinned) {
+            return
+        }
+        tab.pinned = false
+        this.moveTabToIndex(tab, this.getPinnedTabCount())
+    }
+
+    toggleTabPinned (tab: BaseTabComponent): void {
+        if (tab.pinned) {
+            this.unpinTab(tab)
+        } else {
+            this.pinTab(tab)
+        }
+    }
+
+    getTabReorderBounds (tab: BaseTabComponent): { min: number, max: number } {
+        if (!this.tabs.includes(tab)) {
+            return { min: 0, max: Math.max(this.tabs.length - 1, 0) }
+        }
+        if (tab.pinned) {
+            return {
+                min: 0,
+                max: Math.max(this.getPinnedTabCount() - 1, 0),
+            }
+        }
+        return {
+            min: this.getPinnedTabCount(),
+            max: Math.max(this.tabs.length - 1, 0),
+        }
+    }
+
+    clampTabIndexToBounds (tab: BaseTabComponent, index: number): number {
+        const bounds = this.getTabReorderBounds(tab)
+        return Math.max(bounds.min, Math.min(bounds.max, index))
+    }
+
+    moveTabToIndex (tab: BaseTabComponent, index: number): void {
+        const currentIndex = this.tabs.indexOf(tab)
+        if (currentIndex === -1) {
+            return
+        }
+        const targetIndex = this.clampTabIndexToBounds(tab, index)
+        if (currentIndex === targetIndex) {
+            this.tabsChanged.next()
+            return
+        }
+        this.tabs.splice(currentIndex, 1)
+        this.tabs.splice(targetIndex, 0, tab)
+        this.tabsChanged.next()
+    }
+
+    reorderTab (tab: BaseTabComponent, toIndex: number): void {
+        const currentIndex = this.tabs.indexOf(tab)
+        if (currentIndex === -1) {
+            return
+        }
+        const targetIndex = this.clampTabIndexToBounds(tab, toIndex)
+        if (currentIndex === targetIndex) {
+            this.tabsChanged.next()
+            return
+        }
+        const [moved] = this.tabs.splice(currentIndex, 1)
+        this.tabs.splice(targetIndex, 0, moved)
+        this.tabsChanged.next()
     }
 
     renameTab (tab: BaseTabComponent): void {
@@ -338,8 +424,11 @@ export class AppService {
         this.tabsChanged.next()
     }
 
-    async closeTab (tab: BaseTabComponent, checkCanClose?: boolean): Promise<void> {
+    async closeTab (tab: BaseTabComponent, checkCanClose?: boolean, ignorePinned = false): Promise<void> {
         if (!this.tabs.includes(tab)) {
+            return
+        }
+        if (tab.effectivelyPinned && !ignorePinned) {
             return
         }
         if (checkCanClose && !await tab.canClose()) {
@@ -359,6 +448,28 @@ export class AppService {
             this.addTabRaw(dup, this.tabs.indexOf(tab) + 1)
         }
         return dup
+    }
+
+    async restartTab (tab: BaseTabComponent): Promise<BaseTabComponent|null> {
+        if (!this.tabs.includes(tab)) {
+            return null
+        }
+
+        const token = await this.tabRecovery.getFullRecoveryToken(tab, { includeState: true })
+        if (!token) {
+            return null
+        }
+
+        const recoveredTab = await this.tabRecovery.recoverTab(token)
+        if (!recoveredTab) {
+            return null
+        }
+
+        const reopened = this.tabsService.create(recoveredTab)
+        this.addTabRaw(reopened, this.tabs.indexOf(tab) + 1)
+        await this.closeTab(tab, false, true)
+
+        return reopened
     }
 
     /**

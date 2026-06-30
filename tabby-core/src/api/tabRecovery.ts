@@ -6,6 +6,7 @@ export interface RecoveryToken {
     type: string
     tabIcon?: string|null
     tabColor?: string|null
+    tabPinned?: boolean
 }
 
 /**

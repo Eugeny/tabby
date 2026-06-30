@@ -32,6 +32,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
             {
                 label: this.translate.instant('Close'),
                 commandLabel: this.translate.instant('Close tab'),
+                enabled: !tab.effectivelyPinned,
                 click: () => {
                     if (this.app.tabs.includes(tab)) {
                         this.app.closeTab(tab, true)
@@ -47,7 +48,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                 {
                     label: this.translate.instant('Close other tabs'),
                     click: () => {
-                        for (const t of this.app.tabs.filter(x => x !== tab)) {
+                        for (const t of this.app.tabs.filter(x => x !== tab && !x.pinned)) {
                             this.app.closeTab(t, true)
                         }
                     },
@@ -55,7 +56,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                 {
                     label: this.translate.instant('Close tabs to the right'),
                     click: () => {
-                        for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
+                        for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1).filter(x => !x.pinned)) {
                             this.app.closeTab(t, true)
                         }
                     },
@@ -63,7 +64,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                 {
                     label: this.translate.instant('Close tabs to the left'),
                     click: () => {
-                        for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
+                        for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab)).filter(x => !x.pinned)) {
                             this.app.closeTab(t, true)
                         }
                     },
@@ -127,6 +128,13 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                     label: this.translate.instant('Duplicate'),
                     commandLabel: this.translate.instant('Duplicate tab'),
                     click: () => this.app.duplicateTab(tab),
+                },
+                {
+                    label: this.translate.instant('Pin'),
+                    commandLabel: this.translate.instant('Pin tab'),
+                    type: 'checkbox',
+                    checked: tab.pinned,
+                    click: () => this.app.toggleTabPinned(tab),
                 },
                 {
                     label: this.translate.instant('Color'),
