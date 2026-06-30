@@ -463,8 +463,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         }
 
         this.input$.subscribe(data => {
-            this.recentInputs += data
-            this.recentInputs = this.recentInputs.substring(this.recentInputs.length - 32)
+            this.recordRecentInput(data)
         })
     }
 
@@ -763,6 +762,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                 this.setSession(null)
             }
             this.detachSessionHandlers()
+            this.recentInputs = ''
             this.session = session
             this.attachSessionHandlers(destroyOnSessionClose)
         } else {
@@ -910,6 +910,15 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      * Return true if the user explicitly exit the session
      */
     protected isSessionExplicitlyTerminated (): boolean {
-        return false
+        // EOT (Ctrl+D) as the most recent keystroke means the user asked the
+        // shell to exit. Checking the trailing byte (rather than "ever seen")
+        // avoids false positives when Ctrl+D is used for EOF inside a pager,
+        // REPL, etc. and the session later ends for an unrelated reason.
+        return this.recentInputs.endsWith('\x04')
+    }
+
+    protected recordRecentInput (data: Buffer): void {
+        this.recentInputs += data.toString('latin1')
+        this.recentInputs = this.recentInputs.substring(this.recentInputs.length - 32)
     }
 }
