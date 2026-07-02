@@ -72,7 +72,7 @@
                 .header
                     .title(translate) When a session ends
                     .description(*ngIf='profile.behaviorOnSessionEnd == "auto"', translate) Only close the tab when session is explicitly terminated
-                select.form-control(
+                select.form-select(
                     [(ngModel)]='profile.behaviorOnSessionEnd',
                 )
                     option(ngValue='auto', translate) Auto

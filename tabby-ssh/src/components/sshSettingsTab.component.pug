@@ -31,7 +31,7 @@ h3 SSH
     .header
         .title(translate) Agent type
         .description(translate) Forces a specific SSH agent connection type.
-    select.form-control(
+    select.form-select(
         [(ngModel)]='config.store.ssh.agentType',
         (ngModelChange)='config.save()',
     )
