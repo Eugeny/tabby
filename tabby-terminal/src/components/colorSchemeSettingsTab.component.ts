@@ -12,6 +12,11 @@ export class ColorSchemeSettingsTabComponent {
         platform: PlatformService,
         public config: ConfigService,
     ) {
-        this.defaultTab = platform.getTheme()
+        const mode = this.config.store.appearance.colorSchemeMode
+        if (mode === 'dark' || mode === 'light') {
+            this.defaultTab = mode
+        } else {
+            this.defaultTab = platform.getTheme()
+        }
     }
 }
