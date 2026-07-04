@@ -258,7 +258,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     break
                 case 'clear':
                     this.forEachFocusedTerminalPane(tab => {
-                        const tabProfile = tab.profile as any
+                        const tabProfile = tab.profile
                         const shellType: string = tabProfile.options?.shellType ?? ''
                         const shellArgs: string[] = tabProfile.options?.args ?? []
                         if (this.hostApp.platform === Platform.Windows && (shellType === 'powershell' || shellArgs.some(arg => arg.includes('clink')))) {
