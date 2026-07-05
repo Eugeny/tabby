@@ -92,6 +92,11 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.hostApp.relaunch()
     }
 
+    dismissRestartBanner () {
+        this.config.restartRequested = false
+        ;(this.parent as any)?.removeTab?.(this)
+    }
+
     @debounce(500)
     saveConfiguration (requireRestart?: boolean) {
         this.config.save()

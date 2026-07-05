@@ -180,4 +180,11 @@ button.btn.btn-warning.btn-block(
     *ngIf='config.restartRequested',
     (click)='restartApp()',
     translate
-) Restart the app to apply changes
+)
+    span(translate) Restart the app to apply changes
+    i.fa.fa-times.ms-auto.me-1(
+        (click)='dismissRestartBanner(); $event.stopPropagation()',
+        style='cursor:pointer;opacity:0.6',
+        (mouseenter)='$event.target.style.opacity=1',
+        (mouseleave)='$event.target.style.opacity=0.6'
+    )
