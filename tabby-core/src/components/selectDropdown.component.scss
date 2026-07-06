@@ -49,6 +49,23 @@
     max-height: 50vh;
     overflow-y: auto;
 
+    .select-dropdown-group-label {
+        padding: .5rem 1rem .2rem;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        color: var(--theme-fg-less, #888);
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .select-dropdown-group-separated {
+        border-top: 1px solid var(--theme-bg-more-2, rgba(255, 255, 255, .1));
+        margin-top: .15rem;
+        padding-top: .15rem;
+    }
+
     .select-dropdown-check {
         flex: none;
         font-size: .8em;

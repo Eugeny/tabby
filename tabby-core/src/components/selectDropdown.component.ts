@@ -6,6 +6,13 @@ export interface SelectDropdownOption {
     value: any
     name: string
     disabled?: boolean
+    /** Options sharing a group render under a common header, like a native `<optgroup>` */
+    group?: string
+}
+
+interface SelectDropdownOptionGroup {
+    label: string|null
+    options: SelectDropdownOption[]
 }
 
 /**
@@ -23,16 +30,48 @@ export interface SelectDropdownOption {
     ],
 })
 export class SelectDropdownComponent implements ControlValueAccessor {
-    @Input() options: SelectDropdownOption[] = []
     @Input() placeholder = ''
     @HostBinding('class.disabled') @Input() disabled = false
     value: any
+    optionGroups: SelectDropdownOptionGroup[] = []
+    private _options: SelectDropdownOption[] = []
     private changed = new Array<(value: any) => void>()
     private touched = new Array<() => void>()
 
+    @Input()
+    set options (value: SelectDropdownOption[]) {
+        this._options = value
+        this.rebuildOptionGroups()
+    }
+
+    get options (): SelectDropdownOption[] {
+        return this._options
+    }
+
     get selectedName (): string {
-        const found = this.options.find(o => o.value === this.value)
+        const found = this._options.find(o => o.value === this.value)
         return found ? found.name : this.placeholder
+    }
+
+    private rebuildOptionGroups (): void {
+        if (!this._options.some(o => o.group)) {
+            this.optionGroups = this._options.length
+                ? [{ label: null, options: [...this._options] }]
+                : []
+            return
+        }
+
+        const groups: SelectDropdownOptionGroup[] = []
+        for (const option of this._options) {
+            const label = option.group ?? null
+            const last = groups.length > 0 ? groups[groups.length - 1] : null
+            if (last && last.label === label) {
+                last.options.push(option)
+            } else {
+                groups.push({ label, options: [option] })
+            }
+        }
+        this.optionGroups = groups
     }
 
     selectOption (option: SelectDropdownOption): void {
