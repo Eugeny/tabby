@@ -99,13 +99,16 @@ export class TabHeaderComponent extends BaseComponent {
     }
 
     @HostListener('mousedown', ['$event']) async onMouseDown ($event: MouseEvent) {
-        if ($event.which === 2) {
+        if ($event.button === 1) {
+            // suppress Chromium's middle-click autoscroll
             $event.preventDefault()
         }
     }
 
-    @HostListener('mouseup', ['$event']) async onMouseUp ($event: MouseEvent) {
-        if ($event.which === 2) {
+    // auxclick pairs press+release like click; a bare mouseup made this unreliable
+    @HostListener('auxclick', ['$event']) async onAuxClick ($event: MouseEvent) {
+        if ($event.button === 1) {
+            $event.preventDefault()
             this.app.closeTab(this.tab, true)
         }
     }
