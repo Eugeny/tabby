@@ -8,6 +8,9 @@ import 'dotenv/config'
 process.env.TABBY_PLUGINS ??= ''
 process.env.TABBY_CONFIG_DIRECTORY ??= app.getPath('userData')
 
+// CSS scroll-behavior only covers programmatic scrolls; this covers the wheel
+app.commandLine.appendSwitch('enable-smooth-scrolling')
+
 
 import 'v8-compile-cache'
 import 'source-map-support/register'
