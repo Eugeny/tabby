@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider, FullyDefined, ConfigProxy } from 'tabby-core'
+import { PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider, FullyDefined, ConfigProxy, TranslateService } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -22,6 +23,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
     @Input() defaultsMode: 'enabled'|'group'|'disabled' = 'disabled'
     @Input() profileGroup: PartialProfileGroup<ProfileGroup> | undefined
     groups: PartialProfileGroup<ProfileGroup>[]
+    behaviorOnSessionEndOptions: { value: any, name: string }[] = []
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
     protected profile: FullyDefined<P> & ConfigProxy<FullyDefined<P>>
@@ -32,6 +34,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
         private componentFactoryResolver: ComponentFactoryResolver,
         private profilesService: ProfilesService,
         private modalInstance: NgbActiveModal,
+        private translate: TranslateService,
     ) {
         if (this.defaultsMode === 'disabled') {
             this.profilesService.getProfileGroups().then(groups => {
@@ -57,6 +60,12 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
 
     ngOnInit () {
         this.profile = this.profilesService.getConfigProxyForProfile<P>(this.partialProfile, { skipGlobalDefaults: this.defaultsMode === 'enabled', skipGroupDefaults: this.defaultsMode === 'group' })
+        this.behaviorOnSessionEndOptions = [
+            { value: 'auto', name: this.translate.instant(_('Auto')) },
+            { value: 'keep', name: this.translate.instant(_('Keep')) },
+            ...this.isConnectable() ? [{ value: 'reconnect', name: this.translate.instant(_('Reconnect')) }] : [],
+            { value: 'close', name: this.translate.instant(_('Close')) },
+        ]
     }
 
     ngAfterViewInit () {

@@ -1,5 +1,5 @@
 .content
-    ul.nav-pills(ngbNav, #nav='ngbNav', [activeId]='activeTab', orientation='vertical')
+    ul.nav-pills(ngbNav, #nav='ngbNav', animatedNavIndicator='.nav-link.active', [activeId]='activeTab', orientation='vertical')
         li(ngbNavItem='application')
             a(ngbNavLink)
                 i.fas.fa-fw.fa-window-maximize.me-2
@@ -66,12 +66,11 @@
                             a.description((click)='homeBase.openTranslations()')
                                 span(translate) Help translate Tabby
                                 i.fas.fa-external-link-square-alt.ms-1
-                        select.form-control([(ngModel)]='config.store.language', (ngModelChange)='saveConfiguration(true)')
-                            option([ngValue]='null', translate) Automatic
-                            option(
-                                [value]='lang.code',
-                                *ngFor='let lang of allLanguages'
-                            ) {{lang.name}}
+                        select-dropdown(
+                            [(ngModel)]='config.store.language',
+                            [options]='languageOptions',
+                            (ngModelChange)='saveConfiguration(true)'
+                        )
 
                     .form-line(*ngIf='platform.isShellIntegrationSupported()')
                         .header

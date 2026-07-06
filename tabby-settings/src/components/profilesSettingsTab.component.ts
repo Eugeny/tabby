@@ -29,6 +29,12 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     filter = ''
     Platform = Platform
+    identificationOptions = [
+        { value: 'wt', name: 'Windows Terminal' },
+        { value: 'cygwin', name: 'Cygwin' },
+    ]
+
+    quickConnectProviderOptions: { value: any, name: string }[] = []
     private descriptionCache = new Map<string, string|null>()
 
     constructor (
@@ -43,6 +49,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     ) {
         super()
         this.profileProviders.sort((a, b) => a.name.localeCompare(b.name))
+        this.quickConnectProviderOptions = this.getQuickConnectProviders().map(provider => ({ value: provider.id, name: provider.name }))
     }
 
     async ngOnInit (): Promise<void> {

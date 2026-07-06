@@ -12,6 +12,7 @@ import {
     BaseComponent,
     Screen,
     PlatformService,
+    TranslateService,
 } from 'tabby-core'
 
 
@@ -24,6 +25,7 @@ export class WindowSettingsTabComponent extends BaseComponent {
     screens: Screen[]
     Platform = Platform
     isFluentVibrancySupported = false
+    themeOptions: { value: any, name: string }[] = []
 
     @HostBinding('class.content-box') true
 
@@ -32,12 +34,14 @@ export class WindowSettingsTabComponent extends BaseComponent {
         public hostApp: HostAppService,
         public platform: PlatformService,
         public zone: NgZone,
+        translate: TranslateService,
         @Inject(Theme) public themes: Theme[],
         @Optional() public docking?: DockingService,
     ) {
         super()
 
         this.themes = config.enabledServices(this.themes)
+        this.themeOptions = this.themes.map(theme => ({ value: theme.name, name: translate.instant(theme.name) }))
 
         const dockingService = docking
         if (dockingService) {

@@ -38,6 +38,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     updateAvailable = false
     showConfigDefaults = false
     allLanguages = LocaleService.allLanguages
+    languageOptions: { value: any, name: string }[] = []
     @HostBinding('class.pad-window-controls') padWindowControls = false
 
     constructor (
@@ -60,6 +61,11 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.settingsProviders.sort((a, b) => a.weight - b.weight + a.title.localeCompare(b.title))
 
         this.configDefaults = yaml.dump(config.getDefaults())
+
+        this.languageOptions = [
+            { value: null, name: translate.instant(_('Automatic')) },
+            ...this.allLanguages.map(lang => ({ value: lang.code, name: lang.name })),
+        ]
 
         const onConfigChange = () => {
             this.configFile = config.readRaw()

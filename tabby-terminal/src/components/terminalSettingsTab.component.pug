@@ -6,12 +6,11 @@ div
             .title(translate) Frontend
             .description(translate) Switches terminal frontend implementation (experimental)
 
-        select.form-control(
+        select-dropdown(
             [(ngModel)]='config.store.terminal.frontend',
+            [options]='frontendOptions',
             (ngModelChange)='config.save()',
         )
-            option(value='xterm-webgl') xterm (WebGL)
-            option(value='xterm') xterm (canvas)
 
     .form-line
         .header
@@ -72,14 +71,11 @@ div.mt-4
             .title(translate) Right click
             .description(*ngIf='config.store.terminal.rightClick == "paste"', translate) Long-click for context menu
 
-        select.form-control(
+        select-dropdown(
             [(ngModel)]='config.store.terminal.rightClick',
+            [options]='rightClickOptions',
             (ngModelChange)='config.save()'
         )
-            option(ngValue='off', translate) Off
-            option(ngValue='menu', translate) Context menu
-            option(ngValue='paste', translate) Paste
-            option(ngValue='clipboard', translate) Paste if no selection, else copy
 
     .form-line
         .header
@@ -106,15 +102,11 @@ div.mt-4
             .title(translate) Require a key to click links
             .description(translate) When enabled, links are only clickable while holding this key
 
-        select.form-control(
+        select-dropdown(
             [(ngModel)]='config.store.clickableLinks.modifier',
+            [options]='linkModifierOptions',
             (ngModelChange)='config.save()',
         )
-            option([ngValue]='null', translate) No modifier
-            option(value='ctrlKey', *ngIf='hostApp.platform !== Platform.macOS') Ctrl
-            option(value='altKey') {{altKeyName}}
-            option(value='shiftKey') Shift
-            option(value='metaKey') {{metaKeyName}}
 
 .mt-4
     h3(translate) Clipboard

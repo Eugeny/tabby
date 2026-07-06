@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, Injector } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { BaseTabComponent } from './baseTab.component'
@@ -14,6 +15,7 @@ import { LocaleService } from '../services/locale.service'
 export class WelcomeTabComponent extends BaseTabComponent {
     enableGlobalHotkey = true
     allLanguages = LocaleService.allLanguages
+    languageOptions: { value: any, name: string }[] = []
 
     constructor (
         public config: ConfigService,
@@ -23,6 +25,10 @@ export class WelcomeTabComponent extends BaseTabComponent {
     ) {
         super(injector)
         this.setTitle(translate.instant('Welcome'))
+        this.languageOptions = [
+            { value: null, name: translate.instant(_('Automatic')) },
+            ...this.allLanguages.map(lang => ({ value: lang.code, name: lang.name })),
+        ]
     }
 
     async closeAndDisable () {

@@ -3,11 +3,11 @@ h3.mb-3(translate) Window
 .form-line(*ngIf='themes.length > 1')
     .header
         .title(translate) Theme
-    select.form-control(
+    select-dropdown(
         [(ngModel)]='config.store.appearance.theme',
+        [options]='themeOptions',
         (ngModelChange)='saveConfiguration()',
     )
-        option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name|translate}}
 
 .form-line
     .header

@@ -119,26 +119,22 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     .title(translate) Terminal identification
                     .description(translate) How Tabby presents itself through environment vars
 
-                select.form-control(
+                select-dropdown(
                     [(ngModel)]='config.store.terminal.identification',
+                    [options]='identificationOptions',
                     (ngModelChange)='config.save()',
                 )
-                    option(ngValue='wt', translation) Windows Terminal
-                    option(ngValue='cygwin', translation) Cygwin
 
             .form-line
                 .header
                     .title(translate) Default "Connect to" type
                     .description(translate) Default connection type used by quick connect feature (ex. SSH, Telnet)
 
-                select.form-control(
+                select-dropdown(
                     [(ngModel)]='config.store.defaultQuickConnectProvider',
+                    [options]='quickConnectProviderOptions',
                     (ngModelChange)='config.save()',
                 )
-                    option(
-                        *ngFor='let provider of getQuickConnectProviders()',
-                        [ngValue]='provider.id'
-                    ) {{provider.name}}
 
             .form-line.content-box
                 .header
