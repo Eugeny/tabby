@@ -1,24 +1,12 @@
 :host {
     flex: none;
-    $toggle-size: 18px;
-    $height: 30px;
-    $padding: 2px;
     display: inline-flex;
-    border-radius: 3px;
-    line-height: $height;
-    height: $height;
-    transition: 0.25s opacity;
     align-items: center;
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-left: -10px;
-
-    .form-check {
-        margin: 0;
-    }
+    height: 30px;
 
     &.disabled {
         opacity: 0.5;
+        pointer-events: none;
     }
 
     * {
@@ -27,5 +15,91 @@
 
     label {
         display: none;
+    }
+}
+
+// Custom switch: the input is the track (appearance: none); the knob is the
+// wrapper's ::after, since inputs can't carry pseudo-elements.
+.form-check.form-switch {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 40px;
+    height: 22px;
+
+    input.form-check-input {
+        appearance: none;
+        -webkit-appearance: none;
+        float: none;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border-radius: 22px;
+        background-image: none !important;
+        background-color: var(--theme-bg-more-2);
+        border: 1px solid var(--theme-bg-less);
+        transition: background-color .18s ease-out, border-color .18s ease-out;
+
+        &:checked {
+            background-color: var(--theme-primary);
+            border-color: var(--theme-primary-more);
+        }
+    }
+
+    // knob
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 3px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--theme-fg-more);
+        translate: 0 -50%;
+        pointer-events: none;
+        transition:
+            translate .18s cubic-bezier(.34, 1.3, .5, 1),
+            background-color .18s ease-out;
+    }
+
+    &:has(input:checked)::after {
+        translate: 18px -50%;
+        background: var(--theme-primary-fg);
+    }
+
+    &:hover input.form-check-input {
+        border-color: var(--theme-fg-more-2);
+    }
+}
+
+:host-context(body.no-animations) .form-check.form-switch {
+    input.form-check-input,
+    &::after {
+        transition: none;
+    }
+}
+
+// Forced colors would make the knob and track indistinguishable
+@media (forced-colors: active) {
+    .form-check.form-switch {
+        input.form-check-input {
+            forced-color-adjust: none;
+            background-color: ButtonFace;
+            border: 1px solid ButtonText;
+
+            &:checked {
+                background-color: Highlight;
+            }
+        }
+
+        &::after {
+            forced-color-adjust: none;
+            background: ButtonText;
+        }
+
+        &:has(input:checked)::after {
+            background: HighlightText;
+        }
     }
 }
