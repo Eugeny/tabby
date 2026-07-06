@@ -169,6 +169,8 @@ export class ThemesService {
             document.documentElement.style.setProperty(key, value)
         }
 
+        // Deliberately not OR-ed with prefers-reduced-motion: the OS hint is often
+        // set system-wide while the user explicitly enables Tabby's animations.
         document.body.classList.toggle('no-animations', !this.getConfigStoreOrDefaults().accessibility.animations)
     }
 

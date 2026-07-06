@@ -110,7 +110,7 @@ $tab-border-radius: 4px;
 
         text-transform: uppercase;
         font-weight: bold;
-        color: #aaa;
+        color: var(--theme-fg-more, #aaa);
         border: none;
         border-radius: 0;
 
@@ -202,12 +202,12 @@ hotkey-hint {
 ::ng-deep .btn-tab-bar + .dropdown-menu svg {
     width: calc(22px * var(--spaciness));
     height: calc(16px * var(--spaciness));
-    fill: white;
+    fill: var(--theme-fg, white);
     fill-opacity: 0.75;
 }
 
 ::ng-deep .btn-update svg {
-    fill: cyan;
+    fill: var(--theme-info, cyan);
 }
 
 ::ng-deep .broadcast-status-warning {

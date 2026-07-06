@@ -86,11 +86,24 @@ $input-placeholder-color: var(--theme-fg-more-2);
 @import '~bootstrap/scss/bootstrap.scss';
 @import "./theme.vendor.scss";
 
+// Consistent hyperlink colour across themes. Must live on :root — Bootstrap
+// defines --bs-link-color-rgb there, outranking a body-level override.
+:root {
+    --bs-link-color-rgb: 116, 169, 245;
+    --bs-link-hover-color-rgb: 158, 196, 251;
+}
+
 body {
     background: var(--body-bg);
     --bs-border-color: var(--theme-bg-more-2);
     --bs-form-control-bg: var(--theme-bg-more-2);
     --bs-emphasis-color: var(--theme-fg-less-2);
+
+    // Shared focus-ring colour — referenced by theme.vars but never defined until now.
+    --focus-color: var(--theme-primary, var(--bs-primary));
+
+    // Shared dim strength for overlays (modal backdrop, drop hint, split-pane dim)
+    --overlay-dim: rgba(0, 0, 0, .4);
 }
 
 .list-group {
@@ -128,8 +141,9 @@ body {
 
 .nav-pills {
     --bs-nav-pills-border-radius: #{$nav-pills-border-radius};
-    --bs-nav-pills-link-active-color: var(--theme-primary-fg);
-    --bs-nav-pills-link-active-bg: var(--theme-primary);
+    // The active background is drawn by the sliding .nav-indicator instead
+    --bs-nav-pills-link-active-color: var(--theme-fg-less-2);
+    --bs-nav-pills-link-active-bg: transparent;
 }
 
 .nav-tabs {
@@ -173,8 +187,26 @@ body {
     }
 }
 
+// Dim strength comes from --overlay-dim; the backdrop's opacity only drives the fade
+.modal-backdrop {
+    --bs-backdrop-opacity: 1;
+    background-color: var(--overlay-dim, rgba(0, 0, 0, .4));
+}
+
 .dropdown-menu {
     --bs-dropdown-bg: var(--theme-bg-more);
+    --bs-dropdown-border-color: var(--theme-bg-more-2);
+    --bs-dropdown-border-radius: .5rem;
+    --bs-dropdown-link-hover-bg: var(--theme-bg-more-2);
+    --bs-dropdown-link-hover-color: var(--theme-fg);
+    --bs-dropdown-link-active-bg: var(--theme-primary);
+    --bs-dropdown-link-active-color: var(--theme-primary-fg);
+    padding: .35rem;
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .35);
+
+    .dropdown-item {
+        border-radius: .35rem;
+    }
 }
 
 .progress {
@@ -337,6 +369,11 @@ hotkey-input-modal {
         border-radius: $border-radius;
         margin: 0 !important;
 
+        &.list-group-item-action:not(.disabled):not(.active):hover {
+            background-color: var(--theme-bg-more-2);
+            color: var(--theme-fg);
+        }
+
         &.active {
             background-color: var(--bs-list-group-active-bg);
         }
@@ -349,18 +386,40 @@ hotkey-input-modal {
 }
 
 *::-webkit-scrollbar {
-    background: rgba(0, 0, 0, .125);
-    width: 10px;
-    margin: 5px;
+    width: 12px;
+    height: 12px;
+    background: transparent;
 }
 
+// Transparent border + padding-box clip float the thumb; the colour tracks the
+// theme foreground so it stays visible on light schemes.
 *::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, .25);
+    background: color-mix(in srgb, var(--theme-fg, #fff) 22%, transparent);
+    border-radius: 8px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+
+    &:hover {
+        background: color-mix(in srgb, var(--theme-fg, #fff) 38%, transparent);
+        background-clip: padding-box;
+    }
 }
 
 *::-webkit-scrollbar-corner,
 *::-webkit-resizer {
     opacity: 0;
+}
+
+body:not(.no-animations) {
+    scroll-behavior: smooth;
+
+    .dropdown-menu,
+    .list-group,
+    .modal-body,
+    .nav-content,
+    ngb-typeahead-window {
+        scroll-behavior: smooth;
+    }
 }
 
 search-panel {
@@ -415,8 +474,75 @@ ngx-colors-panel .opened {
     }
 }
 
-.form-control:focus {
-    border-color: var(--theme-fg-more-2);
+.form-check:not(.form-switch) .form-check-input {
+    background-color: var(--theme-bg-more-2);
+    border-color: var(--theme-bg-less);
+    cursor: pointer;
+
+    &:checked {
+        background-color: var(--theme-primary);
+        border-color: var(--theme-primary-more);
+    }
+
+    &:hover:not(:checked):not(:disabled) {
+        border-color: var(--theme-fg-more-2);
+    }
+}
+
+body:not(.no-animations) .form-check:not(.form-switch) .form-check-input {
+    transition: background-color .15s ease-out, border-color .15s ease-out;
+
+    &:checked {
+        animation: tabbyCheckPop .18s cubic-bezier(.34, 1.4, .5, 1);
+    }
+}
+
+@keyframes tabbyCheckPop {
+    from { scale: .8; }
+    to { scale: 1; }
+}
+
+// Mouse focus shows no outlines or rings; keyboard focus gets the themed
+// :focus-visible ring below (mouse clicks don't match :focus-visible on buttons).
+:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+.btn:focus, .btn:focus-visible,
+.form-control:focus, .form-select:focus, select:focus,
+.form-check-input:focus, .form-check-input:focus-visible,
+.dropdown-item:focus, .dropdown-item:focus-visible,
+.nav-link:focus, .page-link:focus, a:focus,
+.select-dropdown-toggle:focus, .select-dropdown-toggle:focus-visible {
+    box-shadow: none !important;
+}
+
+// Keyboard-only focus ring; outlines also render (system-forced) in forced-colors
+:focus-visible {
+    outline: 2px solid rgba(var(--bs-primary-rgb), .55);
+    outline-offset: 1px;
+}
+
+// Clicking into a text field matches :focus-visible — exclude them; the caret and
+// the border hint below indicate focus instead
+input:focus-visible, textarea:focus-visible, select:focus-visible,
+.form-control:focus-visible, .form-select:focus-visible {
+    outline: none !important;
+}
+
+// Soft accent border as the input focus hint (Bootstrap's default is bright blue)
+.form-control:focus, .form-select:focus, select:focus,
+.form-check-input:focus, .select-dropdown-toggle:focus {
+    border-color: rgba(var(--bs-primary-rgb), .5);
+}
+
+// High-contrast mode ignores box-shadow/border colour — restore an outline for a11y.
+@media screen and (forced-colors: active) {
+    .form-control:focus,
+    .form-select:focus,
+    .form-check-input:focus {
+        outline: 2px solid activetext;
+    }
 }
 
 .accordion {
@@ -441,4 +567,277 @@ window-controls {
     button svg {
         fill: var(--theme-fg) !important;
     }
+}
+
+// These render as href-less <a>, <button> or ngb nav tabs — no native pointer cursor
+.list-group-item-action:not(.disabled),
+.nav-link:not(.disabled),
+a.description {
+    cursor: pointer;
+}
+
+.nav-pills .nav-link:not(.active):hover {
+    background-color: var(--theme-bg-less);
+    color: var(--theme-fg-less);
+}
+
+// Hover/focus feedback: paint-only properties, so nothing reflows
+body:not(.no-animations) {
+    a,
+    .btn,
+    .nav-link,
+    .list-group-item,
+    .dropdown-item,
+    .page-link,
+    .link-card,
+    .tree-item,
+    .collapse-item,
+    .hover-reveal,
+    .form-control,
+    .form-select {
+        transition:
+            background-color .12s ease-out,
+            border-color .12s ease-out,
+            color .12s ease-out,
+            fill .12s ease-out,
+            box-shadow .12s ease-out,
+            opacity .12s ease-out,
+            scale .1s ease-out;
+    }
+
+    .btn:active:not(:disabled):not(.disabled),
+    .dropdown-item:active:not(.disabled),
+    .list-group-item-action:active:not(.disabled) {
+        scale: .97;
+    }
+}
+
+// Bootstrap ships these transitions ungated — neutralise them when animations are off
+body.no-animations {
+    .form-control,
+    .form-select,
+    .form-check-input {
+        transition: none;
+    }
+}
+
+// Modal animation. The window fades (ng-bootstrap times the close against this
+// transition); the dialog scale/slide is an enter-only keyframe — replaying it in
+// reverse on close would lurch the dialog upward while the app is busy.
+body:not(.no-animations) ngb-modal-window {
+    transition: opacity .12s ease-out;
+    opacity: 0;
+
+    // Bootstrap's .modal.fade otherwise slides the dialog to translate(0,-50px) the
+    // moment .show drops; &.modal matches its 3-class specificity
+    &.modal .modal-dialog {
+        transform: none;
+        transition: none;
+    }
+
+    &.show {
+        opacity: 1;
+
+        .modal-dialog {
+            animation: tabbyModalIn .16s cubic-bezier(.3, .7, .2, 1);
+        }
+    }
+}
+
+@keyframes tabbyModalIn {
+    from {
+        scale: .97;
+        translate: 0 -8px;
+    }
+    to {
+        scale: 1;
+        translate: 0 0;
+    }
+}
+
+// Chromium natively drags <a href> and <img>, and many controls here are anchors.
+// CDK drag-drop is pointer-based and unaffected.
+a, button, img, svg,
+.btn, .nav-link, .list-group-item, .dropdown-item,
+.tree-item, .link-card, .breadcrumb-item, .page-link {
+    -webkit-user-drag: none;
+}
+
+// Shared navigation design (settings sidebar + selector modal): a sliding surface
+// (.nav-indicator, positioned by NavIndicatorDirective) plus an accent bar on the
+// active item itself, so the active cue never lags behind the slide.
+@mixin nav-active-item {
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 26%;
+        bottom: 26%;
+        width: 3px;
+        border-radius: 3px;
+        background: var(--theme-primary);
+        opacity: 0;
+    }
+
+    &.active::before {
+        opacity: 1;
+    }
+}
+
+.nav-indicator {
+    position: absolute;
+    z-index: 0;
+    border-radius: var(--bs-nav-pills-border-radius, .4rem);
+    background: var(--theme-bg-less-2);
+    pointer-events: none;
+    opacity: 0;
+}
+
+.nav-pills .nav-link {
+    @include nav-active-item;
+}
+
+selector-modal .list-group-item {
+    @include nav-active-item;
+}
+
+body:not(.no-animations) {
+    .nav-pills .nav-link::before,
+    selector-modal .list-group-item::before {
+        transition: opacity .15s ease-out;
+    }
+}
+
+// Selector rows share the sidebar navigation palette
+selector-modal .list-group {
+    --bs-list-group-active-bg: transparent;
+    --bs-list-group-active-color: var(--theme-fg-less-2);
+
+    .list-group-item.list-group-item-action:not(.disabled):not(.active):hover {
+        background-color: var(--theme-bg-less);
+        color: var(--theme-fg-less);
+    }
+}
+
+// The key-hint badges are *ngIf-ed onto the active row; keyframes run on insertion
+body:not(.no-animations) selector-modal .badge {
+    animation: tabbyBadgeIn .16s ease-out;
+}
+
+@keyframes tabbyBadgeIn {
+    from {
+        opacity: 0;
+        translate: 6px 0;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+// Menu pinned by DropdownCloseAnimationDirective while its close fade plays
+.dropdown-menu-closing {
+    z-index: 1060;
+    pointer-events: none !important;
+}
+
+// Segmented btn-check toggles: SegmentedToggleIndicatorDirective slides the group's
+// ::before behind the checked segment via the --segment-* variables. A real child
+// element would shift Bootstrap's nth-child border-radius rules.
+.btn-group.has-segment-indicator {
+    > .btn-check:checked + .btn {
+        --bs-btn-active-bg: transparent;
+        --bs-btn-active-border-color: transparent;
+    }
+
+    > .btn-check + .btn {
+        --bs-btn-hover-bg: var(--theme-secondary-less-2, var(--theme-bg-less));
+        --bs-btn-hover-border-color: transparent;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        left: var(--segment-left, 0);
+        top: var(--segment-top, 0);
+        width: var(--segment-width, 0);
+        height: var(--segment-height, 0);
+        opacity: var(--segment-opacity, 0);
+        border-radius: var(--bs-border-radius, .4rem);
+        background: var(--theme-secondary-active-bg, rgba(255, 255, 255, .12));
+        pointer-events: none;
+    }
+
+    &.segment-indicator-init::before {
+        transition: none !important;
+    }
+}
+
+body:not(.no-animations) .btn-group.has-segment-indicator::before {
+    transition:
+        left .22s cubic-bezier(.4, .85, .3, 1),
+        top .22s cubic-bezier(.4, .85, .3, 1),
+        width .22s cubic-bezier(.4, .85, .3, 1),
+        height .22s cubic-bezier(.4, .85, .3, 1),
+        opacity .15s ease-out;
+}
+
+// Forced colors strip the indicator surfaces — mark the active elements directly
+@media (forced-colors: active) {
+    .btn-group.has-segment-indicator {
+        &::before {
+            display: none;
+        }
+
+        > .btn-check:checked + .btn {
+            forced-color-adjust: none;
+            background: Highlight;
+            color: HighlightText;
+        }
+    }
+
+    .nav-pills .nav-link.active {
+        outline: 2px solid Highlight;
+        outline-offset: -2px;
+    }
+}
+
+// Smooth active/passive tab colour fade (the base style only transitions width)
+body:not(.no-animations) app-root .main.content .tab-bar .tabs tab-header {
+    transition:
+        width .125s ease-out,
+        background-color .18s ease-out,
+        color .18s ease-out;
+}
+
+// The tab bar brightens while the window is unfocused
+app-root.window-blurred .main.content .tab-bar {
+    background: var(--theme-bg-less);
+}
+
+body:not(.no-animations) app-root .main.content .tab-bar {
+    transition: background-color .25s ease-out;
+}
+
+// Dropdown open animation. Keyframes (unlike transitions) restart when the menu
+// flips from display:none to block, so the first open animates too; the close fade
+// is driven by DropdownCloseAnimationDirective.
+body:not(.no-animations) .dropdown-menu.show {
+    animation: tabbyDropdownIn .14s cubic-bezier(.3, .7, .2, 1);
+    transform-origin: top center;
+
+    &[data-popper-placement^='top'] { transform-origin: bottom center; }
+    &[data-popper-placement$='start'] { transform-origin: top left; }
+    &[data-popper-placement$='end'] { transform-origin: top right; }
+    &[data-popper-placement='top-start'] { transform-origin: bottom left; }
+    &[data-popper-placement='top-end'] { transform-origin: bottom right; }
+}
+
+@keyframes tabbyDropdownIn {
+    from { opacity: 0; scale: .97; }
+    to { opacity: 1; scale: 1; }
 }

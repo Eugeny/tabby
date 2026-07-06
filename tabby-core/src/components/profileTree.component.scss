@@ -63,6 +63,7 @@ input {
                 background-color: var(--theme-bg-more-2);
                 border-radius: .2rem;
                 padding: 0 calc(.34rem * calc(var(--spaciness) * var(--spaciness)));
+                transition: background-color .12s ease-out, color .12s ease-out;
                 &:hover {
                     background-color: var(--theme-primary);
                     color: var(--theme-secondary);
