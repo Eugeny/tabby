@@ -16,6 +16,7 @@ import { TabBodyComponent } from './components/tabBody.component'
 import { PromptModalComponent } from './components/promptModal.component'
 import { SafeModeModalComponent } from './components/safeModeModal.component'
 import { StartPageComponent } from './components/startPage.component'
+import { SelectDropdownComponent } from './components/selectDropdown.component'
 import { TabHeaderComponent } from './components/tabHeader.component'
 import { TitleBarComponent } from './components/titleBar.component'
 import { ToggleComponent } from './components/toggle.component'
@@ -33,6 +34,9 @@ import { ProfileIconComponent } from './components/profileIcon.component'
 import { ProfileTreeComponent } from './components/profileTree.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
+import { DropdownCloseAnimationDirective } from './directives/dropdownCloseAnimation.directive'
+import { SegmentedToggleIndicatorDirective } from './directives/segmentedToggle.directive'
+import { NavIndicatorDirective } from './directives/navIndicator.directive'
 import { AlwaysVisibleTypeaheadDirective } from './directives/alwaysVisibleTypeahead.directive'
 import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 import { DropZoneDirective } from './directives/dropZone.directive'
@@ -108,6 +112,7 @@ const PROVIDERS = [
     declarations: [
         AppRootComponent,
         CheckboxComponent,
+        SelectDropdownComponent,
         PromptModalComponent,
         StartPageComponent,
         TabBodyComponent,
@@ -118,6 +123,9 @@ const PROVIDERS = [
         RenameTabModalComponent,
         SafeModeModalComponent,
         AutofocusDirective,
+        DropdownCloseAnimationDirective,
+        SegmentedToggleIndicatorDirective,
+        NavIndicatorDirective,
         FastHtmlBindDirective,
         AlwaysVisibleTypeaheadDirective,
         SelectorModalComponent,
@@ -137,9 +145,13 @@ const PROVIDERS = [
     exports: [
         AppRootComponent,
         CheckboxComponent,
+        SelectDropdownComponent,
         ToggleComponent,
         PromptModalComponent,
         AutofocusDirective,
+        DropdownCloseAnimationDirective,
+        SegmentedToggleIndicatorDirective,
+        NavIndicatorDirective,
         DropZoneDirective,
         FastHtmlBindDirective,
         AlwaysVisibleTypeaheadDirective,

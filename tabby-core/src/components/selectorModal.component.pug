@@ -7,7 +7,7 @@
         (ngModelChange)='onFilterChange()'
     )
 
-    .list-group.list-group-light(*ngIf='filteredOptions.length')
+    .list-group.list-group-light(*ngIf='filteredOptions.length', animatedNavIndicator='.list-group-item.active')
         ng-container(*ngFor='let option of filteredOptions; let i = index')
             label.group-header(
                 *ngIf='hasGroups && option.group !== filteredOptions[i - 1]?.group'
