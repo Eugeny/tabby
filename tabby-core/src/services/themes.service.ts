@@ -110,6 +110,12 @@ export class ThemesService {
             vars['--theme-bg-more'] = backgroundMore
             vars['--theme-bg-more-2'] = more(backgroundMore, 0.25).string()
 
+            // Blurred-window tab bar tint: blend the bar's own color (--theme-bg-more-2)
+            // towards the opposite extreme, so the change stays visible on schemes where
+            // the multiplicative lighten/darken above is a no-op (e.g. pure black backgrounds)
+            const tabBarBg = more(backgroundMore, 0.25)
+            vars['--theme-tab-bar-blurred-bg'] = tabBarBg.mix(Color(isDark ? 'white' : 'black'), 0.12).string()
+
             contrastPairs.push(['--theme-bg', '--theme-fg'])
             contrastPairs.push(['--theme-bg-less', '--theme-fg-less'])
             contrastPairs.push(['--theme-bg-less-2', '--theme-fg-less-2'])

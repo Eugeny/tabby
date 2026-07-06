@@ -201,11 +201,21 @@ body {
     --bs-dropdown-link-hover-color: var(--theme-fg);
     --bs-dropdown-link-active-bg: var(--theme-primary);
     --bs-dropdown-link-active-color: var(--theme-primary-fg);
+    --bs-dropdown-header-color: var(--theme-fg-less);
     padding: .35rem;
     box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .35);
 
     .dropdown-item {
         border-radius: .35rem;
+        cursor: pointer;
+
+        &:not(.disabled):not(.active):hover,
+        &:not(.disabled):not(.active):focus-visible {
+            // Bootstrap's hover bg is often indistinguishable from --theme-bg-more;
+            // tint from the menu surface so hover reads on every scheme.
+            background-color: color-mix(in srgb, var(--theme-fg) 8%, var(--theme-bg-more));
+            color: var(--theme-fg);
+        }
     }
 }
 
@@ -572,6 +582,7 @@ window-controls {
 // These render as href-less <a>, <button> or ngb nav tabs — no native pointer cursor
 .list-group-item-action:not(.disabled),
 .nav-link:not(.disabled),
+.dropdown-item:not(.disabled),
 a.description {
     cursor: pointer;
 }
@@ -814,9 +825,9 @@ body:not(.no-animations) app-root .main.content .tab-bar .tabs tab-header {
         color .18s ease-out;
 }
 
-// The tab bar brightens while the window is unfocused
+// The tab bar brightens (dims on light schemes) while the window is unfocused
 app-root.window-blurred .main.content .tab-bar {
-    background: var(--theme-bg-less);
+    background: var(--theme-tab-bar-blurred-bg);
 }
 
 body:not(.no-animations) app-root .main.content .tab-bar {
