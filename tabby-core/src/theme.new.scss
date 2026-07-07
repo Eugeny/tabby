@@ -825,9 +825,11 @@ body:not(.no-animations) app-root .main.content .tab-bar .tabs tab-header {
         color .18s ease-out;
 }
 
-// The tab bar brightens (dims on light schemes) while the window is unfocused
+// While the window is unfocused the tab bar shifts toward the foreground colour —
+// brightening dark schemes, dimming light ones — computed from the bar's own colour
+// so it works on every theme, including pure black/white.
 app-root.window-blurred .main.content .tab-bar {
-    background: var(--theme-tab-bar-blurred-bg);
+    background: color-mix(in srgb, var(--theme-fg) 14%, var(--theme-bg-more-2));
 }
 
 body:not(.no-animations) app-root .main.content .tab-bar {
