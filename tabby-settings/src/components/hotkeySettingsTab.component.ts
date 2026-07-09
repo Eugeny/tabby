@@ -35,17 +35,26 @@ export class HotkeySettingsTabComponent {
     }
 
     getHotkeys (id: string): Hotkey[] {
-        let ptr = this.config.store.hotkeys
+        let ptr: unknown = this.config.store.hotkeys
         for (const token of id.split(/\./g)) {
-            ptr = ptr[token]
+            if (!ptr || typeof ptr !== 'object') {
+                return []
+            }
+            ptr = (ptr as Record<string, unknown>)[token]
         }
-        return (ptr || []).map(hotkey => this.detectDuplicates(hotkey))
+        if (!Array.isArray(ptr)) {
+            return []
+        }
+        return ptr.map(hotkey => this.detectDuplicates(hotkey))
     }
 
     setHotkeys (id: string, hotkeys: Hotkey[]) {
-        let ptr = this.config.store
+        let ptr: any = this.config.store
         let prop = 'hotkeys'
         for (const token of id.split(/\./g)) {
+            if (ptr[prop] == null || typeof ptr[prop] !== 'object' || Array.isArray(ptr[prop])) {
+                ptr[prop] = {}
+            }
             ptr = ptr[prop]
             prop = token
         }
