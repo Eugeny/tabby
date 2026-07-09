@@ -360,6 +360,32 @@ h3.mt-4(translate) Tabs
         (ngModelChange)='config.save();',
     )
 
+.form-line(*ngIf='!config.store.terminal.hideTabIndex')
+    .header
+        .title(translate) Tab color indicator
+        .description(translate) Where to show the custom tab color
+    .btn-group
+        input.btn-check(
+            type='radio',
+            name='tabColorLocation',
+            [(ngModel)]='config.store.terminal.tabColorLocation',
+            (ngModelChange)='config.save()',
+            id='tabColorLocationColorbar',
+            value='colorbar',
+        )
+        label.btn.btn-secondary(for='tabColorLocationColorbar')
+            span(translate) Bottom strip
+        input.btn-check(
+            type='radio',
+            name='tabColorLocation',
+            [(ngModel)]='config.store.terminal.tabColorLocation',
+            (ngModelChange)='config.save()',
+            id='tabColorLocationIndex',
+            value='index',
+        )
+        label.btn.btn-secondary(for='tabColorLocationIndex')
+            span(translate) Index badge
+
 .form-line
     .header
         .title(translate) Show profile icon on tab

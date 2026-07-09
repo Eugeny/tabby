@@ -21,6 +21,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             cursor: 'block',
             cursorBlink: true,
             hideTabIndex: false,
+            tabColorLocation: 'colorbar',
             showTabProfileIcon: false,
             hideCloseButton: false,
             hideTabOptionsButton: false,

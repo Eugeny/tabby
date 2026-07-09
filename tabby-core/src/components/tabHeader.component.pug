@@ -1,10 +1,19 @@
-.colorbar([style.background-color]='tab.color', *ngIf='tab.color != null')
+.colorbar([style.background-color]='tab.color', *ngIf='tab.color != null && config.store.terminal.tabColorLocation !== "index"')
 .progressbar([style.width]='progress + "%"', *ngIf='progress != null')
 .activity-indicator(*ngIf='tab.activity$|async')
 .current-tab-indicator
 
-.index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform === Platform.macOS', cdkDragHandle) {{index + 1}}
-.index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform !== Platform.macOS') {{index + 1}}
+.index(
+    *ngIf='!config.store.terminal.hideTabIndex && hostApp.platform === Platform.macOS',
+    cdkDragHandle,
+    [class.tab-color-badge]='config.store.terminal.tabColorLocation === "index" && tab.color != null',
+    [style.background-color]='config.store.terminal.tabColorLocation === "index" && tab.color != null ? tab.color : null',
+) {{index + 1}}
+.index(
+    *ngIf='!config.store.terminal.hideTabIndex && hostApp.platform !== Platform.macOS',
+    [class.tab-color-badge]='config.store.terminal.tabColorLocation === "index" && tab.color != null',
+    [style.background-color]='config.store.terminal.tabColorLocation === "index" && tab.color != null ? tab.color : null',
+) {{index + 1}}
 
 profile-icon(
     *ngIf='config.store.terminal.showTabProfileIcon && tab.icon',

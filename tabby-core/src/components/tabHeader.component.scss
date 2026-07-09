@@ -41,6 +41,11 @@ $tabs-height: 38px;
         transition: 0.25s all;
         align-self: center;
         margin-top: 1px;
+
+        &.tab-color-badge {
+            color: #fff;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+        }
     }
 
     profile-icon {
