@@ -2,15 +2,10 @@
 # yarn lockfile v1
 
 
-"@types/marked@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@types/marked/-/marked-5.0.1.tgz#15acd796d722b91bf00738c8c8539aaf5034f0c6"
-  integrity sha512-Y3pAUzHKh605fN6fvASsz5FDSWbZcs/65Q6xYRmnIP9ZIYz27T4IOmXfH9gWJV1dpi7f1e7z7nBGUTx/a0ptpA==
-
-marked@^9.1.4:
-  version "9.1.4"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-9.1.4.tgz#68d50848f1b1e264b8fa031946b4b0c3352827e9"
-  integrity sha512-Mq83CCaClhXqhf8sLQ57c1unNelHEuFadK36ga+GeXR4FeT/5ssaC5PaCRVqMA74VYorzYRqdAaxxteIanh3Kw==
+marked@^18:
+  version "18.0.6"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.6.tgz#7faf26fd580b9c8daa75984f18db25631fc4ad63"
+  integrity sha512-MrV5puXBfuiy6wl6DLaq3BtIJQAJToAd5zt/ZKhRfGRAuFPALE7/4Y7jnxRQoEgK/pBgurGqLyAuRgZ2xOjr6w==
 
 ngx-infinite-scroll@^16:
   version "16.0.0"
