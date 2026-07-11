@@ -61,6 +61,57 @@ div(*ngIf='vault.isEnabled()')
                             span(translate) Delete
 
         h3.mt-5(translate) Options
+
+        // Touch ID option (macOS only)
+        .form-line(*ngIf='touchIdAvailable')
+            .header
+                .title
+                    i.fas.fa-fingerprint.me-2
+                    span(translate) Use Touch ID to unlock
+                .description(translate) Unlock the vault using Touch ID instead of entering the passphrase
+            toggle(
+                [ngModel]='touchIdEnabled',
+                (ngModelChange)='toggleTouchId($event)',
+            )
+
+        // Touch ID expire days (show only when Touch ID is enabled)
+        .form-line(*ngIf='touchIdAvailable && touchIdEnabled')
+            .header
+                .title(translate) Touch ID expires after
+                .description(translate) After this period, you will need to enter the passphrase again
+            .d-flex.align-items-center.gap-2
+                select.form-control(
+                    style='width: auto',
+                    [ngModel]='touchIdExpireSelection',
+                    (ngModelChange)='setTouchIdExpireDays($event)',
+                )
+                    option(
+                        *ngFor='let opt of touchIdExpireOptions',
+                        [ngValue]='opt.value',
+                    ) {{opt.label | translate}}
+                    option([ngValue]='-1', translate) Custom
+                // Custom days input (show when custom is selected)
+                .input-group(*ngIf='touchIdExpireSelection === -1', style='width: 120px')
+                    input.form-control(
+                        type='number',
+                        min='1',
+                        max='30',
+                        step='1',
+                        [ngModel]='customExpireDays',
+                        (ngModelChange)='setCustomExpireDays($event)',
+                    )
+                    span.input-group-text(translate) days
+
+        // Expire on restart (show only when Touch ID is enabled)
+        .form-line(*ngIf='touchIdAvailable && touchIdEnabled')
+            .header
+                .title(translate) Expire on restart
+                .description(translate) Require passphrase after computer restart
+            toggle(
+                [ngModel]='touchIdExpireOnRestart',
+                (ngModelChange)='setTouchIdExpireOnRestart($event)',
+            )
+
         .form-line
             .header
                 .title(translate) Encrypt config file
