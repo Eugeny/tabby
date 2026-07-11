@@ -1,5 +1,4 @@
 import * as tmp from 'tmp-promise'
-import * as path from 'path'
 import * as fs from 'fs'
 import { Subject, debounceTime, debounce } from 'rxjs'
 import { Injectable } from '@angular/core'

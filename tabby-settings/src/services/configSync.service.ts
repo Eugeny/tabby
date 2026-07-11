@@ -1,5 +1,4 @@
 import * as yaml from 'js-yaml'
-import axios from 'axios'
 import { Injectable } from '@angular/core'
 import { ConfigService, HostAppService, Logger, LogService, Platform, PlatformService } from 'tabby-core'
 
@@ -159,7 +158,7 @@ export class ConfigSyncService {
         await this.config.save()
     }
 
-    private async request (method: 'GET'|'POST'|'PATCH'|'DELETE', url: string, params = {}) {
+    private async request (method: 'GET'|'POST'|'PATCH'|'DELETE', url: string, { data }: { data?: any } = {}) {
         if (this.config.store.configSync.host.endsWith('/')) {
             this.config.store.configSync.host = this.config.store.configSync.host.slice(0, -1)
         }
@@ -175,18 +174,23 @@ export class ConfigSyncService {
             throw new Error(message)
         }
         url = host + url
-        this.logger.debug(`${method} ${url}`, params)
+        this.logger.debug(`${method} ${url}`, data)
         try {
-            const response = await axios.request({
-                url,
+            const response = await fetch(url, {
                 method,
                 headers: {
                     Authorization: `Bearer ${this.config.store.configSync.token}`,
+                    ...data !== undefined ? { 'Content-Type': 'application/json' } : {},
                 },
-                ...params,
+                body: data !== undefined ? JSON.stringify(data) : undefined,
             })
+            if (!response.ok) {
+                throw new Error(`${method} ${url} failed: ${response.status} ${response.statusText}`)
+            }
             this.logger.debug(response)
-            return response.data
+            // ponytail: DELETE returns empty 204, parse only if there's a body
+            const text = await response.text()
+            return text ? JSON.parse(text) : undefined
         } catch (error) {
             this.logger.error(error)
             throw error
