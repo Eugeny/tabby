@@ -68,7 +68,7 @@
     "rxjs": "^7.5.7",
     "sass": "^1.63.4",
     "sass-loader": "^13.2.0",
-    "shell-quote": "^1.7.4",
+    "shell-quote": "^1.8.4",
     "shelljs": "0.8.5",
     "slugify": "^1.6.5",
     "source-code-pro": "^2.38.0",
