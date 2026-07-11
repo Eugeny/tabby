@@ -109,6 +109,14 @@ body {
     --bs-list-group-active-bg: var(--bs-primary-bg);
 }
 
+select.form-control {
+    --bs-form-select-background-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23646464' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-image: var(--bs-form-select-background-icon);
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    background-repeat: no-repeat;
+}
+
 .nav {
     --bs-nav-link-color: var(--theme-fg-more);
     --bs-nav-link-hover-color: var(--theme-fg-less);
