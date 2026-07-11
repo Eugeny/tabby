@@ -22,6 +22,19 @@ try {
     var wnr = require('windows-native-registry')
 } catch { }
 
+/**
+ * Resolve `relativePath` against `basePath` and ensure the result stays inside `basePath`.
+ */
+export function resolveInsideBase (basePath: string, relativePath: string): string {
+    const base = path.resolve(basePath)
+    const target = path.resolve(base, relativePath)
+    const rel = path.relative(base, target)
+    if (rel !== '' && (rel === '..' || rel.startsWith('..' + path.sep) || path.isAbsolute(rel))) {
+        throw new Error(`Refusing access outside the target directory: ${relativePath}`)
+    }
+    return target
+}
+
 @Injectable({ providedIn: 'root' })
 export class ElectronPlatformService extends PlatformService {
     supportsWindowControls = true
@@ -482,12 +495,12 @@ class ElectronDirectoryDownload extends DirectoryDownload {
     }
 
     async createDirectory (relativePath: string): Promise<void> {
-        const fullPath = path.join(this.basePath, relativePath)
+        const fullPath = resolveInsideBase(this.basePath, relativePath)
         await fs.mkdir(fullPath, { recursive: true })
     }
 
     async createFile (relativePath: string, mode: number, size: number): Promise<FileDownload> {
-        const fullPath = path.join(this.basePath, relativePath)
+        const fullPath = resolveInsideBase(this.basePath, relativePath)
         await fs.mkdir(path.dirname(fullPath), { recursive: true })
 
         const fileDownload = new ElectronFileDownload(fullPath, mode, size, this.electron)
