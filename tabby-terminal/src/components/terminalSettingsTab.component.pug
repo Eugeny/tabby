@@ -6,7 +6,7 @@ div
             .title(translate) Frontend
             .description(translate) Switches terminal frontend implementation (experimental)
 
-        select.form-select(
+        select.form-control(
             [(ngModel)]='config.store.terminal.frontend',
             (ngModelChange)='config.save()',
         )
@@ -72,7 +72,7 @@ div.mt-4
             .title(translate) Right click
             .description(*ngIf='config.store.terminal.rightClick == "paste"', translate) Long-click for context menu
 
-        select.form-select(
+        select.form-control(
             [(ngModel)]='config.store.terminal.rightClick',
             (ngModelChange)='config.save()'
         )
@@ -106,7 +106,7 @@ div.mt-4
             .title(translate) Require a key to click links
             .description(translate) When enabled, links are only clickable while holding this key
 
-        select.form-select(
+        select.form-control(
             [(ngModel)]='config.store.clickableLinks.modifier',
             (ngModelChange)='config.save()',
         )

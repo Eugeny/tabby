@@ -8,7 +8,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                 .header
                     .title(translate) Default profile for new tabs
 
-                select.form-select(
+                select.form-control(
                     [(ngModel)]='config.store.terminal.profile',
                     (ngModelChange)='config.save()',
                 )
@@ -119,7 +119,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     .title(translate) Terminal identification
                     .description(translate) How Tabby presents itself through environment vars
 
-                select.form-select(
+                select.form-control(
                     [(ngModel)]='config.store.terminal.identification',
                     (ngModelChange)='config.save()',
                 )
@@ -131,7 +131,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     .title(translate) Default "Connect to" type
                     .description(translate) Default connection type used by quick connect feature (ex. SSH, Telnet)
 
-                select.form-select(
+                select.form-control(
                     [(ngModel)]='config.store.defaultQuickConnectProvider',
                     (ngModelChange)='config.save()',
                 )

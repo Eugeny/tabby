@@ -3,7 +3,7 @@ h3.mb-3(translate) Window
 .form-line(*ngIf='themes.length > 1')
     .header
         .title(translate) Theme
-    select.form-select(
+    select.form-control(
         [(ngModel)]='config.store.appearance.theme',
         (ngModelChange)='saveConfiguration()',
     )
