@@ -163,7 +163,18 @@ export class ConfigSyncService {
         if (this.config.store.configSync.host.endsWith('/')) {
             this.config.store.configSync.host = this.config.store.configSync.host.slice(0, -1)
         }
-        url = this.config.store.configSync.host + url
+        const host: string = this.config.store.configSync.host
+        // Refuse to sync configuration over a plaintext channel. The remote
+        // payload is parsed as YAML and merged into the local config (including
+        // profiles whose `command`/`env` are later executed by the terminal),
+        // so a network attacker able to MITM cleartext HTTP could achieve
+        // arbitrary command execution on the next sync. Require HTTPS.
+        if (!/^https:\/\//i.test(host)) {
+            const message = `Config sync host must use HTTPS (got: ${host})`
+            this.logger.error(message)
+            throw new Error(message)
+        }
+        url = host + url
         this.logger.debug(`${method} ${url}`, params)
         try {
             const response = await axios.request({

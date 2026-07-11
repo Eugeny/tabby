@@ -22,6 +22,7 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
             },
             width: null,
             height: null,
+            shellType: null,
             pauseAfterExit: false,
             runAsAdministrator: false,
         },
@@ -82,6 +83,7 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
             args: shell.args ?? [],
             env: shell.env,
             cwd: shell.cwd ?? null,
+            shellType: shell.shellType ?? null,
         }
     }
 

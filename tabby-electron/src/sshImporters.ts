@@ -90,23 +90,45 @@ function convertSSHConfigValuesToString (arg: string | string[] | object[]): str
         .join(' ')
 }
 
-// Function to read in the SSH config file recursively and parse any Include directives
+// ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
+function resolveSSHIncludePath (value: string): string {
+    if (path.isAbsolute(value)) {
+        return value
+    }
+    if (value.startsWith('~')) {
+        return path.join(process.env.HOME ?? '~', value.slice(1))
+    }
+    return path.join(process.env.HOME ?? '~', '.ssh', value)
+}
+
+interface ParsedSSHConfig {
+    config: SSHConfig
+    // Newest mtime across the config file and every file it Includes, so the
+    // import cache is invalidated when an included file changes — not only
+    // when the top-level ~/.ssh/config does.
+    mtime: number
+}
+
+// Read the SSH config file recursively, merging any Include directives and
+// tracking the newest mtime among all files involved.
 async function parseSSHConfigFile (
     filePath: string,
     visited = new Set<string>(),
-): Promise<SSHConfig> {
+): Promise<ParsedSSHConfig> {
     // If we've already processed this file, return an empty config to avoid infinite recursion
     if (visited.has(filePath)) {
-        return SSHConfig.parse('')
+        return { config: SSHConfig.parse(''), mtime: 0 }
     }
     visited.add(filePath)
 
     let raw = ''
+    let mtime = 0
     try {
+        mtime = (await fs.stat(filePath)).mtimeMs
         raw = await fs.readFile(filePath, 'utf8')
     } catch (err) {
         console.error(`Error reading SSH config file: ${filePath}`, err)
-        return SSHConfig.parse('')
+        return { config: SSHConfig.parse(''), mtime: 0 }
     }
 
     const parsed = SSHConfig.parse(raw)
@@ -118,30 +140,21 @@ async function parseSSHConfigFile (
                 continue
             }
 
-            // ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
-            let incPath = ''
-            if (path.isAbsolute(directive.value)) {
-                incPath = directive.value
-            } else if (directive.value.startsWith('~')) {
-                incPath = path.join(process.env.HOME ?? '~', directive.value.slice(1))
-            } else {
-                incPath = path.join(process.env.HOME ?? '~', '.ssh', directive.value)
-            }
-
-            const matches = glob.sync(incPath)
+            const matches = glob.sync(resolveSSHIncludePath(directive.value))
             for (const match of matches) {
                 const stat = await fs.stat(match)
                 if (stat.isDirectory()) {
                     continue
                 }
-                const matchedConfig = await parseSSHConfigFile(match, visited)
-                merged.push(...matchedConfig)
+                const included = await parseSSHConfigFile(match, visited)
+                mtime = Math.max(mtime, included.mtime)
+                merged.push(...included.config)
             }
         } else {
             merged.push(entry)
         }
     }
-    return merged
+    return { config: merged, mtime }
 }
 
 // Function to convert an SSH Profile name into a sha256 hash-based ID
@@ -354,21 +367,70 @@ async function convertToSSHProfiles (config: SSHConfig): Promise<PartialProfile<
 }
 
 
+let _openSSHCache: PartialProfile<SSHProfile>[] | null = null
+let _openSSHCacheMtime: number | null = null
+let _openSSHCachePromise: Promise<PartialProfile<SSHProfile>[]> | null = null
+
+interface SSHProfileDiskCache {
+    mtime: number
+    profiles: PartialProfile<SSHProfile>[]
+}
+
 @Injectable({ providedIn: 'root' })
 export class OpenSSHImporter extends SSHProfileImporter {
+    private diskCachePath: string
+
+    constructor (electron: ElectronService) {
+        super()
+        this.diskCachePath = path.join(electron.app.getPath('userData'), 'ssh-profiles-cache.json')
+    }
+
     async getProfiles (): Promise<PartialProfile<SSHProfile>[]> {
+        if (_openSSHCachePromise) {
+            return _openSSHCachePromise
+        }
 
         const configPath = path.join(process.env.HOME ?? '~', '.ssh', 'config')
 
-        try {
-            const config: SSHConfig = await parseSSHConfigFile(configPath)
-            return await convertToSSHProfiles(config)
-        } catch (e) {
-            if (e.code === 'ENOENT') {
-                return []
+        _openSSHCachePromise = (async () => {
+            try {
+                const { config, mtime } = await parseSSHConfigFile(configPath)
+
+                if (_openSSHCache && _openSSHCacheMtime === mtime) {
+                    return _openSSHCache
+                }
+
+                // Try disk cache first
+                try {
+                    const diskCache: SSHProfileDiskCache = JSON.parse(
+                        await fs.readFile(this.diskCachePath, 'utf8'),
+                    )
+                    if (diskCache.mtime === mtime) {
+                        _openSSHCache = diskCache.profiles
+                        _openSSHCacheMtime = mtime
+                        return _openSSHCache
+                    }
+                } catch { /* no cache or invalid */ }
+
+                _openSSHCache = await convertToSSHProfiles(config)
+                _openSSHCacheMtime = mtime
+
+                // Save to disk cache (fire and forget)
+                fs.writeFile(this.diskCachePath, JSON.stringify({ mtime, profiles: _openSSHCache }))
+                    .catch(() => { /* ignore write errors */ })
+
+                return _openSSHCache
+            } catch (e) {
+                if (e.code === 'ENOENT') {
+                    return []
+                }
+                throw e
+            } finally {
+                _openSSHCachePromise = null
             }
-            throw e
-        }
+        })()
+
+        return _openSSHCachePromise
     }
 }
 

@@ -48,7 +48,12 @@ export class PasswordStorageService {
                 return null
             }
             const key = this.getKeytarKeyForConnection(profile)
-            return keytar.getPassword(key, account)
+            try {
+                return await keytar.getPassword(key, account)
+            } catch (e) {
+                console.warn(`Failed to load stored password for ${account}@${profile.options.host}:${profile.options.port ?? 22}`, e)
+                return null
+            }
         }
     }
 

@@ -55,7 +55,7 @@ export class WebPlatformService extends PlatformService {
         return '1.0'
     }
 
-    openExternal (url: string): void {
+    async openExternal (url: string): Promise<void> {
         window.open(url)
     }
 

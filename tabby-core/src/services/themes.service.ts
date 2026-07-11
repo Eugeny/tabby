@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core'
 import { Subject, Observable } from 'rxjs'
 import * as Color from 'color'
 import { ConfigService } from '../services/config.service'
-import { Theme } from '../api/theme'
+import { TerminalColorScheme, Theme } from '../api/theme'
 import { PlatformService, PlatformTheme } from '../api/platform'
 import { NewTheme } from '../theme'
 
@@ -199,7 +199,7 @@ export class ThemesService {
     }
 
     /// @hidden
-    _getActiveColorScheme (): any {
+    _getActiveColorScheme (): TerminalColorScheme {
         let theme: PlatformTheme = 'dark'
         if (this.getConfigStoreOrDefaults().appearance.colorSchemeMode === 'light') {
             theme = 'light'
@@ -208,9 +208,9 @@ export class ThemesService {
         }
 
         if (theme === 'light') {
-            return this.getConfigStoreOrDefaults().terminal.lightColorScheme
+            return this.getConfigStoreOrDefaults().terminal.lightColorScheme as TerminalColorScheme
         } else {
-            return this.getConfigStoreOrDefaults().terminal.colorScheme
+            return this.getConfigStoreOrDefaults().terminal.colorScheme as TerminalColorScheme
         }
     }
 
