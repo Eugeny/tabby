@@ -492,7 +492,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         if (!(data instanceof Buffer)) {
             data = Buffer.from(data, 'utf-8')
         }
-
         this.session?.feedFromTerminal(data)
         if (this.config.store.terminal.scrollOnInput && !data.equals(OSC_FOCUS_IN) && !data.equals(OSC_FOCUS_OUT)) {
             this.frontend?.scrollToBottom()

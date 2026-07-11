@@ -329,7 +329,6 @@ export class AppService {
         this.tabsChanged.next()
     }
 
-
     getPinnedTabCount (): number {
         return this.tabs.filter(x => x.pinned).length
     }
@@ -391,21 +390,6 @@ export class AppService {
         }
         this.tabs.splice(currentIndex, 1)
         this.tabs.splice(targetIndex, 0, tab)
-        this.tabsChanged.next()
-    }
-
-    reorderTab (tab: BaseTabComponent, toIndex: number): void {
-        const currentIndex = this.tabs.indexOf(tab)
-        if (currentIndex === -1) {
-            return
-        }
-        const targetIndex = this.clampTabIndexToBounds(tab, toIndex)
-        if (currentIndex === targetIndex) {
-            this.tabsChanged.next()
-            return
-        }
-        const [moved] = this.tabs.splice(currentIndex, 1)
-        this.tabs.splice(targetIndex, 0, moved)
         this.tabsChanged.next()
     }
 

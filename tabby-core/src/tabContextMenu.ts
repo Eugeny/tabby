@@ -48,7 +48,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                 {
                     label: this.translate.instant('Close other tabs'),
                     click: () => {
-                        for (const t of this.app.tabs.filter(x => x !== tab && !x.pinned)) {
+                        for (const t of this.app.tabs.filter(x => x !== tab)) {
                             this.app.closeTab(t, true)
                         }
                     },
@@ -56,7 +56,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                 {
                     label: this.translate.instant('Close tabs to the right'),
                     click: () => {
-                        for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1).filter(x => !x.pinned)) {
+                        for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
                             this.app.closeTab(t, true)
                         }
                     },
@@ -64,7 +64,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                 {
                     label: this.translate.instant('Close tabs to the left'),
                     click: () => {
-                        for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab)).filter(x => !x.pinned)) {
+                        for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
                             this.app.closeTab(t, true)
                         }
                     },

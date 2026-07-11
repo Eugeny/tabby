@@ -224,7 +224,7 @@ export class AppRootComponent {
                 this.app.wrapAndAddTab(tab)
             }
         }
-        this.app.reorderTab(tab, event.currentIndex)
+        this.app.moveTabToIndex(tab, event.currentIndex)
     }
 
     onTransfersChange () {
