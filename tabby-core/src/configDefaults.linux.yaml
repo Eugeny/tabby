@@ -21,6 +21,7 @@ hotkeys:
   rearrange-panes:
     - 'Ctrl-Shift'
   duplicate-tab: []
+  pin-tab: []
   restart-tab: []
   reconnect-tab: []
   disconnect-tab: []

@@ -831,6 +831,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      * Method called when session is closed.
      */
     protected onSessionClosed (destroyOnSessionClose = false): void {
+        // Pinning only guards against manual close (see AppService.closeTab);
+        // a shell exiting closes the tab normally per behaviorOnSessionEnd.
         if (destroyOnSessionClose || this.shouldTabBeDestroyedOnSessionClose()) {
             this.destroy()
         }

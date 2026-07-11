@@ -2,7 +2,7 @@
 import { Component, Input, HostListener, HostBinding, ViewChildren, ViewChild } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
+import { CdkDragDrop } from '@angular/cdk/drag-drop'
 
 import { HostAppService, Platform } from '../api/hostApp'
 import { HotkeysService } from '../services/hotkeys.service'
@@ -123,9 +123,11 @@ export class AppRootComponent {
                 if (hotkey === 'duplicate-tab') {
                     this.app.duplicateTab(this.app.activeTab)
                 }
+                if (hotkey === 'pin-tab') {
+                    this.app.toggleTabPinned(this.app.activeTab)
+                }
                 if (hotkey === 'restart-tab') {
-                    this.app.duplicateTab(this.app.activeTab)
-                    this.app.closeTab(this.app.activeTab, true)
+                    this.app.restartTab(this.app.activeTab)
                 }
                 if (hotkey === 'explode-tab' && this.app.activeTab instanceof SplitTabComponent) {
                     this.app.explodeTab(this.app.activeTab)
@@ -191,6 +193,21 @@ export class AppRootComponent {
             this.ready = true
             this.app.emitReady()
         })
+
+        // While the window is being dragged, suppress the split-pane layout
+        // transition (see splitTab.component.scss). Animating pane geometry on
+        // every resize frame triggers a full-layer repaint that flickers the
+        // terminal; the transition is only wanted for split/close/maximize.
+        let resizeEndTimeout: any = null
+        window.addEventListener('resize', () => {
+            document.body.classList.add('resizing')
+            if (resizeEndTimeout) {
+                clearTimeout(resizeEndTimeout)
+            }
+            resizeEndTimeout = setTimeout(() => {
+                document.body.classList.remove('resizing')
+            }, 200)
+        })
     }
 
     @HostListener('dragover')
@@ -222,8 +239,7 @@ export class AppRootComponent {
                 this.app.wrapAndAddTab(tab)
             }
         }
-        moveItemInArray(this.app.tabs, event.previousIndex, event.currentIndex)
-        this.app.emitTabsChanged()
+        this.app.moveTabToIndex(tab, event.currentIndex)
     }
 
     onTransfersChange () {
