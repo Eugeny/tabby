@@ -1,0 +1,27 @@
+div.select-dropdown(ngbDropdown, #dropdown='ngbDropdown')
+    button.form-control.select-dropdown-toggle(
+        type='button',
+        ngbDropdownToggle,
+        [disabled]='disabled',
+        role='combobox',
+        aria-haspopup='listbox',
+        [attr.aria-expanded]='dropdown.isOpen()',
+        [attr.aria-label]='selectedName || placeholder'
+    )
+        span.select-dropdown-value([class.text-muted]='!selectedName') {{selectedName || placeholder}}
+        i.fas.fa-chevron-down.select-dropdown-caret([class.open]='dropdown.isOpen()')
+    .dropdown-menu.select-dropdown-menu(ngbDropdownMenu, role='listbox')
+        .select-dropdown-group(*ngFor='let group of optionGroups; let first = first', [class.select-dropdown-group-separated]='!first')
+            .select-dropdown-group-label(*ngIf='group.label', role='presentation') {{group.label}}
+            button.dropdown-item.d-flex.align-items-center(
+                type='button',
+                *ngFor='let option of group.options',
+                ngbDropdownItem,
+                role='option',
+                [attr.aria-selected]='option.value === value',
+                [class.active]='option.value === value',
+                [disabled]='option.disabled',
+                (click)='selectOption(option)'
+            )
+                span.flex-grow-1.no-wrap {{option.name}}
+                i.fas.fa-check.ms-2.select-dropdown-check(*ngIf='option.value === value')

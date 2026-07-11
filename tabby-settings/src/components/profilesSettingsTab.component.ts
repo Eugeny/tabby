@@ -8,6 +8,8 @@ import { EditProfileGroupModalComponent, EditProfileGroupModalComponentResult } 
 
 _('Filter')
 _('Ungrouped')
+_('Custom Profiles')
+_('Built-in Profiles')
 
 interface CollapsableProfileGroup extends ProfileGroup {
     collapsed: boolean
@@ -29,6 +31,13 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     filter = ''
     Platform = Platform
+    identificationOptions = [
+        { value: 'wt', name: 'Windows Terminal' },
+        { value: 'cygwin', name: 'Cygwin' },
+    ]
+
+    quickConnectProviderOptions: { value: any, name: string }[] = []
+    defaultProfileOptions: { value: any, name: string, group: string }[] = []
     private descriptionCache = new Map<string, string|null>()
 
     constructor (
@@ -43,6 +52,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     ) {
         super()
         this.profileProviders.sort((a, b) => a.name.localeCompare(b.name))
+        this.quickConnectProviderOptions = this.getQuickConnectProviders().map(provider => ({ value: provider.id, name: provider.name }))
     }
 
     async ngOnInit (): Promise<void> {
@@ -57,6 +67,12 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         this.builtinProfiles = allProfiles.filter(x => x.isBuiltin && !x.isTemplate)
         this.templateProfiles = allProfiles.filter(x => x.isBuiltin && x.isTemplate)
         this.customProfiles = allProfiles.filter(x => !x.isBuiltin)
+        this.defaultProfileOptions = [
+            ...this.customProfiles.length > 0
+                ? this.customProfiles.map(p => ({ value: p.id, name: p.name, group: this.translate.instant('Custom Profiles') }))
+                : [],
+            ...this.builtinProfiles.map(p => ({ value: p.id, name: p.name, group: this.translate.instant('Built-in Profiles') })),
+        ]
 
         this.descriptionCache.clear()
         for (const p of allProfiles) {

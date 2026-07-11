@@ -5,10 +5,11 @@
     right: 40px;
     height: 36px;
     z-index: 5;
-    border-radius: 0 0 5px 5px;
-    background: rgba(0, 0, 0, .95);
-    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 0 0 .5rem .5rem;
+    background: var(--theme-bg-more, rgba(0, 0, 0, .95));
+    border: 1px solid var(--theme-bg-more-2, rgba(0, 0, 0, .5));
     border-top: 0;
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .35);
     display: flex;
 
     button {

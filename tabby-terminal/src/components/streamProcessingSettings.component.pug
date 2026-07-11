@@ -20,10 +20,10 @@
     .header
         .title(translate) Input newlines
 
-    select.form-control(
+    select-dropdown(
         [(ngModel)]='options.inputNewlines',
+        [options]='newlineModeOptions',
     )
-        option([ngValue]='mode.key', *ngFor='let mode of newlineModes') {{mode.name|translate}}
 
 .form-line
     .header
@@ -47,7 +47,7 @@
     .header
         .title(translate) Output newlines
 
-    select.form-control(
+    select-dropdown(
         [(ngModel)]='options.outputNewlines',
+        [options]='newlineModeOptions',
     )
-        option([ngValue]='mode.key', *ngFor='let mode of newlineModes') {{mode.name|translate}}

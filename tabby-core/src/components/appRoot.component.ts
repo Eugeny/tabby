@@ -70,6 +70,7 @@ export class AppRootComponent {
     @HostBinding('class.platform-darwin') platformClassMacOS = process.platform === 'darwin'
     @HostBinding('class.platform-linux') platformClassLinux = process.platform === 'linux'
     @HostBinding('class.no-tabs') noTabs = true
+    @HostBinding('class.window-blurred') windowBlurred = false
     @ViewChildren(TabBodyComponent) tabBodies: TabBodyComponent[]
     @ViewChild('activeTransfersDropdown') activeTransfersDropdown: NgbDropdown
     unsortedTabs: BaseTabComponent[] = []
@@ -218,6 +219,16 @@ export class AppRootComponent {
     @HostListener('drop')
     onDrop () {
         return false
+    }
+
+    @HostListener('window:blur')
+    onWindowBlur () {
+        this.windowBlurred = true
+    }
+
+    @HostListener('window:focus')
+    onWindowFocus () {
+        this.windowBlurred = false
     }
 
     hasVerticalTabs () {

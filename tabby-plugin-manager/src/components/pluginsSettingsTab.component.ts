@@ -98,7 +98,7 @@ export class PluginsSettingsTabComponent {
         try {
             await this.pluginManager.installPlugin(plugin)
             this.busy.delete(plugin.name)
-            this.config.requestRestart()
+            this.config.requestRestartForced()
         } catch (err) {
             console.error('Error installing plugin', plugin.name, err)
             this.erroredPlugin = plugin.name
@@ -113,7 +113,7 @@ export class PluginsSettingsTabComponent {
         try {
             await this.pluginManager.uninstallPlugin(plugin)
             this.busy.delete(plugin.name)
-            this.config.requestRestart()
+            this.config.requestRestartForced()
         } catch (err) {
             console.error('Error uninstalling plugin', plugin.name, err)
             this.erroredPlugin = plugin.name
@@ -154,12 +154,12 @@ export class PluginsSettingsTabComponent {
     enablePlugin (plugin: PluginInfo) {
         this.config.store.pluginBlacklist = this.config.store.pluginBlacklist.filter(x => x !== plugin.name)
         this.config.save()
-        this.config.requestRestart()
+        this.config.requestRestartForced()
     }
 
     disablePlugin (plugin: PluginInfo) {
         this.config.store.pluginBlacklist = [...this.config.store.pluginBlacklist, plugin.name]
         this.config.save()
-        this.config.requestRestart()
+        this.config.requestRestartForced()
     }
 }

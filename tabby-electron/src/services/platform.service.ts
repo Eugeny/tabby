@@ -18,6 +18,8 @@ const fontManager = require('fontmanager-redux') // eslint-disable-line
 try {
     // eslint-disable-next-line no-var
     var windowsProcessTreeNative = require('@tabby-gang/windows-process-tree/build/Release/windows_process_tree.node')
+} catch { }
+try {
     // eslint-disable-next-line no-var
     var wnr = require('windows-native-registry')
 } catch { }
@@ -80,7 +82,7 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async isProcessRunning (name: string): Promise<boolean> {
-        if (this.hostApp.platform === Platform.Windows) {
+        if (this.hostApp.platform === Platform.Windows && windowsProcessTreeNative) { // eslint-disable-line block-scoped-var
             return new Promise<boolean>(resolve => {
                 windowsProcessTreeNative.getProcessList(list => { // eslint-disable-line block-scoped-var
                     resolve(list.some(x => x.name === name))

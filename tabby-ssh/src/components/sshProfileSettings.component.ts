@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, ViewChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { firstBy } from 'thenby'
 
-import { FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile, ProfilesService, ProfileSettingsComponent, FullyDefined, ProxifiedConfig } from 'tabby-core'
+import { FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile, ProfilesService, ProfileSettingsComponent, FullyDefined, ProxifiedConfig, TranslateService } from 'tabby-core'
 import { LoginScriptsSettingsComponent } from 'tabby-terminal'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
@@ -24,6 +25,7 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
     supportedAlgorithms = supportedAlgorithms
     algorithms: Record<string, Record<string, boolean>> = {}
     jumpHosts: PartialProfile<SSHProfile>[]
+    jumpHostOptions: { value: any, name: string }[] = []
     @ViewChild('loginScriptsSettings') loginScriptsSettings: LoginScriptsSettingsComponent|null
 
     constructor (
@@ -32,11 +34,16 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
         private fileProviders: FileProvidersService,
+        private translate: TranslateService,
     ) { }
 
     async ngOnInit () {
         this.jumpHosts = (await this.profilesService.getProfiles({ includeBuiltin: false })).filter(x => x.type === 'ssh' && x !== this.profile)
         this.jumpHosts.sort(firstBy(x => this.getJumpHostLabel(x)))
+        this.jumpHostOptions = [
+            { value: null, name: this.translate.instant(_('Select')) },
+            ...this.jumpHosts.map(x => ({ value: x.id, name: this.getJumpHostLabel(x) })),
+        ]
 
         for (const k of Object.values(SSHAlgorithmType)) {
             this.algorithms[k] = {}
@@ -103,8 +110,8 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
     save () {
         for (const k of Object.values(SSHAlgorithmType)) {
             this.profile.options.algorithms[k] = Object.entries(this.algorithms[k])
-                .filter(([_, v]) => !!v)
-                .map(([key, _]) => key)
+                .filter(([, v]) => !!v)
+                .map(([key]) => key)
             if(k !== SSHAlgorithmType.COMPRESSION) { this.profile.options.algorithms[k].sort() }
         }
 

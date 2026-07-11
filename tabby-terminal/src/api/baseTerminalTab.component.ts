@@ -690,7 +690,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         }
 
         this.termContainerSubscriptions.subscribe(this.frontend.title$, title => this.zone.run(() => {
-            if (!this.disableDynamicTitle) {
+            if (!this.disableDynamicTitle && this.shouldSetDynamicTitle(title)) {
                 this.setTitle(title)
             }
         }))
@@ -788,6 +788,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
 
     @HostBinding('class.with-title-inset') get hasTitleInset (): boolean {
         return this.hostApp.platform === Platform.macOS && this.config.store.appearance.tabsLocation !== 'top' && this.config.store.appearance.frame === 'thin'
+    }
+
+    /** Whether a title reported by the terminal should be applied to the tab */
+    protected shouldSetDynamicTitle (_title: string): boolean {
+        return true
     }
 
     protected attachSessionHandler <T> (observable: Observable<T>, handler: (v: T) => void): void {

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, Input } from '@angular/core'
+import { TranslateService } from 'tabby-core'
 import { InputProcessingOptions } from '../middleware/inputProcessing'
 
 /** @hidden */
@@ -29,6 +30,15 @@ export class InputProcessingSettingsComponent {
             name: 'Delete (CSI 3~)',
         },
     ]
+
+    backspaceModeOptions: { value: any, name: string }[] = []
+
+    constructor (translate: TranslateService) {
+        this.backspaceModeOptions = this.backspaceModes.map(mode => ({
+            value: mode.key,
+            name: translate.instant(mode.name),
+        }))
+    }
 
     getBackspaceModeName (key) {
         return this.backspaceModes.find(x => x.key === key)?.name

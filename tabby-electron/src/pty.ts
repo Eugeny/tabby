@@ -104,6 +104,11 @@ export class ElectronPTYProxy extends PTYProxy {
 
     async getChildProcessesInternal (truePID: number): Promise<ChildProcess[]> {
         if (process.platform === 'darwin') {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (!macOSNativeProcessList) {
+                // a missing optional native module must not make tabs unclosable
+                return []
+            }
             const processes = await macOSNativeProcessList.getProcessList()
             return processes.filter(x => x.ppid === truePID).map(p => ({
                 pid: p.pid,
@@ -112,6 +117,10 @@ export class ElectronPTYProxy extends PTYProxy {
             }))
         }
         if (process.platform === 'win32') {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (!windowsProcessTree) {
+                return []
+            }
             return new Promise<ChildProcess[]>(resolve => {
                 windowsProcessTree.getProcessTree(truePID, tree => {
                     resolve(tree ? tree.children.map(child => ({

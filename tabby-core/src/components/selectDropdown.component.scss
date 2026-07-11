@@ -1,0 +1,74 @@
+:host {
+    display: block;
+}
+
+:host(.disabled) {
+    pointer-events: none;
+    opacity: .65;
+}
+
+.select-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+
+    // ng-bootstrap's dropdownToggle adds a .dropdown-toggle caret; we draw our own.
+    &::after {
+        display: none !important;
+    }
+
+    .select-dropdown-value {
+        flex: 1 1 auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .select-dropdown-caret {
+        flex: none;
+        margin-left: .5rem;
+        font-size: .7em;
+        opacity: .55;
+        transition: transform .15s ease-out;
+
+        &.open {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.select-dropdown {
+    display: block;
+}
+
+.select-dropdown-menu {
+    width: 100%;
+    min-width: max-content;
+    max-height: 50vh;
+    overflow-y: auto;
+
+    .select-dropdown-group-label {
+        padding: .5rem 1rem .2rem;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        color: var(--theme-fg-less, #888);
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .select-dropdown-group-separated {
+        border-top: 1px solid var(--theme-bg-more-2, rgba(255, 255, 255, .1));
+        margin-top: .15rem;
+        padding-top: .15rem;
+    }
+
+    .select-dropdown-check {
+        flex: none;
+        font-size: .8em;
+        opacity: .8;
+    }
+}

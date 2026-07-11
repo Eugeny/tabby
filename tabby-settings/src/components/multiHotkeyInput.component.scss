@@ -29,8 +29,13 @@
     flex: auto;
     opacity: 0;
     white-space: nowrap;
+    cursor: pointer;
 
     &:first-child {
         opacity: 1;
     }
+}
+
+body:not(.no-animations) .add {
+    transition: opacity .12s ease-out;
 }

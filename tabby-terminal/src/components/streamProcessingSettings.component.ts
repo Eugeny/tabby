@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, Input } from '@angular/core'
+import { TranslateService } from 'tabby-core'
 import { StreamProcessingOptions } from '../middleware/streamProcessing'
 
 /** @hidden */
@@ -56,6 +57,15 @@ export class StreamProcessingSettingsComponent {
         { key: 'implicit_cr', name: _('Implicit CR in every LF') },
         { key: 'implicit_lf', name: _('Implicit LF in every CR') },
     ]
+
+    newlineModeOptions: { value: any, name: string }[] = []
+
+    constructor (translate: TranslateService) {
+        this.newlineModeOptions = this.newlineModes.map(mode => ({
+            value: mode.key,
+            name: translate.instant(mode.name),
+        }))
+    }
 
     getInputModeName (key) {
         return this.inputModes.find(x => x.key === key)?.name

@@ -17,7 +17,8 @@ jobs:
 
     - name: Install deps
       run: |
-        sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
+        sudo apt-get update || true
+        sudo apt-get install -y libfontconfig1-dev
         npm i -g yarn
         cd app
         yarn
@@ -178,7 +179,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt-get update
+        sudo apt-get update || true
         sudo apt-get install libfontconfig1-dev libarchive-tools zsh crossbuild-essential-${{matrix.arch}}
 
     - name: Setup tar to run as root
@@ -195,7 +196,8 @@ jobs:
 
     - name: Setup crossbuild sysroot
       run: |
-        sudo apt-get update -y && sudo apt-get install debootstrap qemu-user-static binfmt-support -y
+        sudo apt-get update -y || true
+        sudo apt-get install debootstrap qemu-user-static binfmt-support -y
         sudo qemu-debootstrap --include=libfontconfig1-dev,libsecret-1-dev,libnss3,libatk1.0-0,libatk-bridge2.0-0,libgdk-pixbuf2.0-0,libgtk-3-0,libgbm1 --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --arch ${{matrix.arch}} bionic /${{matrix.build-arch}}-sysroot/ http://ports.ubuntu.com/ubuntu-ports/
         sudo find /${{matrix.build-arch}}-sysroot -type l -lname '/*' -exec sh -c 'file="$0"; dir=$(dirname "$file"); target=$(readlink "$0"); prefix=$(dirname "$dir" | sed 's@[^/]*@\.\.@g'); newtarget="$prefix$target"; ln -snf $newtarget $file' {} \; ;
       if: matrix.build-arch == 'arm' && steps.dl-cached-sysroot.outputs.cache-hit != 'true'

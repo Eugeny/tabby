@@ -8,7 +8,7 @@ import { CheckboxComponent } from './checkbox.component'
     template: `
     <div class="form-check form-switch">
       <input type="checkbox" class="form-check-input" [(ngModel)]='model'>
-      <label class="cform-check-label"></label>
+      <label class="form-check-label"></label>
     </div>
     `,
     styleUrls: ['./toggle.component.scss'],

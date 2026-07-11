@@ -160,6 +160,10 @@ export class ConfigService {
     private _store: any
     private defaults: any
     private servicesCache: Record<string, Function[]>|null = null // eslint-disable-line @typescript-eslint/ban-types
+    private bootStore: any = null
+    private lastStore: any = null
+    private restartDiffKeys = new Set<string>()
+    private restartForced = false
 
     get changed$ (): Observable<void> { return this.changed }
 
@@ -259,7 +263,32 @@ export class ConfigService {
     }
 
     requestRestart (): void {
-        this.restartRequested = true
+        // Records which config paths this change moved away from the booted values,
+        // so undoing the change clears the restart notice again.
+        if (this.bootStore && this._store) {
+            const current = JSON.parse(JSON.stringify(this._store))
+            const paths: string[][] = []
+            // diffing against the last-emitted state captures only this change's
+            // paths, so unrelated earlier edits can't keep the notice stuck
+            this.collectDiffPaths(this.lastStore ?? this.bootStore, current, [], paths)
+            for (const path of paths) {
+                this.restartDiffKeys.add(JSON.stringify(path))
+            }
+            // a zero-diff call is intentionally ignored: rapid change+undo within one
+            // debounce window lands here with the config already back to normal
+        } else {
+            this.restartForced = true
+        }
+        this.updateRestartRequested()
+    }
+
+    /**
+     * Requests a restart that no config change can undo (e.g. after a plugin
+     * install), keeping the notice sticky until the app restarts.
+     */
+    requestRestartForced (): void {
+        this.restartForced = true
+        this.updateRestartRequested()
     }
 
     /**
@@ -297,6 +326,9 @@ export class ConfigService {
 
     private async init () {
         await this.load()
+        // snapshot of the config the running app actually booted with
+        this.bootStore = JSON.parse(JSON.stringify(this._store))
+        this.lastStore = JSON.parse(JSON.stringify(this._store))
         this.ready.next(true)
         this.ready.complete()
 
@@ -308,7 +340,48 @@ export class ConfigService {
 
     private emitChange (): void {
         this.vault.setStore(this.store.vault)
+        this.updateRestartRequested()
+        if (this._store) {
+            this.lastStore = JSON.parse(JSON.stringify(this._store))
+        }
         this.changed.next()
+    }
+
+    private updateRestartRequested (): void {
+        if (this.restartForced) {
+            this.restartRequested = true
+            return
+        }
+        if (!this.bootStore || !this._store || !this.restartDiffKeys.size) {
+            return
+        }
+        const current = JSON.parse(JSON.stringify(this._store))
+        this.restartRequested = [...this.restartDiffKeys].some(key => {
+            const path = JSON.parse(key)
+            return !deepEqual(this.getAtPath(this.bootStore, path), this.getAtPath(current, path))
+        })
+    }
+
+    private collectDiffPaths (a: any, b: any, prefix: string[], out: string[][]): void {
+        const isPlainObject = x => x && typeof x === 'object' && !(x instanceof Array)
+        if (isPlainObject(a) && isPlainObject(b)) {
+            for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
+                this.collectDiffPaths(a[key], b[key], [...prefix, key], out)
+            }
+        } else if (!deepEqual(a, b)) {
+            out.push(prefix)
+        }
+    }
+
+    private getAtPath (obj: any, path: string[]): any {
+        let current = obj
+        for (const key of path) {
+            if (current === null || current === undefined) {
+                return undefined
+            }
+            current = current[key]
+        }
+        return current
     }
 
     // eslint-disable-next-line max-statements

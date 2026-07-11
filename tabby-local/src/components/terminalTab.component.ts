@@ -1,6 +1,6 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, Input, Injector, Inject, Optional } from '@angular/core'
-import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, GetRecoveryTokenOptions } from 'tabby-core'
+import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, GetRecoveryTokenOptions, Platform } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { LocalProfile, SessionOptions, UACService } from '../api'
 import { Session } from '../session'
@@ -126,6 +126,18 @@ export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile>
     ngOnDestroy (): void {
         super.ngOnDestroy()
         this.session?.destroy()
+    }
+
+    // ConPTY reports the spawned executable's path as the initial terminal title —
+    // ignore it so the tab keeps the profile name until the shell reports a real one
+    protected shouldSetDynamicTitle (title: string): boolean {
+        if (this.hostApp.platform === Platform.Windows) {
+            const basename = (path: string) => path.split(/[\\/]/).pop()?.toLowerCase()
+            if (basename(title) === basename(this.profile.options.command)) {
+                return false
+            }
+        }
+        return true
     }
 
     /**

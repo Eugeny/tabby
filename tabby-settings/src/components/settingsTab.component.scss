@@ -35,10 +35,24 @@
 
         > .nav {
             padding: 20px 10px;
-            width: 222px;
+            // Auto-adjust to label length (localized labels vary), never h-scroll
+            width: auto;
+            min-width: 222px;
+            max-width: 320px;
             flex: none;
             overflow-y: auto;
+            overflow-x: hidden;
             flex-wrap: nowrap;
+
+            .nav-link {
+                white-space: nowrap;
+
+                span {
+                    min-width: 0;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
         }
 
         > .tab-content {

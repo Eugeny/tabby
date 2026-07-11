@@ -77,7 +77,7 @@ export class ProfileTreeComponent extends BaseComponent {
         groups.sort((a, b) => (a.id === 'built-in' || !a.editable ? 1 : 0) - (b.id === 'built-in' || !b.editable ? 1 : 0))
         groups.sort((a, b) => (a.id === 'ungrouped' ? 0 : 1) - (b.id === 'ungrouped' ? 0 : 1))
         this.profileGroups = groups.map(g => ProfileTreeComponent.intoPartialCollapsableProfileGroup(g, profileGroupCollapsed[g.id] ?? false))
-        this.rootGroups = this.profilesService.buildGroupTree(this.profileGroups)
+        this.rootGroups = ProfileTreeComponent.pruneEmptyGroups(this.profilesService.buildGroupTree(this.profileGroups))
     }
 
     private async editProfile (profile: PartialProfile<Profile>): Promise<void> {
@@ -204,7 +204,7 @@ export class ProfileTreeComponent extends BaseComponent {
             const q = this.filter.trim().toLowerCase()
 
             if (q.length === 0) {
-                this.rootGroups = this.profilesService.buildGroupTree(this.profileGroups)
+                this.rootGroups = ProfileTreeComponent.pruneEmptyGroups(this.profilesService.buildGroupTree(this.profileGroups))
                 return
             }
 
@@ -275,6 +275,17 @@ export class ProfileTreeComponent extends BaseComponent {
         const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
         profileGroupCollapsed[group.id] = group.collapsed
         window.localStorage.profileGroupCollapsed = JSON.stringify(profileGroupCollapsed)
+    }
+
+    // Hide groups with no profiles and no non-empty subgroups; the sidebar is for
+    // launching, so empty folders are just noise (settings still shows them).
+    private static pruneEmptyGroups <T extends { profiles?: any[], children?: T[] }> (groups: T[]): T[] {
+        return groups.filter(group => {
+            if (group.children) {
+                group.children = ProfileTreeComponent.pruneEmptyGroups(group.children)
+            }
+            return !!group.profiles?.length || !!group.children?.length
+        })
     }
 
     private static intoPartialCollapsableProfileGroup (group: PartialProfileGroup<ProfileGroup>, collapsed: boolean): PartialProfileGroup<CollapsableProfileGroup> {
