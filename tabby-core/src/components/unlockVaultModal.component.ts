@@ -16,7 +16,13 @@ export class UnlockVaultModalComponent {
     ) { }
 
     ngOnInit (): void {
-        this.rememberFor = parseInt(window.localStorage.vaultRememberPassphraseFor ?? 0)
+        const stored = window.localStorage.vaultRememberPassphraseFor
+        if (stored === undefined || stored === null || stored === '') {
+            this.rememberFor = 1
+        } else {
+            const parsed = parseInt(stored, 10)
+            this.rememberFor = isNaN(parsed) ? 1 : parsed
+        }
         setTimeout(() => {
             this.input.nativeElement.focus()
         })
