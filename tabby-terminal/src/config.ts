@@ -103,6 +103,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'focus-all-tabs': [
                     '⌘-⌥-Shift-I',
                 ],
+                'insert-new-line': ['⌥-Shift-Enter'],
                 'scroll-to-top': ['Shift-PageUp'],
                 'scroll-page-up': ['⌥-PageUp'],
                 'scroll-up': ['Ctrl-Shift-Up'],
@@ -156,6 +157,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'focus-all-tabs': [
                     'Ctrl-Alt-Shift-I',
                 ],
+                'insert-new-line': ['Alt-Shift-Enter'],
                 'scroll-to-top': ['Ctrl-PageUp'],
                 'scroll-page-up': ['Alt-PageUp'],
                 'scroll-up': ['Ctrl-Shift-Up'],
@@ -207,6 +209,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'focus-all-tabs': [
                     'Ctrl-Alt-Shift-I',
                 ],
+                'insert-new-line': ['Alt-Shift-Enter'],
                 'scroll-to-top': ['Ctrl-PageUp'],
                 'scroll-page-up': ['Alt-PageUp'],
                 'scroll-up': ['Ctrl-Shift-Up'],
