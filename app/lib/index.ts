@@ -1,4 +1,6 @@
 import { app, ipcMain, Menu, dialog } from 'electron'
+import * as fs from 'fs'
+import * as path from 'path'
 
 // set userData Path on portable version
 import './portable'
@@ -7,7 +9,6 @@ import './portable'
 import 'dotenv/config'
 process.env.TABBY_PLUGINS ??= ''
 process.env.TABBY_CONFIG_DIRECTORY ??= app.getPath('userData')
-
 
 import 'v8-compile-cache'
 import 'source-map-support/register'
@@ -18,6 +19,13 @@ import { Application } from './app'
 import electronDebug from 'electron-debug'
 import { loadConfig } from './config'
 
+function logMainError (label: string, err: any): void {
+    const message = `[${new Date().toISOString()}] ${label}: ${err?.stack ?? err}\n`
+    process.stderr.write(message)
+    try {
+        fs.appendFileSync(path.join(process.env.TABBY_CONFIG_DIRECTORY!, 'main-process-errors.log'), message)
+    } catch { }
+}
 
 const argv = parseArgs(process.argv, process.cwd())
 
@@ -48,9 +56,13 @@ ipcMain.on('app:new-window', () => {
     application.newWindow()
 })
 
-process.on('uncaughtException' as any, err => {
-    console.log(err)
+process.on('uncaughtException', err => {
+    logMainError('uncaughtException', err)
     application.broadcast('uncaughtException', err)
+})
+
+process.on('unhandledRejection', reason => {
+    logMainError('unhandledRejection', reason)
 })
 
 if (argv.d) {
@@ -102,10 +114,16 @@ app.on('ready', async () => {
         ]))
     }
 
-    application.init()
+    try {
+        application.init()
 
-    const window = await application.newWindow({ hidden: argv.hidden })
-    await window.ready
-    window.passCliArguments(process.argv, process.cwd(), false)
-    window.focus()
+        const window = await application.newWindow({ hidden: argv.hidden })
+        await window.ready
+        window.passCliArguments(process.argv, process.cwd(), false)
+        window.focus()
+    } catch (err) {
+        logMainError('Failed to open window', err)
+        dialog.showErrorBox('Tabby failed to start', String(err?.stack ?? err))
+        app.exit(1)
+    }
 })
