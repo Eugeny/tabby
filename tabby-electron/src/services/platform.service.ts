@@ -327,10 +327,10 @@ export class ElectronPlatformService extends PlatformService {
             return null
         }
 
-        let downloadPath = path.join(selectedFolder, name)
+        let downloadPath = resolveInsideBase(selectedFolder, name)
         let counter = 1
         while (fsSync.existsSync(downloadPath)) {
-            downloadPath = path.join(selectedFolder, `${name} (${counter})`)
+            downloadPath = resolveInsideBase(selectedFolder, `${name} (${counter})`)
             counter++
         }
 
