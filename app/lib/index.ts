@@ -1,6 +1,7 @@
+// Registers main-process error logging - must be first so it catches import-time errors
+import { logMainError } from './errors'
+
 import { app, ipcMain, Menu, dialog } from 'electron'
-import * as fs from 'fs'
-import * as path from 'path'
 
 // set userData Path on portable version
 import './portable'
@@ -18,14 +19,6 @@ import { parseArgs } from './cli'
 import { Application } from './app'
 import electronDebug from 'electron-debug'
 import { loadConfig } from './config'
-
-function logMainError (label: string, err: any): void {
-    const message = `[${new Date().toISOString()}] ${label}: ${err?.stack ?? err}\n`
-    process.stderr.write(message)
-    try {
-        fs.appendFileSync(path.join(process.env.TABBY_CONFIG_DIRECTORY!, 'main-process-errors.log'), message)
-    } catch { }
-}
 
 const argv = parseArgs(process.argv, process.cwd())
 
@@ -57,12 +50,7 @@ ipcMain.on('app:new-window', () => {
 })
 
 process.on('uncaughtException', err => {
-    logMainError('uncaughtException', err)
     application.broadcast('uncaughtException', err)
-})
-
-process.on('unhandledRejection', reason => {
-    logMainError('unhandledRejection', reason)
 })
 
 if (argv.d) {
