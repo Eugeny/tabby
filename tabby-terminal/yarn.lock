@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@xterm/addon-canvas/-/addon-canvas-0.6.0.tgz#08b2af252b8e4c5af3870820576a9a6ca18d517e"
   integrity sha512-+nj2x595vItxfuAFxzXp46Izrh4EnEyS0Z60hX1iy6OFliP5OQu8Wu7n59m7m1vT6Q4nIWoN1WiH+VLAk4D9jQ==
 
-"@xterm/addon-fit@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@xterm/addon-fit/-/addon-fit-0.9.0.tgz#29846f08782c51ad85b949528c45b84ad4ec45d7"
-  integrity sha512-hDlPPbTVPYyvwXu/asW8HbJkI/2RMi0cMaJnBZYVeJB0SWP2NeESMCNr+I7CvBlyI0sAxpxOg8Wk4OMkxBz9WA==
+"@xterm/addon-fit@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@xterm/addon-fit/-/addon-fit-0.11.0.tgz#ba4778b69fcc9044a060c2176bbe077657d7b37e"
+  integrity sha512-jYcgT6xtVYhnhgxh3QgYDnnNMYTcf8ElbxxFzX0IZo+vabQqSPAjC3c1wJrKB5E19VwQei89QCiZZP86DCPF7g==
 
 "@xterm/addon-image@^0.7.0":
   version "0.7.0"
