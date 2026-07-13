@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@ngx-translate/core": "^14.0.0",
-    "@types/mz": "2.7.4",
+    "@types/mz": "2.7.9",
     "@types/node": "22"
   },
   "peerDependencies": {
