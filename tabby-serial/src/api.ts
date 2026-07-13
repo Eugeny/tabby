@@ -11,7 +11,7 @@ export interface SerialProfile extends ConnectableTerminalProfile {
 }
 
 export interface SerialProfileOptions extends StreamProcessingOptions, LoginScriptsOptions {
-    port: string
+    port: string | null
     baudrate: number | null
     databits: 5 | 6 | 7 | 8
     stopbits: 1 | 1.5 | 2

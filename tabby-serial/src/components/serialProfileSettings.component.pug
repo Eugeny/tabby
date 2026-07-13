@@ -9,6 +9,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         input.form-control(
                             type='text',
                             alwaysVisibleTypeahead,
+                            placeholder='Ask every time',
                             [(ngModel)]='profile.options.port',
                             [ngbTypeahead]='portsAutocomplete',
                             [resultFormatter]='portsFormatter'
