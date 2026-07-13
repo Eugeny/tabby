@@ -25,10 +25,10 @@
     font-finder "^1.1.0"
     font-ligatures "^1.4.1"
 
-"@xterm/addon-search@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@xterm/addon-search/-/addon-search-0.14.0.tgz#783c1a3fb301a98f0d0598453bd80d22cb0863ed"
-  integrity sha512-gyKIjC1c2bqxBevPmWlMWRsHqiufUgl3HjN3OYim6YPClqNRUlTab7l8aW8i3W83XzU9q0gmAfIOe4KDmo0GfQ==
+"@xterm/addon-search@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@xterm/addon-search/-/addon-search-0.16.0.tgz#ddadcbc6e556e45fc4b153f8a0efdf2aa1456b82"
+  integrity sha512-9OeuBFu0/uZJPu+9AHKY6g/w0Czyb/Ut0A5t79I4ULoU4IfU5BEpPFVGQxP4zTTMdfZEYkVIRYbHBX1xWwjeSA==
 
 "@xterm/addon-serialize@^0.12.0":
   version "0.12.0"
