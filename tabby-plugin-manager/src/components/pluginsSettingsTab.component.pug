@@ -34,28 +34,25 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                                 strong.d-block {{plugin.name}}
                                 small.d-block.text-muted {{plugin.description}}
                         ng-template(ngbPanelContent)
-                            .row
-                                .col-4
-                                    div.d-flex.flex-column.flex-md-row.gap-2
-                                        button.btn.btn-primary.btn-block.justify-content-center(
-                                            (click)='installPlugin(plugin)',
-                                            [disabled]='busy.has(plugin.name)'
-                                        )
-                                            i.fas.fa-fw.fa-cloud-download(*ngIf='busy.get(plugin.name) != BusyState.Installing')
-                                            i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
-                                            span.ms-2(translate) Get
-    
-                                        button.btn.btn-secondary.btn-block.justify-content-center(
-                                            *ngIf='plugin.homepage',
-                                            (click)='showPluginHomepage(plugin)'
-                                        )
-                                            i.fas.fa-fw.fa-external-link-alt
-                                            span.ms-2(translate) Homepage
+                            .d-flex.flex-column.flex-md-row.gap-3.align-items-start
+                                button.btn.btn-primary.btn-block.justify-content-center(
+                                    (click)='installPlugin(plugin)',
+                                    [disabled]='busy.has(plugin.name)'
+                                )
+                                    i.fas.fa-fw.fa-cloud-download(*ngIf='busy.get(plugin.name) != BusyState.Installing')
+                                    i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
+                                    span.ms-2(translate) Get
 
-                                .col-8
+                                button.btn.btn-secondary.btn-block.justify-content-center(
+                                    *ngIf='plugin.homepage',
+                                    (click)='showPluginHomepage(plugin)'
+                                )
+                                    i.fas.fa-fw.fa-external-link-alt
+                                    span.ms-2(translate) Homepage
+
+                                .ms-auto
+                                div
                                     ng-container(*ngTemplateOutlet='pluginInfo; context: { plugin }')
-
-                            .mt-2 {{plugin.description}}
 
     li(ngbNavItem)
         a(ngbNavLink, translate) Installed
@@ -94,49 +91,44 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                                 )
 
                         ng-template(ngbPanelContent)
-                            .row
-                                .col-4
-                                    button.btn.btn-warning.btn-block.justify-content-center(
-                                        (click)='togglePlugin(plugin)',
-                                        *ngIf='isPluginEnabled(plugin)',
-                                        [disabled]='!canDisablePlugin(plugin)',
-                                        translate
-                                    ) Disable
+                            .d-flex.flex-column.flex-md-row.gap-3.align-items-start
+                                button.btn.btn-warning.btn-block.justify-content-center(
+                                    (click)='togglePlugin(plugin)',
+                                    *ngIf='isPluginEnabled(plugin)',
+                                    [disabled]='!canDisablePlugin(plugin)',
+                                    translate
+                                ) Disable
 
-                                    button.btn.btn-success.btn-block.justify-content-center(
-                                        (click)='togglePlugin(plugin)',
-                                        *ngIf='canDisablePlugin(plugin) && !isPluginEnabled(plugin)',
-                                        translate
-                                    ) Enable
+                                button.btn.btn-success.btn-block.justify-content-center(
+                                    (click)='togglePlugin(plugin)',
+                                    *ngIf='canDisablePlugin(plugin) && !isPluginEnabled(plugin)',
+                                    translate
+                                ) Enable
 
-                                    button.btn.btn-danger.btn-block.justify-content-center(
-                                        (click)='uninstallPlugin(plugin)',
-                                        *ngIf='!plugin.isBuiltin',
-                                        [disabled]='busy.has(plugin.name)'
-                                    )
-                                        i.fas.fa-fw.fa-trash(*ngIf='busy.get(plugin.name) != BusyState.Uninstalling')
-                                        i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Uninstalling')
-                                        span(translate) Uninstall
-                                .col-8
+                                button.btn.btn-danger.btn-block.justify-content-center(
+                                    (click)='uninstallPlugin(plugin)',
+                                    *ngIf='!plugin.isBuiltin',
+                                    [disabled]='busy.has(plugin.name)'
+                                )
+                                    i.fas.fa-fw.fa-trash(*ngIf='busy.get(plugin.name) != BusyState.Uninstalling')
+                                    i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Uninstalling')
+                                    span(translate) Uninstall
+
+                                .ms-auto
+                                div
                                     ng-container(*ngTemplateOutlet='pluginInfo; context: { plugin }')
 
-                            .mt-2 {{plugin.description}}
-
 ng-template(#pluginInfo, let-plugin='plugin')
-    .row.align-items-center
-        .col-4
-            strong(translate) Version
-        .col-8
-            span {{plugin.version}}
-    .row.align-items-center
-        .col-4
-            strong(translate) Author
-        .col-8
-            .badge.text-bg-success(*ngIf='plugin.isOfficial')
-                i.fas.fa-check
-                span.ms-1(translate) Official
-            a.btn.btn-link.px-0.w-auto((click)='showPluginInfo(plugin)', *ngIf='!plugin.isOfficial')
-                span {{plugin.author}}
-                i.fas.fa-fw.fa-external-link-alt.ms-2
+    .d-flex.align-items-center.gap-3
+        strong(translate) Version
+        span {{plugin.version}}
+    .d-flex.align-items-center.gap-3
+        strong(translate) Author
+        .badge.text-bg-success(*ngIf='plugin.isOfficial')
+            i.fas.fa-check
+            span.ms-1(translate) Official
+        a.btn.btn-link.px-0.w-auto((click)='showPluginInfo(plugin)', *ngIf='!plugin.isOfficial')
+            span {{plugin.author}}
+            i.fas.fa-fw.fa-external-link-alt.ms-2
 
 .mb-4([ngbNavOutlet]='nav')

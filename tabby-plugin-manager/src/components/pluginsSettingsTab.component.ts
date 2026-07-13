@@ -124,7 +124,8 @@ export class PluginsSettingsTabComponent {
     }
 
     async upgradePlugin (plugin: PluginInfo): Promise<void> {
-        return this.installPlugin(this.knownUpgrades[plugin.name]!)
+        await this.installPlugin(this.knownUpgrades[plugin.name]!)
+        this.knownUpgrades[plugin.name] = null
     }
 
     showPluginInfo (plugin: PluginInfo) {

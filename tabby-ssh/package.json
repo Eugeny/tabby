@@ -20,7 +20,7 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "20.3.1",
+    "@types/node": "22",
     "ansi-colors": "^4.1.1",
     "strip-ansi": "^7.0.0"
   },

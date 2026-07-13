@@ -60,7 +60,7 @@ export class PluginManagerService {
                     description: item.package.description,
                     version: item.package.version,
                     homepage: item.package.links.homepage,
-                    author: item.package.author?.name,
+                    author: item.package.maintainers?.[0]?.username,
                     isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
                     searchScore: item.searchScore,
                 })),
