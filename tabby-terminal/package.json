@@ -22,7 +22,7 @@
     "@xterm/addon-canvas": "^0.6.0",
     "@xterm/addon-fit": "^0.9.0",
     "@xterm/addon-image": "^0.7.0",
-    "@xterm/addon-ligatures": "^0.8.0",
+    "@xterm/addon-ligatures": "^0.10.0",
     "@xterm/addon-search": "^0.14.0",
     "@xterm/addon-serialize": "^0.12.0",
     "@xterm/addon-unicode11": "^0.7.0",

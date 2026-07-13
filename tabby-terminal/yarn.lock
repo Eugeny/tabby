@@ -17,10 +17,10 @@
   resolved "https://registry.yarnpkg.com/@xterm/addon-image/-/addon-image-0.7.0.tgz#86e7342a3fe3fac6ba42944054e660916ec44953"
   integrity sha512-OXJvmWXhJ5tdqSFX9yR2/d9AXwOz8+lJOghEPu2lSuwgLlMcOZ2YA+YuxPrisXIB2UctEHPAvVDGLbS9cESbzg==
 
-"@xterm/addon-ligatures@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@xterm/addon-ligatures/-/addon-ligatures-0.8.0.tgz#d7f196c09edad0e7e45c691dce74f28bab683c37"
-  integrity sha512-hvClRA4a4saHXJV+Svxo6tC9NLN17coKbbFChhaQFvTe+TAx+G+LI1NytI8rmSIosOhg9m4uYB3J9o3Qyj4qxA==
+"@xterm/addon-ligatures@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@xterm/addon-ligatures/-/addon-ligatures-0.10.0.tgz#4d33c75828c8b155bdc23dfd1a7e6fe8d80bda51"
+  integrity sha512-/Few8ZSHMib7sGjRJoc5l7bCtEB9XJfkNofvPpOcWADxKaUl8og8P172j67OoACSNJAXqeCLIuvj8WFCBkcTxg==
   dependencies:
     font-finder "^1.1.0"
     font-ligatures "^1.4.1"
