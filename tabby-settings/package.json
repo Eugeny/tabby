@@ -18,8 +18,7 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "@types/marked": "^5.0.1",
-    "marked": "^5.1.2",
+    "marked": "^18",
     "ngx-infinite-scroll": "^16"
   },
   "peerDependencies": {

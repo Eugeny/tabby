@@ -1,3 +1,6 @@
+// Registers main-process error logging - must be first so it catches import-time errors
+import { logMainError } from './errors'
+
 import { app, ipcMain, Menu, dialog } from 'electron'
 
 // set userData Path on portable version
@@ -8,8 +11,6 @@ import 'dotenv/config'
 process.env.TABBY_PLUGINS ??= ''
 process.env.TABBY_CONFIG_DIRECTORY ??= app.getPath('userData')
 
-
-import 'v8-compile-cache'
 import 'source-map-support/register'
 import './sentry'
 import './lru'
@@ -17,7 +18,6 @@ import { parseArgs } from './cli'
 import { Application } from './app'
 import electronDebug from 'electron-debug'
 import { loadConfig } from './config'
-
 
 const argv = parseArgs(process.argv, process.cwd())
 
@@ -48,8 +48,7 @@ ipcMain.on('app:new-window', () => {
     application.newWindow()
 })
 
-process.on('uncaughtException' as any, err => {
-    console.log(err)
+process.on('uncaughtException', err => {
     application.broadcast('uncaughtException', err)
 })
 
@@ -102,10 +101,16 @@ app.on('ready', async () => {
         ]))
     }
 
-    application.init()
+    try {
+        application.init()
 
-    const window = await application.newWindow({ hidden: argv.hidden })
-    await window.ready
-    window.passCliArguments(process.argv, process.cwd(), false)
-    window.focus()
+        const window = await application.newWindow({ hidden: argv.hidden })
+        await window.ready
+        window.passCliArguments(process.argv, process.cwd(), false)
+        window.focus()
+    } catch (err) {
+        logMainError('Failed to open window', err)
+        dialog.showErrorBox('Tabby failed to start', String(err?.stack ?? err))
+        app.exit(1)
+    }
 })
