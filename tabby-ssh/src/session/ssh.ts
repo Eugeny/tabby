@@ -16,6 +16,7 @@ import { SSHAlgorithmType, SSHProfile, AutoPrivateKeyLocator, PortForwardType } 
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
+import { resolveSSHTerminalType } from './terminalType'
 import * as russh from 'russh'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
@@ -857,7 +858,7 @@ export class SSHSession {
             throw new Error('Cannot open shell channel before auth')
         }
         const ch = await this.ssh.activateChannel(await this.ssh.openSessionChannel())
-        await ch.requestPTY('xterm-256color', {
+        await ch.requestPTY(resolveSSHTerminalType(this.profile.options.term), {
             columns: 80,
             rows: 24,
             pixHeight: 0,
