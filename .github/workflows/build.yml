@@ -186,7 +186,7 @@ jobs:
       if: matrix.build-arch == 'arm'
 
     - name: Download cached sysroot
-      uses: actions/cache@v3
+      uses: actions/cache@v6
       id: dl-cached-sysroot
       if: matrix.build-arch == 'arm'
       with:
