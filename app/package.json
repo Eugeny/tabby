@@ -18,7 +18,7 @@
     "@electron/remote": "^2",
     "@npmcli/arborist": "^9",
     "any-promise": "^1.3.0",
-    "atomically": "^2.0.2",
+    "atomically": "^2.1.1",
     "dunder-proto": "^1",
     "electron-config": "2.0.0",
     "electron-debug": "^3.2.0",
