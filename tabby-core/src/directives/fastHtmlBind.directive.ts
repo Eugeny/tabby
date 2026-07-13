@@ -1,5 +1,6 @@
 import { Directive, Input, ElementRef, OnChanges } from '@angular/core'
 import { PlatformService } from '../api/platform'
+import { isURLSchemeAllowed } from '../utils'
 
 /** @hidden */
 @Directive({
@@ -23,6 +24,9 @@ export class FastHtmlBindDirective implements OnChanges {
         for (const link of this.el.nativeElement.querySelectorAll('a')) {
             link.addEventListener('click', event => {
                 event.preventDefault()
+                if (!isURLSchemeAllowed(link.href)) {
+                    return
+                }
                 this.platform.openExternal(link.href)
             })
         }

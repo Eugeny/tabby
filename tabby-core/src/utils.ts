@@ -7,6 +7,25 @@ export const WIN_BUILD_CONPTY_STABLE = 18309
 export const WIN_BUILD_WSL_EXE_DISTRO_FLAG = 17763
 export const WIN_BUILD_FLUENT_BG_SUPPORTED = 17063
 
+/**
+ * URL schemes that are safe to hand off to the OS via openExternal().
+ * Anything else (e.g. file:, data:, custom protocols printed by a remote
+ * host) must never be opened automatically.
+ */
+export const ALLOWED_EXTERNAL_URL_SCHEMES = ['http:', 'https:', 'ftp:', 'mailto:', 'ssh:']
+
+/**
+ * Returns true if the given URL uses a scheme that is safe to open externally.
+ * Unparseable URLs are rejected.
+ */
+export function isURLSchemeAllowed (url: string): boolean {
+    try {
+        return ALLOWED_EXTERNAL_URL_SCHEMES.includes(new URL(url).protocol)
+    } catch {
+        return false
+    }
+}
+
 export function getWindows10Build (): number|undefined {
     return process.platform === 'win32' && parseFloat(os.release()) >= 10 ? parseInt(os.release().split('.')[2]) : undefined
 }
