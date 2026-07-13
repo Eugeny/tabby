@@ -2,7 +2,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
-import { NewTabParameters, SelectorService, HostAppService, Platform, TranslateService, ConnectableProfileProvider } from 'tabby-core'
+import { NewTabParameters, SelectorService, HostAppService, Platform, TranslateService, ConnectableProfileProvider, NotificationsService } from 'tabby-core'
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
 import { SerialTabComponent } from './components/serialTab.component'
 import { SerialService } from './services/serial.service'
@@ -37,6 +37,7 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
 
     constructor (
         private selector: SelectorService,
+        private notifications: NotificationsService,
         private serial: SerialService,
         private hostApp: HostAppService,
         private translate: TranslateService,
@@ -84,12 +85,41 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
     async getNewTabParameters (profile: SerialProfile): Promise<NewTabParameters<SerialTabComponent>> {
         if (!profile.options.baudrate) {
             profile = deepClone(profile)
-            profile.options.baudrate = await this.selector.show(
-                this.translate.instant('Baud rate'),
-                BAUD_RATES.map(x => ({
-                    name: x.toString(), result: x, weight: x,
-                })),
-            )
+            let baudrate: number|undefined = undefined
+
+            try {
+                baudrate = await this.selector.show(
+                    this.translate.instant('Baud rate'),
+                    [
+                        ...BAUD_RATES.map(x => ({
+                            name: x.toString(), result: x, weight: x,
+                        })),
+                        {
+                            name: this.translate.instant('Custom baud rate'),
+                            freeInputPattern: this.translate.instant('%s'),
+                            freeInputPlacement: 'top',
+                            weight: -1,
+                            callback: query => {
+                                const parsed = Number.parseInt((query ?? '').trim(), 10)
+                                if (Number.isInteger(parsed) && parsed > 0) {
+                                    baudrate = parsed
+                                }
+                            },
+                        },
+                    ],
+                )
+            } catch {
+                throw new Error('Baud rate selection canceled')
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 0))
+
+            if (!Number.isInteger(baudrate) || baudrate <= 0) {
+                this.notifications.error(this.translate.instant('Invalid baud rate'))
+                throw new Error('Invalid baud rate')
+            }
+
+            profile.options.baudrate = baudrate
         }
         return {
             type: SerialTabComponent,
