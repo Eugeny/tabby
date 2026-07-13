@@ -2,14 +2,14 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
-import { NewTabParameters, SelectorService, HostAppService, Platform, TranslateService, ConnectableProfileProvider } from 'tabby-core'
+import { NewTabParameters, PartialProfile, SelectorService, HostAppService, Platform, TranslateService, QuickConnectProfileProvider } from 'tabby-core'
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
 import { SerialTabComponent } from './components/serialTab.component'
 import { SerialService } from './services/serial.service'
 import { BAUD_RATES, SerialProfile } from './api'
 
 @Injectable({ providedIn: 'root' })
-export class SerialProfilesService extends ConnectableProfileProvider<SerialProfile> {
+export class SerialProfilesService extends QuickConnectProfileProvider<SerialProfile> {
     id = 'serial'
     name = _('Serial')
     settingsComponent = SerialProfileSettingsComponent
@@ -103,5 +103,34 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
 
     getDescription (profile: SerialProfile): string {
         return profile.options.port
+    }
+
+    quickConnect (query: string): PartialProfile<SerialProfile> {
+        let port = query
+        let baudrate = 115200
+        if (query.includes('@')) {
+            baudrate = parseInt(port.split('@')[1])
+            port = port.split('@')[0]
+        } else if (query.includes(':')) {
+            baudrate = parseInt(port.split(':')[1])
+            port = port.split(':')[0]
+        }
+
+        return {
+            name: query,
+            type: 'serial',
+            options: {
+                port,
+                baudrate,
+            },
+        }
+    }
+
+    intoQuickConnectString (profile: SerialProfile): string|null {
+        let s = profile.options.port
+        if (profile.options.baudrate !== 115200) {
+            s = `${s}@${profile.options.baudrate}`
+        }
+        return s
     }
 }
