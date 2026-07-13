@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { DEFAULT_SSH_TERMINAL_TYPE, resolveSSHTerminalType } from '../src/session/terminalType.ts'
+import { DEFAULT_SSH_TERMINAL_TYPE, resolveSSHTerminalType } from '../src/session/shellChannel.ts'
 
 describe('resolveSSHTerminalType', () => {
     it('returns the custom terminal type when set', () => {
