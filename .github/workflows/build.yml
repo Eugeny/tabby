@@ -342,7 +342,7 @@ jobs:
 
     - name: Setup Software Trust Manager
       if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))
-      uses: digicert/code-signing-software-trust-action@cb502242630f8556eb815a4f9c1e8c64d2a2d2a3 # v1.0.0
+      uses: digicert/code-signing-software-trust-action@fae23a455ba4bde62b64fd7cb2f81ade788f5a95 # v1.0.0
       env:
         SM_HOST: ${{ vars.SM_HOST }}
         SM_API_KEY: ${{ secrets.SM_API_KEY }}
