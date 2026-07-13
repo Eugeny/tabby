@@ -1,7 +1,10 @@
 import deepEqual from 'deep-equal'
 import { BehaviorSubject, filter, firstValueFrom, fromEvent, takeUntil } from 'rxjs'
 import { Injector } from '@angular/core'
-import { ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService, Platform, PlatformService, TerminalColorScheme, ThemesService } from 'tabby-core'
+import {
+    ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService,
+    NotificationsService, Platform, PlatformService, TerminalColorScheme, ThemesService,
+} from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
@@ -95,6 +98,7 @@ export class XTermFrontend extends Frontend {
     private platformService: PlatformService
     private hostApp: HostAppService
     private themes: ThemesService
+    private notifications: NotificationsService
 
     constructor (injector: Injector) {
         super(injector)
@@ -103,6 +107,7 @@ export class XTermFrontend extends Frontend {
         this.platformService = injector.get(PlatformService)
         this.hostApp = injector.get(HostAppService)
         this.themes = injector.get(ThemesService)
+        this.notifications = injector.get(NotificationsService)
 
         this.xterm = new Terminal({
             allowTransparency: true,
@@ -375,6 +380,7 @@ export class XTermFrontend extends Frontend {
                     'scroll-page-down',
                     'scroll-to-top',
                     'scroll-to-bottom',
+                    'switch-meta-option',
                 ].includes(hk)),
             ).subscribe(hk => {
                 if ([
@@ -384,6 +390,16 @@ export class XTermFrontend extends Frontend {
                 ].includes(hk)) {
                     this.pinnedToBottom = false
                 }
+
+                if(hk === 'switch-meta-option') {
+                    const newValue = !this.xterm.options.macOptionIsMeta
+                    this.xterm.options.macOptionIsMeta = newValue
+                    this.configService.store.terminal.altIsMeta = newValue
+                    this.configService.save()
+                    const message = newValue ? 'Option Key: Meta' : 'Option Key: Normal'
+                    this.notifications.notice(message)
+                }
+
                 requestAnimationFrame(() => this.updatePinnedState())
             })
 
