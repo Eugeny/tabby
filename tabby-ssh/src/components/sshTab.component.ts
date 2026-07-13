@@ -229,7 +229,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
 
     protected isSessionExplicitlyTerminated (): boolean {
         return super.isSessionExplicitlyTerminated() ||
-        this.recentInputs.charCodeAt(this.recentInputs.length - 1) === 4 ||
-        this.recentInputs.endsWith('exit\r')
+        this.recentInputs.endsWith('exit\r') ||
+        this.recentInputs.endsWith('logout\r')
     }
 }
