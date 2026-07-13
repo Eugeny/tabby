@@ -19,7 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "bootstrap": "^5.3.0-alpha.1",
-    "color": "^4.2.3",
+    "color": "^5.0.3",
     "deepmerge": "^4.1.1",
     "fuzzy-search": "^3.2.1",
     "js-yaml": "^4.0.0",
