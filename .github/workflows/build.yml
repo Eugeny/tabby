@@ -25,6 +25,9 @@ jobs:
         rm app/node_modules/.yarn-integrity
         yarn
 
+    - name: Test SSH TERM
+      run: yarn run test:ssh-term
+
     - name: Build typings
       run: yarn run build:typings
 

@@ -230,6 +230,16 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .form-line
                 .header
+                    .title(translate) Terminal type
+                    .description(translate) Value of $TERM reported to the remote host (e.g. xterm-256color, vt100)
+                input.form-control(
+                    type='text',
+                    placeholder='xterm-256color',
+                    [(ngModel)]='profile.options.term',
+                )
+
+            .form-line
+                .header
                     .title(translate) Keep Alive Interval (Milliseconds)
                 input.form-control(
                     type='number',

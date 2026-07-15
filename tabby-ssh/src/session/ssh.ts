@@ -16,6 +16,7 @@ import { SSHAlgorithmType, SSHProfile, AutoPrivateKeyLocator, PortForwardType } 
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
+import { requestShellPTY, SSHShellChannelOptions } from './shellChannel'
 import * as russh from 'russh'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
@@ -852,17 +853,12 @@ export class SSHSession {
         this.ssh.disconnect()
     }
 
-    async openShellChannel (options: { x11: boolean }): Promise<russh.Channel> {
+    async openShellChannel (options: SSHShellChannelOptions): Promise<russh.Channel> {
         if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
             throw new Error('Cannot open shell channel before auth')
         }
         const ch = await this.ssh.activateChannel(await this.ssh.openSessionChannel())
-        await ch.requestPTY('xterm-256color', {
-            columns: 80,
-            rows: 24,
-            pixHeight: 0,
-            pixWidth: 0,
-        })
+        await requestShellPTY(ch, options)
         if (options.x11) {
             await ch.requestX11Forwarding({
                 singleConnection: false,
