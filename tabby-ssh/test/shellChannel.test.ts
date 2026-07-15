@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { openShellChannelForProfile, requestShellPTY } from '../src/session/shellChannel.ts'
+import { DEFAULT_SSH_TERMINAL_TYPE, openShellChannelForProfile, requestShellPTY } from '../src/session/shellChannel.ts'
 import type { SSHShellChannelOptions } from '../src/session/shellChannel.ts'
 
 class SharedSSHSessionAdapter {
@@ -35,5 +35,14 @@ describe('shared SSH session shell channels', () => {
             'xterm',
             'xterm-256color',
         ])
+    })
+
+    it('falls back for a malformed persisted TERM value', async () => {
+        const sharedSession = new SharedSSHSessionAdapter()
+        const profile = { options: { x11: false, term: 256 } } as unknown as Parameters<typeof openShellChannelForProfile>[1]
+
+        await openShellChannelForProfile(sharedSession, profile)
+
+        assert.deepEqual(sharedSession.requestedTerms, [DEFAULT_SSH_TERMINAL_TYPE])
     })
 })

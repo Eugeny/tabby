@@ -21,6 +21,12 @@ describe('resolveSSHTerminalType', () => {
         assert.equal(DEFAULT_SSH_TERMINAL_TYPE, 'xterm-256color')
     })
 
+    it('falls back to xterm-256color for non-string persisted values', () => {
+        assert.equal(resolveSSHTerminalType(256), DEFAULT_SSH_TERMINAL_TYPE)
+        assert.equal(resolveSSHTerminalType(false), DEFAULT_SSH_TERMINAL_TYPE)
+        assert.equal(resolveSSHTerminalType({ terminal: 'vt100' }), DEFAULT_SSH_TERMINAL_TYPE)
+    })
+
     it('trims surrounding whitespace from a custom value', () => {
         assert.equal(resolveSSHTerminalType('  vt100  '), 'vt100')
         assert.equal(resolveSSHTerminalType('\txterm-color\n'), 'xterm-color')

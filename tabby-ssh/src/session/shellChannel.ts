@@ -18,12 +18,11 @@ interface SSHShellChannelOpener<T> {
     openShellChannel: (options: SSHShellChannelOptions) => Promise<T>
 }
 
-export function resolveSSHTerminalType (term: string | null | undefined): string {
-    const trimmed = term?.trim()
-    if (!trimmed) {
+export function resolveSSHTerminalType (term: unknown): string {
+    if (typeof term !== 'string') {
         return DEFAULT_SSH_TERMINAL_TYPE
     }
-    return trimmed
+    return term.trim() || DEFAULT_SSH_TERMINAL_TYPE
 }
 
 export function openShellChannelForProfile<T> (ssh: SSHShellChannelOpener<T>, profile: SSHShellProfile): Promise<T> {
