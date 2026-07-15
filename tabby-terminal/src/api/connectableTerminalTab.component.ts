@@ -6,7 +6,7 @@ import { first } from 'rxjs'
 
 import { ConnectableTerminalProfile } from './interfaces'
 import { BaseTerminalTabComponent } from './baseTerminalTab.component'
-import { GetRecoveryTokenOptions, RecoveryToken } from 'tabby-core'
+import { GetRecoveryTokenOptions, ProfilesService, RecoveryToken } from 'tabby-core'
 
 
 /**
@@ -118,6 +118,7 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
     async reconnect (): Promise<void> {
         this.session?.destroy()
         this.frontend?.resetTerminalModes()
+        this.profile = this.injector.get(ProfilesService).refreshConfigProxyForProfile(this.profile)
         await this.initializeSession()
         this.clearServiceMessagesOnConnect()
         this.session?.releaseInitialDataBuffer()

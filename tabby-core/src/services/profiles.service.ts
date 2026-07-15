@@ -71,6 +71,14 @@ export class ProfilesService {
         return new ConfigProxy(profile, defaults) as any
     }
 
+    refreshConfigProxyForProfile <T extends Profile> (profile: FullyDefined<T>): FullyDefined<T> {
+        if (profile instanceof ConfigProxy) {
+            const defaults = this.getProfileDefaults(profile).reduce(configMerge, {})
+            profile.__setDefaults(defaults)
+        }
+        return profile
+    }
+
     /**
     * Return an Array of Profiles
     * arg: includeBuiltin (default: true) -> include BuiltinProfiles
