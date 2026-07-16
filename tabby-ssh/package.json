@@ -10,6 +10,7 @@
   "scripts": {
     "build": "webpack --progress --color",
     "watch": "webpack --progress --color --watch",
+    "test": "node --experimental-default-type=module test/authMethodSelection.test.ts",
     "postinstall": "run-script-os",
     "postinstall:darwin:linux": "exit"
   },
