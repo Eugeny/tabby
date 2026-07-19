@@ -405,7 +405,12 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.alternateScreenActive = x
         })
 
-        setImmediate(async () => {
+        // Defer the heavy frontend init (WebGL context + shader compile, ~100ms of
+        // main-thread work) until the tab-open animation has finished, so it doesn't
+        // drop the animation's frames. Session output is buffered and replayed on
+        // attach, so this adds no perceived shell startup latency.
+        const attachDelay = document.body.classList.contains('no-animations') ? 0 : 160
+        setTimeout(async () => {
             if (this.hasFocus) {
                 await this.frontend?.attach(this.content.nativeElement, this.profile)
                 this.frontend?.configure(this.profile)
@@ -415,7 +420,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     this.frontend?.configure(this.profile)
                 })
             }
-        })
+        }, attachDelay)
 
         this.attachTermContainerHandlers()
 

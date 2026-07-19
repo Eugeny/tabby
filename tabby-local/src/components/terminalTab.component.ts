@@ -1,4 +1,5 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
+import { first } from 'rxjs'
 import { Component, Input, Injector, Inject, Optional } from '@angular/core'
 import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, GetRecoveryTokenOptions, Platform } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
@@ -46,10 +47,30 @@ export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile>
         })
 
         super.ngOnInit()
+
+        // Spawn the shell as soon as the tab is focused instead of waiting for the
+        // terminal frontend (WebGL init + first measure — hundreds of ms): the shell
+        // boots in parallel, its output is held in the session's initial data buffer,
+        // and the estimated size is corrected once the frontend reports real
+        // dimensions. Background (e.g. recovered) tabs stay lazy as before.
+        const spawnEarly = () => {
+            if (!this.session) {
+                this.initializeSession(80, 30)
+            }
+        }
+        if (this.hasFocus) {
+            spawnEarly()
+        } else {
+            this.focused$.pipe(first()).subscribe(spawnEarly)
+        }
     }
 
     protected onFrontendReady (): void {
-        this.initializeSession(this.size.columns, this.size.rows)
+        if (this.session) {
+            this.session.resize(this.size.columns, this.size.rows)
+        } else {
+            this.initializeSession(this.size.columns, this.size.rows)
+        }
         this.savedStateIsLive = this.profile.options.restoreFromPTYID === this.session?.getID()
         super.onFrontendReady()
     }
