@@ -31,7 +31,7 @@ function makeTabAnimation (dimension: string, size: number) {
                 'flex-basis': '1px',
                 [dimension]: '1px',
             }),
-            animate('250ms ease-out', style({
+            animate('150ms cubic-bezier(.2, .7, .3, 1)', style({
                 'flex-basis': '{{size}}',
                 [dimension]: '{{size}}',
             })),
