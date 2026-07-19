@@ -21,8 +21,8 @@ app-root {
                     fill-opacity: 0.75;
                 }
 
-                &:hover { background: rgba(0, 0, 0, .125) !important; }
-                &:active { background: rgba(0, 0, 0, .25) !important; }
+                &:hover { background: var(--hover-overlay) !important; }
+                &:active { background: var(--active-overlay) !important; }
             }
 
             &>.tabs {
@@ -104,6 +104,11 @@ body {
 
     // Shared dim strength for overlays (modal backdrop, drop hint, split-pane dim)
     --overlay-dim: rgba(0, 0, 0, .4);
+
+    // Shared hover/pressed overlays — foreground-based so they stay visible on any
+    // surface colour (a black-based dim disappears on dark surfaces)
+    --hover-overlay: color-mix(in srgb, var(--theme-fg, #fff) 10%, transparent);
+    --active-overlay: color-mix(in srgb, var(--theme-fg, #fff) 16%, transparent);
 }
 
 .list-group {
