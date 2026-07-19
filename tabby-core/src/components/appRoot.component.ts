@@ -271,6 +271,17 @@ export class AppRootComponent {
         this.hostWindow.toggleMaximize()
     }
 
+    onTabBarDblClick (event: MouseEvent): void {
+        // titlebar-style maximize only for double-clicks on EMPTY bar space —
+        // clicks on tabs, buttons and dropdowns bubble up here too
+        const target = event.target as HTMLElement
+        const emptySpace = target.classList.contains('tab-bar')
+            || target.closest('.tab-bar > .btn-space, .tab-bar > .window-controls-spacer, .tab-bar > .inset')
+        if (emptySpace && !this.isTitleBarNeeded()) {
+            this.toggleMaximize()
+        }
+    }
+
     protected isTitleBarNeeded (): boolean {
         return (
             this.config.store.appearance.frame === 'full'

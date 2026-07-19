@@ -23,7 +23,7 @@ title-bar(
         .tab-bar(
             *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
             [class.tab-bar-no-controls-overlay]='hostApp.platform == Platform.macOS',
-            (dblclick)='!isTitleBarNeeded() && toggleMaximize()'
+            (dblclick)='onTabBarDblClick($event)'
         )
             .inset.background(*ngIf='hostApp.platform == Platform.macOS \
             && !hostWindow.isFullscreen \
