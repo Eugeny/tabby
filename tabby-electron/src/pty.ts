@@ -15,7 +15,7 @@ try {
 
 export class ElectronPTYInterface extends PTYInterface {
     async spawn (...options: any[]): Promise<PTYProxy> {
-        const id = ipcRenderer.sendSync('pty:spawn', ...options)
+        const id = await ipcRenderer.invoke('pty:spawn', ...options)
         return new ElectronPTYProxy(id)
     }
 
@@ -30,39 +30,45 @@ export class ElectronPTYInterface extends PTYInterface {
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class ElectronPTYProxy extends PTYProxy {
     private subscriptions: Map<string, any> = new Map()
-    private truePID: Promise<number>
+    private directPID: Promise<number>
+    private truePID: number|null = null
 
     constructor (
         private id: string,
     ) {
         super()
-        this.truePID = new Promise(async (resolve) => {
-            let pid = await this.getPID()
-            try {
-                await new Promise(r => setTimeout(r, 2000))
-
-                // Retrieve any possible single children now that shell has fully started
-                let processes = await this.getChildProcessesInternal(pid)
-                while (pid && processes.length === 1) {
-                    if (!processes[0].pid) {
-                        break
-                    }
-                    pid = processes[0].pid
-                    processes = await this.getChildProcessesInternal(pid)
-                }
-            } finally {
-                resolve(pid)
-            }
-        })
-        this.truePID = this.truePID.catch(() => this.getPID())
+        this.directPID = this.getPID()
+        this.refineTruePID()
     }
 
     getID (): string {
         return this.id
     }
 
-    getTruePID (): Promise<number> {
-        return this.truePID
+    // Returns the best PID known so far: the directly spawned process until the
+    // delayed child-chain probe completes. Previously this awaited that probe's
+    // fixed 2s delay, which stalled every consumer (e.g. opening a new tab
+    // inherits the active tab's CWD) for up to 2s after a spawn.
+    async getTruePID (): Promise<number> {
+        return this.truePID ?? this.directPID
+    }
+
+    private async refineTruePID (): Promise<void> {
+        let pid = await this.directPID
+        try {
+            await new Promise(r => setTimeout(r, 2000))
+
+            // Retrieve any possible single children now that shell has fully started
+            let processes = await this.getChildProcessesInternal(pid)
+            while (pid && processes.length === 1) {
+                if (!processes[0].pid) {
+                    break
+                }
+                pid = processes[0].pid
+                processes = await this.getChildProcessesInternal(pid)
+            }
+        } catch { }
+        this.truePID = pid
     }
 
     async getPID (): Promise<number> {

@@ -147,6 +147,14 @@ export class PTYManager {
             this.ptys[id] = new PTY(id, app, ...options)
         })
 
+        // async variant — spawning a ConPTY takes tens of ms and the sendSync
+        // channel above blocks the renderer (and any UI animation) for all of it
+        ipcMain.handle('pty:spawn', (_event, ...options) => {
+            const id = uuidv4().toString()
+            this.ptys[id] = new PTY(id, app, ...options)
+            return id
+        })
+
         ipcMain.on('pty:exists', (event, id) => {
             event.returnValue = this.ptys[id] && !this.ptys[id].exited
         })
