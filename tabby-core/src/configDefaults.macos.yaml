@@ -38,6 +38,7 @@ hotkeys:
     - '⌘-9'
   tab-10: []
   duplicate-tab: []
+  pin-tab: []
   restart-tab: []
   reconnect-tab: []
   disconnect-tab: []

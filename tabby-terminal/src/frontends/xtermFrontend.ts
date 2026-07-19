@@ -212,7 +212,7 @@ export class XTermFrontend extends Frontend {
         //   - wheel/keyboard event listeners (below)
         //   - explicit scrollToBottom() calls
 
-        this.resizeHandler = () => {
+        const doResize = () => {
             try {
                 if (this.xterm.element && getComputedStyle(this.xterm.element).getPropertyValue('height') !== 'auto') {
                     const savedPinned = this.pinnedToBottom
@@ -229,10 +229,47 @@ export class XTermFrontend extends Frontend {
                         const targetY = Math.min(savedViewportY, maxScroll)
                         this.xterm.scrollToLine(targetY)
                     }
+
+                    // fitAddon.fit() resizes the renderer's drawing buffer,
+                    // which blanks it synchronously, but xterm only repaints on
+                    // the next animation frame — leaving one blank frame that
+                    // reads as flicker during a window drag. Force the repaint
+                    // now (after scrolling settles) to close that gap.
+                    this.xtermCore._renderService?._renderRows(0, this.xterm.rows - 1)
                 }
             } catch (e) {
                 // tends to throw when element wasn't shown yet
                 console.warn('Could not resize xterm', e)
+            }
+        }
+
+        // Rate-limit reflows during a window drag. The window 'resize' event and
+        // the ResizeObserver fire many times per frame; each reflow resizes the
+        // renderer's drawing buffer and re-uploads the glyph atlas texture. At
+        // full frame rate a fast drag issues reflows faster than the GPU can
+        // finish one, so frames composite with the text not yet repainted —
+        // visible as a flicker that only shows up when dragging quickly (slow
+        // drags leave enough time between reflows). Capping the reflow rate and
+        // always running a trailing fit keeps the final size correct without
+        // outrunning the renderer. Tune RESIZE_MIN_INTERVAL if needed.
+        const RESIZE_MIN_INTERVAL = 32
+        let resizePending = false
+        let lastResize = 0
+        const runResize = () => {
+            resizePending = false
+            lastResize = Date.now()
+            doResize()
+        }
+        this.resizeHandler = () => {
+            if (resizePending) {
+                return
+            }
+            resizePending = true
+            const wait = Math.max(0, RESIZE_MIN_INTERVAL - (Date.now() - lastResize))
+            if (wait > 0) {
+                setTimeout(() => requestAnimationFrame(runResize), wait)
+            } else {
+                requestAnimationFrame(runResize)
             }
         }
 
@@ -361,7 +398,7 @@ export class XTermFrontend extends Frontend {
             event.stopPropagation()
         })
 
-        this.resizeObserver = new window['ResizeObserver'](() => setTimeout(() => this.resizeHandler()))
+        this.resizeObserver = new window['ResizeObserver'](() => this.resizeHandler())
         this.resizeObserver.observe(host)
     }
 
@@ -448,9 +485,12 @@ export class XTermFrontend extends Frontend {
     visualBell (): void {
         if (this.element) {
             this.element.style.animation = 'none'
-            setTimeout(() => {
-                this.element!.style.animation = 'terminalShakeFrames 0.3s ease'
-            })
+            // Force a synchronous reflow so the browser registers the cleared
+            // animation before it is reassigned. Without this, repeated bells
+            // arriving while a shake is still playing coalesce into a single
+            // frame and the animation fails to restart (#11303).
+            void this.element.offsetWidth
+            this.element.style.animation = 'terminalShakeFrames 0.3s ease'
         }
     }
 
@@ -634,9 +674,19 @@ export class XTermFrontend extends Frontend {
      * hidden, and flushes any GPU context recovery deferred until now.
      */
     reactivate (): void {
-        if (this.pendingRendererRecovery) {
+        // An app- or window-level GPU reset can blank the canvas without firing
+        // xterm's per-canvas contextlost event, so pendingRendererRecovery stays
+        // unset. Treat a WebGL frontend that has lost its addon as needing
+        // recovery too, so a shown-but-blank pane always gets its context back
+        // instead of relying on a manual window resize.
+        if (this.pendingRendererRecovery || this.enableWebGL && !this.webGLAddon) {
+            this.pendingRendererRecovery = true
             this.recoverRenderer()
         } else {
+            // The pane is shown with a live renderer, so any earlier transient
+            // losses shouldn't count against a future recovery — reset the budget
+            // to avoid permanently downgrading the pane to the DOM renderer.
+            this.rendererRecoveryAttempts = 0
             this.redraw()
         }
     }
@@ -682,6 +732,11 @@ export class XTermFrontend extends Frontend {
     private redraw (): void {
         const renderService = this.xtermCore._renderService
         renderService?.clear()
+        // handleResize() alone is a no-op when cols/rows are unchanged
+        // resizeHandler() runs a real itAddon.fit() followed
+        // by an unconditional viewport._refresh(),
+        // forcing a full repaint
+        this.resizeHandler()
         renderService?.handleResize(this.xterm.cols, this.xterm.rows)
     }
 

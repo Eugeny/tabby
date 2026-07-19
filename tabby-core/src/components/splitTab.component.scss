@@ -28,3 +28,9 @@
 ::ng-deep .no-animations split-tab > .child {
     transition: none;
 }
+
+// While the window is being resized, don't animate pane geometry — the
+// transition would otherwise repaint the whole layer each frame and flicker.
+::ng-deep .resizing split-tab > .child {
+    transition: none;
+}
