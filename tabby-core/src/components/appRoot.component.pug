@@ -74,8 +74,11 @@ title-bar(
                         (transfersChange)='onTransfersChange()'
                     )
 
+            //- .persistent reserves room for the window controls; skip it when the
+            //- window-controls-spacer below already does (it would double the reservation
+            //- and needlessly crush the tabs at narrow window widths)
             .btn-space.background(
-                [class.persistent]='config.store.appearance.frame == "thin"',
+                [class.persistent]='config.store.appearance.frame == "thin" && !(hostApp.platform == Platform.Windows && config.store.appearance.tabsLocation == "top")',
                 [class.drag]='config.store.appearance.frame == "thin" \
                 && ((config.store.appearance.tabsLocation !== "left" && config.store.appearance.tabsLocation !== "right") || hostApp.platform !== Platform.macOS)'
             )
