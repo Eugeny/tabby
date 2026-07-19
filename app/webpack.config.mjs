@@ -21,7 +21,7 @@ export default () => ({
     name: 'tabby',
     target: 'node',
     entry: {
-        'index.ignore': 'file-loader?name=index.html!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
+        'index.ignore': path.resolve(__dirname, './index.pug'),
         sentry: path.resolve(__dirname, 'lib/sentry.ts'),
         preload: path.resolve(__dirname, 'src/entry.preload.ts'),
         bundle: path.resolve(__dirname, 'src/entry.ts'),
@@ -67,6 +67,10 @@ export default () => ({
             {
                 test: /\.(png|svg|ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 type: 'asset',
+            },
+            {
+                test: /\.pug$/,
+                type: 'asset/source',
             },
         ],
     },
