@@ -4,6 +4,7 @@ hotkeys:
     - 'Alt-Enter'
   close-tab:
     - 'Ctrl-Shift-W'
+    - 'Ctrl-W'
   reopen-tab:
     - 'Ctrl-Shift-Z'
   toggle-last-tab: []

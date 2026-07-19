@@ -30,6 +30,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             hotkeys: {
                 'new-tab': [
                     'Ctrl-Shift-T',
+                    'Ctrl-T',
                 ],
             },
         },
@@ -40,6 +41,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             hotkeys: {
                 'new-tab': [
                     'Ctrl-Shift-T',
+                    'Ctrl-T',
                 ],
             },
         },
