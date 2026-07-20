@@ -240,7 +240,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     if (this.frontend?.getSelection()) {
                         this.frontend.copySelection()
                         this.frontend.clearSelection()
-                        this.notifications.notice(this.translate.instant('Copied'))
                     } else {
                         this.forEachFocusedTerminalPane(tab => tab.sendInput('\x03'))
                     }
@@ -414,10 +413,13 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             if (this.hasFocus) {
                 await this.frontend?.attach(this.content.nativeElement, this.profile)
                 this.frontend?.configure(this.profile)
+                // focus received before attach was a no-op on the unattached terminal
+                this.frontend?.focus()
             } else {
                 this.focused$.pipe(first()).subscribe(async () => {
                     await this.frontend?.attach(this.content.nativeElement, this.profile)
                     this.frontend?.configure(this.profile)
+                    this.frontend?.focus()
                 })
             }
         }, attachDelay)
@@ -537,7 +539,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             data = data.replace(/[\r\n]+/g, ' ')
         }
 
-        if (this.config.store.terminal.trimWhitespaceOnPaste && data.indexOf('\n') === data.length - 1) {
+        // all line breaks are '\r' after the conversion above
+        if (this.config.store.terminal.trimWhitespaceOnPaste && data.indexOf('\r') === data.length - 1) {
             // Ends with a newline and has no other line breaks
             data = data.substring(0, data.length - 1)
         }
