@@ -63,6 +63,15 @@ div.mt-4
             (ngModelChange)='config.save()',
         )
 
+    .form-line
+        .header
+            .title(translate) Smooth scrolling
+            .description(translate) Animates the terminal scrolling instead of jumping line by line
+        toggle(
+            [(ngModel)]='config.store.terminal.smoothScrolling',
+            (ngModelChange)='config.save()',
+        )
+
 div.mt-4
     h3(translate) Mouse
 

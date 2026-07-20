@@ -29,6 +29,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             copyOnSelect: false,
             copyAsHTML: true,
             scrollOnInput: true,
+            smoothScrolling: true,
             altIsMeta: false,
             wordSeparator: ' ()[]{}\'"',
             colorScheme: {

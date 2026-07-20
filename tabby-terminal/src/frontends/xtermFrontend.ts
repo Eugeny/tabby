@@ -584,6 +584,8 @@ export class XTermFrontend extends Frontend {
         this.xterm.options.cursorBlink = config.terminal.cursorBlink
         this.xterm.options.macOptionIsMeta = config.terminal.altIsMeta
         this.xterm.options.scrollback = config.terminal.scrollbackLines
+        // gated on the global animations toggle like every other animation
+        this.xterm.options.smoothScrollDuration = config.terminal.smoothScrolling && config.accessibility.animations ? 125 : 0
         this.xterm.options.wordSeparator = config.terminal.wordSeparator
         this.xterm.options.drawBoldTextInBrightColors = config.terminal.drawBoldTextInBrightColors
         this.xterm.options.fontWeight = config.terminal.fontWeight
