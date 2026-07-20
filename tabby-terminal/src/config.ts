@@ -123,8 +123,11 @@ export class TerminalConfigProvider extends ConfigProvider {
                 copy: [
                     'Ctrl-Shift-C',
                 ],
+                // Ctrl-V matches Windows Terminal; without it the shell receives ^V
+                // and PSReadLine's own paste is slow and mangles CRLF clipboards
                 paste: [
                     'Ctrl-Shift-V',
+                    'Ctrl-V',
                     'Shift-Insert',
                 ],
                 'select-all': ['Ctrl-Shift-A'],

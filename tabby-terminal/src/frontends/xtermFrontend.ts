@@ -176,7 +176,10 @@ export class XTermFrontend extends Frontend {
             this.hotkeysService.pushKeyEvent(name, event)
 
             let ret = true
-            if (this.hotkeysService.matchActiveHotkey(true) !== null) {
+            // consume the keystroke on a partial (multi-chord) OR full hotkey match —
+            // otherwise a bound single-chord combo like Ctrl-V still reaches xterm,
+            // which feeds the raw control char (^V) to the shell alongside the hotkey
+            if (this.hotkeysService.matchActiveHotkey(true) !== null || this.hotkeysService.matchActiveHotkey() !== null) {
                 event.stopPropagation()
                 event.preventDefault()
                 ret = false
@@ -186,6 +189,9 @@ export class XTermFrontend extends Frontend {
 
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
             if (this.hostApp.platform !== Platform.Web) {
+                // combos with a native paste-into-textarea default need an
+                // unconditional preventDefault, the hotkey match below is not
+                // guaranteed mid-keystroke-sequence for them
                 if (
                     event.getModifierState('Meta') && event.key.toLowerCase() === 'v' ||
                     event.key === 'Insert' && event.shiftKey
