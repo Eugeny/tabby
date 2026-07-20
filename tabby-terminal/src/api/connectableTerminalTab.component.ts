@@ -68,6 +68,7 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
         super.onSessionDestroyed()
 
         if (this.frontend) {
+            this.frontend.resetTerminalModes()
             if (this.profile.behaviorOnSessionEnd === 'reconnect' && !this.isDisconnectedByHand) {
                 this.reconnect()
             } else if (this.profile.behaviorOnSessionEnd === 'keep' || !this.shouldTabBeDestroyedOnSessionClose()) {
