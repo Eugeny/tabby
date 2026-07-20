@@ -238,7 +238,9 @@ export class AppService {
             this._activeTab?.emitFocused()
             this._activeTab?.emitVisibility(true)
         })
-        this.hostWindow.setTitle(this._activeTab?.customTitle || this._activeTab?.title)
+        if (this._activeTab) {
+            this.hostWindow.setTitle(this._activeTab.customTitle || this._activeTab.title)
+        }
     }
 
     getParentTab (tab: BaseTabComponent): SplitTabComponent|null {
