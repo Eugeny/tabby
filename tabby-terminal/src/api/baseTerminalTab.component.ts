@@ -240,6 +240,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     if (this.frontend?.getSelection()) {
                         this.frontend.copySelection()
                         this.frontend.clearSelection()
+                        this.notifications.notice(this.translate.instant('Copied'))
                     } else {
                         this.forEachFocusedTerminalPane(tab => tab.sendInput('\x03'))
                     }
@@ -413,13 +414,18 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             if (this.hasFocus) {
                 await this.frontend?.attach(this.content.nativeElement, this.profile)
                 this.frontend?.configure(this.profile)
-                // focus received before attach was a no-op on the unattached terminal
-                this.frontend?.focus()
+                // focus received before attach was a no-op on the unattached
+                // terminal; re-check hasFocus — it may have moved during attach
+                if (this.hasFocus) {
+                    this.frontend?.focus()
+                }
             } else {
                 this.focused$.pipe(first()).subscribe(async () => {
                     await this.frontend?.attach(this.content.nativeElement, this.profile)
                     this.frontend?.configure(this.profile)
-                    this.frontend?.focus()
+                    if (this.hasFocus) {
+                        this.frontend?.focus()
+                    }
                 })
             }
         }, attachDelay)
@@ -530,7 +536,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     async paste (): Promise<void> {
         let data = this.platform.readClipboard()
         if (this.hostApp.platform === Platform.Windows) {
-            data = data.replaceAll('\r\n', '\r')
+            // also handle bare-LF clipboards (git-bash, editors)
+            data = data.replaceAll('\r\n', '\r').replaceAll('\n', '\r')
         } else {
             data = data.replaceAll('\n', '\r')
         }

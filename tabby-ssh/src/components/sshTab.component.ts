@@ -218,8 +218,12 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     copyConnectionString (event: MouseEvent): void {
         event.preventDefault()
         event.stopPropagation()
-        const selection = document.getSelection()?.toString()
-        const text = selection?.length ? selection : `${this.profile.options.user}@${this.profile.options.host}:${this.profile.options.port}`
+        // only honor a selection made within the label itself
+        const selection = document.getSelection()
+        const withinLabel = selection?.anchorNode && (event.currentTarget as HTMLElement).contains(selection.anchorNode)
+        const text = withinLabel && selection.toString().length
+            ? selection.toString()
+            : `${this.profile.options.user}@${this.profile.options.host}:${this.profile.options.port}`
         this.platform.setClipboard({ text })
         this.notifications.notice(this.translate.instant('Copied'))
     }

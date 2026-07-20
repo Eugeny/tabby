@@ -26,6 +26,9 @@ const COLOR_NAMES = [
 // before giving up and letting xterm fall back to its DOM renderer.
 const MAX_WEBGL_RECOVERY_ATTEMPTS = 3
 
+// scroll hotkeys stay with the fullscreen app while the alternate buffer is active
+const ALT_SCREEN_PASSTHROUGH_HOTKEYS = ['scroll-to-top', 'scroll-page-up', 'scroll-up', 'scroll-down', 'scroll-page-down', 'scroll-to-bottom']
+
 class FlowControl {
     private blocked = false
     private blocked$ = new BehaviorSubject<boolean>(false)
@@ -178,8 +181,13 @@ export class XTermFrontend extends Frontend {
             let ret = true
             // consume the keystroke on a partial (multi-chord) OR full hotkey match —
             // otherwise a bound single-chord combo like Ctrl-V still reaches xterm,
-            // which feeds the raw control char (^V) to the shell alongside the hotkey
-            if (this.hotkeysService.matchActiveHotkey(true) !== null || this.hotkeysService.matchActiveHotkey() !== null) {
+            // which feeds the raw control char (^V) to the shell alongside the hotkey.
+            // Scroll hotkeys are exempt in the alternate buffer: there's no scrollback
+            // to act on, and fullscreen apps expect those keys.
+            const matched = this.hotkeysService.matchActiveHotkey(true) ?? this.hotkeysService.matchActiveHotkey()
+            const altScreenPassthrough = ALT_SCREEN_PASSTHROUGH_HOTKEYS.includes(matched ?? '')
+                && this.xterm.buffer.active.type === 'alternate'
+            if (matched !== null && !altScreenPassthrough) {
                 event.stopPropagation()
                 event.preventDefault()
                 ret = false
