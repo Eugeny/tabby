@@ -111,6 +111,12 @@ body {
     --active-overlay: color-mix(in srgb, var(--theme-fg, #fff) 16%, transparent);
 }
 
+// Themed text selection everywhere in the UI (terminal panes render their own);
+// replaces the browser-default blue with the theme accent
+::selection {
+    background: color-mix(in srgb, var(--theme-primary, #7aa2f7) 40%, transparent);
+}
+
 .list-group {
     --bs-list-group-bg: var(--theme-bg-more);
     --bs-list-group-border-color: var(--theme-bg-more-2);
