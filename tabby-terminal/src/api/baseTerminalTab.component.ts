@@ -410,23 +410,20 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         // drop the animation's frames. Session output is buffered and replayed on
         // attach, so this adds no perceived shell startup latency.
         const attachDelay = document.body.classList.contains('no-animations') ? 0 : 160
-        setTimeout(async () => {
+        const attachAndFocus = async () => {
+            await this.frontend?.attach(this.content.nativeElement, this.profile)
+            this.frontend?.configure(this.profile)
+            // focus received before attach was a no-op on the unattached
+            // terminal; check again — it may also have moved during attach
             if (this.hasFocus) {
-                await this.frontend?.attach(this.content.nativeElement, this.profile)
-                this.frontend?.configure(this.profile)
-                // focus received before attach was a no-op on the unattached
-                // terminal; re-check hasFocus — it may have moved during attach
-                if (this.hasFocus) {
-                    this.frontend?.focus()
-                }
+                this.frontend?.focus()
+            }
+        }
+        setTimeout(() => {
+            if (this.hasFocus) {
+                attachAndFocus()
             } else {
-                this.focused$.pipe(first()).subscribe(async () => {
-                    await this.frontend?.attach(this.content.nativeElement, this.profile)
-                    this.frontend?.configure(this.profile)
-                    if (this.hasFocus) {
-                        this.frontend?.focus()
-                    }
-                })
+                this.focused$.pipe(first()).subscribe(attachAndFocus)
             }
         }, attachDelay)
 
