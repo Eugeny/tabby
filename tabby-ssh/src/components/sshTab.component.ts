@@ -215,6 +215,15 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         )).response === 0
     }
 
+    copyConnectionString (event: MouseEvent): void {
+        event.preventDefault()
+        event.stopPropagation()
+        const selection = document.getSelection()?.toString()
+        const text = selection?.length ? selection : `${this.profile.options.user}@${this.profile.options.host}:${this.profile.options.port}`
+        this.platform.setClipboard({ text })
+        this.notifications.notice(this.translate.instant('Copied'))
+    }
+
     async openSFTP (): Promise<void> {
         this.sftpPath = await this.session?.getWorkingDirectory() ?? this.sftpPath
         setTimeout(() => {

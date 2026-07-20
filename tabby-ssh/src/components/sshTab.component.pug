@@ -3,7 +3,8 @@ terminal-toolbar([tab]='this')
     i.fas.fa-xs.fa-circle.text-danger.me-2(*ngIf='!session || !session.open')
     strong.me-auto(
         style='user-select: text; cursor: text;'
-        onclick='event.stopPropagation()'
+        onclick='event.stopPropagation()',
+        (contextmenu)='copyConnectionString($event)'
     ) {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
 
     .me-2(
