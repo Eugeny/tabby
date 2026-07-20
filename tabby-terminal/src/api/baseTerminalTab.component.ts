@@ -674,6 +674,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     if (this.frontend?.getSelection()) {
                         this.frontend.copySelection()
                         this.frontend.clearSelection()
+                        this.notifications.notice(this.translate.instant('Copied'))
                     } else {
                         this.paste()
                     }
