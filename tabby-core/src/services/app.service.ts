@@ -238,7 +238,7 @@ export class AppService {
             this._activeTab?.emitFocused()
             this._activeTab?.emitVisibility(true)
         })
-        this.hostWindow.setTitle(this._activeTab?.title)
+        this.hostWindow.setTitle(this._activeTab?.customTitle || this._activeTab?.title)
     }
 
     getParentTab (tab: BaseTabComponent): SplitTabComponent|null {
@@ -399,6 +399,9 @@ export class AppService {
         modal.result.then(result => {
             tab.setTitle(result)
             tab.customTitle = result
+            if (tab === this._activeTab) {
+                this.hostWindow.setTitle(tab.customTitle || tab.title)
+            }
             this.emitTabsChanged()
         }).catch(() => null)
     }
