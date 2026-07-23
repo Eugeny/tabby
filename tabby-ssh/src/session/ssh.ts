@@ -371,6 +371,15 @@ export class SSHSession {
         return new SFTPSession(this.sftp, this.injector)
     }
 
+    /** Unlike openSFTP(), which hands out wrappers of one shared channel,
+     * this opens a channel the caller owns and must close */
+    async openDedicatedSFTP (): Promise<SFTPSession> {
+        if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+            throw new Error('Cannot open SFTP session before auth')
+        }
+        return new SFTPSession(await this.ssh.activateSFTP(await this.ssh.openSessionChannel()), this.injector)
+    }
+
     async start (): Promise<void> {
         await this.init()
 

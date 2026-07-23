@@ -1,12 +1,17 @@
 import * as C from 'constants'
 import { posix as path } from 'path'
 import { Component, Input, Output, EventEmitter, Inject, Optional } from '@angular/core'
-import { FileUpload, DirectoryUpload, DirectoryDownload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
+import { ConfigService, FileUpload, DirectoryUpload, DirectoryDownload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
 import { SFTPContextMenuItemProvider } from '../api'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { SFTPCreateDirectoryModalComponent } from './sftpCreateDirectoryModal.component'
+
+interface ChannelPool {
+    acquire: () => Promise<SFTPSession>
+    release: (ch: SFTPSession) => void
+}
 
 interface PathSegment {
     name: string
@@ -35,6 +40,7 @@ export class SFTPPanelComponent {
     constructor (
         private ngbModal: NgbModal,
         private notifications: NotificationsService,
+        private config: ConfigService,
         public platform: PlatformService,
         @Optional() @Inject(SFTPContextMenuItemProvider) protected contextMenuProviders: SFTPContextMenuItemProvider[],
     ) {
@@ -204,8 +210,119 @@ export class SFTPPanelComponent {
     }
 
     async upload (): Promise<void> {
+        const savedPath = this.path
         const transfers = await this.platform.startUpload({ multiple: true })
-        await Promise.all(transfers.map(t => this.uploadOne(t)))
+        try {
+            await this.withChannelPool(pool =>
+                this.runConcurrent(pool, transfers, (t, sftp) =>
+                    this.uploadOrSkipCancelled(sftp, path.join(savedPath, t.getName()), t)))
+        } catch (e) {
+            // one failure aborts the queue — mark what never ran so nothing
+            // sits in the transfers menu as "in progress" forever
+            for (const t of transfers) {
+                if (!t.isComplete() && !t.isFailed() && !t.isCancelled()) {
+                    t.cancel()
+                }
+            }
+            this.notifications.error(e.message)
+        }
+        if (this.path === savedPath) {
+            await this.navigate(this.path)
+        }
+    }
+
+    // SFTP round trips (open/close + windowing) dominate on many small files;
+    // several files in flight avoid paying the latency serially. Rules that keep
+    // the fragile engine alive: a channel only supports ONE operation in flight
+    // (russh-sftp#15), so every pooled channel is a dedicated one (never the
+    // shared browsing channel), a channel whose operation failed is never
+    // reused, and closing a channel can starve pending requests on others — so
+    // the pool is shared by all concurrent operations of this panel and torn
+    // down sequentially only when the last one finishes.
+    private poolChannels: SFTPSession[] = []
+    private poolFree: SFTPSession[] = []
+    private poolActiveOps = 0
+
+    private async withChannelPool<R> (fn: (pool: ChannelPool) => Promise<R>): Promise<R> {
+        this.poolActiveOps++
+        const pool: ChannelPool = {
+            acquire: async () => {
+                const existing = this.poolFree.pop()
+                if (existing) {
+                    return existing
+                }
+                const ch = await this.session.openDedicatedSFTP()
+                this.poolChannels.push(ch)
+                return ch
+            },
+            release: ch => {
+                this.poolFree.push(ch)
+            },
+        }
+        try {
+            return await fn(pool)
+        } finally {
+            this.poolActiveOps--
+            if (!this.poolActiveOps) {
+                const channels = this.poolChannels
+                this.poolChannels = []
+                this.poolFree = []
+                for (const ch of channels) {
+                    await ch.close().catch(() => null)
+                }
+            }
+        }
+    }
+
+    private async runConcurrent<T> (pool: ChannelPool, items: T[], fn: (item: T, sftp: SFTPSession) => Promise<void>): Promise<void> {
+        const configured = Math.floor(Number(this.config.store.ssh.sftpConcurrentTransfers))
+        const limit = Math.min(8, Math.max(1, Number.isFinite(configured) ? configured : 1))
+        const queue = [...items]
+        const errors: Error[] = []
+        const workersRan = await Promise.all(Array.from({ length: Math.min(limit, queue.length) }, async () => {
+            const channel = await pool.acquire().catch(() => null)
+            if (!channel) {
+                return false
+            }
+            let channelFailed = false
+            while (queue.length && !errors.length) {
+                try {
+                    await fn(queue.shift()!, channel)
+                } catch (e) {
+                    errors.push(e)
+                    channelFailed = true
+                }
+            }
+            if (!channelFailed) {
+                pool.release(channel)
+            }
+            return true
+        }))
+        if (!workersRan.some(x => x)) {
+            // no extra channels available — degrade to sequential on the shared one
+            while (queue.length && !errors.length) {
+                try {
+                    await fn(queue.shift()!, this.sftp)
+                } catch (e) {
+                    errors.push(e)
+                }
+            }
+        }
+        if (errors.length) {
+            throw errors[0]
+        }
+    }
+
+    // each selected file has its own transfers-menu entry, so the user can cancel
+    // one without meaning to abort the rest of the batch — swallow that one cancel
+    private async uploadOrSkipCancelled (sftp: SFTPSession, remotePath: string, transfer: FileUpload): Promise<void> {
+        try {
+            await sftp.upload(remotePath, transfer)
+        } catch (e) {
+            if (!transfer.isCancelled()) {
+                throw e
+            }
+        }
     }
 
     async uploadFolder (): Promise<void> {
@@ -214,17 +331,40 @@ export class SFTPPanelComponent {
     }
 
     async uploadOneFolder (transfer: DirectoryUpload, accumPath = ''): Promise<void> {
+        try {
+            await this.withChannelPool(pool => this.uploadOneFolderPooled(pool, transfer, accumPath))
+        } catch (e) {
+            this.cancelStrandedUploads(transfer)
+            this.notifications.error(e.message)
+        }
+    }
+
+    // a failure aborts the queue mid-way; anything not yet transferred would
+    // otherwise stay "in progress" in the transfers menu with an open fd
+    private cancelStrandedUploads (transfer: DirectoryUpload): void {
+        for (const t of transfer.getChildrens()) {
+            if (t instanceof DirectoryUpload) {
+                this.cancelStrandedUploads(t)
+            } else if (!t.isComplete() && !t.isFailed() && !t.isCancelled()) {
+                t.cancel()
+            }
+        }
+    }
+
+    private async uploadOneFolderPooled (pool: ChannelPool, transfer: DirectoryUpload, accumPath = ''): Promise<void> {
         const savedPath = this.path
-        for(const t of transfer.getChildrens()) {
+        const children = transfer.getChildrens()
+        const files = children.filter(t => !(t instanceof DirectoryUpload))
+        await this.runConcurrent(pool, files, (t, sftp) =>
+            this.uploadOrSkipCancelled(sftp, path.posix.join(savedPath, accumPath, t.getName()), t as FileUpload))
+        for (const t of children) {
             if (t instanceof DirectoryUpload) {
                 try {
-                    await this.sftp.mkdir(path.posix.join(this.path, accumPath, t.getName()))
+                    await this.sftp.mkdir(path.posix.join(savedPath, accumPath, t.getName()))
                 } catch {
                     // Intentionally ignoring errors from making duplicate dirs.
                 }
-                await this.uploadOneFolder(t, path.posix.join(accumPath, t.getName()))
-            } else {
-                await this.sftp.upload(path.posix.join(this.path, accumPath, t.getName()), t)
+                await this.uploadOneFolderPooled(pool, t, path.posix.join(accumPath, t.getName()))
             }
         }
         if (this.path === savedPath) {
@@ -232,55 +372,122 @@ export class SFTPPanelComponent {
         }
     }
 
-    async uploadOne (transfer: FileUpload): Promise<void> {
-        const savedPath = this.path
-        await this.sftp.upload(path.join(this.path, transfer.getName()), transfer)
-        if (this.path === savedPath) {
-            await this.navigate(this.path)
-        }
-    }
-
-    async download (itemPath: string, mode: number, size: number): Promise<void> {
+    async download (itemPath: string, mode: number, size: number): Promise<boolean> {
         const transfer = await this.platform.startDownload(path.basename(itemPath), mode, size)
         if (!transfer) {
-            return
+            return false
         }
-        this.sftp.download(itemPath, transfer)
+        transfer.setRetryHandler(() => this.download(itemPath, mode, size))
+        this.transferOnOwnChannel(sftp => sftp.download(itemPath, transfer)).catch(e => {
+            // sftp.download already set the terminal state; this is a backstop
+            if (!transfer.isCancelled() && !transfer.isFailed()) {
+                transfer.markFailed(e.message)
+            }
+        })
+        return true
     }
 
-    async downloadFolder (folder: SFTPFile): Promise<void> {
-        try {
-            const transfer = await this.platform.startDownloadDirectory(folder.name, 0)
-            if (!transfer) {
-                return
+    // transfers must not share the browsing channel — a channel dies when two
+    // operations are in flight on it at once (russh-sftp#15)
+    private async transferOnOwnChannel (fn: (sftp: SFTPSession) => Promise<void>): Promise<void> {
+        return this.withChannelPool(async pool => {
+            const channel = await pool.acquire().catch(() => null)
+            await fn(channel ?? this.sftp)
+            if (channel) {
+                pool.release(channel)
             }
+        })
+    }
 
-            // Start background size calculation and download simultaneously
-            const sizeCalculationPromise = this.calculateFolderSizeAndUpdate(folder, transfer)
-            const downloadPromise = this.downloadFolderRecursive(folder, transfer, '')
+    async downloadFolder (folder: SFTPFile): Promise<boolean> {
+        // eslint-disable-next-line @typescript-eslint/init-declarations
+        let startedTransfer: DirectoryDownload|null
+        try {
+            startedTransfer = await this.platform.startDownloadDirectory(folder.name, 0)
+        } catch (error) {
+            this.notifications.error(`Failed to download folder: ${error.message}`)
+            return false
+        }
+        if (!startedTransfer) {
+            return false
+        }
+        const transfer = startedTransfer
 
+        transfer.setRetryHandler(() => this.downloadFolder(folder))
+
+        this.downloadFolderTransfer(folder, transfer).catch(error => {
+            // markFailed also closes the transfer, so every escape route out of
+            // downloadFolderTransfer lands in a terminal state here
+            if (!transfer.isCancelled() && !transfer.isFailed()) {
+                transfer.markFailed(error.message)
+            }
+            if (!transfer.isCancelled()) {
+                this.notifications.error(`Failed to download folder: ${error.message}`)
+            }
+        })
+        return true
+    }
+
+    private async downloadFolderTransfer (folder: SFTPFile, transfer: DirectoryDownload): Promise<void> {
+        await this.withChannelPool(async pool => {
+            // size calculation runs on its own pooled channel when possible,
+            // otherwise first — never concurrently with downloads on one channel
+            let sizeCalculationPromise: Promise<unknown> = Promise.resolve()
+            let sizeChannel: SFTPSession|null = null
             try {
-                await Promise.all([sizeCalculationPromise, downloadPromise])
+                sizeChannel = await pool.acquire()
+            } catch {
+                await this.calculateFolderSizeAndUpdate(folder, transfer, this.sftp)
+                transfer.setSizeCalculated()
+            }
+            if (sizeChannel) {
+                const channel = sizeChannel
+                sizeCalculationPromise = this.calculateFolderSizeAndUpdate(folder, transfer, channel)
+                    .then(() => pool.release(channel))
+                    .finally(() => transfer.setSizeCalculated())
+            }
+            const downloadPromise = this.downloadFolderRecursive(pool, folder, transfer, '')
+
+            // settle BOTH before the pool tears channels down — closing a
+            // channel while another still has requests in flight starves it
+            const [sizeResult, downloadResult] = await Promise.allSettled([sizeCalculationPromise, downloadPromise])
+            try {
+                if (downloadResult.status === 'rejected') {
+                    throw downloadResult.reason
+                }
+                if (sizeResult.status === 'rejected') {
+                    throw sizeResult.reason
+                }
                 transfer.setStatus('')
                 transfer.setCompleted(true)
             } catch (error) {
-                transfer.cancel()
+                if (!transfer.isCancelled()) {
+                    transfer.markFailed(error.message)
+                }
                 throw error
             } finally {
                 transfer.close()
             }
-        } catch (error) {
-            this.notifications.error(`Failed to download folder: ${error.message}`)
-            throw error
-        }
+        })
     }
 
-    private async calculateFolderSizeAndUpdate (folder: SFTPFile, transfer: DirectoryDownload) {
-        let totalSize = 0
-        const items = await this.sftp.readdir(folder.fullPath)
+    private async calculateFolderSizeAndUpdate (folder: SFTPFile, transfer: DirectoryDownload, sftp: SFTPSession, sizeBefore = 0): Promise<number> {
+        // totalSize accumulates across the whole recursion so the published
+        // total only ever grows
+        let totalSize = sizeBefore
+        const items = await sftp.readdir(folder.fullPath)
         for (const item of items) {
+            if (transfer.isCancelled()) {
+                break
+            }
             if (item.isDirectory) {
-                totalSize += await this.calculateFolderSizeAndUpdate(item, transfer)
+                totalSize = await this.calculateFolderSizeAndUpdate(item, transfer, sftp, totalSize)
+            } else if (item.isSymlink) {
+                // mirror the download rules: file targets count, directory targets are skipped
+                const target = await sftp.stat(item.fullPath).catch(() => null)
+                if (target && !target.isDirectory) {
+                    totalSize += target.size
+                }
             } else {
                 totalSize += item.size
             }
@@ -289,24 +496,43 @@ export class SFTPPanelComponent {
         return totalSize
     }
 
-    private async downloadFolderRecursive (folder: SFTPFile, transfer: DirectoryDownload, relativePath: string): Promise<void> {
+    private async downloadFolderRecursive (pool: ChannelPool, folder: SFTPFile, transfer: DirectoryDownload, relativePath: string): Promise<void> {
         const items = await this.sftp.readdir(folder.fullPath)
 
-        for (const item of items) {
+        // Symlinks to files are downloaded as their targets; symlinks to
+        // directories are skipped (following them duplicates trees and can loop)
+        const files = items.filter(item => !item.isDirectory)
+        await this.runConcurrent(pool, files, async (item, sftp) => {
             if (transfer.isCancelled()) {
                 throw new Error('Download cancelled')
             }
-
-            const itemRelativePath = relativePath ? `${relativePath}/${item.name}` : item.name
-
-            transfer.setStatus(itemRelativePath)
-            if (item.isDirectory) {
-                await transfer.createDirectory(itemRelativePath)
-                await this.downloadFolderRecursive(item, transfer, itemRelativePath)
-            } else {
-                const fileDownload = await transfer.createFile(itemRelativePath, item.mode, item.size)
-                await this.sftp.download(item.fullPath, fileDownload)
+            let mode = item.mode
+            let size = item.size
+            if (item.isSymlink) {
+                const target = await sftp.stat(item.fullPath).catch(() => null)
+                if (!target || target.isDirectory) {
+                    return
+                }
+                mode = target.mode
+                size = target.size
             }
+            const itemRelativePath = relativePath ? `${relativePath}/${item.name}` : item.name
+            transfer.setStatus(itemRelativePath)
+            const fileDownload = await transfer.createFile(itemRelativePath, mode, size)
+            await sftp.download(item.fullPath, fileDownload)
+        })
+
+        for (const item of items) {
+            if (!item.isDirectory) {
+                continue
+            }
+            if (transfer.isCancelled()) {
+                throw new Error('Download cancelled')
+            }
+            const itemRelativePath = relativePath ? `${relativePath}/${item.name}` : item.name
+            transfer.setStatus(itemRelativePath)
+            await transfer.createDirectory(itemRelativePath)
+            await this.downloadFolderRecursive(pool, item, transfer, itemRelativePath)
         }
     }
 

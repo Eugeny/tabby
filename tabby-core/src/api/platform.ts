@@ -49,6 +49,37 @@ export abstract class FileTransfer {
         return this.cancelled
     }
 
+    isFailed (): boolean {
+        return this.error !== null
+    }
+
+    getError (): string|null {
+        return this.error
+    }
+
+    markFailed (message: string): void {
+        this.error = message
+        this.close()
+    }
+
+    /** Registers a callback that restarts this transfer from scratch,
+     * resolving true once a replacement transfer exists */
+    setRetryHandler (fn: () => Promise<boolean>): void {
+        this.retryHandler = fn
+    }
+
+    canRetry (): boolean {
+        return !!this.retryHandler && (this.isFailed() || this.isCancelled())
+    }
+
+    async retry (): Promise<boolean> {
+        try {
+            return await this.retryHandler?.() ?? false
+        } catch {
+            return false
+        }
+    }
+
     cancel (): void {
         this.cancelled = true
         this.close()
@@ -64,6 +95,11 @@ export abstract class FileTransfer {
 
     setCompleted (completed: boolean): void {
         this.completed = completed
+        if (completed) {
+            // a done transfer can't be retried; don't pin the handler's closure
+            // (it captures the panel and session) for the lifetime of the list
+            this.retryHandler = null
+        }
     }
 
     protected increaseProgress (bytes: number): void {
@@ -71,7 +107,10 @@ export abstract class FileTransfer {
             return
         }
         this.completedBytes += bytes
-        this.lastChunkSpeed = bytes * 1000 / (Date.now() - this.lastChunkStartTime)
+        // concurrent children can report within the same millisecond — never
+        // divide by zero
+        const elapsed = Math.max(1, Date.now() - this.lastChunkStartTime)
+        this.lastChunkSpeed = bytes * 1000 / elapsed
         this.lastChunkStartTime = Date.now()
     }
 
@@ -80,8 +119,10 @@ export abstract class FileTransfer {
     private lastChunkStartTime = Date.now()
     private lastChunkSpeed = 0
     private cancelled = false
-    private completed = false
+    protected completed = false
     private status = ''
+    private error: string|null = null
+    private retryHandler: (() => Promise<boolean>)|null = null
 }
 
 export abstract class FileDownload extends FileTransfer {
@@ -91,6 +132,27 @@ export abstract class FileDownload extends FileTransfer {
 export abstract class DirectoryDownload extends FileTransfer {
     abstract createDirectory (relativePath: string): Promise<void>
     abstract createFile (relativePath: string, mode: number, size: number): Promise<FileDownload>
+
+    // the byte heuristic lies while the total size is still being calculated
+    isComplete (): boolean {
+        return this.completed
+    }
+
+    /** True once the recursive size scan finished and getSize() is meaningful */
+    isSizeCalculated (): boolean {
+        return this.sizeCalculated
+    }
+
+    setSizeCalculated (): void {
+        this.sizeCalculated = true
+    }
+
+    private sizeCalculated = false
+
+    /** Currently transferring files, for progress display */
+    getChildren (): FileTransfer[] {
+        return []
+    }
 }
 
 export abstract class FileUpload extends FileTransfer {

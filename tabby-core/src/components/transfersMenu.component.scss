@@ -1,5 +1,7 @@
 :host {
-    min-width: 300px;
+    // constant width: any content-driven resize makes Popper re-place (flip)
+    // the menu at narrow window widths as transfer paths change length
+    width: min(420px, 90vw);
     max-height: 80vh;
     overflow-y: auto;
 
@@ -44,9 +46,23 @@
         display: flex;
         align-items: center;
 
+        .percent {
+            margin-left: 8px;
+        }
+
+        .state {
+            margin-left: 8px;
+        }
+
         .speed {
             margin-left: auto;
         }
+    }
+
+    .error {
+        font-size: 10px;
+        margin: 0;
+        max-width: 100%;
     }
 
     > i {

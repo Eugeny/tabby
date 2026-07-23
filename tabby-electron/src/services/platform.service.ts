@@ -458,6 +458,7 @@ class ElectronFileDownload extends FileDownload {
 
 class ElectronDirectoryDownload extends DirectoryDownload {
     private powerSaveBlocker = 0
+    private children: FileDownload[] = []
 
     constructor (
         private basePath: string,
@@ -483,18 +484,60 @@ class ElectronDirectoryDownload extends DirectoryDownload {
         return this.getTotalSize()
     }
 
+    // entry names come from the remote server — never let them escape basePath
+    private resolveSafe (relativePath: string): string {
+        if (relativePath.includes('\0')) {
+            throw new Error('Invalid remote file name')
+        }
+        const base = path.normalize(this.basePath + path.sep)
+        const fullPath = path.normalize(path.join(this.basePath, relativePath))
+        if (!(fullPath + path.sep).startsWith(base)) {
+            throw new Error(`Refusing to write outside the download directory: ${relativePath}`)
+        }
+        return fullPath
+    }
+
     async createDirectory (relativePath: string): Promise<void> {
-        const fullPath = path.join(this.basePath, relativePath)
-        await fs.mkdir(fullPath, { recursive: true })
+        await fs.mkdir(this.resolveSafe(relativePath), { recursive: true })
     }
 
     async createFile (relativePath: string, mode: number, size: number): Promise<FileDownload> {
-        const fullPath = path.join(this.basePath, relativePath)
+        const fullPath = this.resolveSafe(relativePath)
         await fs.mkdir(path.dirname(fullPath), { recursive: true })
 
         const fileDownload = new ElectronFileDownload(fullPath, mode, size, this.electron)
         await wrapPromise(this.zone, fileDownload.open())
+
+        // chain the child's progress into this folder transfer, which otherwise
+        // sits at 0% no matter how much has been downloaded
+        this.children.push(fileDownload)
+        const originalWrite = fileDownload.write.bind(fileDownload)
+        fileDownload.write = async (buffer: Uint8Array) => {
+            await originalWrite(buffer)
+            this.increaseProgress(buffer.length)
+            if (fileDownload.isComplete()) {
+                this.children = this.children.filter(x => x !== fileDownload)
+            }
+        }
+        const originalClose = fileDownload.close.bind(fileDownload)
+        fileDownload.close = () => {
+            this.children = this.children.filter(x => x !== fileDownload)
+            originalClose()
+        }
         return fileDownload
+    }
+
+    getChildren (): FileTransfer[] {
+        return this.children
+    }
+
+    cancel (): void {
+        // in-flight children would otherwise stream to completion — their
+        // download loops only check their own cancelled flag
+        for (const child of [...this.children]) {
+            child.cancel()
+        }
+        super.cancel()
     }
 
     close (): void {

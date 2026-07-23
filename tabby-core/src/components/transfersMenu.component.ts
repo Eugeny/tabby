@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { ConfigService } from '../services/config.service'
-import { FileDownload, FileTransfer, PlatformService } from '../api/platform'
+import { DirectoryDownload, FileDownload, FileTransfer, PlatformService } from '../api/platform'
 
 /** @hidden */
 @Component({
@@ -12,6 +12,7 @@ import { FileDownload, FileTransfer, PlatformService } from '../api/platform'
 export class TransfersMenuComponent {
     @Input() transfers: FileTransfer[]
     @Output() transfersChange = new EventEmitter<FileTransfer[]>()
+    retryLabel: string
     @HostBinding('class.vibrant') get isVibrant (): boolean {
         return this.config.store.appearance.vibrancy
     }
@@ -20,14 +21,65 @@ export class TransfersMenuComponent {
         private config: ConfigService,
         private platform: PlatformService,
         private translate: TranslateService,
-    ) { }
+    ) {
+        this.retryLabel = translate.instant('Retry')
+    }
 
     isDownload (transfer: FileTransfer): boolean {
         return transfer instanceof FileDownload
     }
 
     getProgress (transfer: FileTransfer): number {
-        return Math.round(100 * transfer.getCompletedBytes() / transfer.getSize())
+        if (!transfer.getSize()) {
+            return 0
+        }
+        // the total can lag behind (e.g. a folder size still being calculated)
+        return Math.min(100, Math.round(100 * transfer.getCompletedBytes() / transfer.getSize()))
+    }
+
+    getChildren (transfer: FileTransfer): FileTransfer[] {
+        return transfer instanceof DirectoryDownload ? transfer.getChildren() : []
+    }
+
+    getActiveChild (transfer: FileTransfer): FileTransfer|null {
+        return this.getChildren(transfer).find(x => !x.isComplete()) ?? null
+    }
+
+    isSizeUnknown (transfer: FileTransfer): boolean {
+        return transfer instanceof DirectoryDownload
+            && !transfer.isSizeCalculated()
+            && !transfer.isComplete() && !transfer.isFailed() && !transfer.isCancelled()
+    }
+
+    getBarType (transfer: FileTransfer): string {
+        if (transfer.isFailed() || transfer.isCancelled()) {
+            return 'danger'
+        }
+        return transfer.isComplete() ? 'success' : 'info'
+    }
+
+    getStateLabel (transfer: FileTransfer): string {
+        if (transfer.isFailed()) {
+            return this.translate.instant('Failed')
+        }
+        if (transfer.isCancelled()) {
+            return this.translate.instant('Cancelled')
+        }
+        if (transfer.isComplete()) {
+            return this.translate.instant('Done')
+        }
+        return ''
+    }
+
+    async retryTransfer (transfer: FileTransfer): Promise<void> {
+        this.transfers = this.transfers.filter(x => x !== transfer)
+        this.transfersChange.emit(this.transfers)
+        if (!await transfer.retry()) {
+            // nothing replaced it (e.g. the re-prompt was dismissed) — put the
+            // old entry back so the retry affordance isn't lost
+            this.transfers = [...this.transfers, transfer]
+            this.transfersChange.emit(this.transfers)
+        }
     }
 
     showTransfer (transfer: FileTransfer): void {
@@ -38,7 +90,7 @@ export class TransfersMenuComponent {
     }
 
     removeTransfer (transfer: FileTransfer): void {
-        if (!transfer.isComplete()) {
+        if (!transfer.isComplete() && !transfer.isFailed()) {
             transfer.cancel()
         }
         this.transfers = this.transfers.filter(x => x !== transfer)
