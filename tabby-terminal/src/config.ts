@@ -42,6 +42,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             },
             customColorSchemes: [],
             warnOnMultilinePaste: true,
+            warnOnClose: false,
             searchRegexAlwaysEnabled: false,
             searchOptions: {
                 regex: false,

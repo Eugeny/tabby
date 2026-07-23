@@ -156,6 +156,15 @@ div.mt-4
 
     .form-line
         .header
+            .title(translate) Confirm before closing a running tab
+            .description(translate) Ask before closing a terminal that still has a process running
+        toggle(
+            [(ngModel)]='config.store.terminal.warnOnClose',
+            (ngModelChange)='config.save()',
+        )
+
+    .form-line
+        .header
             .title(translate) Replace line breaks with spaces
             .description(translate) Flatten pasted text into a single line for terminals that do not support multiline paste
         toggle(

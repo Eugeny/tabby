@@ -123,6 +123,9 @@ export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile>
     }
 
     async canClose (): Promise<boolean> {
+        if (!this.config.store.terminal.warnOnClose) {
+            return true
+        }
         const children = await this.session?.getChildProcesses()
         if (!children?.length) {
             return true
