@@ -230,6 +230,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .form-line
                 .header
+                    .title(translate) Remember current directory
+                    .description(translate) Duplicated and restored tabs will start in the last working directory, if the remote shell is set up to report it (see the "Shell working directory reporting" wiki page)
+                toggle([(ngModel)]='profile.options.rememberCwd')
+
+            .form-line
+                .header
                     .title(translate) Keep Alive Interval (Milliseconds)
                 input.form-control(
                     type='number',
