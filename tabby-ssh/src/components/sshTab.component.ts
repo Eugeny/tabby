@@ -3,7 +3,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Platform, ProfilesService } from 'tabby-core'
+import { GetRecoveryTokenOptions, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
@@ -187,6 +187,23 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                 return
             }
         }
+    }
+
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
+        const token = await super.getRecoveryToken(options)
+        if (this.profile.options.rememberCwd) {
+            const cwd = await this.session?.getWorkingDirectory() ?? this.profile.options.cwd
+            if (cwd) {
+                token.profile = {
+                    ...token.profile,
+                    options: {
+                        ...token.profile.options,
+                        cwd,
+                    },
+                }
+            }
+        }
+        return token
     }
 
     showPortForwarding (): void {

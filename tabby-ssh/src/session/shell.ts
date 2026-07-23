@@ -53,6 +53,10 @@ export class SSHShellSession extends BaseSession {
 
         this.loginScriptProcessor?.executeUnconditionalScripts()
 
+        if (this.profile.options.cwd) {
+            this.changeInitialDirectory(this.profile.options.cwd)
+        }
+
         this.shell.data$.subscribe(data => {
             this.emitOutput(Buffer.from(data))
         })
@@ -104,6 +108,11 @@ export class SSHShellSession extends BaseSession {
 
     async gracefullyKillProcess (): Promise<void> {
         this.kill('TERM')
+    }
+
+    private changeInitialDirectory (dir: string): void {
+        // The leading space keeps the command out of shell history on shells with HISTCONTROL=ignorespace
+        this.write(Buffer.from(` cd -- '${dir.replace(/'/g, `'\\''`)}'\n`))
     }
 
     supportsWorkingDirectory (): boolean {
