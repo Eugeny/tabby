@@ -34,6 +34,7 @@
     "russh": "0.1.37",
     "rxjs": "^7.5.7",
     "source-map-support": "^0.5.20",
+    "tar": "7.5.19",
     "yargs": "^17.7.2"
   },
   "optionalDependencies": {
