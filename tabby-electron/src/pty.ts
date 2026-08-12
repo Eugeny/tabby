@@ -15,8 +15,11 @@ try {
 
 export class ElectronPTYInterface extends PTYInterface {
     async spawn (...options: any[]): Promise<PTYProxy> {
-        const id = ipcRenderer.sendSync('pty:spawn', ...options)
-        return new ElectronPTYProxy(id)
+        const result = ipcRenderer.sendSync('pty:spawn', ...options)
+        if (result.error) {
+            throw new Error(result.error)
+        }
+        return new ElectronPTYProxy(result.id)
     }
 
     async restore (id: string): Promise<ElectronPTYProxy|null> {
