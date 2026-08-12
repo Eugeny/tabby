@@ -1,10 +1,10 @@
 import * as fs from 'mz/fs'
-import * as fsSync from 'fs'
 import { Injector } from '@angular/core'
 import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { SessionOptions, ChildProcess, PTYInterface, PTYProxy } from './api'
 import { getEnvironment, substituteEnv } from './environment'
+import { isDirectory, isDirectorySync } from './util'
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 
@@ -89,8 +89,8 @@ export class Session extends BaseSession {
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             let cwd = options.cwd || process.env.HOME
 
-            if (!fsSync.existsSync(cwd!)) {
-                console.warn('Ignoring non-existent CWD:', cwd)
+            if (!isDirectorySync(cwd)) {
+                console.warn('Ignoring invalid CWD:', cwd)
                 cwd = undefined
             }
 
@@ -219,18 +219,23 @@ export class Session extends BaseSession {
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         cwd = cwd || this.guessedCWD
 
-        try {
-            await fs.access(cwd)
-        } catch {
+        if (!await isDirectory(cwd)) {
             return null
         }
         return cwd
     }
 
-    private guessWindowsCWD (data: string) {
+    private async guessWindowsCWD (data: string): Promise<void> {
         const match = windowsDirectoryRegex.exec(data)
-        if (match) {
-            this.guessedCWD = match[0]
+        if (!match) {
+            return
+        }
+        // The regex also matches file paths (e.g. an echoed command line
+        // containing `D:\tools\7z.exe`), which are useless as a CWD and
+        // break process spawning once inherited by another tab.
+        const guess = match[0].trim()
+        if (await isDirectory(guess)) {
+            this.guessedCWD = guess
         }
     }
 }

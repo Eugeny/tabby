@@ -1,8 +1,8 @@
-import * as fsSync from 'fs'
 import { Injectable } from '@angular/core'
 import { Logger, LogService, ConfigService, ProfilesService, PartialProfile } from 'tabby-core'
 import { TerminalTabComponent } from '../components/terminalTab.component'
 import { LocalProfile } from '../api'
+import { isDirectorySync } from '../util'
 
 @Injectable({ providedIn: 'root' })
 export class TerminalService {
@@ -39,8 +39,8 @@ export class TerminalService {
 
         cwd = cwd ?? fullProfile.options.cwd
 
-        if (cwd && !fsSync.existsSync(cwd)) {
-            console.warn('Ignoring non-existent CWD:', cwd)
+        if (cwd && !isDirectorySync(cwd)) {
+            console.warn('Ignoring invalid CWD:', cwd)
             cwd = null
         }
 
