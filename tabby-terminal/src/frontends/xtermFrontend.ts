@@ -89,6 +89,7 @@ export class XTermFrontend extends Frontend {
     private pinnedToBottom = true
     private pendingRendererRecovery = false
     private rendererRecoveryAttempts = 0
+    private webGLReleasedWhileHidden = false
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -410,7 +411,8 @@ export class XTermFrontend extends Frontend {
 
     destroy (): void {
         super.destroy()
-        this.webGLAddon?.dispose()
+        // Release the context now instead of waiting for GC
+        this.releaseWebGLAddon()
         this.canvasAddon?.dispose()
         this.xterm.dispose()
     }
@@ -674,6 +676,19 @@ export class XTermFrontend extends Frontend {
      * hidden, and flushes any GPU context recovery deferred until now.
      */
     reactivate (): void {
+        // Planned re-attach after a hide so it must not spend the recovery budget
+        if (this.webGLReleasedWhileHidden) {
+            this.webGLReleasedWhileHidden = false
+
+            if (this.opened && this.element?.offsetParent) {
+                this.attachWebGLAddon()
+                this.redraw()
+                return
+            }
+
+            this.pendingRendererRecovery = true
+        }
+
         // An app- or window-level GPU reset can blank the canvas without firing
         // xterm's per-canvas contextlost event, so pendingRendererRecovery stays
         // unset. Treat a WebGL frontend that has lost its addon as needing
@@ -691,18 +706,49 @@ export class XTermFrontend extends Frontend {
         }
     }
 
+    // Give the GPU context back while the tab sits in the background
+    deactivate (): void {
+        if (!this.enableWebGL || !this.webGLAddon) {
+            return
+        }
+        this.releaseWebGLAddon()
+        this.webGLReleasedWhileHidden = true
+    }
+
+    // Attach
     private attachWebGLAddon (): void {
+        if (this.webGLAddon) {
+            this.pendingRendererRecovery = false
+            return
+        }
+
         const addon = new WebglAddon()
-        // xterm fires this when the GPU drops the canvas context (driver reset,
-        // backgrounded app, too many live contexts).
         addon.onContextLoss(() => this.onWebGLContextLoss())
         this.xterm.loadAddon(addon)
         this.webGLAddon = addon
     }
 
-    private onWebGLContextLoss (): void {
-        this.webGLAddon?.dispose()
+    // Addon dispose() drops the canvas but never releases the context so do it here
+    private releaseWebGLAddon (): void {
+        const addon = this.webGLAddon
+        if (!addon) {
+            return
+        }
+
         this.webGLAddon = undefined
+        const gl = addon['_renderer']?.['_gl']
+
+        // Dispose first so loseContext cannot enter onWebGLContextLoss again
+        addon.dispose()
+        try {
+            gl?.getExtension('WEBGL_lose_context')?.loseContext()
+        } catch {
+            // Best effort since this reaches into addon internals
+        }
+    }
+
+    private onWebGLContextLoss (): void {
+        this.releaseWebGLAddon()
         this.pendingRendererRecovery = true
         this.recoverRenderer()
     }
@@ -713,14 +759,25 @@ export class XTermFrontend extends Frontend {
      * tab is hidden and is retried on reactivation or window focus.
      */
     private recoverRenderer (): void {
-        if (!this.pendingRendererRecovery || !this.canRecoverRenderer()) {
+        if (!this.pendingRendererRecovery) {
             return
         }
+
+        if (this.webGLAddon) {
+            this.pendingRendererRecovery = false
+            return
+        }
+
+        if (!this.canRecoverRenderer()) {
+            return
+        }
+
         this.pendingRendererRecovery = false
         if (this.rendererRecoveryAttempts < MAX_WEBGL_RECOVERY_ATTEMPTS) {
             this.rendererRecoveryAttempts++
             this.attachWebGLAddon()
         }
+
         // Once the retry budget is exhausted xterm falls back to its DOM renderer.
         this.redraw()
     }

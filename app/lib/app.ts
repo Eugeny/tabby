@@ -90,7 +90,9 @@ export class Application {
         }
 
         app.commandLine.appendSwitch('disable-http-cache')
-        app.commandLine.appendSwitch('max-active-webgl-contexts', '9000')
+
+        // 9000 disabled Chromium context eviction and let them pile up until the driver reset
+        app.commandLine.appendSwitch('max-active-webgl-contexts', '32')
         app.commandLine.appendSwitch('lang', 'EN')
 
         for (const flag of this.configStore.flags || [['force_discrete_gpu', '0']]) {
