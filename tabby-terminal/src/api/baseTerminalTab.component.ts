@@ -20,6 +20,35 @@ const INACTIVE_TAB_UNLOAD_DELAY = 1000 * 30
 const OSC_FOCUS_IN = Buffer.from('\x1b[I')
 const OSC_FOCUS_OUT = Buffer.from('\x1b[O')
 
+let cached8884Workaround: boolean | undefined = undefined
+
+/**
+ * Whether the WebGL renderer should be avoided on this GPU
+ */
+function needs8884Workaround (): boolean {
+    if (cached8884Workaround !== undefined) {
+        return cached8884Workaround
+    }
+
+    let result = false
+    const checkCanvas = document.createElement('canvas')
+    const checkGl = checkCanvas.getContext('webgl2')
+
+    try {
+        const debugInfo = checkGl?.getExtension('WEBGL_debug_renderer_info')
+
+        if (checkGl && debugInfo) {
+            const renderer = checkGl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
+            result = renderer.startsWith('ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)')
+        }
+    } finally {
+        checkGl?.getExtension('WEBGL_lose_context')?.loseContext()
+    }
+
+    cached8884Workaround = result
+    return result
+}
+
 /**
  * A class to base your custom terminal tabs on
  */
@@ -349,24 +378,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.configure()
         })
 
-        // Check if the the WebGL renderer is compatible with xterm.js:
-        // - https://github.com/Eugeny/tabby/issues/8884
-        // - https://github.com/microsoft/vscode/issues/190195
-        // - https://github.com/xtermjs/xterm.js/issues/4665
-        // - https://bugs.chromium.org/p/chromium/issues/detail?id=1476475
-        //
-        // Inspired by https://github.com/microsoft/vscode/pull/191795
-
-        let enable8884Workarround = false
-        const checkCanvas = document.createElement('canvas')
-        const checkGl = checkCanvas.getContext('webgl2')
-        const debugInfo = checkGl?.getExtension('WEBGL_debug_renderer_info')
-        if (checkGl && debugInfo) {
-            const renderer = checkGl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
-            if (renderer.startsWith('ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)')) {
-                enable8884Workarround = true
-            }
-        }
+        const enable8884Workarround = needs8884Workaround()
 
         const cls: new (..._) => Frontend = enable8884Workarround ? XTermFrontend : {
             xterm: XTermFrontend,
@@ -445,8 +457,14 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.visibility$
             .pipe(debounce(visibility => interval(visibility ? 0 : INACTIVE_TAB_UNLOAD_DELAY)))
             .subscribe(visibility => {
-                if (visibility && this.frontend instanceof XTermFrontend) {
+                if (!(this.frontend instanceof XTermFrontend)) {
+                    return
+                }
+                if (visibility) {
                     this.frontend.reactivate()
+                } else {
+                    // Hand the GPU context back instead of holding one per background tab
+                    this.frontend.deactivate()
                 }
             })
     }
