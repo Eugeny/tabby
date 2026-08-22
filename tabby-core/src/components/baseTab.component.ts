@@ -34,7 +34,12 @@ export abstract class BaseTabComponent extends BaseComponent {
     /**
      * User-defined title override
      */
-    customTitle: string
+    customTitle = ''
+
+    /**
+     * Title currently shown to the user
+     */
+    get displayTitle (): string { return this.customTitle || this.title }
 
     /**
      * Last tab activity state
@@ -141,6 +146,12 @@ export abstract class BaseTabComponent extends BaseComponent {
         if (!this.customTitle) {
             this.titleChange.next(title)
         }
+    }
+
+    setCustomTitle (title: string): void {
+        this.customTitle = title
+        this.titleChange.next(this.displayTitle)
+        this.recoveryStateChangedHint.next()
     }
 
     /**

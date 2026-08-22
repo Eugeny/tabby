@@ -85,6 +85,7 @@ hotkeys:
   pane-nav-9: []
   pane-maximize:
     - '⌘-⌥-Enter'
+  rename-pane: []
   close-pane:
     - '⌘-Shift-W'
   pane-increase-vertical: []

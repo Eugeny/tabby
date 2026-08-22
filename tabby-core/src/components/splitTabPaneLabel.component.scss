@@ -1,16 +1,42 @@
 :host {
     position: absolute;
-    background: rgba(0, 0, 0, .5);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.custom-name {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    max-width: calc(100% - 24px);
+    padding: 2px 8px;
+    transform: translateX(-50%);
+    overflow: hidden;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, .7);
+    color: #fff;
+    font-size: 12px;
+    line-height: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+:host.minimized .custom-name {
+    display: none;
+}
+
+.rearrange-overlay {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
-    z-index: 10;
+    background: rgba(0, 0, 0, .5);
     opacity: 0;
     transition: .125s opacity cubic-bezier(0.86, 0, 0.07, 1);
 }
 
-div {
+.rearrange-label {
     background: rgba(0, 0, 0, .7);
     padding: 20px 30px;
     margin: 20px;
@@ -23,9 +49,11 @@ div {
 }
 
 :host.active {
-    opacity: 1;
+    .rearrange-overlay {
+        opacity: 1;
+    }
 
-    > div {
+    .rearrange-label {
         pointer-events: initial;
     }
 }

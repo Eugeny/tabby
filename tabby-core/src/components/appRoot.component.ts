@@ -129,6 +129,12 @@ export class AppRootComponent {
                 if (hotkey === 'restart-tab') {
                     this.app.restartTab(this.app.activeTab)
                 }
+                if (hotkey === 'rename-pane' && this.app.activeTab instanceof SplitTabComponent) {
+                    const pane = this.app.activeTab.getFocusedTab()
+                    if (pane) {
+                        this.app.renameTab(pane)
+                    }
+                }
                 if (hotkey === 'explode-tab' && this.app.activeTab instanceof SplitTabComponent) {
                     this.app.explodeTab(this.app.activeTab)
                 }

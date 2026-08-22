@@ -395,10 +395,9 @@ export class AppService {
 
     renameTab (tab: BaseTabComponent): void {
         const modal = this.ngbModal.open(RenameTabModalComponent)
-        modal.componentInstance.value = tab.customTitle || tab.title
+        modal.componentInstance.value = tab.displayTitle
         modal.result.then(result => {
-            tab.setTitle(result)
-            tab.customTitle = result
+            tab.setCustomTitle(result)
             this.emitTabsChanged()
         }).catch(() => null)
     }

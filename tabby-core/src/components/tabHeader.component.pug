@@ -22,7 +22,7 @@ profile-icon(
     [cdkDragData]='tab',
     (cdkDragStarted)='onTabDragStart(tab)',
     (cdkDragEnded)='onTabDragEnd()',
-) {{tab.customTitle || tab.title}}
+) {{tab.displayTitle}}
 
 .buttons
     button(*ngIf='!config.store.terminal.hideTabOptionsButton',(click)='onContextMenu($event)') !{require('../icons/tab-options.svg')}

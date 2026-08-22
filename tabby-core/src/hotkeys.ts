@@ -176,6 +176,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Maximize the active pane'),
         },
         {
+            id: 'rename-pane',
+            name: this.translate.instant('Rename active pane'),
+        },
+        {
             id: 'pane-nav-up',
             name: this.translate.instant('Focus the pane above'),
         },

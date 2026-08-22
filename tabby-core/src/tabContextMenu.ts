@@ -118,8 +118,12 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
             items = [
                 ...items,
                 {
-                    label: this.translate.instant('Rename'),
-                    commandLabel: this.translate.instant('Rename tab'),
+                    label: tab.parent instanceof SplitTabComponent
+                        ? this.translate.instant('Rename pane')
+                        : this.translate.instant('Rename'),
+                    commandLabel: tab.parent instanceof SplitTabComponent
+                        ? this.translate.instant('Rename active pane')
+                        : this.translate.instant('Rename tab'),
                     click: () => {
                         this.app.renameTab(tab)
                     },

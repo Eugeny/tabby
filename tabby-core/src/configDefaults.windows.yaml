@@ -89,6 +89,7 @@ hotkeys:
   pane-nav-9: []
   pane-maximize:
     - 'Ctrl-Alt-Enter'
+  rename-pane: []
   close-pane: []
   pane-increase-vertical: []
   pane-decrease-vertical: []

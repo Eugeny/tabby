@@ -822,10 +822,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             return
         }
         const titles = [
-            this.getFocusedTab()?.title,
+            this.getFocusedTab()?.displayTitle,
             ...this.getAllTabs()
                 .filter(x => x !== this.getFocusedTab())
-                .map(x => x.title),
+                .map(x => x.displayTitle),
         ]
         this.setTitle([...new Set(titles)].join(' | '))
     }
