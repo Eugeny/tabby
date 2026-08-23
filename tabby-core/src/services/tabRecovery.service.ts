@@ -35,6 +35,7 @@ export class TabRecoveryService {
         if (token) {
             token.tabTitle = tab.title
             token.tabCustomTitle = tab.customTitle
+            token.tabCustomTitleVisible = tab.customTitleVisible
             token.tabPinned = tab.pinned
             if (tab.icon) {
                 token.tabIcon = tab.icon
@@ -59,6 +60,7 @@ export class TabRecoveryService {
                 tab.inputs.color = token.tabColor ?? null
                 tab.inputs.title = token.tabTitle || ''
                 tab.inputs.customTitle = token.tabCustomTitle || ''
+                tab.inputs.customTitleVisible = token.tabCustomTitleVisible ?? true
                 tab.inputs.pinned = token.tabPinned ?? false
                 tab.inputs.disableDynamicTitle = token.disableDynamicTitle
                 return tab
