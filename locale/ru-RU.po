@@ -1944,7 +1944,7 @@ msgstr "Установить мастер-пароль"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:11
 msgid "Set passphrase"
-msgstr "Установить мастер-пароль"
+msgstr "Установить passphrase"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:104
 msgid "Set password"
@@ -2571,4 +2571,49 @@ msgstr "Отдалить"
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
 msgstr "Динамическое"
+
+msgid "Clear passphrase"
+msgstr "Очистить passphrase"
+
+msgid "Found"
+msgstr "Найдено"
+
+msgid "Password for {name}"
+msgstr "Пароль для {name}"
+
+msgid "Private key passphrase for {name}"
+msgstr "Пароль ключа для {name}"
+
+msgid "Private key passphrase"
+msgstr "Пароль ключа"
+
+msgid "Use credential password as key passphrase"
+msgstr "Использовать пароль учётной записи как пароль ключа"
+
+msgid "Saved credentials"
+msgstr "Сохранённые учётные данные"
+
+msgid "Reusable credentials"
+msgstr "Повторно используемые учётные данные"
+
+msgid "New credential"
+msgstr "Новая учётная запись"
+
+msgid "No saved credentials yet."
+msgstr "Сохранённых учётных данных пока нет."
+
+msgid "Use saved credential"
+msgstr "Использовать сохранённую учётную запись"
+
+msgid "Create credentials (username, password, keys) and assign them to one or more connections and groups."
+msgstr "Создайте учётные данные (имя пользователя, пароль, ключи) и назначьте их одному или нескольким подключениям и группам."
+
+msgid "Reuse a username/password/key set across multiple connections"
+msgstr "Повторно используйте набор из имени пользователя, пароля и ключа для нескольких подключений"
+
+msgid "Credential"
+msgstr "Учётная запись"
+
+msgid "Keys"
+msgstr "Ключи"
 

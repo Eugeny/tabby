@@ -6,6 +6,7 @@ import { firstBy } from 'thenby'
 import { FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile, ProfilesService, ProfileSettingsComponent, FullyDefined, ProxifiedConfig } from 'tabby-core'
 import { LoginScriptsSettingsComponent } from 'tabby-terminal'
 import { PasswordStorageService } from '../services/passwordStorage.service'
+import { CredentialService } from '../services/credential.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
 import { supportedAlgorithms } from '../algorithms'
 import { SSHProfilesService } from '../profiles'
@@ -30,6 +31,7 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         public hostApp: HostAppService,
         private profilesService: ProfilesService,
         private passwordStorage: PasswordStorageService,
+        private credentialService: CredentialService,
         private ngbModal: NgbModal,
         private fileProviders: FileProvidersService,
     ) { }
@@ -66,6 +68,19 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
 
     getJumpHostLabel (p: PartialProfile<SSHProfile>) {
         return p.group ? `${this.profilesService.resolveProfileGroupName(p.group)} / ${p.name}` : p.name
+    }
+
+    getCredentials () {
+        return this.credentialService.getCredentials()
+    }
+
+    onCredentialChange () {
+        if (this.profile.options.credentialId) {
+            const cred = this.credentialService.getCredentials().find(c => c.id === this.profile.options.credentialId)
+            if (cred?.username) {
+                this.profile.options.user = cred.username
+            }
+        }
     }
 
     async setPassword () {

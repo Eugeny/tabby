@@ -2,7 +2,6 @@ import { Component, HostBinding, HostListener, Input } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import deepClone from 'clone-deep'
-import FuzzySearch from 'fuzzy-search'
 
 import { ConfigService } from '../services/config.service'
 import { ProfilesService } from '../services/profiles.service'
@@ -29,6 +28,10 @@ export class ProfileTreeComponent extends BaseComponent {
 
     filteredProfiles: PartialProfile<Profile>[] = []
     @Input() filter = ''
+
+    searchActive = false
+    searchGroups: PartialProfileGroup<CollapsableProfileGroup>[] = []
+    searchProfiles: (PartialProfile<Profile> & { groupName?: string })[] = []
 
 
     panelMinWidth = 200
@@ -204,30 +207,56 @@ export class ProfileTreeComponent extends BaseComponent {
             const q = this.filter.trim().toLowerCase()
 
             if (q.length === 0) {
+                this.searchActive = false
+                this.searchGroups = []
+                this.searchProfiles = []
                 this.rootGroups = this.profilesService.buildGroupTree(this.profileGroups)
                 return
             }
+
+            this.searchActive = true
+
+            let groups = await this.profilesService.getProfileGroups({ includeNonUserGroup: true, includeProfiles: true })
+            for (const group of groups) {
+                if (group.profiles?.length) {
+                    group.profiles = group.profiles.filter(x => !x.isTemplate)
+                    group.profiles = group.profiles.filter(x => x.id && !this.config.store.profileBlacklist.includes(x.id))
+                }
+            }
+            if (!this.config.store.terminal.showBuiltinProfiles) { groups = groups.filter(g => g.id !== 'built-in') }
+
+            const matchedGroups = groups.filter(g => g.name.toLowerCase().includes(q))
 
             const profiles = await this.profilesService.getProfiles({
                 includeBuiltin: this.config.store.terminal.showBuiltinProfiles,
                 clone: true,
             })
+            const matchedProfiles = profiles
+                .filter(p => !p.isTemplate)
+                .filter(p => {
+                    const opts: any = p.options ?? {}
+                    const groupName = p.group ? this.profilesService.resolveProfileGroupName(p.group) : ''
+                    return [
+                        p.name,
+                        groupName,
+                        opts.host,
+                        opts.user,
+                        opts.port != null ? String(opts.port) : '',
+                        opts.jumpHost,
+                    ].some(v => (v ?? '').toString().toLowerCase().includes(q))
+                })
+                .map(p => ({
+                    ...p,
+                    groupName: p.group ? this.profilesService.resolveProfileGroupName(p.group) : '',
+                }))
 
-            const matches = new FuzzySearch(
-                profiles.filter(p => !p.isTemplate),
-                ['name', 'description'],
-                { sort: false },
-            ).search(q)
+            const matchedGroupIds = new Set(matchedGroups.map(g => g.id))
+            const standaloneProfiles = matchedProfiles.filter(p => !p.group || !matchedGroupIds.has(p.group))
 
-            this.rootGroups = [
-                {
-                    id: 'search',
-                    editable: false,
-                    name: this.translate.instant('Filter results'),
-                    icon: 'fas fa-magnifying-glass',
-                    profiles: matches,
-                },
-            ]
+            this.searchGroups = this.profilesService.buildGroupTree(
+                matchedGroups.map(g => ProfileTreeComponent.intoPartialCollapsableProfileGroup(g, false)),
+            )
+            this.searchProfiles = standaloneProfiles
         } catch (error) {
             console.error('Error occurred during search:', error)
         }

@@ -1,8 +1,9 @@
 import { Injectable, InjectFlags, Injector } from '@angular/core'
-import { NewTabParameters, PartialProfile, TranslateService, QuickConnectProfileProvider } from 'tabby-core'
+import { NewTabParameters, PartialProfile, TranslateService, QuickConnectProfileProvider, ProfilesService } from 'tabby-core'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
+import { CredentialService } from './services/credential.service'
 import { SSHAlgorithmType, SSHProfile } from './api'
 import { SSHProfileImporter } from './api/importer'
 import { defaultAlgorithms } from './algorithms'
@@ -20,6 +21,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
             auth: null,
             password: null,
             privateKeys: [],
+            credentialId: null,
             keepaliveInterval: 5000,
             keepaliveCountMax: 10,
             readyTimeout: null,
@@ -50,6 +52,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
 
     constructor (
         private passwordStorage: PasswordStorageService,
+        private credentialService: CredentialService,
         private translate: TranslateService,
         private injector: Injector,
     ) {
@@ -93,9 +96,16 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
     }
 
     async getNewTabParameters (profile: SSHProfile): Promise<NewTabParameters<SSHTabComponent>> {
+        let groupCredentialId: string | undefined = undefined
+        if (profile.group) {
+            const profilesService = this.injector.get(ProfilesService, null, InjectFlags.Optional)
+            const group = profilesService?.resolveProfileGroup(profile.group)
+            groupCredentialId = group?.defaults?.['ssh']?.credentialId
+        }
+        const resolved = await this.credentialService.resolveProfile(profile, groupCredentialId)
         return {
             type: SSHTabComponent,
-            inputs: { profile },
+            inputs: { profile: resolved },
         }
     }
 

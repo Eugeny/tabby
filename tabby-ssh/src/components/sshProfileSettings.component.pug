@@ -105,6 +105,13 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                 )
 
             .mb-3
+                label(translate) Use saved credential
+                .text-muted.small(translate) Reuse a username/password/key set across multiple connections
+                select.form-control([(ngModel)]='profile.options.credentialId', (ngModelChange)='onCredentialChange()')
+                    option([ngValue]='null', translate) None
+                    option([ngValue]='c.id', *ngFor='let c of getCredentials()') {{ c.name }}
+
+            .mb-3
                 label(translate) Authentication method
 
                 .btn-group.mt-1.w-100

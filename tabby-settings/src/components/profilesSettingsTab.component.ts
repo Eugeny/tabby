@@ -31,6 +31,65 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     Platform = Platform
     private descriptionCache = new Map<string, string|null>()
 
+    searchActive = false
+    searchGroups: PartialProfileGroup<CollapsableProfileGroup>[] = []
+    searchProfiles: (PartialProfile<Profile> & { groupName?: string })[] = []
+
+    async onFilterChange (): Promise<void> {
+        const q = this.filter.trim().toLowerCase()
+        if (!q) {
+            this.searchActive = false
+            this.searchGroups = []
+            this.searchProfiles = []
+            return
+        }
+
+        this.searchActive = true
+
+        let groups = await this.profilesService.getProfileGroups({ includeNonUserGroup: true, includeProfiles: true })
+        for (const group of groups) {
+            if (group.profiles?.length) {
+                group.profiles = group.profiles.filter(x => !x.isTemplate)
+                group.profiles = group.profiles.filter(x => x.id && !this.config.store.profileBlacklist.includes(x.id))
+            }
+        }
+        if (!this.config.store.terminal.showBuiltinProfiles) { groups = groups.filter(g => g.id !== 'built-in') }
+
+        const matchedGroups = groups.filter(g => g.name.toLowerCase().includes(q))
+
+        const profiles = await this.profilesService.getProfiles({
+            includeBuiltin: this.config.store.terminal.showBuiltinProfiles,
+            clone: true,
+        })
+        const matchedProfiles = profiles
+            .filter(p => !p.isTemplate)
+            .filter(p => {
+                const opts: any = p.options ?? {}
+                const groupName = p.group ? this.profilesService.resolveProfileGroupName(p.group) : ''
+                return [
+                    p.name,
+                    groupName,
+                    opts.host,
+                    opts.user,
+                    opts.port != null ? String(opts.port) : '',
+                    opts.jumpHost,
+                ].some(v => (v ?? '').toString().toLowerCase().includes(q))
+            })
+            .map(p => ({
+                ...p,
+                groupName: p.group ? this.profilesService.resolveProfileGroupName(p.group) : '',
+            }))
+
+        const matchedGroupIds = new Set(matchedGroups.map(g => g.id))
+        const standaloneProfiles = matchedProfiles.filter(p => !p.group || !matchedGroupIds.has(p.group))
+
+        this.searchGroups = this.profilesService.buildGroupTree(
+            matchedGroups.map(g => ProfilesSettingsTabComponent.intoPartialCollapsableProfileGroup(g, false)),
+        )
+        this.searchProfiles = standaloneProfiles
+    }
+
+
     constructor (
         public config: ConfigService,
         public hostApp: HostAppService,

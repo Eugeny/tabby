@@ -62,3 +62,36 @@ h3 SSH
     )
 
 .alert.alert-info(translate) SSH connection management is now done through the "Profiles & connections" tab
+
+h3(translate) Saved credentials
+
+.form-line
+    .header
+        .title(translate) Reusable credentials
+        .description(translate) Create credentials (username, password, keys) and assign them to one or more connections and groups.
+
+button.btn.btn-primary.mb-3((click)='editCredential()')
+    i.fas.fa-plus.me-2
+    span(translate) New credential
+
+.table-responsive(*ngIf='credentials.getCredentials().length')
+    table.table.table-sm
+        thead
+            tr
+                th(translate) Name
+                th(translate) Username
+                th(translate) Keys
+                th
+        tbody
+            tr(*ngFor='let c of credentials.getCredentials()')
+                td {{ c.name }}
+                td {{ c.username }}
+                td {{ c.privateKeys.length }}
+                td.text-end
+                    .d-flex.justify-content-end.gap-2
+                        .action((click)='editCredential(c)')
+                            i.fas.fa-edit
+                        .action((click)='deleteCredential(c)')
+                            i.fas.fa-trash
+
+.alert.alert-info(*ngIf='!credentials.getCredentials().length', translate) No saved credentials yet.

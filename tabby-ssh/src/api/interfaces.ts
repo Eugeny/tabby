@@ -20,6 +20,8 @@ export interface SSHProfileOptions extends LoginScriptsOptions {
     auth: null|'password'|'publicKey'|'agent'|'keyboardInteractive'
     password: string
     privateKeys: string[]
+    credentialId: string | null
+    privateKeyPassphrase?: string | null
     keepaliveInterval: number
     keepaliveCountMax: number
     readyTimeout: number | null

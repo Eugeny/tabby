@@ -9,8 +9,17 @@
     .profile-tree.h-100
         .d-flex.flex-column.p-2.profile-tree-container
 
-            ng-container(*ngFor='let group of rootGroups')
-                ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: group, depth: 0}')
+            ng-container(*ngIf='!searchActive')
+                ng-container(*ngFor='let group of rootGroups')
+                    ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: group, depth: 0}')
+
+            ng-container(*ngIf='searchActive')
+                .text-muted.px-2.py-1
+                    | Found: {{ searchGroups.length + searchProfiles.length }}
+                ng-container(*ngFor='let group of searchGroups')
+                    ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: group, depth: 0}')
+                ng-container(*ngFor='let profile of searchProfiles')
+                    ng-container(*ngTemplateOutlet='profileItem; context: {$implicit: profile, depth: 0}')
 
             ng-template(#recursiveGroup let-group let-depth='depth')
                 a.tree-item(
@@ -28,22 +37,28 @@
 
                 ng-container(*ngIf='!group.collapsed')
                     ng-container(*ngFor='let profile of group.profiles')
-                        a.tree-item(
-                            (dblclick)='launchProfile(profile)',
-                            [style.paddingLeft.px]='(depth + 1) * 20',
-                            (contextmenu)='profileContextMenu(profile, $event)',
-                            href='#'
-                        )
-                            .fw-20
-                                profile-icon.ms-1([icon]='profile.icon', [color]='profile.color')
-                            span.ms-2.no-wrap {{ profile.name }}
-
-                            .actions
-                                .action((click)='launchProfile(profile)')
-                                    .fa.fa-fw.fas.fa-play
+                        ng-container(*ngTemplateOutlet='profileItem; context: {$implicit: profile, depth: depth + 1}')
 
                     ng-container(*ngFor='let child of group.children')
                         ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: child, depth: depth + 1}')
+
+            ng-template(#profileItem let-profile let-depth='depth')
+                a.tree-item(
+                    (dblclick)='launchProfile(profile)',
+                    [style.paddingLeft.px]='depth * 20',
+                    (contextmenu)='profileContextMenu(profile, $event)',
+                    href='#'
+                )
+                    .fw-20
+                        profile-icon.ms-1([icon]='profile.icon', [color]='profile.color')
+                    span.ms-2.no-wrap {{ profile.name }}
+                    span.text-muted.ms-2(
+                        *ngIf="searchActive && profile.groupName",
+                    ) {{ profile.groupName }}
+
+                    .actions
+                        .action((click)='launchProfile(profile)')
+                            .fa.fa-fw.fas.fa-play
 .grabber(
     (mousedown)="startResize($event)"
 )

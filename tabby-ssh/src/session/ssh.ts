@@ -3,13 +3,14 @@ import * as crypto from 'crypto'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import * as shellQuote from 'shell-quote'
-import { Injector } from '@angular/core'
+import { Injector, InjectFlags } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, FileProvidersService, NotificationsService, PromptModalComponent, LogService, Logger, TranslateService, Platform, HostAppService } from 'tabby-core'
 import { Socket } from 'net'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
 import { PasswordStorageService } from '../services/passwordStorage.service'
+import { CredentialService } from '../services/credential.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { SFTPSession } from './sftp'
 import { SSHAlgorithmType, SSHProfile, AutoPrivateKeyLocator, PortForwardType } from '../api'
@@ -125,6 +126,7 @@ export class SSHSession {
     private translate: TranslateService
     private knownHosts: SSHKnownHostsService
     private privateKeyImporters: AutoPrivateKeyLocator[]
+    private credentialService: CredentialService | null = null
     private previouslyDisconnected = false
 
     constructor (
@@ -142,6 +144,7 @@ export class SSHSession {
         this.translate = injector.get(TranslateService)
         this.knownHosts = injector.get(SSHKnownHostsService)
         this.privateKeyImporters = injector.get(AutoPrivateKeyLocator, [])
+        this.credentialService = injector.get(CredentialService, null, InjectFlags.Optional)
 
         this.willDestroy$.subscribe(() => {
             for (const port of this.forwardedPorts) {
@@ -159,6 +162,9 @@ export class SSHSession {
     }
 
     async init (): Promise<void> {
+        if (this.credentialService) {
+            this.profile = await this.credentialService.resolveProfile(this.profile)
+        }
         this.allAuthMethods = [{ type: 'none' }]
         if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
             if (this.profile.options.privateKeys.length) {
@@ -938,6 +944,10 @@ export class SSHSession {
         const keyHash = crypto.createHash('sha512').update(privateKey).digest('hex')
 
         privateKey = privateKey.replaceAll('EC PRIVATE KEY', 'PRIVATE KEY')
+
+        if (this.profile.options.privateKeyPassphrase) {
+            return russh.KeyPair.parse(privateKey, this.profile.options.privateKeyPassphrase)
+        }
 
         let triedSavedPassphrase = false
         let passphrase: string|null = null

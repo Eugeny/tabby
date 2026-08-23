@@ -24,6 +24,8 @@ import { RecoveryProvider } from './recoveryProvider'
 import { SSHHotkeyProvider } from './hotkeys'
 import { SFTPContextMenu } from './tabContextMenu'
 import { SSHProfilesService } from './profiles'
+import { CredentialService } from './services/credential.service'
+import { CredentialEditorModalComponent } from './components/credentialEditorModal.component'
 import { SFTPContextMenuItemProvider } from './api/contextMenu'
 import { CommonSFTPContextMenu } from './sftpContextMenu'
 import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirectoryModal.component'
@@ -47,9 +49,11 @@ import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirect
         { provide: TabContextMenuItemProvider, useClass: SFTPContextMenu, multi: true },
         { provide: ProfileProvider, useExisting: SSHProfilesService, multi: true },
         { provide: SFTPContextMenuItemProvider, useClass: CommonSFTPContextMenu, multi: true },
+        CredentialService,
     ],
     declarations: [
         SSHProfileSettingsComponent,
+        CredentialEditorModalComponent,
         SFTPDeleteModalComponent,
         SFTPCreateDirectoryModalComponent,
         SSHPortForwardingModalComponent,
@@ -68,3 +72,5 @@ export * from './api'
 export { SFTPFile, SFTPSession } from './session/sftp'
 export { SFTPPanelComponent, SSHTabComponent }
 export { PasswordStorageService } from './services/passwordStorage.service'
+export { CredentialService } from './services/credential.service'
+export { CredentialEditorModalComponent } from './components/credentialEditorModal.component'

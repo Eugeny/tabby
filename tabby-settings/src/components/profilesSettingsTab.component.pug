@@ -27,7 +27,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                 .input-group
                     .input-group-text
                         i.fas.fa-fw.fa-search
-                    input.form-control(type='search', [placeholder]='"Filter"|translate', [(ngModel)]='filter')
+                    input.form-control(type='search', [placeholder]='"Filter"|translate', [(ngModel)]='filter', (ngModelChange)='onFilterChange()')
 
                 div(ngbDropdown).d-inline-block.flex-shrink-0.ms-3
                     button.btn.btn-primary(ngbDropdownToggle)
@@ -41,9 +41,17 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             i.fas.fa-fw.fa-plus
                             span(translate) New profile group
 
-            .d-flex.flex-column.my-3.p-2.collapse-container
+            .d-flex.flex-column.my-3.p-2.collapse-container(*ngIf='!searchActive')
                 ng-container(*ngFor='let group of rootGroups')
                     ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: group}')
+
+            .d-flex.flex-column.my-3.p-2.collapse-container(*ngIf='searchActive')
+                .text-muted.px-1.py-2
+                    | {{ "Found" | translate }}: {{ searchGroups.length + searchProfiles.length }}
+                ng-container(*ngFor='let group of searchGroups')
+                    ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: group}')
+                ng-container(*ngFor='let profile of searchProfiles')
+                    ng-container(*ngTemplateOutlet='profileItem; context: {$implicit: profile, depth: 0}')
 
             ng-template(#recursiveGroup let-group)
                 .collapse-item.d-flex.align-items-center.p-1((click)='toggleGroupCollapse(group)')
@@ -58,35 +66,39 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
                 ng-container(*ngIf='!group.collapsed')
                     ng-container(*ngFor='let profile of group.profiles')
-                        .collapse-item.d-flex.align-items-center.p-1.ps-4(*ngIf='isProfileVisible(profile)', [class.list-group-item-action]='!profile.isBuiltin', (click)='profile.isBuiltin ? null : editProfile(profile)')
-                            profile-icon.ms-1([icon]='profile.icon', [color]='profile.color')
-                            span.ms-3.no-wrap {{ profile.name }}
-                            .text-muted.no-wrap.ms-2 {{ getDescription(profile) }}
-                            .me-auto
-                            button.btn.btn-link.hover-reveal.ms-1(*ngIf='!profile.isTemplate', (click)='$event.stopPropagation(); launchProfile(profile)')
-                                i.fas.fa-play
-                            .ms-1.hover-reveal(ngbDropdown, placement='bottom-right top-right auto')
-                                button.btn.btn-link.ms-1(ngbDropdownToggle, (click)='$event.stopPropagation()')
-                                    i.fas.fa-fw.fa-ellipsis-vertical
-                                div(ngbDropdownMenu)
-                                    button.dropdown-item(ngbDropdownItem, (click)='$event.stopPropagation(); newProfile(profile)')
-                                        i.fas.fa-fw.fa-copy
-                                        span(translate) Duplicate
-                                    button.dropdown-item(ngbDropdownItem, *ngIf='profile.id && !isProfileBlacklisted(profile)', (click)='$event.stopPropagation(); blacklistProfile(profile)')
-                                        i.fas.fa-fw.fa-eye-slash
-                                        span(translate) Hide
-                                    button.dropdown-item(ngbDropdownItem, *ngIf='profile.id && isProfileBlacklisted(profile)', (click)='$event.stopPropagation(); unblacklistProfile(profile)')
-                                        i.fas.fa-fw.fa-eye
-                                        span(translate) Show
-                                    button.dropdown-item(*ngIf='!profile.isBuiltin', (click)='$event.stopPropagation(); deleteProfile(profile)')
-                                        i.fas.fa-fw.fa-trash-alt
-                                        span(translate) Delete
-                            .ms-1(class='badge text-bg-{{getTypeColorClass(profile)}}') {{ getTypeLabel(profile) }}
-                            .ms-1.text-danger.fas.fa-eye-slash(*ngIf='isProfileBlacklisted(profile)')
+                        ng-container(*ngTemplateOutlet='profileItem; context: {$implicit: profile, depth: 1}')
 
                     ng-container(*ngFor='let child of group.children')
                         .ps-4
                             ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: child}')
+
+            ng-template(#profileItem let-profile let-depth='depth')
+                .collapse-item.d-flex.align-items-center.p-1([class.ps-4]='depth > 0', [class.list-group-item-action]='!profile.isBuiltin', (click)='profile.isBuiltin ? null : editProfile(profile)')
+                    profile-icon.ms-1([icon]='profile.icon', [color]='profile.color')
+                    span.ms-3.no-wrap {{ profile.name }}
+                    .text-muted.no-wrap.ms-2 {{ getDescription(profile) }}
+                    .text-muted.no-wrap.ms-2(*ngIf='searchActive && profile.groupName') {{ profile.groupName }}
+                    .me-auto
+                    button.btn.btn-link.hover-reveal.ms-1(*ngIf='!profile.isTemplate', (click)='$event.stopPropagation(); launchProfile(profile)')
+                        i.fas.fa-play
+                    .ms-1.hover-reveal(ngbDropdown, placement='bottom-right top-right auto')
+                        button.btn.btn-link.ms-1(ngbDropdownToggle, (click)='$event.stopPropagation()')
+                            i.fas.fa-fw.fa-ellipsis-vertical
+                        div(ngbDropdownMenu)
+                            button.dropdown-item(ngbDropdownItem, (click)='$event.stopPropagation(); newProfile(profile)')
+                                i.fas.fa-fw.fa-copy
+                                span(translate) Duplicate
+                            button.dropdown-item(ngbDropdownItem, *ngIf='profile.id && !isProfileBlacklisted(profile)', (click)='$event.stopPropagation(); blacklistProfile(profile)')
+                                i.fas.fa-fw.fa-eye-slash
+                                span(translate) Hide
+                            button.dropdown-item(ngbDropdownItem, *ngIf='profile.id && isProfileBlacklisted(profile)', (click)='$event.stopPropagation(); unblacklistProfile(profile)')
+                                i.fas.fa-fw.fa-eye
+                                span(translate) Show
+                            button.dropdown-item(*ngIf='!profile.isBuiltin', (click)='$event.stopPropagation(); deleteProfile(profile)')
+                                i.fas.fa-fw.fa-trash-alt
+                                span(translate) Delete
+                    .ms-1(class='badge text-bg-{{getTypeColorClass(profile)}}') {{ getTypeLabel(profile) }}
+                    .ms-1.text-danger.fas.fa-eye-slash(*ngIf='isProfileBlacklisted(profile)')
 
     li(ngbNavItem)
         a(ngbNavLink, translate) Advanced
@@ -121,7 +133,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
                 select.form-control(
                     [(ngModel)]='config.store.terminal.identification',
-                    (ngModelChange)='config.save()',
+                    (ngModelChange)='config.save()'
                 )
                     option(ngValue='wt', translation) Windows Terminal
                     option(ngValue='cygwin', translation) Cygwin
@@ -133,7 +145,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
                 select.form-control(
                     [(ngModel)]='config.store.defaultQuickConnectProvider',
-                    (ngModelChange)='config.save()',
+                    (ngModelChange)='config.save()'
                 )
                     option(
                         *ngFor='let provider of getQuickConnectProviders()',
