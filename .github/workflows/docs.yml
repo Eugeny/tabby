@@ -5,6 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
 
+    # Job level, not step level: a step's own env: block is not in scope for
+    # that step's if: expression.
+    env:
+      FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TABBY_DOCS }}
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -31,7 +36,10 @@ jobs:
       env:
         DOCS_PRIVATE_KEY: ${{ secrets.DOCS_PRIVATE_KEY }}
 
+    # Forks have no Firebase credentials for the upstream tabby-docs project,
+    # so the deploy would fail every push. Build the docs, skip the deploy.
     - uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c # v0
+      if: ${{ env.FIREBASE_SERVICE_ACCOUNT != '' }}
       with:
         repoToken: '${{ secrets.GITHUB_TOKEN }}'
         firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TABBY_DOCS }}'
