@@ -25,6 +25,7 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
             shellType: null,
             pauseAfterExit: false,
             runAsAdministrator: false,
+            fsBase: null,
         },
     }
 
@@ -84,6 +85,7 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
             env: shell.env,
             cwd: shell.cwd ?? null,
             shellType: shell.shellType ?? null,
+            fsBase: shell.fsBase ?? null,
         }
     }
 
