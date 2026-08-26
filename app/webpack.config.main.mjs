@@ -36,7 +36,6 @@ const config = {
         ],
     },
     externals: {
-        'v8-compile-cache': 'commonjs v8-compile-cache',
         'any-promise': 'commonjs any-promise',
         electron: 'commonjs electron',
         'electron-config': 'commonjs electron-config',
@@ -46,7 +45,7 @@ const config = {
         fs: 'commonjs fs',
         glasstron: 'commonjs glasstron',
         mz: 'commonjs mz',
-        npm: 'commonjs npm',
+        '@npmcli/arborist': 'commonjs @npmcli/arborist',
         'node:os': 'commonjs os',
         'node-pty': 'commonjs node-pty',
         path: 'commonjs path',

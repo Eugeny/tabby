@@ -24,6 +24,19 @@ try {
     var wnr = require('windows-native-registry')
 } catch { }
 
+/**
+ * Resolve `relativePath` against `basePath` and ensure the result stays inside `basePath`.
+ */
+export function resolveInsideBase (basePath: string, relativePath: string): string {
+    const base = path.resolve(basePath)
+    const target = path.resolve(base, relativePath)
+    const rel = path.relative(base, target)
+    if (rel !== '' && (rel === '..' || rel.startsWith('..' + path.sep) || path.isAbsolute(rel))) {
+        throw new Error(`Refusing access outside the target directory: ${relativePath}`)
+    }
+    return target
+}
+
 @Injectable({ providedIn: 'root' })
 export class ElectronPlatformService extends PlatformService {
     supportsWindowControls = true
@@ -316,10 +329,10 @@ export class ElectronPlatformService extends PlatformService {
             return null
         }
 
-        let downloadPath = path.join(selectedFolder, name)
+        let downloadPath = resolveInsideBase(selectedFolder, name)
         let counter = 1
         while (fsSync.existsSync(downloadPath)) {
-            downloadPath = path.join(selectedFolder, `${name} (${counter})`)
+            downloadPath = resolveInsideBase(selectedFolder, `${name} (${counter})`)
             counter++
         }
 
@@ -484,25 +497,13 @@ class ElectronDirectoryDownload extends DirectoryDownload {
         return this.getTotalSize()
     }
 
-    // entry names come from the remote server — never let them escape basePath
-    private resolveSafe (relativePath: string): string {
-        if (relativePath.includes('\0')) {
-            throw new Error('Invalid remote file name')
-        }
-        const base = path.normalize(this.basePath + path.sep)
-        const fullPath = path.normalize(path.join(this.basePath, relativePath))
-        if (!(fullPath + path.sep).startsWith(base)) {
-            throw new Error(`Refusing to write outside the download directory: ${relativePath}`)
-        }
-        return fullPath
-    }
-
     async createDirectory (relativePath: string): Promise<void> {
-        await fs.mkdir(this.resolveSafe(relativePath), { recursive: true })
+        const fullPath = resolveInsideBase(this.basePath, relativePath)
+        await fs.mkdir(fullPath, { recursive: true })
     }
 
     async createFile (relativePath: string, mode: number, size: number): Promise<FileDownload> {
-        const fullPath = this.resolveSafe(relativePath)
+        const fullPath = resolveInsideBase(this.basePath, relativePath)
         await fs.mkdir(path.dirname(fullPath), { recursive: true })
 
         const fileDownload = new ElectronFileDownload(fullPath, mode, size, this.electron)

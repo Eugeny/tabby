@@ -178,7 +178,11 @@ export class VaultService {
     async getPassphrase (): Promise<string> {
         if (!_rememberedPassphrase) {
             const modal = this.ngbModal.open(UnlockVaultModalComponent)
-            const { passphrase, rememberFor } = await modal.result
+            const result = await modal.result.catch(() => null)
+            if (!result) {
+                throw new Error('Vault unlock cancelled')
+            }
+            const { passphrase, rememberFor } = result
             setTimeout(() => {
                 _rememberedPassphrase = null
                 // avoid multiple consequent prompts

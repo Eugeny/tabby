@@ -2,7 +2,7 @@ import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstr
 import promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
 import { spawnSync } from 'child_process'
-import { exec } from 'mz/child_process'
+import { execFile } from 'mz/child_process'
 import * as path from 'path'
 import * as fs from 'fs'
 import { Subject, throttleTime } from 'rxjs'
@@ -62,7 +62,7 @@ export class Application {
 
         ;(promiseIpc as any).on('get-default-mac-shell', async () => {
             try {
-                return (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString().split(' ')[1].trim()
+                return (await execFile('/usr/bin/dscl', ['.', '-read', `/Users/${process.env.LOGNAME}`, 'UserShell']))[0].toString().split(' ')[1].trim()
             } catch {
                 return '/bin/bash'
             }

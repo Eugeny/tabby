@@ -48,6 +48,15 @@ $tabs-height: 38px;
         margin: 1px 4px 0 0;
     }
 
+    .pin-indicator {
+        display: flex;
+        align-items: center;
+        flex: none;
+        font-size: 12px;
+        margin: 1px 6px 0 0;
+        opacity: 0.8;
+    }
+
     .name {
         flex: auto;
         margin-top: 1px;

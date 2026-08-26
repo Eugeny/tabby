@@ -7,6 +7,7 @@
         "noImplicitAny": false,
         "removeComments": false,
         "esModuleInterop": true,
+        "skipLibCheck": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
