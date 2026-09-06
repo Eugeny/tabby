@@ -373,6 +373,7 @@ export class Window {
         })
 
         this.window.on('focus', () => {
+            this.window.flashFrame(false)
             this.send('host:window-focused')
         })
 
@@ -476,6 +477,12 @@ export class Window {
 
         this.on('window-set-progress-bar', (_, value) => {
             this.window?.setProgressBar(value, { mode: value < 0 ? 'none' : 'normal' })
+        })
+
+        this.on('window-flash-frame', () => {
+            if (this.window && !this.window.isFocused()) {
+                this.window.flashFrame(true)
+            }
         })
     }
 
