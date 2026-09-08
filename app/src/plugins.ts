@@ -83,7 +83,13 @@ export function initModuleLookup (userPluginsPath: string): void {
         process.env.TABBY_PLUGINS.split(':').map(x => paths.push(normalizePath(x)))
     }
 
-    process.env.NODE_PATH += path.delimiter + paths.join(path.delimiter)
+    // An inherited NODE_PATH (e.g. Tabby leaks its own into the shells it spawns,
+    // so a dev build started from a Tabby terminal would load the installed app's
+    // builtin plugins instead of the working copy) must never take precedence.
+    const inheritedNodePath = (process.env.NODE_PATH ?? '')
+        .split(path.delimiter)
+        .filter(x => x && x !== 'undefined')
+    process.env.NODE_PATH = [...paths, ...inheritedNodePath].join(path.delimiter)
     nodeModule._initPaths()
 
     builtinModules.forEach(m => {
