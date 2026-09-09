@@ -21,8 +21,18 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
         }
 
         tab.frontend.xterm.options.linkHandler = {
+            allowNonHttpProtocols: true,
             activate: (event, uri) => {
                 if (!this.willHandleEvent(event)) {
+                    return
+                }
+                let protocol: string
+                try {
+                    protocol = new URL(uri).protocol
+                } catch {
+                    return
+                }
+                if (!['http:', 'https:', 'file:'].includes(protocol)) {
                     return
                 }
                 this.platform.openExternal(uri)
