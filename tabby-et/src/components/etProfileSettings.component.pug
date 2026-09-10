@@ -1,0 +1,183 @@
+ul.nav-tabs(ngbNav, #nav='ngbNav')
+    li(ngbNavItem)
+        a(ngbNavLink, translate) General
+        ng-template(ngbNavContent)
+            .mb-3
+                label(translate) Host
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='profile.options.host',
+                )
+
+            .mb-3
+                label(translate) Port
+                .text-muted.mb-1(translate) This is the etserver port, not SSH.
+                input.form-control(
+                    type='number',
+                    placeholder='2022',
+                    [(ngModel)]='profile.options.port',
+                )
+
+            .mb-3
+                label(translate) Username
+                input.form-control(
+                    type='text',
+                    placeholder='Ask every time',
+                    [(ngModel)]='profile.options.user',
+                )
+
+            .mb-3
+                label(translate) SSH profile
+                .text-muted.mb-1(translate) Reuse an SSH profile for authentication. Leave empty to connect with the host and user above.
+                select.form-control([(ngModel)]='profile.options.sshProfile')
+                    option([ngValue]='null', translate) (synthesise from host/user)
+                    option([ngValue]='x.id', *ngFor='let x of sshProfiles') {{getSSHProfileLabel(x)}}
+
+            .mb-3(*ngIf='!profile.options.sshProfile')
+                label(translate) SSH port
+                input.form-control(
+                    type='number',
+                    placeholder='22',
+                    [(ngModel)]='profile.options.sshPort',
+                )
+
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Ports
+        ng-template(ngbNavContent)
+            et-port-forwarding-config(
+                *ngIf='profile.options.forwardedPorts',
+                [model]='profile.options.forwardedPorts',
+                (forwardAdded)='onForwardAdded($event)',
+                (forwardRemoved)='onForwardRemoved($event)'
+            )
+
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Advanced
+        ng-template(ngbNavContent)
+            .form-line
+                .header
+                    .title(translate) Agent forwarding
+                    .description(translate) Only enable this for hosts you trust. A compromised host can use your keys while you are connected.
+                toggle([(ngModel)]='profile.options.forwardAgent')
+
+            .form-line
+                .header
+                    .title(translate) Terminate other sessions
+                    .description(translate) Terminate your other ET sessions on this host before connecting. Frees orphaned sessions left by earlier Tabby runs.
+                toggle([(ngModel)]='profile.options.killOtherSessions')
+
+            .form-line
+                .header
+                    .title(translate) Warn when closing
+                toggle([(ngModel)]='profile.options.warnOnClose')
+
+            .form-line
+                .header
+                    .title(translate) Keepalive interval (seconds)
+                    .description(translate) Seconds between keepalive probes. A missed probe triggers a resume.
+                input.form-control(
+                    type='number',
+                    min='1',
+                    max='5',
+                    [(ngModel)]='profile.options.keepaliveInterval',
+                )
+
+            .form-line
+                .header
+                    .title(translate) Max reconnect attempts
+                    .description(translate) 0 = keep trying forever (recommended).
+                input.form-control(
+                    type='number',
+                    min='0',
+                    [(ngModel)]='profile.options.maxReconnectAttempts',
+                )
+
+            .form-line
+                .header
+                    .title(translate) etterminal path
+                    .description(translate) Only needed when etterminal is not on the remote PATH (for example /usr/local/bin/etterminal on macOS servers).
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='profile.options.etterminalPath',
+                )
+
+            .form-line
+                .header
+                    .title(translate) Server fifo
+                    .description(translate) Pass --serverfifo to etterminal (non-default etserver socket).
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='profile.options.serverFifo',
+                )
+
+            .form-line
+                .header
+                    .title(translate) Verbosity
+                input.form-control(
+                    type='number',
+                    min='0',
+                    max='9',
+                    [(ngModel)]='profile.options.verbose',
+                )
+
+            .form-line
+                .header
+                    .title(translate) Bootstrap output cap (bytes)
+                    .description(translate) How much remote stdout/stderr to keep while waiting for the session key. Empty = 64 KiB.
+                input.form-control(
+                    type='number',
+                    min='1024',
+                    max='16777216',
+                    [(ngModel)]='profile.options.bootstrapCaptureLimit',
+                )
+
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Jump host
+        ng-template(ngbNavContent)
+            .mb-3
+                label(translate) Jump host
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='profile.options.jumpHost',
+                )
+
+            .mb-3
+                label(translate) Jump host port
+                input.form-control(
+                    type='number',
+                    placeholder='2022',
+                    [(ngModel)]='profile.options.jumpPort',
+                )
+
+            .mb-3
+                label(translate) Jump host SSH profile
+                select.form-control([(ngModel)]='profile.options.jumpSshProfile')
+                    option([ngValue]='null', translate) (synthesise from host/user)
+                    option([ngValue]='x.id', *ngFor='let x of sshProfiles') {{getSSHProfileLabel(x)}}
+
+            .mb-3(*ngIf='!profile.options.jumpSshProfile')
+                label(translate) Jump host SSH port
+                input.form-control(
+                    type='number',
+                    placeholder='22',
+                    [(ngModel)]='profile.options.jumpSshPort',
+                )
+
+            .alert.alert-warning(translate) The jump host decrypts your session. Unlike SSH ProxyJump, an ET jump host can read all traffic.
+
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Colors
+        ng-template(ngbNavContent)
+            color-scheme-selector([(model)]='profile.terminalColorScheme')
+
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Login scripts
+        ng-template(ngbNavContent)
+            login-scripts-settings([options]='profile.options', #loginScriptsSettings)
+
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Input
+        ng-template(ngbNavContent)
+            input-processing-settings([options]='profile.options.input')
+
+div([ngbNavOutlet]='nav')

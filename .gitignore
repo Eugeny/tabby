@@ -3,6 +3,9 @@ app/assets/webpack
 
 node_modules
 
+# ET fuzz testing (kept out of git on purpose, see ETERNAL_TERMINAL.md §16.5)
+tabby-et/fuzz
+
 build/files.wxs
 dist
 */dist

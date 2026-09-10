@@ -36,6 +36,13 @@
       "tabby-*": ["../../tabby-*/src"],
     }
   },
+  // This config has no "include", so it globs every .ts/.d.ts in the tree --
+  // including local, git-ignored test harnesses. Those carry stub `declare
+  // module 'tabby-core'` ambients that would otherwise override the real
+  // modules for every file in the program.
+  "exclude": [
+    "*/fuzz"
+  ],
   "typeAcquisition": {
     "include": [
       "../node_modules",

@@ -1,0 +1,31 @@
+h3 Eternal Terminal
+
+.form-line
+    .header
+        .title(translate) Warn when closing active connections
+    toggle(
+        [(ngModel)]='config.store.et.warnOnClose',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
+        .title(translate) Default etterminal path
+        .description(translate) Applied when a profile does not set its own etterminal path.
+    input.form-control(
+        type='text',
+        placeholder='etterminal',
+        [(ngModel)]='config.store.et.defaultEtterminalPath',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
+        .title(translate) Debug protocol
+        .description(translate) Logs every packet header and length. Never logs payload bytes or the session passkey.
+    toggle(
+        [(ngModel)]='config.store.et.debugProtocol',
+        (ngModelChange)='config.save()',
+    )
+
+.alert.alert-info(translate) Eternal Terminal sessions are not resumed across a Tabby restart. Closing and reopening a tab starts a brand-new remote session; the previous one keeps running until its shell exits.

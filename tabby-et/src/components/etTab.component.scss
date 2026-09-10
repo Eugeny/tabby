@@ -1,0 +1,21 @@
+.et-disconnect-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: #c2410c;
+    color: #fff;
+    font-size: 0.85rem;
+    pointer-events: none;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+:host.toolbar-pinned .et-disconnect-banner,
+:host.toolbar-revealed .et-disconnect-banner {
+    top: 40px;
+}

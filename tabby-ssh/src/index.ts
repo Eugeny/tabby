@@ -60,6 +60,9 @@ import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirect
         KeyboardInteractiveAuthComponent,
         HostKeyPromptModalComponent,
     ],
+    exports: [
+        KeyboardInteractiveAuthComponent,
+    ],
 })
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class SSHModule { }
@@ -68,3 +71,5 @@ export * from './api'
 export { SFTPFile, SFTPSession } from './session/sftp'
 export { SFTPPanelComponent, SSHTabComponent }
 export { PasswordStorageService } from './services/passwordStorage.service'
+export { SSHSession, KeyboardInteractivePrompt } from './session/ssh'
+export { SSHProfilesService } from './profiles'

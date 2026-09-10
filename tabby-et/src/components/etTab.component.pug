@@ -1,0 +1,38 @@
+terminal-toolbar([tab]='this')
+    i.fas.fa-xs.fa-circle.text-success.me-2(*ngIf='connectionState === "connected"')
+    i.fas.fa-xs.fa-circle.text-warning.me-2(*ngIf='connectionState === "reconnecting"')
+    i.fas.fa-xs.fa-circle.text-secondary.me-2(*ngIf='connectionState === "connecting"')
+    i.fas.fa-xs.fa-circle.text-danger.me-2(*ngIf='connectionState === "ended"')
+
+    strong.me-auto(
+        style='user-select: text; cursor: text;',
+        (click)='$event.stopPropagation()'
+    ) {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
+
+    span.badge.bg-warning.text-dark.me-2(
+        *ngIf='connectionState === "reconnecting"',
+        translate
+    ) Disconnected — resuming…
+
+    button.btn.btn-sm.btn-link.me-2((click)='reconnect()')
+        i.fas.fa-redo
+        span(translate) New session
+
+    button.btn.btn-sm.btn-link(
+        *ngIf='session && session.open && hostApp.platform !== Platform.Web',
+        (click)='showPortForwarding()'
+    )
+        i.fas.fa-plug
+        span(translate) Ports
+
+.et-disconnect-banner(*ngIf='connectionState === "reconnecting"')
+    i.fas.fa-exclamation-triangle.me-2
+    strong(translate) Connection lost, attempting to resume the session...
+
+keyboard-interactive-auth-panel.bg-dark(
+    *ngIf='activeKIPrompt && bootstrapProfile',
+    [prompt]='activeKIPrompt',
+    [profile]='bootstrapProfile',
+    (click)='$event.stopPropagation()',
+    (done)='activeKIPrompt = null; frontend?.focus()'
+)

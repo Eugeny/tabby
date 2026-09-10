@@ -1,0 +1,9 @@
+.modal-header
+    h5.m-0(translate) Forwarded ports
+
+.modal-body.pt-0
+    et-port-forwarding-config(
+        [model]='model',
+        (forwardAdded)='onForwardAdded($event)',
+        (forwardRemoved)='onForwardRemoved($event)'
+    )

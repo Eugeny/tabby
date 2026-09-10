@@ -24,5 +24,23 @@
       background-color: #555;
       color: #eee !important;
     }
+
+    &.toast-success {
+      background-color: #2f7d32;
+      color: white !important;
+    }
+
+    &.toast-warning,
+    &.toast-sticky-warning {
+      background-color: #c2410c;
+      color: white !important;
+    }
+
+    &.toast-sticky-warning {
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 12px 20px;
+      box-shadow: 0 4px 24px rgba(194, 65, 12, 0.45);
+    }
   }
 }

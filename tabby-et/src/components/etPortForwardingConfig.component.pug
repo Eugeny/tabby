@@ -1,0 +1,88 @@
+.list-group.mb-3
+    .list-group-item.d-flex.align-items-center(*ngFor='let fw of model')
+        div
+            .d-flex.align-items-center
+                strong(*ngIf='fw.type === PortForwardType.Local', translate) Local
+                strong(*ngIf='fw.type === PortForwardType.Remote', translate) Remote
+                .ms-3 {{fw.host}}:{{fw.port}}
+                .ms-2 &rarr;
+                .ms-2 {{fw.targetAddress}}:{{fw.targetPort}}
+                i.fas.fa-exclamation-triangle.text-warning.ms-2(
+                    *ngIf='exposesToNetwork(fw)',
+                    [ngbTooltip]='"This forward is reachable from the whole network, not just this computer"|translate'
+                )
+            div {{fw.description}}
+        button.btn.btn-link.hover-reveal.ms-auto((click)='remove(fw)')
+            i.fas.fa-trash-alt
+
+h5(translate) Add a port forward
+
+.input-group.mb-2
+    input.form-control(type='text', [(ngModel)]='newForward.host')
+    .input-group-text :
+    input.form-control(type='number', [(ngModel)]='newForward.port')
+    .input-group-text &rarr;
+    input.form-control(
+        type='text',
+        [disabled]='true',
+        [(ngModel)]='newForward.targetAddress',
+        [ngbTooltip]='"ET always connects to the destination side\'s own localhost; the target host is ignored"|translate'
+    )
+    .input-group-text :
+    input.form-control(type='number', [(ngModel)]='newForward.targetPort')
+
+.alert.alert-warning.mb-2(*ngIf='exposesToNetwork(newForward)', translate)
+    | This bind address is reachable from the whole network - anyone who can reach this computer will be able to use the forward. Bind 127.0.0.1 to keep it local.
+
+.input-group.mb-2
+    input.form-control(
+        type='text',
+        [placeholder]='"Description"|translate',
+        [(ngModel)]='newForward.description'
+    )
+
+.d-flex
+    .btn-group.me-auto
+        input.btn-check(
+            type='radio',
+            [(ngModel)]='newForward.type',
+            id='newForwardTypeLocal',
+            name='newForwardType',
+            [value]='PortForwardType.Local'
+        )
+        label.btn.btn-secondary.m-0(
+            for='newForwardTypeLocal',
+            translate
+        ) Local
+        input.btn-check(
+            type='radio',
+            [(ngModel)]='newForward.type',
+            id='newForwardTypeRemote',
+            name='newForwardType',
+            [value]='PortForwardType.Remote'
+        )
+        label.btn.btn-secondary.m-0(
+            for='newForwardTypeRemote',
+            translate
+        ) Remote
+
+    button.btn.btn-primary((click)='addForward()')
+        i.fas.fa-check.me-2
+        span(translate) Forward port
+
+h6.mt-3(translate) Import an ET tunnel spec
+
+.input-group.mb-2
+    input.form-control(
+        type='text',
+        placeholder='8080:80, 8000-8002:9000-9002',
+        [(ngModel)]='spec',
+        (keyup.enter)='importSpec()'
+    )
+    button.btn.btn-secondary((click)='importSpec()')
+        span(translate) Import
+
+.text-danger.mb-2(*ngIf='specError') {{specError}}
+
+.alert.alert-warning.mb-0(*ngIf='newForward.type === PortForwardType.Remote', translate)
+    | Two sessions requesting the same reverse-tunnel port will crash the entire etserver.
