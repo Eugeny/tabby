@@ -9,6 +9,7 @@ import { BaseSession } from '../session'
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
+import { shouldUseWebGL } from '../frontends/webglSupport'
 import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
@@ -349,29 +350,10 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.configure()
         })
 
-        // Check if the the WebGL renderer is compatible with xterm.js:
-        // - https://github.com/Eugeny/tabby/issues/8884
-        // - https://github.com/microsoft/vscode/issues/190195
-        // - https://github.com/xtermjs/xterm.js/issues/4665
-        // - https://bugs.chromium.org/p/chromium/issues/detail?id=1476475
-        //
-        // Inspired by https://github.com/microsoft/vscode/pull/191795
-
-        let enable8884Workarround = false
-        const checkCanvas = document.createElement('canvas')
-        const checkGl = checkCanvas.getContext('webgl2')
-        const debugInfo = checkGl?.getExtension('WEBGL_debug_renderer_info')
-        if (checkGl && debugInfo) {
-            const renderer = checkGl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
-            if (renderer.startsWith('ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)')) {
-                enable8884Workarround = true
-            }
-        }
-
-        const cls: new (..._) => Frontend = enable8884Workarround ? XTermFrontend : {
-            xterm: XTermFrontend,
-            'xterm-webgl': XTermWebGLFrontend,
-        }[this.config.store.terminal.frontend] ?? XTermFrontend
+        const cls: new (..._) => Frontend = shouldUseWebGL(
+            this.config.store.terminal.frontend,
+            this.config.store.hacks.disableGPU,
+        ) ? XTermWebGLFrontend : XTermFrontend
         this.frontend = new cls(this.injector)
 
         this.frontendReady$.pipe(first()).subscribe(() => {
