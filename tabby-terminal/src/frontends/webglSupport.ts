@@ -1,11 +1,13 @@
 let webGLCompatible: boolean | undefined = undefined
 
-function checkWebGLCompatibility (): boolean {
+/** Returns undefined if the answer is inconclusive (e.g. the GPU process is restarting) */
+function checkWebGLCompatibility (): boolean | undefined {
     let gl: WebGL2RenderingContext | null = null
     try {
         gl = document.createElement('canvas').getContext('webgl2')
         if (!gl) {
-            return false
+            // The GPU process may just be restarting - don't cache this as a hard no
+            return undefined
         }
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info')
         if (!debugInfo) {
@@ -14,7 +16,7 @@ function checkWebGLCompatibility (): boolean {
         const renderer: unknown = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
         return typeof renderer !== 'string' || !renderer.startsWith('ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)')
     } catch {
-        return false
+        return undefined
     } finally {
         // Detaching a canvas leaves its context alive until garbage collection
         try {
@@ -29,5 +31,5 @@ export function shouldUseWebGL (frontend: string, disableGPU = false): boolean {
         return false
     }
     webGLCompatible ??= checkWebGLCompatibility()
-    return webGLCompatible
+    return webGLCompatible ?? false
 }

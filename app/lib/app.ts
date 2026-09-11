@@ -94,7 +94,7 @@ export class Application {
         app.commandLine.appendSwitch('lang', 'EN')
 
         // Leave adapter selection to the OS unless the user supplies a flag
-        for (const flag of this.configStore.flags || []) {
+        for (const flag of this.configStore.electronFlags || []) {
             app.commandLine.appendSwitch(flag[0], flag[1])
         }
 
