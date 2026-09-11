@@ -39,6 +39,7 @@ export interface SSHProfileOptions extends LoginScriptsOptions {
     input: InputProcessingOptions,
     cwd: string | null
     rememberCwd: boolean
+    term?: string
 }
 
 export enum PortForwardType {

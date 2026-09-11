@@ -4,6 +4,7 @@ import { Injector } from '@angular/core'
 import { LogService } from 'tabby-core'
 import { BaseSession, UTF8SplitterMiddleware, InputProcessor } from 'tabby-terminal'
 import { SSHSession } from './ssh'
+import { openShellChannelForProfile } from './shellChannel'
 import { SSHProfile } from '../api'
 import * as russh from 'russh'
 
@@ -40,7 +41,7 @@ export class SSHShellSession extends BaseSession {
         this.logger.debug('Opening shell')
 
         try {
-            this.shell = await this.ssh.openShellChannel({ x11: this.profile.options.x11 })
+            this.shell = await openShellChannelForProfile(this.ssh, this.profile)
         } catch (err) {
             if (err.toString().includes('Unable to request X11')) {
                 this.emitServiceMessage('    Make sure `xauth` is installed on the remote side')

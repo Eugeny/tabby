@@ -46,6 +46,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
             input: { backspace: 'backspace' },
             cwd: null,
             rememberCwd: false,
+            term: 'xterm-256color',
         },
         clearServiceMessagesOnConnect: true,
     }

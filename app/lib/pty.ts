@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { ipcMain } from 'electron'
 import { Application } from './app'
 import { UTF8Splitter } from './utfSplitter'
-import { Subject, debounceTime } from 'rxjs'
+import { Observable, Subject, debounceTime } from 'rxjs'
 
 class PTYDataQueue {
     private buffers: Buffer[] = []
@@ -90,6 +90,7 @@ class PTYDataQueue {
 export class PTY {
     private pty: nodePTY.IPty
     private outputQueue: PTYDataQueue
+    private closedSubject = new Subject<void>()
     exited = false
 
     constructor (private id: string, private app: Application, ...args: any[]) {
@@ -110,6 +111,10 @@ export class PTY {
 
     getPID (): number {
         return this.pty.pid
+    }
+
+    get closed$ (): Observable<void> {
+        return this.closedSubject.asObservable()
     }
 
     resize (columns: number, rows: number): void {
@@ -134,17 +139,32 @@ export class PTY {
 
     private emit (event: string, ...args: any[]) {
         this.app.broadcast(`pty:${this.id}:${event}`, ...args)
+        if (event === 'close') {
+            this.closedSubject.next()
+            this.closedSubject.complete()
+        }
     }
 }
 
 export class PTYManager {
-    private ptys: Record<string, PTY|undefined> = {}
+    private ptys = new Map<string, PTY>()
 
     init (app: Application): void {
         ipcMain.on('pty:spawn', (event, ...options) => {
             const id = uuidv4().toString()
+
             try {
-                this.ptys[id] = new PTY(id, app, ...options)
+                const pty = new PTY(id, app, ...options)
+                this.ptys.set(id, pty)
+
+                // A PTY owns its output queue and native event handlers. Release
+                // the manager's reference as soon as the child process exits so
+                // repeatedly opened terminals cannot accumulate in this table.
+                pty.closed$.subscribe(() => {
+                    if (this.ptys.get(id) === pty) {
+                        this.ptys.delete(id)
+                    }
+                })
             } catch (error) {
                 // Spawning fails for reasons the user can act on - an invalid
                 // working directory being by far the most common one. Reporting
@@ -160,27 +180,28 @@ export class PTYManager {
         })
 
         ipcMain.on('pty:exists', (event, id) => {
-            event.returnValue = this.ptys[id] && !this.ptys[id].exited
+            const pty = this.ptys.get(id)
+            event.returnValue = Boolean(pty && !pty.exited)
         })
 
         ipcMain.on('pty:get-pid', (event, id) => {
-            event.returnValue = this.ptys[id]?.getPID()
+            event.returnValue = this.ptys.get(id)?.getPID()
         })
 
         ipcMain.on('pty:resize', (_event, id, columns, rows) => {
-            this.ptys[id]?.resize(columns, rows)
+            this.ptys.get(id)?.resize(columns, rows)
         })
 
         ipcMain.on('pty:write', (_event, id, data) => {
-            this.ptys[id]?.write(Buffer.from(data))
+            this.ptys.get(id)?.write(Buffer.from(data))
         })
 
         ipcMain.on('pty:kill', (_event, id, signal) => {
-            this.ptys[id]?.kill(signal)
+            this.ptys.get(id)?.kill(signal)
         })
 
         ipcMain.on('pty:ack-data', (_event, id, length) => {
-            this.ptys[id]?.ackData(length)
+            this.ptys.get(id)?.ackData(length)
         })
     }
 }

@@ -85,6 +85,20 @@ export class XTermFrontend extends Frontend {
     private canvasAddon?: CanvasAddon
     private opened = false
     private resizeObserver?: any
+    private hostEventHandlers?: {
+        wheel: (event: WheelEvent) => void
+        dragOver: (event: Event) => void
+        drop: (event: Event) => void
+        mousedown: (event: Event) => void
+        mouseup: (event: Event) => void
+        mousewheel: (event: Event) => void
+        contextmenu: (event: Event) => void
+    }
+
+    private resizeTimeout?: ReturnType<typeof setTimeout>
+    private resizeAnimationFrame?: number
+    private resizePending = false
+    private disposed = false
     private flowControl: FlowControl
     private pinnedToBottom = true
     private pendingRendererRecovery = false
@@ -95,6 +109,10 @@ export class XTermFrontend extends Frontend {
     private platformService: PlatformService
     private hostApp: HostAppService
     private themes: ThemesService
+
+    private isAttachActive (): boolean {
+        return !this.disposed && this.opened
+    }
 
     constructor (injector: Injector) {
         super(injector)
@@ -270,23 +288,29 @@ export class XTermFrontend extends Frontend {
         // always running a trailing fit keeps the final size correct without
         // outrunning the renderer. Tune RESIZE_MIN_INTERVAL if needed.
         const RESIZE_MIN_INTERVAL = 32
-        let resizePending = false
         let lastResize = 0
         const runResize = () => {
-            resizePending = false
+            this.resizeAnimationFrame = undefined
+            this.resizePending = false
+            if (!this.isAttachActive()) {
+                return
+            }
             lastResize = Date.now()
             doResize()
         }
         this.resizeHandler = () => {
-            if (resizePending) {
+            if (this.resizePending) {
                 return
             }
-            resizePending = true
+            this.resizePending = true
             const wait = Math.max(0, RESIZE_MIN_INTERVAL - (Date.now() - lastResize))
             if (wait > 0) {
-                setTimeout(() => requestAnimationFrame(runResize), wait)
+                this.resizeTimeout = setTimeout(() => {
+                    this.resizeTimeout = undefined
+                    this.resizeAnimationFrame = requestAnimationFrame(runResize)
+                }, wait)
             } else {
-                requestAnimationFrame(runResize)
+                this.resizeAnimationFrame = requestAnimationFrame(runResize)
             }
         }
 
@@ -314,6 +338,9 @@ export class XTermFrontend extends Frontend {
     }
 
     async attach (host: HTMLElement, profile: BaseTerminalProfile): Promise<void> {
+        if (this.disposed) {
+            return
+        }
         this.element = host
 
         this.xterm.open(host)
@@ -321,6 +348,9 @@ export class XTermFrontend extends Frontend {
 
         // Work around font loading bugs
         await new Promise(resolve => setTimeout(resolve, this.hostApp.platform === Platform.Web ? 1000 : 0))
+        if (!this.isAttachActive()) {
+            return
+        }
 
         // Just configure the colors to avoid a flash
         this.configureColors(profile.terminalColorScheme)
@@ -344,6 +374,9 @@ export class XTermFrontend extends Frontend {
 
         // Allow an animation frame
         await new Promise(r => setTimeout(r, 100))
+        if (!this.isAttachActive()) {
+            return
+        }
 
         this.ready.next()
         this.ready.complete()
@@ -366,20 +399,23 @@ export class XTermFrontend extends Frontend {
 
         // Allow an animation frame
         await new Promise(r => setTimeout(r, 0))
+        if (!this.isAttachActive()) {
+            return
+        }
 
         // User-initiated scroll detection: only wheel and keyboard events
         // should unpin. xterm.onScroll is content-driven only and must never
         // unpin (see constructor comment). Use capture phase — xterm.js
         // handles wheel/key events on its internal viewport element and may
         // stop propagation, so bubbling listeners on host would never fire.
-        host.addEventListener('wheel', (event: WheelEvent) => {
+        const wheelHandler = (event: WheelEvent) => {
             // Immediately unpin on scroll-up so that writes arriving before
             // the next animation frame don't yank the viewport back down.
             if (event.deltaY < 0) {
                 this.pinnedToBottom = false
             }
             requestAnimationFrame(() => this.updatePinnedState())
-        }, { capture: true, passive: true })
+        }
 
 
         this.hotkeysService.hotkey$
@@ -404,28 +440,67 @@ export class XTermFrontend extends Frontend {
                 requestAnimationFrame(() => this.updatePinnedState())
             })
 
-        host.addEventListener('dragOver', (event: any) => this.dragOver.next(event))
-        host.addEventListener('drop', event => this.drop.next(event))
+        this.hostEventHandlers = {
+            wheel: wheelHandler,
+            dragOver: event => this.dragOver.next(event as DragEvent),
+            drop: event => this.drop.next(event as DragEvent),
+            mousedown: event => this.mouseEvent.next(event as MouseEvent),
+            mouseup: event => this.mouseEvent.next(event as MouseEvent),
+            mousewheel: event => this.mouseEvent.next(event as MouseEvent),
+            contextmenu: event => {
+                event.preventDefault()
+                event.stopPropagation()
+            },
+        }
 
-        host.addEventListener('mousedown', event => this.mouseEvent.next(event))
-        host.addEventListener('mouseup', event => this.mouseEvent.next(event))
-        host.addEventListener('mousewheel', event => this.mouseEvent.next(event as MouseEvent))
-        host.addEventListener('contextmenu', event => {
-            event.preventDefault()
-            event.stopPropagation()
-        })
+        host.addEventListener('wheel', this.hostEventHandlers.wheel, { capture: true, passive: true })
+        host.addEventListener('dragOver', this.hostEventHandlers.dragOver)
+        host.addEventListener('drop', this.hostEventHandlers.drop)
+        host.addEventListener('mousedown', this.hostEventHandlers.mousedown)
+        host.addEventListener('mouseup', this.hostEventHandlers.mouseup)
+        host.addEventListener('mousewheel', this.hostEventHandlers.mousewheel)
+        host.addEventListener('contextmenu', this.hostEventHandlers.contextmenu)
 
         this.resizeObserver = new window['ResizeObserver'](() => this.resizeHandler())
         this.resizeObserver.observe(host)
     }
 
     detach (_host: HTMLElement): void {
+        const host = this.element
         window.removeEventListener('resize', this.resizeHandler)
+        if (this.resizeTimeout !== undefined) {
+            clearTimeout(this.resizeTimeout)
+            this.resizeTimeout = undefined
+        }
+        if (this.resizeAnimationFrame !== undefined) {
+            cancelAnimationFrame(this.resizeAnimationFrame)
+            this.resizeAnimationFrame = undefined
+        }
+        this.resizePending = false
+        if (host && this.hostEventHandlers) {
+            host.removeEventListener('wheel', this.hostEventHandlers.wheel, true)
+            host.removeEventListener('dragOver', this.hostEventHandlers.dragOver)
+            host.removeEventListener('drop', this.hostEventHandlers.drop)
+            host.removeEventListener('mousedown', this.hostEventHandlers.mousedown)
+            host.removeEventListener('mouseup', this.hostEventHandlers.mouseup)
+            host.removeEventListener('mousewheel', this.hostEventHandlers.mousewheel)
+            host.removeEventListener('contextmenu', this.hostEventHandlers.contextmenu)
+            this.hostEventHandlers = undefined
+        }
         this.resizeObserver?.disconnect()
-        delete this.resizeObserver
+        this.resizeObserver = undefined
+        this.opened = false
+        this.element = undefined
     }
 
     destroy (): void {
+        if (this.disposed) {
+            return
+        }
+        this.disposed = true
+        if (this.element) {
+            this.detach(this.element)
+        }
         super.destroy()
         this.webGLAddon?.dispose()
         this.canvasAddon?.dispose()

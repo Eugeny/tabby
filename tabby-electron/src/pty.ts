@@ -87,6 +87,7 @@ export class ElectronPTYProxy extends PTYProxy {
         for (const k of this.subscriptions.keys()) {
             ipcRenderer.off(k, this.subscriptions.get(k))
         }
+        this.subscriptions.clear()
     }
 
     async resize (columns: number, rows: number): Promise<void> {
