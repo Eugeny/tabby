@@ -54,6 +54,7 @@
     "patch-package": "^6.4.7",
     "po-gettext-loader": "^1.0.0",
     "pug": "3",
+    "pug-html-loader": "1.1.5",
     "pug-loader": "^2.4.0",
     "rxjs": "^7.5.7",
     "sass": "^1.63.4",
