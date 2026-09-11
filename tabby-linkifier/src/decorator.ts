@@ -4,6 +4,14 @@ import { TerminalDecorator, BaseTerminalTabComponent, XTermFrontend } from 'tabb
 import { WebLinksAddon } from '@xterm/addon-web-links'
 import { LinkHandler } from './api'
 
+function parseURL (uri: string): URL|null {
+    try {
+        return new URL(uri)
+    } catch {
+        return null
+    }
+}
+
 @Injectable()
 export class LinkHighlighterDecorator extends TerminalDecorator {
     constructor (
@@ -26,16 +34,17 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
                 if (!this.willHandleEvent(event)) {
                     return
                 }
-                let protocol: string
-                try {
-                    protocol = new URL(uri).protocol
-                } catch {
+                const url = parseURL(uri)
+                if (!url) {
                     return
                 }
-                if (!['http:', 'https:', 'file:'].includes(protocol)) {
+                // A file: URL with a host is a UNC path - opening it would reach out
+                // over SMB to a server the remote side chose. Only allow local files.
+                const isLocalFile = url.protocol === 'file:' && !url.host
+                if (!['http:', 'https:'].includes(url.protocol) && !isLocalFile) {
                     return
                 }
-                this.platform.openExternal(uri)
+                this.platform.openExternal(url.href)
             },
         }
 
@@ -48,6 +57,7 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
                     continue
                 }
                 handler.handle(await handler.convert(uri, tab), tab)
+                return
             }
         }
 
