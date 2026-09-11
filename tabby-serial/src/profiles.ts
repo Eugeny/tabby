@@ -109,10 +109,10 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
         let port = query
         let baudrate = 115200
         if (query.includes('@')) {
-            baudrate = parseInt(port.split('@')[1])
+            baudrate = parseInt(port.split('@')[1]) || baudrate
             port = port.split('@')[0]
         } else if (query.includes(':')) {
-            baudrate = parseInt(port.split(':')[1])
+            baudrate = parseInt(port.split(':')[1]) || baudrate
             port = port.split(':')[0]
         }
 
@@ -127,10 +127,12 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     }
 
     intoQuickConnectString (profile: SerialProfile): string|null {
-        let s = profile.options.port
-        if (profile.options.baudrate !== 115200) {
-            s = `${s}@${profile.options.baudrate}`
+        if (!profile.options.port) {
+            return null
         }
-        return s
+        // baudrate defaults to null ("not chosen yet"), unlike ssh/telnet's real port
+        // defaults - so null and 115200 both render bare, and both parse back to 115200
+        const { port, baudrate } = profile.options
+        return baudrate && baudrate !== 115200 ? `${port}@${baudrate}` : port
     }
 }
