@@ -138,7 +138,8 @@ export class Window {
             if (
                 (this.configStore.appearance?.dock ?? 'off') !== 'off' &&
                 this.configStore.appearance?.dockHideOnBlur &&
-                !BrowserWindow.getFocusedWindow()
+                !BrowserWindow.getFocusedWindow() &&
+                this.window.isEnabled()
             ) {
                 this.hide()
             }

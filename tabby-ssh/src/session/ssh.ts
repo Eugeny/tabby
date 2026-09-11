@@ -160,46 +160,6 @@ export class SSHSession {
 
     async init (): Promise<void> {
         this.allAuthMethods = [{ type: 'none' }]
-        if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
-            if (this.profile.options.privateKeys.length) {
-                for (let pk of this.profile.options.privateKeys) {
-                    // eslint-disable-next-line @typescript-eslint/init-declarations
-                    let contents: Buffer
-                    pk = pk.replace('%h', this.profile.options.host)
-                    pk = pk.replace('%r', this.profile.options.user)
-                    try {
-                        contents = await this.fileProviders.retrieveFile(pk)
-                    } catch (error) {
-                        this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not load private key ${pk}: ${error}`)
-                        continue
-                    }
-
-                    // If the file parses as a public key, it was likely a .pub file
-                    // mistakenly configured in the privateKeys list. In that case,
-                    // skip it here and warn the user instead of treating it as a
-                    // private key.
-                    try {
-                        russh.parsePublicKey(contents.toString('utf-8'))
-                        this.emitServiceMessage(
-                            colors.bgYellow.yellow.black(' ! ') +
-                            ` Expected a private key, but ${pk} appears to be a public key. Skipping it for private key authentication.`,
-                        )
-                        continue
-                    } catch {
-                        // Not a valid public key; treat the file contents as a private key below.
-                    }
-
-                    this.addPublicKeyAuthMethod(pk, contents)
-                }
-            } else {
-                for (const importer of this.privateKeyImporters) {
-                    for (const [name, contents] of await importer.getKeys()) {
-                        this.addPublicKeyAuthMethod(name, contents)
-                    }
-                }
-            }
-        }
-
         if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
             const spec = await this.getAgentConnectionSpec()
             if (!spec) {
@@ -242,6 +202,46 @@ export class SSHSession {
                     type: 'agent',
                     ...spec,
                 })
+            }
+        }
+
+        if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
+            if (this.profile.options.privateKeys.length) {
+                for (let pk of this.profile.options.privateKeys) {
+                    // eslint-disable-next-line @typescript-eslint/init-declarations
+                    let contents: Buffer
+                    pk = pk.replace('%h', this.profile.options.host)
+                    pk = pk.replace('%r', this.profile.options.user)
+                    try {
+                        contents = await this.fileProviders.retrieveFile(pk)
+                    } catch (error) {
+                        this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not load private key ${pk}: ${error}`)
+                        continue
+                    }
+
+                    // If the file parses as a public key, it was likely a .pub file
+                    // mistakenly configured in the privateKeys list. In that case,
+                    // skip it here and warn the user instead of treating it as a
+                    // private key.
+                    try {
+                        russh.parsePublicKey(contents.toString('utf-8'))
+                        this.emitServiceMessage(
+                            colors.bgYellow.yellow.black(' ! ') +
+                            ` Expected a private key, but ${pk} appears to be a public key. Skipping it for private key authentication.`,
+                        )
+                        continue
+                    } catch {
+                        // Not a valid public key; treat the file contents as a private key below.
+                    }
+
+                    this.addPublicKeyAuthMethod(pk, contents)
+                }
+            } else {
+                for (const importer of this.privateKeyImporters) {
+                    for (const [name, contents] of await importer.getKeys()) {
+                        this.addPublicKeyAuthMethod(name, contents)
+                    }
+                }
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
