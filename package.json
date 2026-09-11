@@ -2,7 +2,7 @@
   "devDependencies": {
     "@angular/animations": "^15.2.6",
     "@angular/cdk": "^15.2.6",
-    "@angular/common": "^15.2.6",
+    "@angular/common": "^20.3.27",
     "@angular/compiler": "^15.2.6",
     "@angular/compiler-cli": "^15.2.6",
     "@angular/core": "^15.2.6",
