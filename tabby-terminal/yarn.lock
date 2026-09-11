@@ -46,9 +46,9 @@
   integrity sha512-KUH//EZCz7j1+IekW8sZzmcj/y9gOLf/HMcsWXjg0Xr5cT1lIBIIbbBlbf5kZ+XnA/8c1IuBm1vx+blzlfPk0g==
 
 "@xterm/xterm@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@xterm/xterm/-/xterm-5.4.0.tgz#a35b585750ca492cbf2a4c99472c480d8c122840"
-  integrity sha512-GlyzcZZ7LJjhFevthHtikhiDIl8lnTSgol6eTM4aoSNLcuXu3OEhnbqdCVIjtIil3jjabf3gDtb1S8FGahsuEw==
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/@xterm/xterm/-/xterm-5.5.0.tgz#275fb8f6e14afa6e8a0c05d4ebc94523ff775396"
+  integrity sha512-hqJHYaQb5OptNunnyAnkHyM8aCjZ1MEIDTQu1iIbbTD/xops91NB5yq1ZK/dC2JDbVWtF23zUtl9JE2NqwT87A==
 
 "@yarnpkg/lockfile@^1.1.0":
   version "1.1.0"
