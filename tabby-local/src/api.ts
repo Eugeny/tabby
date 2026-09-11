@@ -51,7 +51,7 @@ export interface SessionOptions {
      * Base path to which cwd is relative, e.g. `\\wsl$\Ubuntu` for WSL shells.
      * Used to translate a POSIX cwd reported by the guest shell into a real Windows path.
      */
-    fsBase: string | null
+    fsBase?: string | null
 }
 
 export interface LocalProfile extends BaseTerminalProfile {
