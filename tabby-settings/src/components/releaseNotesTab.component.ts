@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { marked } from '../../node_modules/marked/lib/marked.esm.js'
-import { Component, Injector } from '@angular/core'
-import { DomSanitizer, SecurityContext } from '@angular/platform-browser'
+import { Component, Injector, SecurityContext } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { BaseTabComponent, TranslateService } from 'tabby-core'
 
 export interface Release {
