@@ -116,6 +116,23 @@ export class XTermFrontend extends Frontend {
         this.flowControl = new FlowControl(this.xterm)
         this.xtermCore = this.xterm['_core']
 
+        // xterm.js#6054 does this in _keyDown itself. Keep the workaround at
+        // that boundary so Shift cannot overwrite a previous keydown's state.
+        const oldKeyDown = this.xtermCore._keyDown.bind(this.xtermCore)
+        this.xtermCore._keyDown = (event: KeyboardEvent) => {
+            if (this.hostApp.platform !== Platform.Windows || event.key !== 'Shift' && event.keyCode !== 16) {
+                return oldKeyDown(event)
+            }
+
+            // Sogou can commit preedit text when Shift switches to English.
+            // Preserve the existing value so Shift itself does not arm
+            // xterm's input fallback guard.
+            const keyDownSeen = this.xtermCore._keyDownSeen
+            const result = oldKeyDown(event)
+            this.xtermCore._keyDownSeen = keyDownSeen
+            return result
+        }
+
         this.xterm.onBinary(data => {
             this.input.next(Buffer.from(data, 'binary'))
         })

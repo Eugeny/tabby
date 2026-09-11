@@ -83,7 +83,7 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
 
     async getNewTabParameters (profile: SerialProfile): Promise<NewTabParameters<SerialTabComponent>> {
         if (!profile.options.baudrate) {
-            profile = deepClone(profile)
+            profile = deepClone({ ...profile })
             profile.options.baudrate = await this.selector.show(
                 this.translate.instant('Baud rate'),
                 BAUD_RATES.map(x => ({
