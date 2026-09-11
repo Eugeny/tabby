@@ -53,10 +53,6 @@ export class SSHShellSession extends BaseSession {
 
         this.loginScriptProcessor?.executeUnconditionalScripts()
 
-        if (this.profile.options.cwd) {
-            this.changeInitialDirectory(this.profile.options.cwd)
-        }
-
         this.shell.data$.subscribe(data => {
             this.emitOutput(Buffer.from(data))
         })
@@ -67,6 +63,12 @@ export class SSHShellSession extends BaseSession {
                 this.destroy()
             }
         })
+
+        // Must run after the output subscriptions above are wired, otherwise the
+        // command echo and anything the remote prints in response is dropped.
+        if (this.profile.options.cwd) {
+            this.changeInitialDirectory(this.profile.options.cwd)
+        }
     }
 
     emitServiceMessage (msg: string): void {
