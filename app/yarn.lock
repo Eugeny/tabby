@@ -385,17 +385,12 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "20.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.1.tgz#e8a83f1aa8b649377bb1fb5d7bac5cb90e784dfe"
-  integrity sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==
-
-"@types/node@22":
-  version "22.20.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.20.1.tgz#84e7cdf63cdaa20c134aa317ccc901aa21e16f0e"
-  integrity sha512-EANqOCF9QFyra+4pfxUcX9STKJpCLjMbObVzljIJomAWSnuSIEAvyzEU53GaajbXJEgdh0iEcPL+DGvpUd4k1Q==
+"@types/node@*", "@types/node@26":
+  version "26.5.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-26.5.0.tgz#e6547ac7d7229d92d6e7157a6e19332cd16dc8ef"
+  integrity sha512-dVSGpriSoCgz8WnDNTuSSuSv1PC/ALXihO4ulRZt7Md8k9mlbdin3lGOcDE8SnWOgf513ByWlXd7BK4azmyg/A==
   dependencies:
-    undici-types "~6.21.0"
+    undici-types "~8.9.0"
 
 "@types/node@^10.12.18":
   version "10.17.60"
@@ -1846,10 +1841,10 @@ negotiator@^1.0.0:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-1.0.0.tgz#b6c91bb47172d69f93cfd7c357bbb529019b5f6a"
   integrity sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==
 
-node-abi@4.9.0, node-abi@^3.3.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-4.9.0.tgz#ca6dabf7991e54bf3ba6d8d32641e1b84f305263"
-  integrity sha512-0isb3h+AXUblx5Iv0mnYy2WsErH+dk2e9iXJXdKAtS076Q5hP+scQhp6P4tvDeVlOBlG3ROKvkpQHtbORllq2A==
+node-abi@4.35.0, node-abi@^3.3.0:
+  version "4.35.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-4.35.0.tgz#2eb8e04075745e2dd6594769c499828c29113446"
+  integrity sha512-ymk4aIzxdPopw2giv8Fs1Ec6vybGkjmyxUwVqhkI4MCy2tVfXdkOGGWieWVjL0THgH+7a8lRdevyupoYj3Js/Q==
   dependencies:
     semver "^7.6.3"
 
@@ -2878,10 +2873,10 @@ unbox-primitive@^1.1.0:
     has-symbols "^1.1.0"
     which-boxed-primitive "^1.1.1"
 
-undici-types@~6.21.0:
-  version "6.21.0"
-  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-6.21.0.tgz#691d00af3909be93a7faa13be61b3a5b50ef12cb"
-  integrity sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==
+undici-types@~8.9.0:
+  version "8.9.0"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-8.9.0.tgz#e240d97c8b5d85e5347ce73d25865c7906c1ec9f"
+  integrity sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==
 
 undici@^8.4.1:
   version "8.10.2"
