@@ -238,7 +238,9 @@ export class AppService {
             this._activeTab?.emitFocused()
             this._activeTab?.emitVisibility(true)
         })
-        this.hostWindow.setTitle(this._activeTab?.title)
+        if (this._activeTab) {
+            this.hostWindow.setTitle(this._activeTab.customTitle || this._activeTab.title)
+        }
     }
 
     getParentTab (tab: BaseTabComponent): SplitTabComponent|null {
@@ -399,6 +401,9 @@ export class AppService {
         modal.result.then(result => {
             tab.setTitle(result)
             tab.customTitle = result
+            if (tab === this._activeTab) {
+                this.hostWindow.setTitle(tab.customTitle || tab.title)
+            }
             this.emitTabsChanged()
         }).catch(() => null)
     }
@@ -472,8 +477,8 @@ export class AppService {
     }
 
     async closeWindow (): Promise<void> {
-        this.tabRecovery.enabled = false
         await this.tabRecovery.saveTabs(this.tabs)
+        this.tabRecovery.enabled = false
         if (await this.closeAllTabs()) {
             this.hostWindow.close()
         } else {

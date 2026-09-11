@@ -143,8 +143,20 @@ export class PTYManager {
     init (app: Application): void {
         ipcMain.on('pty:spawn', (event, ...options) => {
             const id = uuidv4().toString()
-            event.returnValue = id
-            this.ptys[id] = new PTY(id, app, ...options)
+            try {
+                this.ptys[id] = new PTY(id, app, ...options)
+            } catch (error) {
+                // Spawning fails for reasons the user can act on - an invalid
+                // working directory being by far the most common one. Reporting
+                // that back beats taking down the main process with an
+                // uncaught exception.
+                const cwd = options[2]?.cwd
+                event.returnValue = {
+                    error: cwd ? `${error.message} (working directory: ${cwd})` : error.message,
+                }
+                return
+            }
+            event.returnValue = { id }
         })
 
         ipcMain.on('pty:exists', (event, id) => {

@@ -257,7 +257,18 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     this.frontend?.selectAll()
                     break
                 case 'clear':
-                    this.forEachFocusedTerminalPane(tab => tab.frontend?.clear())
+                    this.forEachFocusedTerminalPane(tab => {
+                        const tabProfile = tab.profile
+                        const shellType: string = tabProfile.options?.shellType ?? ''
+                        const shellArgs: string[] = tabProfile.options?.args ?? []
+                        if (this.hostApp.platform === Platform.Windows && (shellType === 'powershell' || shellArgs.some(arg => arg.includes('clink')))) {
+                            // Windows PowerShell and cmd(Clink): send Ctrl+L to PTY (natively clears)
+                            tab.sendInput('\x0c')
+                        } else {
+                            // Windows cmd(stock) and macOS/Linux: clear xterm buffer only
+                            tab.frontend?.clear()
+                        }
+                    })
                     break
                 case 'zoom-in':
                     this.forEachFocusedTerminalPane(tab => tab.zoomIn())
@@ -433,6 +444,12 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             }
             if (this.config.store.terminal.bell === 'audible') {
                 this.bellPlayer.play()
+            }
+            if (this.config.store.terminal.bellFlashFrame) {
+                this.hostWindow.flashFrame()
+            }
+            if (!this.hasFocus) {
+                this.displayActivity()
             }
         })
 
