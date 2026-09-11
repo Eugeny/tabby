@@ -345,17 +345,18 @@ async function convertToSSHProfiles (config: SSHConfig): Promise<PartialProfile<
             }
             // for each Host identified on this line, check that there are no wildcards in the
             // name and that we've not seen the name before.
-            // If that is the case, then get the full configuration for this name.
-            // If that has a 'Hostname' property (if that's missing, the name is not usable
-            // for our purposes) then convert the configuration into an SSHProfile and stash it
+            // If that is the case, then get the full configuration for this name and convert it
+            // into an SSHProfile. OpenSSH defaults HostName to the Host alias when it is omitted.
             for (const host of hostList) {
                 if (noWildCardsInName(host)) {
                     if (!(host in myMap)) {
                         // NOTE: SSHConfig.compute() lies about the return types
                         const configuration: Record<string, string | string[] | object[]> = config.compute(host)
-                        if (Object.keys(configuration).map(key => key.toLowerCase()).includes('hostname')) {
-                            myMap[host] = await convertHostToSSHProfile(host, configuration)
+                        const hasHostName = Object.keys(configuration).some(key => key.toLowerCase() === 'hostname')
+                        if (!hasHostName) {
+                            configuration.HostName = host
                         }
+                        myMap[host] = await convertHostToSSHProfile(host, configuration)
                     }
                 }
             }

@@ -1,10 +1,10 @@
 import * as fs from 'mz/fs'
-import * as fsSync from 'fs'
 import { Injector } from '@angular/core'
 import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { SessionOptions, ChildProcess, PTYInterface, PTYProxy } from './api'
 import { getEnvironment, substituteEnv } from './environment'
+import { isDirectory, isDirectorySync } from './util'
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 
@@ -89,21 +89,27 @@ export class Session extends BaseSession {
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             let cwd = options.cwd || process.env.HOME
 
-            if (!fsSync.existsSync(cwd!)) {
-                console.warn('Ignoring non-existent CWD:', cwd)
+            if (!isDirectorySync(cwd)) {
+                console.warn('Ignoring invalid CWD:', cwd)
                 cwd = undefined
             }
 
-            pty = await this.ptyInterface.spawn(options.command, options.args, {
-                name: 'xterm-256color',
-                cols: options.width ?? 80,
-                rows: options.height ?? 30,
-                encoding: null,
-                cwd,
-                env: env,
-                // `1` instead of `true` forces ConPTY even if unstable
-                useConpty: isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false,
-            })
+            try {
+                pty = await this.ptyInterface.spawn(options.command, options.args, {
+                    name: 'xterm-256color',
+                    cols: options.width ?? 80,
+                    rows: options.height ?? 30,
+                    encoding: null,
+                    cwd,
+                    env: env,
+                    // `1` instead of `true` forces ConPTY even if unstable
+                    useConpty: isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false,
+                })
+            } catch (error) {
+                this.logger.error('Could not spawn the shell:', error)
+                this.emitOutput(Buffer.from(`\r\nCould not start ${options.command}:\r\n${error.message}\r\n`))
+                return
+            }
 
             this.guessedCWD = cwd ?? null
         }
@@ -219,18 +225,23 @@ export class Session extends BaseSession {
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         cwd = cwd || this.guessedCWD
 
-        try {
-            await fs.access(cwd)
-        } catch {
+        if (!await isDirectory(cwd)) {
             return null
         }
         return cwd
     }
 
-    private guessWindowsCWD (data: string) {
+    private async guessWindowsCWD (data: string): Promise<void> {
         const match = windowsDirectoryRegex.exec(data)
-        if (match) {
-            this.guessedCWD = match[0]
+        if (!match) {
+            return
+        }
+        // The regex also matches file paths (e.g. an echoed command line
+        // containing `D:\tools\7z.exe`), which are useless as a CWD and
+        // break process spawning once inherited by another tab.
+        const guess = match[0].trim()
+        if (await isDirectory(guess)) {
+            this.guessedCWD = guess
         }
     }
 }

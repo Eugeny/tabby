@@ -152,17 +152,31 @@ export class PTYManager {
     init (app: Application): void {
         ipcMain.on('pty:spawn', (event, ...options) => {
             const id = uuidv4().toString()
-            event.returnValue = id
-            const pty = new PTY(id, app, ...options)
-            this.ptys.set(id, pty)
-            // A PTY owns its output queue and native event handlers. Release
-            // the manager's reference as soon as the child process exits so
-            // repeatedly opened terminals cannot accumulate in this table.
-            pty.closed$.subscribe(() => {
-                if (this.ptys.get(id) === pty) {
-                    this.ptys.delete(id)
+
+            try {
+                const pty = new PTY(id, app, ...options)
+                this.ptys.set(id, pty)
+
+                // A PTY owns its output queue and native event handlers. Release
+                // the manager's reference as soon as the child process exits so
+                // repeatedly opened terminals cannot accumulate in this table.
+                pty.closed$.subscribe(() => {
+                    if (this.ptys.get(id) === pty) {
+                        this.ptys.delete(id)
+                    }
+                })
+            } catch (error) {
+                // Spawning fails for reasons the user can act on - an invalid
+                // working directory being by far the most common one. Reporting
+                // that back beats taking down the main process with an
+                // uncaught exception.
+                const cwd = options[2]?.cwd
+                event.returnValue = {
+                    error: cwd ? `${error.message} (working directory: ${cwd})` : error.message,
                 }
-            })
+                return
+            }
+            event.returnValue = { id }
         })
 
         ipcMain.on('pty:exists', (event, id) => {

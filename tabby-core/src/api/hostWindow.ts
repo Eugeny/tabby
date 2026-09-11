@@ -33,4 +33,7 @@ export abstract class HostWindowService {
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     bringToFront (): void { }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    flashFrame (): void { }
 }

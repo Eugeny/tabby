@@ -147,6 +147,7 @@ export class SFTPSession {
             transfer.close()
             handle.close()
         } catch (e) {
+            transfer.setStatus(e instanceof Error ? e.message : String(e))
             transfer.cancel()
             throw e
         }
