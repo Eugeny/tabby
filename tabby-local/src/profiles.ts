@@ -48,7 +48,7 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
     }
 
     async getNewTabParameters (profile: LocalProfile): Promise<NewTabParameters<TerminalTabComponent>> {
-        profile = deepClone(profile)
+        profile = deepClone({ ...profile })
 
         if (!profile.options.cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {

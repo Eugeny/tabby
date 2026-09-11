@@ -472,8 +472,8 @@ export class AppService {
     }
 
     async closeWindow (): Promise<void> {
-        this.tabRecovery.enabled = false
         await this.tabRecovery.saveTabs(this.tabs)
+        this.tabRecovery.enabled = false
         if (await this.closeAllTabs()) {
             this.hostWindow.close()
         } else {

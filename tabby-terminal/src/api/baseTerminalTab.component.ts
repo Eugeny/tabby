@@ -437,6 +437,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             if (this.config.store.terminal.bellFlashFrame) {
                 this.hostWindow.flashFrame()
             }
+            if (!this.hasFocus) {
+                this.displayActivity()
+            }
         })
 
         this.frontend.focus()
