@@ -90,7 +90,7 @@ class PTYDataQueue {
 export class PTY {
     private pty: nodePTY.IPty
     private outputQueue: PTYDataQueue
-    private exitedSubject = new Subject<void>()
+    private closedSubject = new Subject<void>()
     exited = false
 
     constructor (private id: string, private app: Application, ...args: any[]) {
@@ -113,8 +113,8 @@ export class PTY {
         return this.pty.pid
     }
 
-    get exited$ (): Observable<void> {
-        return this.exitedSubject.asObservable()
+    get closed$ (): Observable<void> {
+        return this.closedSubject.asObservable()
     }
 
     resize (columns: number, rows: number): void {
@@ -139,9 +139,9 @@ export class PTY {
 
     private emit (event: string, ...args: any[]) {
         this.app.broadcast(`pty:${this.id}:${event}`, ...args)
-        if (event === 'exit') {
-            this.exitedSubject.next()
-            this.exitedSubject.complete()
+        if (event === 'close') {
+            this.closedSubject.next()
+            this.closedSubject.complete()
         }
     }
 }
@@ -158,7 +158,7 @@ export class PTYManager {
             // A PTY owns its output queue and native event handlers. Release
             // the manager's reference as soon as the child process exits so
             // repeatedly opened terminals cannot accumulate in this table.
-            pty.exited$.subscribe(() => {
+            pty.closed$.subscribe(() => {
                 if (this.ptys.get(id) === pty) {
                     this.ptys.delete(id)
                 }
