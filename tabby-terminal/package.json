@@ -35,7 +35,7 @@
     "dataurl": "0.1.0",
     "hexer": "^1.5.0",
     "ngx-colors": "^3.4.0",
-    "patch-package": "^6.5.0",
+    "patch-package": "^8.0.1",
     "runes": "^0.4.2",
     "zmodem.js": "^0.1.9"
   },
