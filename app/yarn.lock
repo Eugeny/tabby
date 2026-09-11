@@ -413,19 +413,14 @@
     "@tufjs/canonical-json" "2.0.0"
     minimatch "^10.1.1"
 
-"@types/mz@2.7.4":
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.4.tgz#f9d1535cb5171199b28ae6abd6ec29e856551401"
-  integrity sha512-Zs0imXxyWT20j3Z2NwKpr0IO2LmLactBblNyLua5Az4UHuqOQ02V3jPTgyKwDkuc33/ahw+C3O1PIZdrhFMuQA==
+"@types/mz@2.7.9":
+  version "2.7.9"
+  resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.9.tgz#f97c13aea704d806809d7c21ee490982503e7e7d"
+  integrity sha512-BqcaQb+0i5O5FzYLYwRVfSR5DpKK11vP4CSwjujGt9VdN+5xHMWE0f/OuM8r7Y30KO4evLMptd2+2w5GkuKjtg==
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "20.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.1.tgz#e8a83f1aa8b649377bb1fb5d7bac5cb90e784dfe"
-  integrity sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==
-
-"@types/node@22":
+"@types/node@*", "@types/node@22":
   version "22.20.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-22.20.1.tgz#84e7cdf63cdaa20c134aa317ccc901aa21e16f0e"
   integrity sha512-EANqOCF9QFyra+4pfxUcX9STKJpCLjMbObVzljIJomAWSnuSIEAvyzEU53GaajbXJEgdh0iEcPL+DGvpUd4k1Q==
