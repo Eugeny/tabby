@@ -400,6 +400,32 @@ jobs:
           curl -sSL -o build/vc_redist.exe "https://aka.ms/vs/17/release/vc_redist.x64.exe"
         fi
         ls -la build/vc_redist.exe
+    - name: Build UAC helper
+      shell: powershell
+      run: |
+        # extras/UAC.exe used to be a checked-in prebuilt, so source fixes never shipped.
+        # The solution has no ARM64 config; the x64 binary runs under emulation on ARM64.
+        $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+        $msbuild = & $vswhere -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe | Select-Object -First 1
+        if (-not $msbuild) { throw "MSBuild not found" }
+
+        # The project pins VS2017 (v141) and SDK 10.0.17763; retarget to whatever the runner has.
+        & $msbuild tabby-uac\UAC.sln `
+          /p:Configuration=Release `
+          /p:Platform=x64 `
+          /p:PlatformToolset=v143 `
+          /p:WindowsTargetPlatformVersion=10.0 `
+          /verbosity:minimal
+        if ($LASTEXITCODE -ne 0) { throw "UAC build failed" }
+
+        # don't hardcode MSBuild's output layout
+        $built = Get-ChildItem tabby-uac -Recurse -Filter UAC.exe |
+          Where-Object { $_.FullName -match '\\Release\\' } |
+          Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        if (-not $built) { throw "UAC.exe not found after build" }
+        Copy-Item $built.FullName extras\UAC.exe -Force
+        Get-Item extras\UAC.exe | Format-List FullName, Length, LastWriteTime
+
     - name: Build
       shell: powershell
       run: |
@@ -428,6 +454,12 @@ jobs:
         smctl.exe certificate ls
         C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
         smksp_cert_sync.exe
+
+        signtool.exe sign /sha1 $env:SM_CODE_SIGNING_CERT_SHA1_HASH `
+          /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 `
+          extras\UAC.exe
+        if ($LASTEXITCODE -ne 0) { throw "UAC.exe signing failed" }
+        signtool.exe verify /pa extras\UAC.exe
 
         # not used but necessary for electron-builder to run
         $env:WIN_CSC_LINK=$env:SM_CLIENT_CERT_FILE
