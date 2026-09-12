@@ -1,4 +1,6 @@
-.p-2.h-100.d-flex.flex-column
+.div.p-2.h-100.d-flex.flex-column
+    .sidebar-title(*ngIf='hostApp.platform === Platform.Windows || hostApp.platform === Platform.macOS')
+        span(*ngIf='hostApp.platform === Platform.Windows') Session Manager
     input.form-control.form-control-sm.mb-1(
         type='text',
         [(ngModel)]='filter',
@@ -30,12 +32,12 @@
                     ng-container(*ngFor='let profile of group.profiles')
                         a.tree-item(
                             (dblclick)='launchProfile(profile)',
-                            [style.paddingLeft.px]='(depth + 1) * 20',
+                            [style.paddingLeft.px]='depth * 20 + 48',
                             (contextmenu)='profileContextMenu(profile, $event)',
                             href='#'
                         )
                             .fw-20
-                                profile-icon.ms-1([icon]='profile.icon', [color]='profile.color')
+                                profile-icon([icon]='profile.icon', [color]='profile.color')
                             span.ms-2.no-wrap {{ profile.name }}
 
                             .actions
@@ -44,6 +46,11 @@
 
                     ng-container(*ngFor='let child of group.children')
                         ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: child, depth: depth + 1}')
+
 .grabber(
-    (mousedown)="startResize($event)"
+    cdkDrag,
+    cdkDragLockAxis="x",
+    (cdkDragStarted)="onDragStarted($event)",
+    (cdkDragMoved)="onDragMoved($event)",
+    (cdkDragEnded)='onDragEnd($event)',
 )
