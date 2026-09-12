@@ -68,6 +68,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Duplicate tab'),
         },
         {
+            id: 'pin-tab',
+            name: this.translate.instant('Pin or unpin tab'),
+        },
+        {
             id: 'restart-tab',
             name: this.translate.instant('Restart tab'),
         },

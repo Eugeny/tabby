@@ -49,6 +49,13 @@ export class WSLShellProvider extends ShellProvider {
             return []
         }
 
+        // Windows path backing the distro's rootfs, so a POSIX cwd from the guest can be resolved.
+        // Flags bit 3 marks a WSL2 distro (files served over \\wsl$); WSL1 lives under BasePath.
+        const fsBaseForDistro = (key: any): string | undefined =>
+            (key.Flags?.value || 0) & 8
+                ? `\\\\wsl$\\${key.DistributionName.value}`
+                : key.BasePath ? key.BasePath.value + '\\rootfs' : undefined
+
         const bashPath = `${process.env.windir}\\system32\\bash.exe`
         const wslPath = `${process.env.windir}\\system32\\wsl.exe`
 
@@ -59,6 +66,7 @@ export class WSLShellProvider extends ShellProvider {
         if (lxss?.DefaultDistribution) {
             const defaultDistKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + String(lxss.DefaultDistribution.value))
             if (defaultDistKey?.DistributionName) {
+                const name = defaultDistKey.DistributionName.value
                 const shell: Shell = {
                     id: 'wsl',
                     name: 'WSL / Default distro',
@@ -68,8 +76,9 @@ export class WSLShellProvider extends ShellProvider {
                         COLORTERM: 'truecolor',
                     },
                     shellType: 'unix',
+                    fsBase: fsBaseForDistro(defaultDistKey),
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    icon: wslIconMap[defaultDistKey.DistributionName.value] ?? wslIconMap.Linux,
+                    icon: wslIconMap[name] ?? wslIconMap.Linux,
                 }
                 shells.push(shell)
             }
@@ -97,9 +106,8 @@ export class WSLShellProvider extends ShellProvider {
             if (!childKey.DistributionName || !childKey.BasePath) {
                 continue
             }
-            const wslVersion = (childKey.Flags?.value || 0) & 8 ? 2 : 1
             const name = childKey.DistributionName.value
-            const fsBase = wslVersion === 2 ? `\\\\wsl$\\${name}` : childKey.BasePath.value as string + '\\rootfs'
+            const fsBase = fsBaseForDistro(childKey)
             const slug = slugify(name, { remove: /[:.]/g })
             const shell: Shell = {
                 id: `wsl-${slug}`,

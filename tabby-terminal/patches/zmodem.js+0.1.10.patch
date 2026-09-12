@@ -1,0 +1,21 @@
+diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src/zsession.js
+index 5f0b8f9..3f88b68 100644
+--- a/node_modules/zmodem.js/src/zsession.js
++++ b/node_modules/zmodem.js/src/zsession.js
+@@ -572,7 +572,15 @@ Zmodem.Session.Receive = class ZmodemReceiveSession extends Zmodem.Session {
+             else {
+                 parsed = this._parse_and_consume_header();
+             }
+-        } while (parsed && this._input_buffer.length);
++        } while (parsed && this._input_buffer.length && !this._got_ZFIN);
++
++        //If consuming the ZFIN header left the trailing "OO" terminator in the
++        //buffer (it arrived in the same chunk), handle it now. Otherwise the
++        //loop above would feed "OO" to _trim_leading_garbage_until_header(),
++        //which discards it, and the session would never end.
++        if (this._got_ZFIN && this._input_buffer.length) {
++            this._consume_first();
++        }
+     }
+ 
+     _consume_data(subpacket) {

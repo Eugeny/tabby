@@ -1,8 +1,8 @@
-.item(*ngFor='let hotkey of hotkeys')
-    .body((click)='editItem(hotkey)')
+.item(*ngFor='let hotkey of hotkeys; let i = index')
+    .body((mousedown)='editItem(i, $event)')
         .stroke(*ngFor='let stroke of castAny(hotkey.strokes)')
             span(*ngIf='!hotkey.isDuplicate') {{stroke}}
             span.duplicate(*ngIf='hotkey.isDuplicate') {{stroke}}
-    .remove((click)='removeItem(hotkey)') &times;
+    .remove((mousedown)='removeItem(i, $event)') &times;
 
 .add((click)='addItem()', translate) Add...

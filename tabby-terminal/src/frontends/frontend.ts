@@ -93,4 +93,10 @@ export abstract class Frontend {
 
     abstract supportsBracketedPaste (): boolean
     abstract isAlternateScreenActive (): boolean
+
+    /**
+     * Reset terminal modes (mouse tracking, bracketed paste, etc.)
+     * Called on session reconnection to prevent stale modes from leaking
+     */
+    resetTerminalModes (): void { } // eslint-disable-line
 }

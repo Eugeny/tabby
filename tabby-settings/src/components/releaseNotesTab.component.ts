@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
-import axios from 'axios'
-import * as marked from '../../node_modules/marked/src/marked'
-import { Component, Injector } from '@angular/core'
+import { marked } from '../../node_modules/marked/lib/marked.esm.js'
+import { Component, Injector, SecurityContext } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { BaseTabComponent, TranslateService } from 'tabby-core'
 
 export interface Release {
@@ -22,7 +22,7 @@ export class ReleaseNotesComponent extends BaseTabComponent {
     releases: Release[] = []
     lastPage = 1
 
-    constructor (translate: TranslateService, injector: Injector) {
+    constructor (translate: TranslateService, injector: Injector, private domSanitizer: DomSanitizer) {
         super(injector)
         this.setTitle(translate.instant(_('Release notes')))
         this.loadReleases(1)
@@ -30,13 +30,14 @@ export class ReleaseNotesComponent extends BaseTabComponent {
 
     async loadReleases (page) {
         console.log('Loading releases page', page)
-        const response = await axios.get(`https://api.github.com/repos/eugeny/tabby/releases?page=${page}`, {
+        const response = await fetch(`https://api.github.com/repos/eugeny/tabby/releases?page=${page}`, {
             headers: { Accept: 'application/vnd.github.v3+json' },
         })
-        this.releases = this.releases.concat(response.data.map(r => ({
+        const releases = await response.json()
+        this.releases = this.releases.concat(releases.map(r => ({
             name: r.name,
             version: r.tag_name,
-            content: marked.marked(r.body),
+            content: this.domSanitizer.sanitize(SecurityContext.HTML, marked(r.body)) ?? '',
             date: new Date(r.created_at),
         })))
         this.lastPage = page

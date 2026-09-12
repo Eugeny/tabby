@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { compare as semverCompare } from 'semver'
+import { compare as semverCompare, valid as semverValid } from 'semver'
 import { Observable, from, forkJoin, map, of } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'tabby-core'
@@ -41,7 +40,7 @@ export class PluginManagerService {
                     return true
                 })
             }),
-            map(x => x.sort((a, b) => a.name.localeCompare(b.name))),
+            map(x => x.sort((a, b) => b.searchScore! - a.searchScore!)),
         )
     }
 
@@ -51,9 +50,9 @@ export class PluginManagerService {
 
     _listAvailableInternal (namePrefix: string, keyword: string, query?: string): Observable<PluginInfo[]> {
         return from(
-            axios.get(`https://registry.npmjs.com/-/v1/search?text=keywords%3A${keyword}%20${query}&size=250`),
+            fetch(`https://registry.npmjs.com/-/v1/search?text=keywords%3A${keyword}%20${query}&size=250`).then(r => r.json()),
         ).pipe(
-            map(response => response.data.objects
+            map(response => response.objects
                 .filter(item => !item.keywords?.includes('tabby-dummy-transition-plugin'))
                 .map(item => ({
                     name: item.package.name.substring(namePrefix.length),
@@ -61,8 +60,9 @@ export class PluginManagerService {
                     description: item.package.description,
                     version: item.package.version,
                     homepage: item.package.links.homepage,
-                    author: item.package.author?.name,
+                    author: item.package.maintainers?.[0]?.username,
                     isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
+                    searchScore: item.searchScore,
                 })),
             ),
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
@@ -84,6 +84,12 @@ export class PluginManagerService {
     }
 
     async installPlugin (plugin: PluginInfo): Promise<void> {
+        if (!/^(tabby|terminus)-[a-zA-Z0-9._-]+$/.test(plugin.packageName) || PLUGIN_BLACKLIST.includes(plugin.packageName)) {
+            throw new Error(`Refusing to install disallowed package: ${plugin.packageName}`)
+        }
+        if (!semverValid(plugin.version)) {
+            throw new Error(`Refusing to install package with invalid version: ${plugin.version}`)
+        }
         try {
             await this.platform.installPlugin(plugin.packageName, plugin.version)
             this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)

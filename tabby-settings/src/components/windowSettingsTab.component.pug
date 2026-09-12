@@ -130,6 +130,15 @@ h3.mb-3(translate) Window
         (ngModelChange)='saveConfiguration(true)'
     )
 
+.form-line
+    .header
+        .title(translate) Show profile sidebar
+        .description(translate) Displays a full tree of profiles in the sidebar.
+    toggle(
+        [(ngModel)]='config.store.showProfileTree',
+        (ngModelChange)='saveConfiguration(false)'
+    )
+
 h3.mt-4(translate) Docking
 
 .form-line(*ngIf='docking')

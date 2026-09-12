@@ -71,6 +71,18 @@ export class ProfilesService {
         return new ConfigProxy(profile, defaults) as any
     }
 
+    /*
+    * Re-resolve provider/group defaults into an existing ConfigProxy, so a long-lived
+    * profile picks up config changes. Pass the same options the proxy was built with.
+    */
+    refreshConfigProxyForProfile <T extends Profile> (profile: FullyDefined<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): FullyDefined<T> {
+        if (profile instanceof ConfigProxy) {
+            const defaults = this.getProfileDefaults(profile, options).reduce(configMerge, {})
+            profile.__setDefaults(defaults)
+        }
+        return profile
+    }
+
     /**
     * Return an Array of Profiles
     * arg: includeBuiltin (default: true) -> include BuiltinProfiles
@@ -217,13 +229,37 @@ export class ProfilesService {
             ...profile,
             icon: profile.icon ?? undefined,
             color: profile.color ?? undefined,
-            group: this.resolveProfileGroupName(profile.group ?? ''),
+            group: this.resolveProfileGroupPath(profile.group ?? '').join(' 🡒 '),
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
         }
     }
 
-    showProfileSelector (): Promise<PartialProfile<Profile>|null> {
+    buildGroupTree (groups: PartialProfileGroup<ProfileGroup & { children: any }>[]): PartialProfileGroup<ProfileGroup & { children: any }>[] {
+        const map = new Map<string, PartialProfileGroup<ProfileGroup & { children: any }>>()
+
+        for (const group of groups) {
+            group.children = []
+            map.set(group.id, group)
+        }
+
+        const roots: PartialProfileGroup<ProfileGroup & { children: any }>[] = []
+
+        for (const group of groups) {
+            if (group.parentGroupId) {
+                const parent = map.get(group.parentGroupId)
+                if (parent) {
+                    parent.children.push(group)
+                } else { roots.push(group) } // Orphaned group, treat as root
+            } else {
+                roots.push(group)
+            }
+        }
+
+        return roots
+    }
+
+    showProfileSelector (): Promise<PartialProfile<Profile> | null> {
         if (this.selector.active) {
             return Promise.resolve(null)
         }
@@ -263,6 +299,12 @@ export class ProfilesService {
 
                 if (!this.config.store.terminal.showBuiltinProfiles) {
                     profiles = profiles.filter(x => !x.isBuiltin)
+                } else {
+                    profiles = profiles.map(p => {
+                        if (p.isBuiltin) { p.group = 'Built-in' }
+                        if (!p.icon) { p.icon = 'fas fa-network-wired' }
+                        return p
+                    })
                 }
 
                 profiles = profiles.filter(x => !x.isTemplate)
@@ -501,7 +543,37 @@ export class ProfilesService {
     * Resolve and return ProfileGroup Name from ProfileGroup ID
     */
     resolveProfileGroupName (groupId: string): string {
-        return this.config.store.groups.find(g => g.id === groupId)?.name ?? groupId
+        const group = this.resolveProfileGroup(groupId)
+        return group?.name ?? groupId
+    }
+
+    resolveProfileGroupPath (groupId: string): string[] {
+        const groupNames: string[] = []
+        let currentGroupId: string | undefined = groupId
+        let depth = 0
+
+        while (currentGroupId && depth <= 30) {
+            const group = this.resolveProfileGroup(currentGroupId)
+            if (!group) {
+                groupNames.unshift(currentGroupId)
+                break
+            }
+
+            if (group.name) { groupNames.unshift(group.name) }
+
+            if (!group.parentGroupId) { break }
+            currentGroupId = group.parentGroupId
+            depth++
+        }
+
+        return groupNames
+    }
+
+    /**
+    * Resolve and return ProfileGroup | null from ProfileGroup ID
+    */
+    resolveProfileGroup (groupId: string): PartialProfileGroup<ProfileGroup> | null {
+        return this.config.store.groups.find(g => g.id === groupId) ?? null
     }
 
     /**
