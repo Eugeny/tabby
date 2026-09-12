@@ -21,7 +21,7 @@
     "@angular/core": "^15"
   },
   "devDependencies": {
-    "@vaadin/vaadin-context-menu": "^5",
+    "@vaadin/vaadin-context-menu": "^23",
     "bootstrap": "^4",
     "bowser": "^2",
     "copy-text-to-clipboard": "^3"
