@@ -25,7 +25,7 @@
     "fuzzy-search": "^3",
     "js-yaml": "^4",
     "messageformat": "^2",
-    "mixpanel": "^0.17.0",
+    "mixpanel": "^0.24.0",
     "ngx-translate-messageformat-compiler": "^4",
     "uuid": "^9"
   },
