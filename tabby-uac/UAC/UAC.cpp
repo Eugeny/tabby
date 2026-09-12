@@ -7,6 +7,7 @@
 #include <io.h>
 #include <fcntl.h>
 #include <bcrypt.h>
+#pragma comment(lib, "bcrypt.lib")
 
 #define CONTROL_MAGIC 0xDEADBEEF
 #define CONTROL_WINDOW_SIZE 1
