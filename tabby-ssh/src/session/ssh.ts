@@ -385,7 +385,13 @@ export class SSHSession {
         if (this.profile.options.proxyCommand) {
             this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
 
+            // parse() yields operator objects for things like && or |, which newCommand
+            // can't run - it spawns a single process, not a shell. Dropping them silently
+            // would turn "a && b" into "a b", so refuse instead.
             const argv = shellQuote.parse(this.profile.options.proxyCommand)
+            if (!argv.every((x): x is string => typeof x === 'string')) {
+                throw new Error('Proxy command contains shell operators, which are not supported')
+            }
             transport = await russh.SshTransport.newCommand(argv[0], argv.slice(1))
         } else if (this.jumpChannel) {
             transport = await russh.SshTransport.newSshChannel(this.jumpChannel.take())
