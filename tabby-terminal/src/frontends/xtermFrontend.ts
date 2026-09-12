@@ -1,7 +1,10 @@
 import deepEqual from 'deep-equal'
 import { BehaviorSubject, filter, firstValueFrom, fromEvent, takeUntil } from 'rxjs'
 import { Injector } from '@angular/core'
-import { ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService, Platform, PlatformService, TerminalColorScheme, ThemesService } from 'tabby-core'
+import {
+    ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService,
+    Platform, PlatformService, TerminalColorScheme, ThemesService,
+} from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
@@ -472,6 +475,7 @@ export class XTermFrontend extends Frontend {
                 ].includes(hk)) {
                     this.pinnedToBottom = false
                 }
+
                 requestAnimationFrame(() => this.updatePinnedState())
             })
 

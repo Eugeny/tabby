@@ -114,6 +114,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Disconnect current tab (Serial/Telnet/SSH)'),
         },
         {
+            id: 'switch-meta-option',
+            name: this.translate.instant('Toggle the Option key between Meta and normal (macOS)'),
+        },
+        {
             id: 'debug-save-state',
             name: this.translate.instant('Save terminal state (debug)'),
         },

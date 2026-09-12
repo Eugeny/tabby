@@ -97,3 +97,5 @@ hotkeys:
     - '⌘-Shift-E'
   command-selector:
     - '⌘-Shift-P'
+  switch-meta-option:
+    - '⌘-⌥-O'
