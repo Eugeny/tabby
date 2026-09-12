@@ -9,6 +9,7 @@ import { BaseSession } from '../session'
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
+import { shouldUseWebGL } from '../frontends/webglSupport'
 import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
@@ -268,7 +269,18 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     break
                 }
                 case 'clear':
-                    this.forEachFocusedTerminalPane(tab => tab.frontend?.clear())
+                    this.forEachFocusedTerminalPane(tab => {
+                        const tabProfile = tab.profile
+                        const shellType: string = tabProfile.options?.shellType ?? ''
+                        const shellArgs: string[] = tabProfile.options?.args ?? []
+                        if (this.hostApp.platform === Platform.Windows && (shellType === 'powershell' || shellArgs.some(arg => arg.includes('clink')))) {
+                            // Windows PowerShell and cmd(Clink): send Ctrl+L to PTY (natively clears)
+                            tab.sendInput('\x0c')
+                        } else {
+                            // Windows cmd(stock) and macOS/Linux: clear xterm buffer only
+                            tab.frontend?.clear()
+                        }
+                    })
                     break
                 case 'zoom-in':
                     this.forEachFocusedTerminalPane(tab => tab.zoomIn())
@@ -316,6 +328,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                         }[this.hostApp.platform])
                     })
                     break
+                case 'insert-new-line':
+                    this.forEachFocusedTerminalPane(tab => {
+                        tab.sendInput('\x1b\r')
+                    })
+                    break
                 case 'copy-current-path':
                     this.copyCurrentPath()
                     break
@@ -360,29 +377,10 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.configure()
         })
 
-        // Check if the the WebGL renderer is compatible with xterm.js:
-        // - https://github.com/Eugeny/tabby/issues/8884
-        // - https://github.com/microsoft/vscode/issues/190195
-        // - https://github.com/xtermjs/xterm.js/issues/4665
-        // - https://bugs.chromium.org/p/chromium/issues/detail?id=1476475
-        //
-        // Inspired by https://github.com/microsoft/vscode/pull/191795
-
-        let enable8884Workarround = false
-        const checkCanvas = document.createElement('canvas')
-        const checkGl = checkCanvas.getContext('webgl2')
-        const debugInfo = checkGl?.getExtension('WEBGL_debug_renderer_info')
-        if (checkGl && debugInfo) {
-            const renderer = checkGl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
-            if (renderer.startsWith('ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)')) {
-                enable8884Workarround = true
-            }
-        }
-
-        const cls: new (..._) => Frontend = enable8884Workarround ? XTermFrontend : {
-            xterm: XTermFrontend,
-            'xterm-webgl': XTermWebGLFrontend,
-        }[this.config.store.terminal.frontend] ?? XTermFrontend
+        const cls: new (..._) => Frontend = shouldUseWebGL(
+            this.config.store.terminal.frontend,
+            this.config.store.hacks.disableGPU,
+        ) ? XTermWebGLFrontend : XTermFrontend
         this.frontend = new cls(this.injector)
 
         this.frontendReady$.pipe(first()).subscribe(() => {
@@ -444,6 +442,12 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             }
             if (this.config.store.terminal.bell === 'audible') {
                 this.bellPlayer.play()
+            }
+            if (this.config.store.terminal.bellFlashFrame) {
+                this.hostWindow.flashFrame()
+            }
+            if (!this.hasFocus) {
+                this.displayActivity()
             }
         })
 
@@ -842,6 +846,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      * Method called when session is closed.
      */
     protected onSessionClosed (destroyOnSessionClose = false): void {
+        // Pinning only guards against manual close (see AppService.closeTab);
+        // a shell exiting closes the tab normally per behaviorOnSessionEnd.
         if (destroyOnSessionClose || this.shouldTabBeDestroyedOnSessionClose()) {
             this.destroy()
         }

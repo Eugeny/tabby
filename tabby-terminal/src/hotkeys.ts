@@ -117,6 +117,42 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             id: 'switch-meta-option',
             name: this.translate.instant('Toggle the Option key between Meta and normal (macOS)'),
         },
+        {
+            id: 'debug-save-state',
+            name: this.translate.instant('Save terminal state (debug)'),
+        },
+        {
+            id: 'debug-load-state',
+            name: this.translate.instant('Load terminal state (debug)'),
+        },
+        {
+            id: 'debug-copy-state',
+            name: this.translate.instant('Copy terminal state (debug)'),
+        },
+        {
+            id: 'debug-paste-state',
+            name: this.translate.instant('Paste terminal state (debug)'),
+        },
+        {
+            id: 'debug-save-output',
+            name: this.translate.instant('Save session output (debug)'),
+        },
+        {
+            id: 'debug-load-output',
+            name: this.translate.instant('Load session output (debug)'),
+        },
+        {
+            id: 'debug-copy-output',
+            name: this.translate.instant('Copy session output (debug)'),
+        },
+        {
+            id: 'debug-paste-output',
+            name: this.translate.instant('Paste session output (debug)'),
+        },
+        {
+            id: 'insert-new-line',
+            name: this.translate.instant('Insert new line'),
+        },
     ]
 
     constructor (private translate: TranslateService) { super() }

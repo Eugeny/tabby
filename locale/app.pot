@@ -2260,6 +2260,10 @@ msgstr ""
 msgid "Thank you for downloading Tabby!"
 msgstr ""
 
+#: tabby-core/src/services/config.service.ts:471
+msgid "The vault must be unlocked to load your configuration."
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
 msgid "Theme"
 msgstr ""

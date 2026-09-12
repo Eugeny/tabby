@@ -17,13 +17,16 @@ jobs:
 
     - name: Install deps
       run: |
-        sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
+        sudo apt-get update && sudo apt-get install -y libfontconfig1-dev libsecret-1-dev
         npm i -g yarn
         cd app
         yarn
         cd ..
         rm app/node_modules/.yarn-integrity
         yarn
+
+    - name: Test SSH TERM
+      run: yarn run test:ssh-term
 
     - name: Build typings
       run: yarn run build:typings
@@ -96,7 +99,7 @@ jobs:
 
     - name: Build packages without signing
       run: scripts/build-macos.mjs
-      if: "! (github.event_name == 'push' && startsWith(github.ref, 'refs/tags'))"
+      if: "! (github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*

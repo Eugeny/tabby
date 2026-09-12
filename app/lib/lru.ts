@@ -1,6 +1,6 @@
-import LRU from 'lru-cache'
+import { LRUCache } from 'lru-cache'
 import * as fs from 'fs'
-const lru = new LRU({ max: 256, maxAge: 250 })
+const lru = new LRUCache<string, string>({ ttl: 250, ttlAutopurge: true })
 const origLstat = fs.realpathSync.bind(fs)
 
 // NB: The biggest offender of thrashing realpathSync is the node module system
