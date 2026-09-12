@@ -23,7 +23,7 @@
     "@types/color": "^4",
     "deepmerge": "^4",
     "fuzzy-search": "^3",
-    "js-yaml": "^4",
+    "js-yaml": "^5",
     "messageformat": "^2",
     "mixpanel": "^0.17.0",
     "ngx-translate-messageformat-compiler": "^4",
