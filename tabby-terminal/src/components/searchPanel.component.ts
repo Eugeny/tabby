@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, NgZone, OnChanges, SimpleChange } from '@angular/core'
+import { Component, Input, Output, EventEmitter, NgZone, OnDestroy } from '@angular/core'
 import { Subject, debounceTime } from 'rxjs'
 import { Frontend, SearchOptions, SearchState } from '../frontends/frontend'
 import { ConfigService, NotificationsService, TranslateService } from 'tabby-core'
@@ -8,9 +8,8 @@ import { ConfigService, NotificationsService, TranslateService } from 'tabby-cor
     templateUrl: './searchPanel.component.pug',
     styleUrls: ['./searchPanel.component.scss'],
 })
-export class SearchPanelComponent implements OnChanges {
-    private savedQuery = ''
-    @Input() query: string
+export class SearchPanelComponent implements OnDestroy {
+    query = ''
     @Input() frontend: Frontend
     state: SearchState = { resultCount: 0 }
     options: SearchOptions = {
@@ -25,7 +24,7 @@ export class SearchPanelComponent implements OnChanges {
     private repeatTimer: ReturnType<typeof setInterval> | null = null
 
     private readonly HOLD_DELAY = 400
-    private readonly REPEAT_INTERVAL = 40
+    private readonly REPEAT_INTERVAL = 100
 
     icons = {
         'case': require('../icons/case.svg'),
@@ -52,17 +51,6 @@ export class SearchPanelComponent implements OnChanges {
         this.queryChanged.next(this.query)
     }
 
-    ngOnChanges (changes: { query?: SimpleChange }): void {
-        if (changes.query) {
-            if (this.savedQuery && !changes.query.currentValue) {
-                // Parent cleared the query (e.g. tab regained focus) → restore
-                this.query = this.savedQuery
-            } else if (changes.query.currentValue) {
-                this.savedQuery = changes.query.currentValue
-            }
-        }
-    }
-
     onKeyDown (event: KeyboardEvent): void {
         if (event.key !== 'Enter' || event.repeat) { return }
         if (this.holdTimer ?? this.repeatTimer) { return }
@@ -71,7 +59,13 @@ export class SearchPanelComponent implements OnChanges {
             this.holdTimer = null
             this.ngZone.runOutsideAngular(() => {
                 this.repeatTimer = setInterval(() => {
-                    this.ngZone.run(() => this.findPrevious())
+                    this.ngZone.run(() => {
+                        this.findPrevious()
+                        if (!this.state.resultCount) {
+                            // nothing to cycle through - one notice is enough
+                            this.stopRepeat()
+                        }
+                    })
                 }, this.REPEAT_INTERVAL)
             })
         }, this.HOLD_DELAY)
