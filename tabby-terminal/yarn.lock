@@ -45,7 +45,7 @@
   resolved "https://registry.yarnpkg.com/@xterm/addon-webgl/-/addon-webgl-0.17.0.tgz#1da534456b7971ebb2f08c381d4732d1f104d7d8"
   integrity sha512-KUH//EZCz7j1+IekW8sZzmcj/y9gOLf/HMcsWXjg0Xr5cT1lIBIIbbBlbf5kZ+XnA/8c1IuBm1vx+blzlfPk0g==
 
-"@xterm/xterm@^5.4.0":
+"@xterm/xterm@^5":
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@xterm/xterm/-/xterm-5.5.0.tgz#275fb8f6e14afa6e8a0c05d4ebc94523ff775396"
   integrity sha512-hqJHYaQb5OptNunnyAnkHyM8aCjZ1MEIDTQu1iIbbTD/xops91NB5yq1ZK/dC2JDbVWtF23zUtl9JE2NqwT87A==
@@ -60,7 +60,7 @@ ansi-color@^0.2.1:
   resolved "https://registry.yarnpkg.com/ansi-color/-/ansi-color-0.2.2.tgz#c1ed2bf6afecf829c2bd043fae4c04320336243c"
   integrity sha512-qPx7iZZDHITYrrfzaUFXQpIcF2xYifcQHQflP1pFz8yY3lfU6GgCHb0+hJD7nimYKO7f2iaYYwBpZ+GaNcAhcA==
 
-ansi-colors@^4.1.1:
+ansi-colors@^4:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.3.tgz#37611340eb2243e70cc604cad35d63270d48781b"
   integrity sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==
@@ -102,7 +102,7 @@ braces@^3.0.3:
   dependencies:
     fill-range "^7.1.1"
 
-buffer-replace@^1.0.0:
+buffer-replace@^1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/buffer-replace/-/buffer-replace-1.0.0.tgz#bc427c40af4c1f06d6933dede57110acba8ade54"
   integrity sha512-MQpm4Gc6SyQ3DewQ8ATrP82r5TxBut6KAQzbCFL8kofGiauJMPIPzdlRr33IAJhw8cvopOk3UDA4D93NTeieig==
@@ -236,7 +236,7 @@ has-flag@^4.0.0:
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-4.0.0.tgz#944771fd9c81c81265c4d6941860da06bb59479b"
   integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
 
-hexer@^1.5.0:
+hexer@^1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/hexer/-/hexer-1.5.0.tgz#b86ce808598e8a9d1892c571f3cedd86fc9f0653"
   integrity sha512-dyrPC8KzBzUJ19QTIo1gXNqIISRXQ0NwteW6OeQHRN4ZuZeHkdODfj0zHBdOlHbRY8GqbqK57C9oWSvQZizFsg==
@@ -331,7 +331,7 @@ minimist@^1.1.0, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
 
-ngx-colors@^3.4.0:
+ngx-colors@^3:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/ngx-colors/-/ngx-colors-3.6.0.tgz#194313ad413dd90a53bd118c0318c46ebfc66780"
   integrity sha512-jPFzosd7t7YHKqKTBbOxdAF67aevBTiv0UdS0i7umWQMdMfi0lwcNTrL8XLhW2YbIpy98r54zWgc0iZH5FpiZA==
@@ -370,7 +370,7 @@ os-tmpdir@~1.0.2:
   resolved "https://registry.yarnpkg.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
   integrity sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==
 
-patch-package@^6.5.0:
+patch-package@^6:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/patch-package/-/patch-package-6.5.1.tgz#3e5d00c16997e6160291fee06a521c42ac99b621"
   integrity sha512-I/4Zsalfhc6bphmJTlrLoOcAF87jcxko4q0qsv4bGcurbr8IskEOtdnt9iCmsQVGL1B+iUhSQqweyTLJfCF9rA==

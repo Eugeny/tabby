@@ -124,7 +124,7 @@ dunder-proto@^1.0.1:
     es-errors "^1.3.0"
     gopd "^1.2.0"
 
-electron-promise-ipc@^2.2.4:
+electron-promise-ipc@^2:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/electron-promise-ipc/-/electron-promise-ipc-2.2.4.tgz#b82daf86ca6d0f0b8655937fdbe9a554590deeea"
   integrity sha512-xCkFEeuru9l7H/+m1gpK4F1utexvTT7+n1PTquP2MVTpmBmpgFBlLqSXC7TqwpROkHRm9wGpaCJEx0djonnSEg==
@@ -333,7 +333,7 @@ set-function-length@^1.2.2:
     gopd "^1.0.1"
     has-property-descriptors "^1.0.2"
 
-ssh-config@^5.0.0:
+ssh-config@^5:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/ssh-config/-/ssh-config-5.3.0.tgz#9945936329832f2aa551fe58e8d1e7bb401c51ff"
   integrity sha512-JIsoWax2CAJraGLvhXa4e9zfh+/KzoL6SKxjupQywLjGpuigYsZ+5OVmfZo1mBslxehA8kHWwFQ38eotFoLj6Q==
@@ -362,7 +362,7 @@ text-hex@1.0.x:
   resolved "https://registry.yarnpkg.com/text-hex/-/text-hex-1.0.0.tgz#69dc9c1b17446ee79a92bf5b884bb4b9127506f5"
   integrity sha512-uuVGNWzgJ4yhRaNSiubPY7OjISw4sw4E5Uv0wbjp+OzcbmVU/rsT8ujgcXJhn9ypzsgr5vlzpPqP+MBBKcGvbg==
 
-tmp-promise@^3.0.2:
+tmp-promise@^3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/tmp-promise/-/tmp-promise-3.0.3.tgz#60a1a1cc98c988674fcbfd23b6e3367bdeac4ce7"
   integrity sha512-RwM7MoPojPxsOBYnyd2hy0bxtIlVrihNs9pj5SUvY8Zz1sQcQG2tG1hSr8PDxfgEB8RNKDhqbIlroIarSNDNsQ==
@@ -394,7 +394,7 @@ uuid@^3.0.1:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-which@^3.0.0:
+which@^3:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/which/-/which-3.0.1.tgz#89f1cd0c23f629a8105ffe69b8172791c87b4be1"
   integrity sha512-XA1b62dzQzLfaEOSQFTCOd5KFf/1VSzZo7/7TUjnya6u0vGGKzU96UQBZTAThCb2j4/xjBAyii1OhRLJEivHvg==
@@ -410,7 +410,7 @@ winston-transport@^4.9.0:
     readable-stream "^3.6.2"
     triple-beam "^1.3.0"
 
-winston@^3.3.3:
+winston@^3:
   version "3.19.0"
   resolved "https://registry.yarnpkg.com/winston/-/winston-3.19.0.tgz#cc1d1262f5f45946904085cfffe73efb4b7a581d"
   integrity sha512-LZNJgPzfKR+/J3cHkxcpHKpKKvGfDZVPS4hfJCc4cCG0CgYzvlD6yE/S3CIL/Yt91ak327YCpiF/0MyeZHEHKA==
