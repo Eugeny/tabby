@@ -37,6 +37,13 @@ const LINUX_IME_TEXT_KEY_CODES = new Set([
     'Slash',
 ])
 
+function isIMETextKey (event: KeyboardEvent): boolean {
+    if (event.ctrlKey || event.altKey || event.metaKey) {
+        return false
+    }
+    return LINUX_IME_TEXT_KEY_CODES.has(event.code) || event.code === 'Space' && event.shiftKey
+}
+
 // How many times to recreate the WebGL renderer after a lost GPU context
 // before giving up and letting xterm fall back to its DOM renderer.
 const MAX_WEBGL_RECOVERY_ATTEMPTS = 3
@@ -200,23 +207,6 @@ export class XTermFrontend extends Frontend {
         }
 
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
-            if (
-                this.hostApp.platform === Platform.Linux &&
-                event.type === 'keydown' &&
-                !event.ctrlKey &&
-                !event.altKey &&
-                !event.metaKey &&
-                (
-                    LINUX_IME_TEXT_KEY_CODES.has(event.code) ||
-                    event.code === 'Space' && event.shiftKey
-                )
-            ) {
-                // Returning false keeps xterm from sending/cancelling keydown.
-                // The resulting keypress/input event contains either the IME
-                // commit string or the original character when IME is inactive.
-                return false
-            }
-
             if (this.hostApp.platform !== Platform.Web) {
                 if (
                     event.getModifierState('Meta') && event.key.toLowerCase() === 'v' ||
@@ -230,7 +220,20 @@ export class XTermFrontend extends Frontend {
                 return false
             }
 
-            return keyboardEventHandler('keydown', event)
+            const handled = keyboardEventHandler('keydown', event)
+            if (!handled) {
+                // a hotkey claimed the event and already cancelled it
+                return false
+            }
+
+            if (this.hostApp.platform === Platform.Linux && isIMETextKey(event)) {
+                // Returning false keeps xterm from sending/cancelling keydown.
+                // The resulting keypress/input event contains either the IME
+                // commit string or the original character when IME is inactive.
+                return false
+            }
+
+            return handled
         })
 
         this.xtermCore._scrollToBottom = this.xtermCore.scrollToBottom.bind(this.xtermCore)
