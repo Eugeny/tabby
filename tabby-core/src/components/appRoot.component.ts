@@ -153,8 +153,12 @@ export class AppRootComponent {
         // Commit any in-progress MRU traversal when the user releases a modifier key.
         // This mirrors the way Alt+Tab works in desktop window managers: you cycle while
         // holding the modifier and the selection is confirmed when you let go.
-        this.hotkeys.keyEvent$.subscribe((event: KeyboardEvent) => {
-            if (event.type === 'keyup' && ['Control', 'Meta', 'Alt'].includes(event.key)) {
+        this.hotkeys.keyEvent$.subscribe(event => {
+            // keyEvent$ also carries wheel and mouse events
+            if (!(event instanceof KeyboardEvent) || event.type !== 'keyup') {
+                return
+            }
+            if (['Control', 'Meta', 'Alt', 'Shift'].includes(event.key)) {
                 this.app.commitMRUTraversal()
             }
         })
