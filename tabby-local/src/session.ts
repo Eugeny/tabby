@@ -7,6 +7,17 @@ import { getEnvironment, substituteEnv } from './environment'
 import { resolveGuestCWD } from './wslPath'
 import { isDirectory, isDirectorySync } from './util'
 
+function usableCWD (path?: string|null): string|undefined {
+    if (!path) {
+        return undefined
+    }
+    if (!isDirectorySync(path)) {
+        console.warn('Ignoring invalid CWD:', path)
+        return undefined
+    }
+    return path
+}
+
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 
 function mergeEnv (...envs) {
@@ -87,16 +98,18 @@ export class Session extends BaseSession {
                 })
             }
 
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            let cwd = resolveGuestCWD(options.cwd, options.fsBase) || process.env.HOME
+            // resolveGuestCWD maps a POSIX cwd reported by a guest shell (WSL) onto its
+            // Windows-visible path before we validate it.
+            const explicitCWD = usableCWD(resolveGuestCWD(options.cwd, options.fsBase))
 
-            if (!isDirectorySync(cwd)) {
-                console.warn('Ignoring invalid CWD:', cwd)
-                cwd = undefined
-            }
+            // A shell that knows how to start in its own home directory (WSL's `--cd ~`) only gets
+            // to do so when we have no working directory for it - those args outrank the cwd below.
+            const args = explicitCWD ? options.args : [...options.args, ...options.homeDirArgs]
+
+            const cwd = explicitCWD ?? usableCWD(process.env.HOME)
 
             try {
-                pty = await this.ptyInterface.spawn(options.command, options.args, {
+                pty = await this.ptyInterface.spawn(options.command, args, {
                     name: 'xterm-256color',
                     cols: options.width ?? 80,
                     rows: options.height ?? 30,
