@@ -183,11 +183,11 @@ export class VaultService {
                 throw new Error('Vault unlock cancelled')
             }
             const { passphrase, rememberFor } = result
+            _rememberedPassphrase = passphrase
             setTimeout(() => {
                 _rememberedPassphrase = null
                 // avoid multiple consequent prompts
-            }, Math.max(1000, rememberFor * 60000))
-            _rememberedPassphrase = passphrase
+            }, rememberFor > 0 ? rememberFor * 60000 : 1000)
         }
 
         return _rememberedPassphrase!
