@@ -1,0 +1,113 @@
+h3.mb-3(translate) Context menus
+
+h4.mb-3(translate) Close behavior
+
+.form-line
+    .header
+        .title(translate) Confirm closing via context menu
+        .description(translate) Ask for confirmation when closing a tab or pane from the right-click menu
+    toggle(
+        [(ngModel)]='config.store.contextMenu.confirmContextMenuClose',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
+        .title(translate) Confirm closing via tab close button / hotkey
+        .description(translate) Ask for confirmation when closing a tab using its close button, middle-click, or a hotkey
+    toggle(
+        [(ngModel)]='config.store.contextMenu.confirmTabClose',
+        (ngModelChange)='config.save()',
+    )
+
+h4.mt-4.mb-3(translate) Context menu items
+
+p.text-muted(translate) Choose which items appear in the tab bar and pane right-click menus, and drag a divider over to organize them. Each menu can be configured independently.
+
+div(*ngFor='let section of sections')
+    h5.mt-3.mb-2 {{section.title}}
+
+    .context-menu-editor
+        .context-menu-editor-reorder
+            button.btn.btn-secondary.btn-sm(
+                type='button',
+                [disabled]='!section.selectedEnabled.size',
+                (click)='section.moveEnabledUp(); scrollActiveIntoView($event)',
+                title='{{"Move up"|translate}}',
+            )
+                i.fas.fa-angle-up
+            button.btn.btn-secondary.btn-sm(
+                type='button',
+                [disabled]='!section.selectedEnabled.size',
+                (click)='section.moveEnabledDown(); scrollActiveIntoView($event)',
+                title='{{"Move down"|translate}}',
+            )
+                i.fas.fa-angle-down
+
+        .context-menu-editor-column
+            .context-menu-editor-column-title(translate) Enabled
+            .list-group.context-menu-editor-list
+                .list-group-item(
+                    *ngFor='let row of section.enabledRows; let i = index',
+                    [class.active]='section.selectedEnabled.has(i)',
+                    [class.context-menu-editor-divider]='row.id === null',
+                    (click)='section.toggleSelectedEnabled(i)',
+                    (dblclick)='section.disableItem(i)',
+                ) {{row.name}}
+
+        .context-menu-editor-arrows
+            button.btn.btn-secondary.btn-sm(
+                type='button',
+                [disabled]='!section.selectedEnabled.size',
+                (click)='section.disableSelected()',
+                title='{{"Disable selected"|translate}}',
+            )
+                i.fas.fa-angle-right
+            button.btn.btn-secondary.btn-sm(
+                type='button',
+                [disabled]='!section.enabledRows.length',
+                (click)='section.disableAll()',
+                title='{{"Disable all"|translate}}',
+            )
+                i.fas.fa-angle-double-right
+            button.btn.btn-secondary.btn-sm(
+                type='button',
+                [disabled]='!section.disabledRows.length',
+                (click)='section.enableAll()',
+                title='{{"Enable all"|translate}}',
+            )
+                i.fas.fa-angle-double-left
+            button.btn.btn-secondary.btn-sm(
+                type='button',
+                [disabled]='!section.selectedDisabled.size',
+                (click)='section.enableSelected(); scrollActiveIntoView($event)',
+                title='{{"Enable selected"|translate}}',
+            )
+                i.fas.fa-angle-left
+
+        .context-menu-editor-column
+            .context-menu-editor-column-title(translate) Disabled
+            .list-group.context-menu-editor-list
+                .list-group-item(
+                    *ngFor='let row of section.disabledRows',
+                    [class.active]='section.selectedDisabled.has(row.id)',
+                    [class.context-menu-editor-divider]='row.id === section.dividerPlaceholderId',
+                    (click)='section.toggleSelectedDisabled(row.id)',
+                    (dblclick)='section.enableItem(row.id); scrollActiveIntoView($event)',
+                ) {{row.name}}
+
+        .context-menu-editor-reorder
+            button.btn.btn-secondary.btn-sm(
+                type='button',
+                [disabled]='!section.selectedDisabled.size',
+                (click)='section.moveDisabledUp(); scrollActiveIntoView($event)',
+                title='{{"Move up"|translate}}',
+            )
+                i.fas.fa-angle-up
+            button.btn.btn-secondary.btn-sm(
+                type='button',
+                [disabled]='!section.selectedDisabled.size',
+                (click)='section.moveDisabledDown(); scrollActiveIntoView($event)',
+                title='{{"Move down"|translate}}',
+            )
+                i.fas.fa-angle-down

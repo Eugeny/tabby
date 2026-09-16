@@ -4,9 +4,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { TranslateService } from '@ngx-translate/core'
 import { Subscription } from 'rxjs'
 import { AppService } from './services/app.service'
+import { ConfigService } from './services/config.service'
+import { PlatformService } from './api/platform'
 import { BaseTabComponent } from './components/baseTab.component'
 import { SplitTabComponent, SplitDirection } from './components/splitTab.component'
 import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
+import { ContextMenuItemDefinitionProvider, ContextMenuItemDefinition } from './api/contextMenuItemProvider'
 import { MenuItemOptions } from './api/menu'
 import { ProfilesService } from './services/profiles.service'
 import { TabsService } from './services/tabs.service'
@@ -22,21 +25,70 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
 
     constructor (
         private app: AppService,
+        private config: ConfigService,
+        private platform: PlatformService,
         private translate: TranslateService,
     ) {
         super()
     }
 
+    /**
+     * Confirms closing multiple tabs at once with a single prompt
+     * (instead of prompting for each tab individually).
+     */
+    private async closeMultiple (tabs: BaseTabComponent[]): Promise<void> {
+        if (this.config.store.contextMenu?.confirmContextMenuClose && tabs.length) {
+            const result = await this.platform.showMessageBox({
+                type: 'warning',
+                message: this.translate.instant('Close {count} tabs?', { count: tabs.length }),
+                buttons: [
+                    this.translate.instant('Close'),
+                    this.translate.instant('Cancel'),
+                ],
+                defaultId: 0,
+                cancelId: 1,
+            })
+            if (result.response !== 0) {
+                return
+            }
+        }
+        for (const t of tabs) {
+            await this.app.closeTab(t, true, false, true)
+        }
+    }
+
+    /**
+     * Shows a confirmation prompt before closing a pane that isn't a
+     * top-level tab (and thus isn't handled by AppService.closeTab).
+     */
+    private async confirmPaneClose (tab: BaseTabComponent): Promise<boolean> {
+        const result = await this.platform.showMessageBox({
+            type: 'warning',
+            message: this.translate.instant('Close "{name}"?', { name: tab.title }),
+            buttons: [
+                this.translate.instant('Close'),
+                this.translate.instant('Cancel'),
+            ],
+            defaultId: 0,
+            cancelId: 1,
+        })
+        return result.response === 0
+    }
+
     async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
         let items: MenuItemOptions[] = [
             {
+                id: 'close',
                 label: this.translate.instant('Close'),
                 commandLabel: this.translate.instant('Close tab'),
                 enabled: !tab.effectivelyPinned,
-                click: () => {
+                click: async () => {
                     if (this.app.tabs.includes(tab)) {
-                        this.app.closeTab(tab, true)
+                        this.app.closeTab(tab, true, false, false, 'contextMenu')
                     } else {
+                        if (this.config.store.contextMenu?.confirmContextMenuClose && !await this.confirmPaneClose(tab)) {
+                            return
+                        }
                         tab.destroy()
                     }
                 },
@@ -46,33 +98,31 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
             items = [
                 ...items,
                 {
+                    id: 'close-other',
                     label: this.translate.instant('Close other tabs'),
                     click: () => {
-                        for (const t of this.app.tabs.filter(x => x !== tab)) {
-                            this.app.closeTab(t, true)
-                        }
+                        this.closeMultiple(this.app.tabs.filter(x => x !== tab))
                     },
                 },
                 {
+                    id: 'close-right',
                     label: this.translate.instant('Close tabs to the right'),
                     click: () => {
-                        for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
-                            this.app.closeTab(t, true)
-                        }
+                        this.closeMultiple(this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1))
                     },
                 },
                 {
+                    id: 'close-left',
                     label: this.translate.instant('Close tabs to the left'),
                     click: () => {
-                        for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
-                            this.app.closeTab(t, true)
-                        }
+                        this.closeMultiple(this.app.tabs.slice(0, this.app.tabs.indexOf(tab)))
                     },
                 },
             ]
         } else if (tab.parent instanceof SplitTabComponent) {
             const directions: SplitDirection[] = ['r', 'b', 'l', 't']
             items.push({
+                id: 'split',
                 label: this.translate.instant('Split'),
                 submenu: directions.map(dir => ({
                     label: {
@@ -118,6 +168,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
             items = [
                 ...items,
                 {
+                    id: 'rename',
                     label: this.translate.instant('Rename'),
                     commandLabel: this.translate.instant('Rename tab'),
                     click: () => {
@@ -125,11 +176,13 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                     },
                 },
                 {
+                    id: 'duplicate',
                     label: this.translate.instant('Duplicate'),
                     commandLabel: this.translate.instant('Duplicate tab'),
                     click: () => this.app.duplicateTab(tab),
                 },
                 {
+                    id: 'pin',
                     label: this.translate.instant('Pin'),
                     commandLabel: this.translate.instant('Pin tab'),
                     type: 'checkbox',
@@ -137,6 +190,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                     click: () => this.app.toggleTabPinned(tab),
                 },
                 {
+                    id: 'color',
                     label: this.translate.instant('Color'),
                     commandLabel: this.translate.instant('Change tab color'),
                     sublabel: currentColor ? this.translate.instant(currentColor) : undefined,
@@ -153,6 +207,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
 
             if (tab instanceof SplitTabComponent && tab.getAllTabs().length > 1) {
                 items.push({
+                    id: 'save-layout-as-profile',
                     label: this.translate.instant('Save layout as profile'),
                     click: async () => {
                         const modal = this.ngbModal.open(PromptModalComponent)
@@ -192,6 +247,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
                 label: this.translate.instant('Current process: {name}', process),
             })
             items.push({
+                id: 'notify-done',
                 label: this.translate.instant('Notify when done'),
                 type: 'checkbox',
                 checked: extTab.__completionNotificationEnabled,
@@ -214,6 +270,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
             })
         }
         items.push({
+            id: 'notify-activity',
             label: this.translate.instant('Notify on activity'),
             type: 'checkbox',
             checked: !!extTab.__outputNotificationSubscription,
@@ -295,6 +352,7 @@ export class ProfilesContextMenu extends TabContextMenuItemProvider {
         if (tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
             return [
                 {
+                    id: 'switch-profile',
                     label: this.translate.instant('Switch profile'),
                     click: () => this.switchTabProfile(tab),
                 },
@@ -302,5 +360,34 @@ export class ProfilesContextMenu extends TabContextMenuItemProvider {
         }
 
         return []
+    }
+}
+
+/** @hidden */
+@Injectable()
+export class CoreContextMenuItemDefinitions extends ContextMenuItemDefinitionProvider {
+    constructor (private translate: TranslateService) {
+        super()
+    }
+
+    getItems (): ContextMenuItemDefinition[] {
+        // Weights below mirror their real provider's `weight`:
+        // TabManagementContextMenu=99, CommonOptionsContextMenu=-1,
+        // TaskCompletionContextMenu=0 (default), ProfilesContextMenu=10.
+        return [
+            { id: 'close', name: this.translate.instant('Close'), weight: 99 },
+            { id: 'close-other', name: this.translate.instant('Close other tabs'), weight: 99 },
+            { id: 'close-right', name: this.translate.instant('Close tabs to the right'), weight: 99 },
+            { id: 'close-left', name: this.translate.instant('Close tabs to the left'), weight: 99 },
+            { id: 'split', name: this.translate.instant('Split'), weight: 99 },
+            { id: 'rename', name: this.translate.instant('Rename'), scope: 'tab', weight: -1 },
+            { id: 'duplicate', name: this.translate.instant('Duplicate'), scope: 'tab', weight: -1 },
+            { id: 'pin', name: this.translate.instant('Pin'), scope: 'tab', weight: -1 },
+            { id: 'color', name: this.translate.instant('Color'), scope: 'tab', weight: -1 },
+            { id: 'save-layout-as-profile', name: this.translate.instant('Save layout as profile'), scope: 'tab', weight: -1 },
+            { id: 'notify-done', name: this.translate.instant('Notify when done'), weight: 0 },
+            { id: 'notify-activity', name: this.translate.instant('Notify on activity'), weight: 0 },
+            { id: 'switch-profile', name: this.translate.instant('Switch profile'), weight: 10 },
+        ]
     }
 }

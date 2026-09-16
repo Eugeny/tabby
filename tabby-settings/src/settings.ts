@@ -4,6 +4,7 @@ import { HotkeySettingsTabComponent } from './components/hotkeySettingsTab.compo
 import { WindowSettingsTabComponent } from './components/windowSettingsTab.component'
 import { VaultSettingsTabComponent } from './components/vaultSettingsTab.component'
 import { ConfigSyncSettingsTabComponent } from './components/configSyncSettingsTab.component'
+import { ContextMenuSettingsTabComponent } from './components/contextMenuSettingsTab.component'
 import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.component'
 import { TranslateService } from 'tabby-core'
 
@@ -76,5 +77,19 @@ export class ConfigSyncSettingsTabProvider extends SettingsTabProvider {
 
     getComponentType (): any {
         return ConfigSyncSettingsTabComponent
+    }
+}
+
+/** @hidden */
+@Injectable()
+export class ContextMenuSettingsTabProvider extends SettingsTabProvider {
+    id = 'contextMenu'
+    icon = 'list'
+    title = this.translate.instant('Context menus')
+
+    constructor (private translate: TranslateService) { super() }
+
+    getComponentType (): any {
+        return ContextMenuSettingsTabComponent
     }
 }
