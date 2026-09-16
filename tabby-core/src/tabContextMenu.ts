@@ -376,9 +376,9 @@ export class CoreContextMenuItemDefinitions extends ContextMenuItemDefinitionPro
         // TaskCompletionContextMenu=0 (default), ProfilesContextMenu=10.
         return [
             { id: 'close', name: this.translate.instant('Close'), weight: 99 },
-            { id: 'close-other', name: this.translate.instant('Close other tabs'), weight: 99 },
-            { id: 'close-right', name: this.translate.instant('Close tabs to the right'), weight: 99 },
-            { id: 'close-left', name: this.translate.instant('Close tabs to the left'), weight: 99 },
+            { id: 'close-other', name: this.translate.instant('Close other tabs'), scope: 'tab', weight: 99 },
+            { id: 'close-right', name: this.translate.instant('Close tabs to the right'), scope: 'tab', weight: 99 },
+            { id: 'close-left', name: this.translate.instant('Close tabs to the left'), scope: 'tab', weight: 99 },
             { id: 'split', name: this.translate.instant('Split'), weight: 99 },
             { id: 'rename', name: this.translate.instant('Rename'), scope: 'tab', weight: -1 },
             { id: 'duplicate', name: this.translate.instant('Duplicate'), scope: 'tab', weight: -1 },

@@ -1,3 +1,10 @@
+.context-menu-editor-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
 .context-menu-editor {
     display: flex;
     align-items: stretch;

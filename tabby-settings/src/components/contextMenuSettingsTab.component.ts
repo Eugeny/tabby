@@ -63,6 +63,14 @@ export class ContextMenuEditorSection {
     selectedEnabled = new Set<number>()
     selectedDisabled = new Set<string>()
 
+    /**
+     * Remembers, for each currently-disabled item id, the id of the enabled
+     * item that immediately followed it at the moment it was disabled (or
+     * `null` if it was last). Used so re-enabling an item puts it back where
+     * it came from instead of always appending it to the end of the list.
+     */
+    private originalNextId = new Map<string, string | null>()
+
     constructor (
         public title: string,
         private allItems: ContextMenuItemRow[],
@@ -126,6 +134,11 @@ export class ContextMenuEditorSection {
         ]
     }
 
+    /** Whether this menu currently has any customization (used to enable/disable the "Restore defaults" button). */
+    get isCustomized (): boolean {
+        return this.getDisabledIds().length > 0 || this.getOrder().length > 0
+    }
+
     private persist (): void {
         // Disabled = any real item that's not currently present in
         // `enabledRows`. Deriving it this way (rather than from the
@@ -161,21 +174,62 @@ export class ContextMenuEditorSection {
         if (!this.selectedEnabled.size) {
             return
         }
+        this.rememberPositions(this.selectedEnabled)
         this.enabledRows = this.enabledRows.filter((_, i) => !this.selectedEnabled.has(i))
         this.selectedEnabled.clear()
         this.persist()
     }
 
     disableItem (index: number): void {
+        this.rememberPositions(new Set([index]))
         this.enabledRows.splice(index, 1)
         this.selectedEnabled.clear()
         this.persist()
     }
 
     disableAll (): void {
+        this.rememberPositions(new Set(this.enabledRows.map((_, i) => i)))
         this.enabledRows = []
         this.selectedEnabled.clear()
         this.persist()
+    }
+
+    /** Clears all customization for this menu (disabled items, order, and dividers) back to defaults. */
+    restoreDefaults (): void {
+        this.originalNextId.clear()
+        this.selectedEnabled.clear()
+        this.selectedDisabled.clear()
+        this.setDisabledIds([])
+        this.setOrder([])
+        this.refresh()
+    }
+
+    /**
+     * Records, for each real item at the given indices (dividers are
+     * skipped, they have no id to restore by), the id of the next
+     * surviving row after it in `enabledRows` -- i.e. the row that will
+     * still be there once this batch of removals completes -- so it can be
+     * re-inserted in the same spot later.
+     */
+    private rememberPositions (indices: Set<number>): void {
+        const snapshot = this.enabledRows
+        for (const i of indices) {
+            const id = snapshot[i].id
+            if (id === null) {
+                continue
+            }
+            let nextId: string | null = null
+            for (let j = i + 1; j < snapshot.length; j++) {
+                if (indices.has(j)) {
+                    continue
+                }
+                if (snapshot[j].id !== null) {
+                    nextId = snapshot[j].id
+                    break
+                }
+            }
+            this.originalNextId.set(id, nextId)
+        }
     }
 
     enableSelected (): void {
@@ -198,20 +252,50 @@ export class ContextMenuEditorSection {
         if (!ids.length) {
             return
         }
-        const anchor = this.selectedEnabled.size === 1 ? [...this.selectedEnabled][0] : null
-        const newRows: EnabledRow[] = ids.map(id => id === DIVIDER_PLACEHOLDER_ID
-            ? { id: null, name: this.formattedDividerName }
-            : { id, name: this.allItems.find(x => x.id === id)?.name ?? id })
-        const insertAt = anchor !== null ? anchor + 1 : this.enabledRows.length
-        this.enabledRows = [
-            ...this.enabledRows.slice(0, insertAt),
-            ...newRows,
-            ...this.enabledRows.slice(insertAt),
-        ]
+        const explicitAnchor = this.selectedEnabled.size === 1 ? [...this.selectedEnabled][0] : null
+        const insertedIndices: number[] = []
+
+        if (explicitAnchor !== null) {
+            // The user has a single enabled row selected: treat it as an
+            // explicit "insert here" anchor for the whole batch.
+            const newRows: EnabledRow[] = ids.map(id => this.makeRow(id))
+            const insertAt = explicitAnchor + 1
+            this.enabledRows = [
+                ...this.enabledRows.slice(0, insertAt),
+                ...newRows,
+                ...this.enabledRows.slice(insertAt),
+            ]
+            newRows.forEach((_, i) => insertedIndices.push(insertAt + i))
+        } else {
+            // No explicit anchor: restore each item to where it was before
+            // it was disabled (i.e. right before whatever item used to
+            // follow it), falling back to the end of the list if that
+            // item is no longer there (or was never known).
+            for (const id of ids) {
+                const row = this.makeRow(id)
+                const nextId = this.originalNextId.get(id)
+                const anchorIndex = nextId !== undefined && nextId !== null
+                    ? this.enabledRows.findIndex(r => r.id === nextId)
+                    : -1
+                const insertAt = anchorIndex >= 0 ? anchorIndex : this.enabledRows.length
+                this.enabledRows.splice(insertAt, 0, row)
+                insertedIndices.push(insertAt)
+            }
+        }
+
+        for (const id of ids) {
+            this.originalNextId.delete(id)
+        }
         this.selectedDisabled.clear()
         // Select the newly-inserted row(s) so they're highlighted and can be scrolled into view.
-        this.selectedEnabled = new Set(newRows.map((_, i) => insertAt + i))
+        this.selectedEnabled = new Set(insertedIndices)
         this.persist()
+    }
+
+    private makeRow (id: string): EnabledRow {
+        return id === DIVIDER_PLACEHOLDER_ID
+            ? { id: null, name: this.formattedDividerName }
+            : { id, name: this.allItems.find(x => x.id === id)?.name ?? id }
     }
 
     moveEnabledUp (): void {
