@@ -26,7 +26,14 @@ export class PowerShellCoreShellProvider extends WindowsBaseShellProvider {
             return []
         }
 
-        const pwshPath = wnr.getRegistryValue(wnr.HK.LM, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '')
+        const pwshPath =
+            wnr?.getRegistryValue(wnr.HK.LM, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '') ||
+            wnr?.getRegistryValue(wnr.HK.CU, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '') ||
+            await this.findExecutable([
+                `${process.env.USERPROFILE}\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe`,
+                `${process.env.ProgramFiles}\\PowerShell\\7\\pwsh.exe`,
+                `${process.env['ProgramFiles(x86)']}\\PowerShell\\7\\pwsh.exe`,
+            ], 'pwsh.exe')
 
         if (!pwshPath) {
             return []

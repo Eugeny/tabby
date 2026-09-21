@@ -14,7 +14,7 @@ import { ShowSecretModalComponent } from './showSecretModal.component'
 export class VaultSettingsTabComponent extends BaseComponent {
     vaultContents: Vault|null = null
     VAULT_SECRET_TYPE_FILE = VAULT_SECRET_TYPE_FILE
-
+    searchTerm = ''
     @HostBinding('class.content-box') true
 
     constructor (
@@ -32,6 +32,13 @@ export class VaultSettingsTabComponent extends BaseComponent {
 
     async loadVault (): Promise<void> {
         this.vaultContents = await this.vault.load()
+    }
+
+    get filteredSecrets (): VaultSecret[] {
+        const term = this.searchTerm.toLowerCase()
+        return this.vaultContents?.secrets.filter(
+            secret => this.getSecretLabel(secret).toLowerCase().includes(term),
+        ) ?? []
     }
 
     async enableVault () {

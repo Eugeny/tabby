@@ -1,6 +1,4 @@
 import * as path from 'path'
-import * as fs from 'fs/promises'
-import * as which from 'which'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform, ConfigService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
@@ -41,7 +39,7 @@ export class WindowsStockShellsProvider extends WindowsBaseShellProvider {
                 `clink_${process.arch}.exe`,
             )
         }
-        return [
+        const shells: Shell[] = [
             {
                 id: 'clink',
                 name: 'CMD (clink)',
@@ -62,39 +60,24 @@ export class WindowsStockShellsProvider extends WindowsBaseShellProvider {
                 icon: require('../icons/cmd.svg'),
                 shellType: 'cmd',
             },
-            {
+        ]
+
+        const powershellPath = await this.findExecutable([
+            `${process.env.SystemRoot}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`,
+            `${process.env.SystemRoot}\\System32\\powershell.exe`,
+        ], 'powershell.exe')
+        if (powershellPath) {
+            shells.push({
                 id: 'powershell',
                 name: 'PowerShell',
-                command: await this.getPowerShellPath(),
+                command: powershellPath,
                 args: ['-nologo'],
                 icon: require('../icons/powershell.svg'),
                 env: this.getEnvironment(),
                 shellType: 'powershell',
-            },
-        ]
-    }
+            })
+        }
 
-    private async getPowerShellPath () {
-        // Check well-known paths first to avoid slow PATH scanning via `which`
-        for (const psPath of [
-            `${process.env.USERPROFILE}\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe`,
-            `${process.env.ProgramFiles}\\PowerShell\\7\\pwsh.exe`,
-            `${process.env['ProgramFiles(x86)']}\\PowerShell\\7\\pwsh.exe`,
-            `${process.env.SystemRoot}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`,
-            `${process.env.SystemRoot}\\System32\\powershell.exe`,
-        ]) {
-            try {
-                await fs.stat(psPath)
-                return psPath
-            } catch { }
-        }
-        // Fall back to PATH search only if not found in standard locations
-        for (const name of ['pwsh.exe', 'powershell.exe']) {
-            const found = await which(name, { nothrow: true })
-            if (found) {
-                return found
-            }
-        }
-        return 'powershell.exe'
+        return shells
     }
 }

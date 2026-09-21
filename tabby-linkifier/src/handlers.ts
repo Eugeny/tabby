@@ -93,7 +93,7 @@ export class UnixFileHandler extends BaseFileHandler {
 
 @Injectable()
 export class WindowsFileHandler extends BaseFileHandler {
-    regex = /(([a-zA-Z]:|\\|~)\\[\w\-()\\\.]{1,1024}|"([a-zA-Z]:|\\)\\[\w\s\-()\\\.]{1,1024}")/
+    regex = /(([a-zA-Z]:|\\|~)[\\/][\w\-()\\/.]{1,1024}|"([a-zA-Z]:|\\)[\\/][\w\s\-()\\/.]{1,1024}")/
 
     constructor (
         protected toastr: ToastrService,
