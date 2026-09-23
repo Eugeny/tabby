@@ -5,3 +5,26 @@ sftp-panel {
     bottom: 0;
     z-index: 5;
 }
+
+.reconnect-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .5);
+}
+
+.reconnect-dialog {
+    min-width: 320px;
+    max-width: 480px;
+    padding: 20px 24px;
+    border-radius: 6px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+}
+
+.reconnect-message {
+    user-select: text;
+    word-break: break-word;
+}
