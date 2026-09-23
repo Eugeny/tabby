@@ -570,6 +570,12 @@ export class SSHSession {
 
             const channel = await this.ssh.activateChannel(newChannel)
 
+            if (!this.profile.options.agentForward) {
+                this.logger.warn('Rejecting unsolicited agent channel: agent forwarding is disabled')
+                await channel.close()
+                return
+            }
+
             const spec = await this.getAgentConnectionSpec()
             if (!spec) {
                 await channel.close()
