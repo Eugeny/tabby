@@ -108,7 +108,7 @@ async function getCandidateLocationsInPluginDir (pluginDir: any): Promise<{ plug
             })
         }
 
-        const promises: Promise<void>[] = [];
+        const promises: Promise<void>[] = []
 
         for (const packageName of pluginNames) {
             if ((packageName.startsWith(PLUGIN_PREFIX) || packageName.startsWith(LEGACY_PLUGIN_PREFIX)) && !PLUGIN_BLACKLIST.includes(packageName)) {
