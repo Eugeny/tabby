@@ -59,7 +59,18 @@ export class SSHShellSession extends BaseSession {
         })
 
         this.shell.eof$.subscribe(() => {
-            this.logger.info('Shell session ended')
+            this.logger.info('Shell session ended (EOF)')
+            if (this.open) {
+                this.destroy()
+            }
+        })
+
+        // The server is not required to send CHANNEL_EOF before CHANNEL_CLOSE -
+        // whether it does is timing-dependent (e.g. when a `sudo` child process
+        // delays the pty EOF), so rely on the channel close as well, otherwise
+        // the session sometimes stays open after the remote shell has exited.
+        this.shell.closed$.subscribe(() => {
+            this.logger.info('Shell session ended (channel closed)')
             if (this.open) {
                 this.destroy()
             }
