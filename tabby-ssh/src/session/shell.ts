@@ -4,6 +4,7 @@ import { Injector } from '@angular/core'
 import { LogService } from 'tabby-core'
 import { BaseSession, UTF8SplitterMiddleware, InputProcessor } from 'tabby-terminal'
 import { SSHSession } from './ssh'
+import { openShellChannelForProfile } from './shellChannel'
 import { SSHProfile } from '../api'
 import * as russh from 'russh'
 
@@ -40,7 +41,7 @@ export class SSHShellSession extends BaseSession {
         this.logger.debug('Opening shell')
 
         try {
-            this.shell = await this.ssh.openShellChannel({ x11: this.profile.options.x11 })
+            this.shell = await openShellChannelForProfile(this.ssh, this.profile)
         } catch (err) {
             if (err.toString().includes('Unable to request X11')) {
                 this.emitServiceMessage('    Make sure `xauth` is installed on the remote side')
@@ -63,6 +64,12 @@ export class SSHShellSession extends BaseSession {
                 this.destroy()
             }
         })
+
+        // Must run after the output subscriptions above are wired, otherwise the
+        // command echo and anything the remote prints in response is dropped.
+        if (this.profile.options.cwd) {
+            this.changeInitialDirectory(this.profile.options.cwd)
+        }
     }
 
     emitServiceMessage (msg: string): void {
@@ -104,6 +111,11 @@ export class SSHShellSession extends BaseSession {
 
     async gracefullyKillProcess (): Promise<void> {
         this.kill('TERM')
+    }
+
+    private changeInitialDirectory (dir: string): void {
+        // The leading space keeps the command out of shell history on shells with HISTCONTROL=ignorespace
+        this.write(Buffer.from(` cd -- '${dir.replace(/'/g, `'\\''`)}'\n`))
     }
 
     supportsWorkingDirectory (): boolean {

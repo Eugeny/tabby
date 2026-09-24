@@ -141,7 +141,8 @@ export class Window {
             if (
                 (this.configStore.appearance?.dock ?? 'off') !== 'off' &&
                 this.configStore.appearance?.dockHideOnBlur &&
-                !BrowserWindow.getFocusedWindow()
+                !BrowserWindow.getFocusedWindow() &&
+                this.window.isEnabled()
             ) {
                 this.hide()
             }
@@ -385,6 +386,7 @@ export class Window {
         })
 
         this.window.on('focus', () => {
+            this.window.flashFrame(false)
             this.send('host:window-focused')
             // Re-apply acrylic on Win11 when window gains focus
             if (isWindows11 && this.lastVibrancy?.enabled) {
@@ -469,7 +471,7 @@ export class Window {
             return { action: 'deny' }
         })
 
-        ipcMain.on('window-set-disable-vibrancy-while-dragging', (_event, value) => {
+        this.on('window-set-disable-vibrancy-while-dragging', (_event, value) => {
             this.disableVibrancyWhileDragging = value && this.configStore.hacks?.disableVibrancyWhileDragging
         })
 
@@ -489,16 +491,22 @@ export class Window {
         this.window.on('move', onBoundsChange)
         this.window.on('resize', onBoundsChange)
 
-        ipcMain.on('window-set-traffic-light-position', (_event, x, y) => {
-            this.window.setWindowButtonPosition({ x, y })
+        this.on('window-set-traffic-light-position', (_event, x, y) => {
+            this.window?.setWindowButtonPosition({ x, y })
         })
 
-        ipcMain.on('window-set-opacity', (_event, opacity) => {
-            this.window.setOpacity(opacity)
+        this.on('window-set-opacity', (_event, opacity) => {
+            this.window?.setOpacity(opacity)
         })
 
         this.on('window-set-progress-bar', (_, value) => {
             this.window?.setProgressBar(value, { mode: value < 0 ? 'none' : 'normal' })
+        })
+
+        this.on('window-flash-frame', () => {
+            if (this.window && !this.window.isFocused()) {
+                this.window.flashFrame(true)
+            }
         })
     }
 

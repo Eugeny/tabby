@@ -1,7 +1,10 @@
 import deepEqual from 'deep-equal'
 import { BehaviorSubject, filter, firstValueFrom, fromEvent, takeUntil } from 'rxjs'
 import { Injector } from '@angular/core'
-import { ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService, Platform, PlatformService, TerminalColorScheme, ThemesService } from 'tabby-core'
+import {
+    ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService,
+    Platform, PlatformService, TerminalColorScheme, ThemesService,
+} from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
@@ -21,6 +24,28 @@ const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
     'brightBlack', 'brightRed', 'brightGreen', 'brightYellow', 'brightBlue', 'brightMagenta', 'brightCyan', 'brightWhite',
 ]
+
+// Fcitx5 applies Chinese punctuation during the browser's default text-input
+// processing. If xterm handles these keys on keydown, it calls preventDefault()
+// before Fcitx5 can emit the converted keypress/input event.
+const LINUX_IME_TEXT_KEY_CODES = new Set([
+    'Backquote',
+    'Backslash',
+    'BracketLeft',
+    'BracketRight',
+    'Comma',
+    'Period',
+    'Quote',
+    'Semicolon',
+    'Slash',
+])
+
+function isIMETextKey (event: KeyboardEvent): boolean {
+    if (event.ctrlKey || event.altKey || event.metaKey) {
+        return false
+    }
+    return LINUX_IME_TEXT_KEY_CODES.has(event.code) || event.code === 'Space' && event.shiftKey
+}
 
 // How many times to recreate the WebGL renderer after a lost GPU context
 // before giving up and letting xterm fall back to its DOM renderer.
@@ -85,6 +110,20 @@ export class XTermFrontend extends Frontend {
     private canvasAddon?: CanvasAddon
     private opened = false
     private resizeObserver?: any
+    private hostEventHandlers?: {
+        wheel: (event: WheelEvent) => void
+        dragOver: (event: Event) => void
+        drop: (event: Event) => void
+        mousedown: (event: Event) => void
+        mouseup: (event: Event) => void
+        mousewheel: (event: Event) => void
+        contextmenu: (event: Event) => void
+    }
+
+    private resizeTimeout?: ReturnType<typeof setTimeout>
+    private resizeAnimationFrame?: number
+    private resizePending = false
+    private disposed = false
     private flowControl: FlowControl
     private pinnedToBottom = true
     private pendingRendererRecovery = false
@@ -95,6 +134,10 @@ export class XTermFrontend extends Frontend {
     private platformService: PlatformService
     private hostApp: HostAppService
     private themes: ThemesService
+
+    private isAttachActive (): boolean {
+        return !this.disposed && this.opened
+    }
 
     constructor (injector: Injector) {
         super(injector)
@@ -115,6 +158,23 @@ export class XTermFrontend extends Frontend {
         })
         this.flowControl = new FlowControl(this.xterm)
         this.xtermCore = this.xterm['_core']
+
+        // xterm.js#6054 does this in _keyDown itself. Keep the workaround at
+        // that boundary so Shift cannot overwrite a previous keydown's state.
+        const oldKeyDown = this.xtermCore._keyDown.bind(this.xtermCore)
+        this.xtermCore._keyDown = (event: KeyboardEvent) => {
+            if (this.hostApp.platform !== Platform.Windows || event.key !== 'Shift' && event.keyCode !== 16) {
+                return oldKeyDown(event)
+            }
+
+            // Sogou can commit preedit text when Shift switches to English.
+            // Preserve the existing value so Shift itself does not arm
+            // xterm's input fallback guard.
+            const keyDownSeen = this.xtermCore._keyDownSeen
+            const result = oldKeyDown(event)
+            this.xtermCore._keyDownSeen = keyDownSeen
+            return result
+        }
 
         this.xterm.onBinary(data => {
             this.input.next(Buffer.from(data, 'binary'))
@@ -198,7 +258,20 @@ export class XTermFrontend extends Frontend {
                 return false
             }
 
-            return keyboardEventHandler('keydown', event)
+            const handled = keyboardEventHandler('keydown', event)
+            if (!handled) {
+                // a hotkey claimed the event and already cancelled it
+                return false
+            }
+
+            if (this.hostApp.platform === Platform.Linux && isIMETextKey(event)) {
+                // Returning false keeps xterm from sending/cancelling keydown.
+                // The resulting keypress/input event contains either the IME
+                // commit string or the original character when IME is inactive.
+                return false
+            }
+
+            return handled
         })
 
         this.xtermCore._scrollToBottom = this.xtermCore.scrollToBottom.bind(this.xtermCore)
@@ -253,23 +326,29 @@ export class XTermFrontend extends Frontend {
         // always running a trailing fit keeps the final size correct without
         // outrunning the renderer. Tune RESIZE_MIN_INTERVAL if needed.
         const RESIZE_MIN_INTERVAL = 32
-        let resizePending = false
         let lastResize = 0
         const runResize = () => {
-            resizePending = false
+            this.resizeAnimationFrame = undefined
+            this.resizePending = false
+            if (!this.isAttachActive()) {
+                return
+            }
             lastResize = Date.now()
             doResize()
         }
         this.resizeHandler = () => {
-            if (resizePending) {
+            if (this.resizePending) {
                 return
             }
-            resizePending = true
+            this.resizePending = true
             const wait = Math.max(0, RESIZE_MIN_INTERVAL - (Date.now() - lastResize))
             if (wait > 0) {
-                setTimeout(() => requestAnimationFrame(runResize), wait)
+                this.resizeTimeout = setTimeout(() => {
+                    this.resizeTimeout = undefined
+                    this.resizeAnimationFrame = requestAnimationFrame(runResize)
+                }, wait)
             } else {
-                requestAnimationFrame(runResize)
+                this.resizeAnimationFrame = requestAnimationFrame(runResize)
             }
         }
 
@@ -297,6 +376,9 @@ export class XTermFrontend extends Frontend {
     }
 
     async attach (host: HTMLElement, profile: BaseTerminalProfile): Promise<void> {
+        if (this.disposed) {
+            return
+        }
         this.element = host
 
         this.xterm.open(host)
@@ -304,6 +386,9 @@ export class XTermFrontend extends Frontend {
 
         // Work around font loading bugs
         await new Promise(resolve => setTimeout(resolve, this.hostApp.platform === Platform.Web ? 1000 : 0))
+        if (!this.isAttachActive()) {
+            return
+        }
 
         // Just configure the colors to avoid a flash
         this.configureColors(profile.terminalColorScheme)
@@ -327,6 +412,9 @@ export class XTermFrontend extends Frontend {
 
         // Allow an animation frame
         await new Promise(r => setTimeout(r, 100))
+        if (!this.isAttachActive()) {
+            return
+        }
 
         this.ready.next()
         this.ready.complete()
@@ -349,20 +437,23 @@ export class XTermFrontend extends Frontend {
 
         // Allow an animation frame
         await new Promise(r => setTimeout(r, 0))
+        if (!this.isAttachActive()) {
+            return
+        }
 
         // User-initiated scroll detection: only wheel and keyboard events
         // should unpin. xterm.onScroll is content-driven only and must never
         // unpin (see constructor comment). Use capture phase — xterm.js
         // handles wheel/key events on its internal viewport element and may
         // stop propagation, so bubbling listeners on host would never fire.
-        host.addEventListener('wheel', (event: WheelEvent) => {
+        const wheelHandler = (event: WheelEvent) => {
             // Immediately unpin on scroll-up so that writes arriving before
             // the next animation frame don't yank the viewport back down.
             if (event.deltaY < 0) {
                 this.pinnedToBottom = false
             }
             requestAnimationFrame(() => this.updatePinnedState())
-        }, { capture: true, passive: true })
+        }
 
 
         this.hotkeysService.hotkey$
@@ -384,31 +475,71 @@ export class XTermFrontend extends Frontend {
                 ].includes(hk)) {
                     this.pinnedToBottom = false
                 }
+
                 requestAnimationFrame(() => this.updatePinnedState())
             })
 
-        host.addEventListener('dragOver', (event: any) => this.dragOver.next(event))
-        host.addEventListener('drop', event => this.drop.next(event))
+        this.hostEventHandlers = {
+            wheel: wheelHandler,
+            dragOver: event => this.dragOver.next(event as DragEvent),
+            drop: event => this.drop.next(event as DragEvent),
+            mousedown: event => this.mouseEvent.next(event as MouseEvent),
+            mouseup: event => this.mouseEvent.next(event as MouseEvent),
+            mousewheel: event => this.mouseEvent.next(event as MouseEvent),
+            contextmenu: event => {
+                event.preventDefault()
+                event.stopPropagation()
+            },
+        }
 
-        host.addEventListener('mousedown', event => this.mouseEvent.next(event))
-        host.addEventListener('mouseup', event => this.mouseEvent.next(event))
-        host.addEventListener('mousewheel', event => this.mouseEvent.next(event as MouseEvent))
-        host.addEventListener('contextmenu', event => {
-            event.preventDefault()
-            event.stopPropagation()
-        })
+        host.addEventListener('wheel', this.hostEventHandlers.wheel, { capture: true, passive: true })
+        host.addEventListener('dragOver', this.hostEventHandlers.dragOver)
+        host.addEventListener('drop', this.hostEventHandlers.drop)
+        host.addEventListener('mousedown', this.hostEventHandlers.mousedown)
+        host.addEventListener('mouseup', this.hostEventHandlers.mouseup)
+        host.addEventListener('mousewheel', this.hostEventHandlers.mousewheel)
+        host.addEventListener('contextmenu', this.hostEventHandlers.contextmenu)
 
         this.resizeObserver = new window['ResizeObserver'](() => this.resizeHandler())
         this.resizeObserver.observe(host)
     }
 
     detach (_host: HTMLElement): void {
+        const host = this.element
         window.removeEventListener('resize', this.resizeHandler)
+        if (this.resizeTimeout !== undefined) {
+            clearTimeout(this.resizeTimeout)
+            this.resizeTimeout = undefined
+        }
+        if (this.resizeAnimationFrame !== undefined) {
+            cancelAnimationFrame(this.resizeAnimationFrame)
+            this.resizeAnimationFrame = undefined
+        }
+        this.resizePending = false
+        if (host && this.hostEventHandlers) {
+            host.removeEventListener('wheel', this.hostEventHandlers.wheel, true)
+            host.removeEventListener('dragOver', this.hostEventHandlers.dragOver)
+            host.removeEventListener('drop', this.hostEventHandlers.drop)
+            host.removeEventListener('mousedown', this.hostEventHandlers.mousedown)
+            host.removeEventListener('mouseup', this.hostEventHandlers.mouseup)
+            host.removeEventListener('mousewheel', this.hostEventHandlers.mousewheel)
+            host.removeEventListener('contextmenu', this.hostEventHandlers.contextmenu)
+            this.hostEventHandlers = undefined
+        }
         this.resizeObserver?.disconnect()
-        delete this.resizeObserver
+        this.resizeObserver = undefined
+        this.opened = false
+        this.element = undefined
     }
 
     destroy (): void {
+        if (this.disposed) {
+            return
+        }
+        this.disposed = true
+        if (this.element) {
+            this.detach(this.element)
+        }
         super.destroy()
         this.webGLAddon?.dispose()
         this.canvasAddon?.dispose()

@@ -50,7 +50,6 @@ const config = {
         'node-pty': 'commonjs node-pty',
         path: 'commonjs path',
         util: 'commonjs util',
-        'source-map-support': 'commonjs source-map-support',
         'windows-swca': 'commonjs windows-swca',
         'windows-native-registry': 'commonjs windows-native-registry',
         '@tabby-gang/windows-blurbehind': 'commonjs @tabby-gang/windows-blurbehind',
