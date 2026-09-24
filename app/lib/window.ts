@@ -137,7 +137,7 @@ export class Window {
                 (this.configStore.appearance?.dock ?? 'off') !== 'off' &&
                 this.configStore.appearance?.dockHideOnBlur &&
                 !BrowserWindow.getFocusedWindow() &&
-                this.window.isEnabled()
+                this.window?.isEnabled()
             ) {
                 this.hide()
             }
@@ -394,7 +394,7 @@ export class Window {
         })
 
         this.window.on('focus', () => {
-            this.window.flashFrame(false)
+            this.window?.flashFrame(false)
             this.send('host:window-focused')
             // Re-apply acrylic on Win11 when window gains focus
             if (isWindows11 && this.lastVibrancy?.enabled) {
