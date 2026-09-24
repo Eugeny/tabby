@@ -1,6 +1,6 @@
 import * as fs from 'mz/fs'
 import { Injector } from '@angular/core'
-import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
+import { HostAppService, ConfigService, WIN_BUILD_BUNDLED_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { SessionOptions, ChildProcess, PTYInterface, PTYProxy } from './api'
 import { getEnvironment, substituteEnv } from './environment'
@@ -108,17 +108,29 @@ export class Session extends BaseSession {
 
             const cwd = explicitCWD ?? usableCWD(process.env.HOME)
 
+            const ptyOptions = {
+                name: 'xterm-256color',
+                cols: options.width ?? 80,
+                rows: options.height ?? 30,
+                encoding: null,
+                cwd,
+                env: env,
+                // node-pty's bundled ConPTY passes VT mouse tracking through to fullscreen TUIs,
+                // which the one built into Windows swallows. It needs Windows 10 2004+.
+                useConptyDll: this.config.store.terminal.useConPTY && isWindowsBuild(WIN_BUILD_BUNDLED_CONPTY_SUPPORTED),
+            }
+
             try {
-                pty = await this.ptyInterface.spawn(options.command, args, {
-                    name: 'xterm-256color',
-                    cols: options.width ?? 80,
-                    rows: options.height ?? 30,
-                    encoding: null,
-                    cwd,
-                    env: env,
-                    // `1` instead of `true` forces ConPTY even if unstable
-                    useConpty: isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false,
-                })
+                try {
+                    pty = await this.ptyInterface.spawn(options.command, args, ptyOptions)
+                } catch (error) {
+                    if (!ptyOptions.useConptyDll) {
+                        throw error
+                    }
+                    // A missing or blocked conpty.dll must not cost the user their terminal
+                    this.logger.warn('Bundled ConPTY failed, retrying with the built-in one:', error)
+                    pty = await this.ptyInterface.spawn(options.command, args, { ...ptyOptions, useConptyDll: false })
+                }
             } catch (error) {
                 this.logger.error('Could not spawn the shell:', error)
                 this.emitOutput(Buffer.from(`\r\nCould not start ${options.command}:\r\n${error.message}\r\n`))
