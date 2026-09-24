@@ -81,9 +81,9 @@ test('selects only methods advertised by the server', () => {
     assert.equal(method?.type, 'keyboard-interactive')
 })
 
-test('stops when the server advertises no remaining methods', () => {
+test('stops when it runs out of methods to try', () => {
     const plan = updateAuthPlanAfterFailure(
-        [{ type: 'publickey' }] satisfies Method[],
+        [] satisfies Method[],
         {
             partialSuccess: false,
             remainingMethods: [],
@@ -94,4 +94,14 @@ test('stops when the server advertises no remaining methods', () => {
 
     assert.deepEqual(plan.allowedMethods, [])
     assert.equal(selectNextAuthMethod(plan.remainingMethods, plan.allowedMethods, authType), undefined)
+})
+
+test('tries everything when the server advertises no methods at all', () => {
+    const method = selectNextAuthMethod<Method>(
+        [{ type: 'publickey' }, { type: 'password' }],
+        [],
+        authType,
+    )
+
+    assert.equal(method?.type, 'publickey')
 })

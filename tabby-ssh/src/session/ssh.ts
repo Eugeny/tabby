@@ -674,7 +674,9 @@ export class SSHSession {
                 (authType): AuthMethod|null => authType === 'keyboard-interactive' ? { type: 'keyboard-interactive' } : null,
             )
             remainingMethods = plan.remainingMethods
-            methodsLeft = plan.allowedMethods
+            if (plan.allowedMethods.length) {
+                methodsLeft = plan.allowedMethods
+            }
         }
 
         while (true) {

@@ -13,6 +13,9 @@ export function selectNextAuthMethod<T> (
     allowedMethods: readonly string[],
     getAuthType: (method: T) => string,
 ): T|undefined {
+    if (!allowedMethods.length) {
+        return remainingMethods[0]
+    }
     return remainingMethods.find(method => allowedMethods.includes(getAuthType(method)))
 }
 
