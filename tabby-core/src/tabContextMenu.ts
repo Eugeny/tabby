@@ -113,7 +113,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
 
     async getItems (tab: BaseTabComponent, tabHeader?: boolean): Promise<MenuItemOptions[]> {
         let items: MenuItemOptions[] = []
-        if (!tabHeader && tab.parent instanceof SplitTabComponent) {
+        if (!tabHeader && tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
             items.push({
                 label: this.translate.instant('Rename pane'),
                 click: () => {
