@@ -34,7 +34,7 @@ export class KeyboardInteractiveAuthComponent implements OnInit {
 
     async ngOnInit (): Promise<void> {
         const savedPassword = await this.passwordStorage.loadPassword(this.profile)
-        if (savedPassword) {
+        if (savedPassword != null) {
             for (let i = 0; i < this.prompt.prompts.length; i++) {
                 if (this.prompt.isAPasswordPrompt(i) && !this.prompt.responses[i]) {
                     this.prompt.responses[i] = savedPassword
