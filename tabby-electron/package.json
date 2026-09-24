@@ -22,11 +22,11 @@
     "tabby-local": "*"
   },
   "devDependencies": {
-    "electron-promise-ipc": "^2.2.4",
+    "electron-promise-ipc": "^2",
     "ps-node": "^0.1.6",
-    "ssh-config": "^5.0.0",
-    "tmp-promise": "^3.0.2",
-    "which": "^3.0.0",
-    "winston": "^3.3.3"
+    "ssh-config": "^5",
+    "tmp-promise": "^3",
+    "which": "^3",
+    "winston": "^3"
   }
 }

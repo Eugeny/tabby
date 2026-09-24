@@ -69,7 +69,7 @@ export type ProgressCallback = (current: number, total: number) => void
 export function initModuleLookup (userPluginsPath: string): void {
     global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
 
-    const paths = []
+    const paths: string[] = []
     paths.unshift(path.join(userPluginsPath, 'node_modules'))
     paths.unshift(path.join(remote.app.getAppPath(), 'node_modules'))
 
@@ -83,7 +83,13 @@ export function initModuleLookup (userPluginsPath: string): void {
         process.env.TABBY_PLUGINS.split(':').map(x => paths.push(normalizePath(x)))
     }
 
-    process.env.NODE_PATH += path.delimiter + paths.join(path.delimiter)
+    // An inherited NODE_PATH (e.g. Tabby leaks its own into the shells it spawns,
+    // so a dev build started from a Tabby terminal would load the installed app's
+    // builtin plugins instead of the working copy) must never take precedence.
+    const inheritedNodePath = (process.env.NODE_PATH ?? '')
+        .split(path.delimiter)
+        .filter(x => x && x !== 'undefined')
+    process.env.NODE_PATH = [...paths, ...inheritedNodePath].join(path.delimiter)
     nodeModule._initPaths()
 
     builtinModules.forEach(m => {
@@ -108,7 +114,7 @@ async function getCandidateLocationsInPluginDir (pluginDir: any): Promise<{ plug
             })
         }
 
-        const promises = []
+        const promises: Promise<void>[] = []
 
         for (const packageName of pluginNames) {
             if ((packageName.startsWith(PLUGIN_PREFIX) || packageName.startsWith(LEGACY_PLUGIN_PREFIX)) && !PLUGIN_BLACKLIST.includes(packageName)) {
@@ -128,10 +134,10 @@ async function getCandidateLocationsInPluginDir (pluginDir: any): Promise<{ plug
     return candidateLocations
 }
 
-async function getPluginCandidateLocation (paths: any): Promise<{ pluginDir: string, packageName: string }[]> {
+async function getPluginCandidateLocation (paths: string[]): Promise<{ pluginDir: string, packageName: string }[]> {
     const candidateLocationsPromises: Promise<{ pluginDir: string, packageName: string }[]>[] = []
 
-    const processedPaths = []
+    const processedPaths: string[] = []
 
     for (let pluginDir of paths) {
         if (processedPaths.includes(pluginDir)) {
@@ -228,7 +234,7 @@ export async function findPlugins (): Promise<PluginInfo[]> {
 
 export async function loadPlugins (foundPlugins: PluginInfo[], progress: ProgressCallback): Promise<any[]> {
     const plugins: any[] = []
-    const pluginsPromises: Promise<any>[] = []
+    const pluginsPromises: Promise<void>[] = []
 
     let index = 0
     const setProgress = function () {
@@ -239,6 +245,9 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
     progress(0, 1)
     for (const foundPlugin of foundPlugins) {
         pluginsPromises.push(new Promise(x => {
+            if (!foundPlugin.path) {
+                return
+            }
             console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
             try {
                 const packageModule = nodeRequire(foundPlugin.path)
