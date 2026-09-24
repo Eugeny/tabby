@@ -91,7 +91,7 @@ if (!app.requestSingleInstanceLock()) {
 
 app.on('ready', async () => {
     if (process.platform === 'darwin') {
-        app.dock.setMenu(Menu.buildFromTemplate([
+        app.dock?.setMenu(Menu.buildFromTemplate([
             {
                 label: 'New window',
                 click () {

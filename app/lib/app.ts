@@ -219,7 +219,7 @@ export class Application {
             return
         }
         this.tray?.destroy()
-        this.tray = null
+        this.tray = undefined
     }
 
     hasWindows (): boolean {
@@ -374,7 +374,7 @@ export class Application {
         ]
 
         if (process.env.TABBY_DEV) {
-            template[2].submenu['unshift']({ role: 'reload' })
+            template[2].submenu!['unshift']({ role: 'reload' })
         }
 
         Menu.setApplicationMenu(Menu.buildFromTemplate(template))
