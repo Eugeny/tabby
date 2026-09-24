@@ -18,6 +18,7 @@ import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
 import { requestShellPTY, SSHShellChannelOptions } from './shellChannel'
 import * as russh from 'russh'
+import { selectNextAuthMethod, updateAuthPlanAfterFailure } from './authMethodSelection'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -665,15 +666,21 @@ export class SSHSession {
         let remainingMethods = [...this.allAuthMethods]
         let methodsLeft = noneResult.remainingMethods
 
-        function maybeSetRemainingMethods (r: russh.AuthFailure) {
-            if (r.remainingMethods.length) {
-                methodsLeft = r.remainingMethods
+        const updateAuthPlan = (failure: russh.AuthFailure) => {
+            const plan = updateAuthPlanAfterFailure(
+                remainingMethods,
+                failure,
+                sshAuthTypeForMethod,
+                (authType): AuthMethod|null => authType === 'keyboard-interactive' ? { type: 'keyboard-interactive' } : null,
+            )
+            remainingMethods = plan.remainingMethods
+            if (plan.allowedMethods.length) {
+                methodsLeft = plan.allowedMethods
             }
         }
 
         while (true) {
-            const m = methodsLeft
-            const method = remainingMethods.find(x => m.length === 0 || m.includes(sshAuthTypeForMethod(x)))
+            const method = selectNextAuthMethod(remainingMethods, methodsLeft, sshAuthTypeForMethod)
 
             if (this.previouslyDisconnected || !method) {
                 return null
@@ -687,7 +694,7 @@ export class SSHSession {
                 if (result instanceof russh.AuthenticatedSSHClient) {
                     return result
                 }
-                maybeSetRemainingMethods(result)
+                updateAuthPlan(result)
             }
             if (method.type === 'prompt-password') {
                 const modal = this.ngbModal.open(PromptModalComponent)
@@ -709,7 +716,7 @@ export class SSHSession {
                         if (result instanceof russh.AuthenticatedSSHClient) {
                             return result
                         }
-                        maybeSetRemainingMethods(result)
+                        updateAuthPlan(result)
                     } else {
                         continue
                     }
@@ -725,7 +732,7 @@ export class SSHSession {
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
-                    maybeSetRemainingMethods(result)
+                    updateAuthPlan(result)
                 } catch (e) {
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.name}: ${e}`)
                     continue
@@ -736,7 +743,7 @@ export class SSHSession {
 
                 while (true) {
                     if (state.state === 'failure') {
-                        maybeSetRemainingMethods(state)
+                        updateAuthPlan(state)
                         break
                     }
 
@@ -785,7 +792,7 @@ export class SSHSession {
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
-                    maybeSetRemainingMethods(result)
+                    updateAuthPlan(result)
                 } catch (e) {
                     const identitySuffix = method.publicKey ? ` with identity ${method.publicKey.fingerprint()}` : ''
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent${identitySuffix}: ${e}`)
