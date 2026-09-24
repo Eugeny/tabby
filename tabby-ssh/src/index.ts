@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 import { NgxFilesizeModule } from 'ngx-filesize'
-import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, TabContextMenuItemProvider, ProfileProvider } from 'tabby-core'
+import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, TabContextMenuItemProvider, ProfileProvider, ContextMenuItemDefinitionProvider } from 'tabby-core'
 import { SettingsTabProvider } from 'tabby-settings'
 import TabbyTerminalModule from 'tabby-terminal'
 
@@ -22,7 +22,7 @@ import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 import { SSHHotkeyProvider } from './hotkeys'
-import { SFTPContextMenu } from './tabContextMenu'
+import { SFTPContextMenu, SSHContextMenuItemDefinitions } from './tabContextMenu'
 import { SSHProfilesService } from './profiles'
 import { SFTPContextMenuItemProvider } from './api/contextMenu'
 import { CommonSFTPContextMenu } from './sftpContextMenu'
@@ -45,6 +45,7 @@ import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirect
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SSHHotkeyProvider, multi: true },
         { provide: TabContextMenuItemProvider, useClass: SFTPContextMenu, multi: true },
+        { provide: ContextMenuItemDefinitionProvider, useClass: SSHContextMenuItemDefinitions, multi: true },
         { provide: ProfileProvider, useExisting: SSHProfilesService, multi: true },
         { provide: SFTPContextMenuItemProvider, useClass: CommonSFTPContextMenu, multi: true },
     ],

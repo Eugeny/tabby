@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { TranslateService } from '@ngx-translate/core'
 import { Observable, Subject, AsyncSubject, takeUntil, debounceTime } from 'rxjs'
 
 import { BaseTabComponent } from '../components/baseTab.component'
@@ -10,6 +11,7 @@ import { RecoveryToken } from '../api/tabRecovery'
 import { BootstrapData, BOOTSTRAP_DATA } from '../api/mainProcess'
 import { HostWindowService } from '../api/hostWindow'
 import { HostAppService } from '../api/hostApp'
+import { PlatformService } from '../api/platform'
 
 import { ConfigService } from './config.service'
 import { TabRecoveryService } from './tabRecovery.service'
@@ -95,6 +97,8 @@ export class AppService {
         private tabsService: TabsService,
         private selector: SelectorService,
         private ngbModal: NgbModal,
+        private platform: PlatformService,
+        private translate: TranslateService,
         @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         this.tabsChanged$.subscribe(() => {
@@ -488,7 +492,7 @@ export class AppService {
         this.tabsChanged.next()
     }
 
-    async closeTab (tab: BaseTabComponent, checkCanClose?: boolean, ignorePinned = false): Promise<void> {
+    async closeTab (tab: BaseTabComponent, checkCanClose?: boolean, ignorePinned = false, skipConfirmation = false, source: 'tab' | 'contextMenu' = 'tab'): Promise<void> {
         if (!this.tabs.includes(tab)) {
             return
         }
@@ -498,12 +502,38 @@ export class AppService {
         if (checkCanClose && !await tab.canClose()) {
             return
         }
+        const confirmSetting = source === 'contextMenu'
+            ? this.config.store.contextMenu?.confirmContextMenuClose
+            : this.config.store.contextMenu?.confirmTabClose
+        if (checkCanClose && !skipConfirmation && confirmSetting) {
+            if (!await this.confirmTabClose(tab)) {
+                return
+            }
+        }
         const token = await this.tabRecovery.getFullRecoveryToken(tab, { includeState: true })
         if (token) {
             this.closedTabsStack.push(token)
             this.closedTabsStack = this.closedTabsStack.slice(-5)
         }
         tab.destroy()
+    }
+
+    /**
+     * Shows a confirmation prompt before closing a tab/session.
+     * Returns true if the user confirmed the close.
+     */
+    private async confirmTabClose (tab: BaseTabComponent): Promise<boolean> {
+        const result = await this.platform.showMessageBox({
+            type: 'warning',
+            message: this.translate.instant('Close "{name}"?', { name: tab.title }),
+            buttons: [
+                this.translate.instant('Close'),
+                this.translate.instant('Cancel'),
+            ],
+            defaultId: 0,
+            cancelId: 1,
+        })
+        return result.response === 0
     }
 
     async duplicateTab (tab: BaseTabComponent): Promise<BaseTabComponent|null> {

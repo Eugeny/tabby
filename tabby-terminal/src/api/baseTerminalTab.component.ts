@@ -3,7 +3,7 @@ import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined } from 'tabby-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined, filterContextMenuItems, applyContextMenuOrder } from 'tabby-core'
 
 import { BaseSession } from '../session'
 
@@ -484,13 +484,21 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     }
 
     async buildContextMenu (): Promise<MenuItemOptions[]> {
+        const disabledIds = this.config.store.contextMenu?.disabledPaneItems ?? []
+        const order = this.config.store.contextMenu?.paneItemsOrder ?? []
         let items: MenuItemOptions[] = []
-        for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this)))) {
+        for (let section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this)))) {
+            section = filterContextMenuItems(section, disabledIds)
+            if (!section.length) {
+                continue
+            }
             items = items.concat(section)
             items.push({ type: 'separator' })
         }
-        items.splice(items.length - 1, 1)
-        return items
+        if (items.length) {
+            items.splice(items.length - 1, 1)
+        }
+        return applyContextMenuOrder(items, order)
     }
 
     /**

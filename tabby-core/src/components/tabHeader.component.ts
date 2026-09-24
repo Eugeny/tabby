@@ -11,6 +11,7 @@ import { ConfigService } from '../services/config.service'
 import { BaseComponent } from './base.component'
 import { MenuItemOptions } from '../api/menu'
 import { PlatformService } from '../api/platform'
+import { filterContextMenuItems, applyContextMenuOrder } from '../utils'
 
 /** @hidden */
 @Component({
@@ -56,9 +57,15 @@ export class TabHeaderComponent extends BaseComponent {
     }
 
     async buildContextMenu (): Promise<MenuItemOptions[]> {
+        const disabledIds = this.config.store.contextMenu?.disabledTabItems ?? []
+        const order = this.config.store.contextMenu?.tabItemsOrder ?? []
         let items: MenuItemOptions[] = []
         // Top-level tab menu
-        for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this.tab, true)))) {
+        for (let section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this.tab, true)))) {
+            section = filterContextMenuItems(section, disabledIds)
+            if (!section.length) {
+                continue
+            }
             items.push({ type: 'separator' })
             items = items.concat(section)
         }
@@ -66,6 +73,7 @@ export class TabHeaderComponent extends BaseComponent {
             const tab = this.tab.getFocusedTab()
             if (tab) {
                 for (let section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(tab, true)))) {
+                    section = filterContextMenuItems(section, disabledIds)
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
                     section = section.filter(item => !items.some(ex => ex.label === item.label))
                     if (section.length) {
@@ -75,7 +83,8 @@ export class TabHeaderComponent extends BaseComponent {
                 }
             }
         }
-        return items.slice(1)
+        items = items.slice(1)
+        return applyContextMenuOrder(items, order)
     }
 
     onTabDragStart (tab: BaseTabComponent) {

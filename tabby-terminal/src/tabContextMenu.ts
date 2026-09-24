@@ -1,6 +1,6 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile, ContextMenuItemDefinitionProvider, ContextMenuItemDefinition } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
@@ -27,6 +27,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
         if (tab instanceof BaseTerminalTabComponent) {
             return [
                 {
+                    id: 'copy',
                     label: this.translate.instant('Copy'),
                     click: (): void => {
                         setTimeout(() => {
@@ -36,6 +37,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
                     },
                 },
                 {
+                    id: 'paste',
                     label: this.translate.instant('Paste'),
                     click: () => tab.paste(),
                 },
@@ -59,6 +61,7 @@ export class MiscContextMenu extends TabContextMenuItemProvider {
         const items: MenuItemOptions[] = []
         if (tab instanceof BaseTerminalTabComponent && tab.enableToolbar && !tab.pinToolbar) {
             items.push({
+                id: 'show-toolbar',
                 label: this.translate.instant('Show toolbar'),
                 click: () => {
                     tab.pinToolbar = true
@@ -67,11 +70,13 @@ export class MiscContextMenu extends TabContextMenuItemProvider {
         }
         if (tab instanceof BaseTerminalTabComponent && tab.session?.supportsWorkingDirectory()) {
             items.push({
+                id: 'copy-current-path',
                 label: this.translate.instant('Copy current path'),
                 click: () => tab.copyCurrentPath(),
             })
         }
         items.push({
+            id: 'focus-all-tabs',
             label: this.translate.instant('Focus all tabs'),
             click: () => {
                 this.multifocus.focusAllTabs()
@@ -79,6 +84,7 @@ export class MiscContextMenu extends TabContextMenuItemProvider {
         })
         if (tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
             items.push({
+                id: 'focus-all-panes',
                 label: this.translate.instant('Focus all panes'),
                 click: () => {
                     this.multifocus.focusAllPanes()
@@ -103,6 +109,7 @@ export class ReconnectContextMenu extends TabContextMenuItemProvider {
         if (tab instanceof ConnectableTerminalTabComponent) {
             return [
                 {
+                    id: 'disconnect',
                     label: this.translate.instant('Disconnect'),
                     click: (): void => {
                         setTimeout(() => {
@@ -112,6 +119,7 @@ export class ReconnectContextMenu extends TabContextMenuItemProvider {
                     },
                 },
                 {
+                    id: 'reconnect',
                     label: this.translate.instant('Reconnect'),
                     click: (): void => {
                         setTimeout(() => {
@@ -170,6 +178,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         if (tab instanceof BaseTerminalTabComponent) {
             return [
                 {
+                    id: 'save-as-profile',
                     label: this.translate.instant('Save as profile'),
                     click: async () => {
                         const modal = this.ngbModal.open(PromptModalComponent)
@@ -212,6 +221,31 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         }
 
         return []
+    }
+}
+
+/** @hidden */
+@Injectable()
+export class TerminalContextMenuItemDefinitions extends ContextMenuItemDefinitionProvider {
+    constructor (private translate: TranslateService) {
+        super()
+    }
+
+    getItems (): ContextMenuItemDefinition[] {
+        // Weights below mirror their real provider's `weight`:
+        // CopyPasteContextMenu=-10, MiscContextMenu=1, ReconnectContextMenu=1,
+        // LegacyContextMenu=1 (n/a here), SaveAsProfileContextMenu=0 (default).
+        return [
+            { id: 'copy', name: this.translate.instant('Copy'), scope: 'pane', weight: -10 },
+            { id: 'paste', name: this.translate.instant('Paste'), scope: 'pane', weight: -10 },
+            { id: 'show-toolbar', name: this.translate.instant('Show toolbar'), weight: 1 },
+            { id: 'copy-current-path', name: this.translate.instant('Copy current path'), weight: 1 },
+            { id: 'focus-all-tabs', name: this.translate.instant('Focus all tabs'), weight: 1 },
+            { id: 'focus-all-panes', name: this.translate.instant('Focus all panes'), weight: 1 },
+            { id: 'disconnect', name: this.translate.instant('Disconnect'), weight: 1 },
+            { id: 'reconnect', name: this.translate.instant('Reconnect'), weight: 1 },
+            { id: 'save-as-profile', name: this.translate.instant('Save as profile'), weight: 0 },
+        ]
     }
 }
 

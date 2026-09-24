@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import { Injectable } from '@angular/core'
-import { MenuItemOptions, NotificationsService, TranslateService } from 'tabby-core'
+import { MenuItemOptions, NotificationsService, TranslateService, ContextMenuItemDefinitionProvider, ContextMenuItemDefinition } from 'tabby-core'
 import { BaseTerminalTabComponent, TerminalContextMenuItemProvider } from 'tabby-terminal'
 import { ElectronService } from './services/electron.service'
 
@@ -20,6 +20,7 @@ export class ExportTerminalContextMenu extends TerminalContextMenuItemProvider {
     async getItems (tab: BaseTerminalTabComponent<any>): Promise<MenuItemOptions[]> {
         return [
             {
+                id: 'export-to-file',
                 label: this.translate.instant('Export to file'),
                 click: async () => {
                     const frontend = tab.frontend
@@ -39,6 +40,23 @@ export class ExportTerminalContextMenu extends TerminalContextMenuItemProvider {
                     this.notifications.info(this.translate.instant('Saved to {path}', { path: result.filePath }))
                 },
             },
+        ]
+    }
+}
+
+/** @hidden */
+@Injectable()
+export class ElectronContextMenuItemDefinitions extends ContextMenuItemDefinitionProvider {
+    constructor (private translate: TranslateService) {
+        super()
+    }
+
+    getItems (): ContextMenuItemDefinition[] {
+        // Weight mirrors LegacyContextMenu's real `weight = 1` (the wrapper
+        // that actually places this item at runtime, not
+        // ExportTerminalContextMenu's own unused weight).
+        return [
+            { id: 'export-to-file', name: this.translate.instant('Export to file'), weight: 1 },
         ]
     }
 }
