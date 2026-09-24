@@ -3,6 +3,7 @@ import * as crypto from 'crypto'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import * as shellQuote from 'shell-quote'
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, FileProvidersService, NotificationsService, PromptModalComponent, LogService, Logger, TranslateService, Platform, HostAppService } from 'tabby-core'
@@ -502,7 +503,7 @@ export class SSHSession {
             const fw = Object.assign(new ForwardedPort(), fwConfig)
             this.addPortForward(fw).catch(e => {
                 this.notifications.error(
-                    this.translate.instant('Failed to forward port {fw}', { fw: fw.toString() }),
+                    this.translate.instant(_('Failed to forward port {fw}'), { fw: fw.toString() }),
                     e.toString(),
                 )
             })
@@ -521,7 +522,7 @@ export class SSHSession {
 
             const forward = this.forwardedPorts.find(x => x.port === event.targetPort && x.host === event.targetAddress)
             if (!forward) {
-                this.logger.warn(`Rejected incoming forwarded connection for unrecognized port ${event.targetAddress}:${event.targetPort}`)
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Rejected incoming forwarded connection for unrecognized port ${event.targetAddress}:${event.targetPort}`)
                 channel.close()
                 return
             }
@@ -864,7 +865,7 @@ export class SSHSession {
             if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
                 throw new Error('Cannot remove remote port forward before auth')
             }
-            this.ssh.stopForwardingTCPPort(fw.host, fw.port)
+            await this.ssh.stopForwardingTCPPort(fw.host, fw.port)
             this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
         }
         this.logger.info(`Stopped forwarding ${fw}`)

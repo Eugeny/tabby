@@ -148,7 +148,7 @@ msgid "Connect to \"%s\"..."
 msgstr ""
 
 #: tabby-serial/src/components/serialTab.component.ts:60
-#: tabby-ssh/src/components/sshTab.component.ts:138
+#: tabby-ssh/src/components/sshTab.component.ts:141
 #: tabby-telnet/src/components/telnetTab.component.ts:54
 msgid "Connecting"
 msgstr ""
@@ -188,6 +188,10 @@ msgstr ""
 
 #: tabby-core/src/services/config.service.ts:500
 msgid "Could not decrypt config"
+msgstr ""
+
+#: tabby-ssh/src/components/sshTab.component.ts:114
+msgid "Could not set up port forward on {host}"
 msgstr ""
 
 #: tabby-ssh/src/sftpContextMenu.ts:30
@@ -258,7 +262,7 @@ msgstr ""
 msgid "Delete vault contents?"
 msgstr ""
 
-#: tabby-ssh/src/components/sshTab.component.ts:226
+#: tabby-ssh/src/components/sshTab.component.ts:229
 #: tabby-telnet/src/components/telnetTab.component.ts:83
 #: tabby-terminal/src/api/connectableTerminalTab.component.ts:36
 #: tabby-terminal/src/tabContextMenu.ts:106
@@ -270,7 +274,7 @@ msgstr ""
 msgid "Disconnect current tab (Serial/Telnet/SSH)"
 msgstr ""
 
-#: tabby-ssh/src/components/sshTab.component.ts:224
+#: tabby-ssh/src/components/sshTab.component.ts:227
 #: tabby-telnet/src/components/telnetTab.component.ts:81
 msgid "Disconnect from {host}?"
 msgstr ""
@@ -279,7 +283,7 @@ msgstr ""
 msgid "Do not abort"
 msgstr ""
 
-#: tabby-ssh/src/components/sshTab.component.ts:227
+#: tabby-ssh/src/components/sshTab.component.ts:230
 #: tabby-telnet/src/components/telnetTab.component.ts:84
 msgid "Do not close"
 msgstr ""
@@ -344,6 +348,15 @@ msgstr ""
 
 #: tabby-electron/src/terminalContextMenu.ts:23
 msgid "Export to file"
+msgstr ""
+
+#: tabby-ssh/src/components/sshPortForwardingModal.component.ts:28
+#: tabby-ssh/src/session/ssh.ts:506
+msgid "Failed to forward port {fw}"
+msgstr ""
+
+#: tabby-ssh/src/components/sshPortForwardingModal.component.ts:38
+msgid "Failed to stop forwarding {fw}"
 msgstr ""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:103
@@ -424,6 +437,10 @@ msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:54
 msgid "Force LF"
+msgstr ""
+
+#: tabby-ssh/src/components/sshPortForwardingModal.component.ts:26
+msgid "Forwarded {fw}"
 msgstr ""
 
 #: tabby-core/src/utils.ts:62
@@ -1066,6 +1083,10 @@ msgstr ""
 msgid "SSH password for {user}@{host}:{port}"
 msgstr ""
 
+#: tabby-ssh/src/components/sshPortForwardingModal.component.ts:36
+msgid "Stopped forwarding {fw}"
+msgstr ""
+
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:52
 msgid "Strip"
 msgstr ""
@@ -1177,7 +1198,7 @@ msgstr ""
 msgid "User default"
 msgstr ""
 
-#: tabby-ssh/src/session/ssh.ts:692
+#: tabby-ssh/src/session/ssh.ts:701
 msgid "Using saved password"
 msgstr ""
 

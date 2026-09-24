@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, Input } from '@angular/core'
 import { NotificationsService, TranslateService } from 'tabby-core'
 import { ForwardedPort } from '../session/forwards'
@@ -22,9 +23,9 @@ export class SSHPortForwardingModalComponent {
         Object.assign(newForward, fw)
         try {
             await this.session.addPortForward(newForward)
-            this.notifications.info(this.translate.instant('Forwarded {fw}', { fw: newForward.toString() }))
+            this.notifications.info(this.translate.instant(_('Forwarded {fw}'), { fw: newForward.toString() }))
         } catch (e) {
-            this.notifications.error(this.translate.instant('Failed to forward port {fw}', { fw: newForward.toString() }), e.toString())
+            this.notifications.error(this.translate.instant(_('Failed to forward port {fw}'), { fw: newForward.toString() }), e.toString())
         }
     }
 
@@ -32,9 +33,9 @@ export class SSHPortForwardingModalComponent {
         const fw = fwConfig as ForwardedPort
         try {
             await this.session.removePortForward(fw)
-            this.notifications.notice(this.translate.instant('Stopped forwarding {fw}', { fw: fw.toString() }))
+            this.notifications.notice(this.translate.instant(_('Stopped forwarding {fw}'), { fw: fw.toString() }))
         } catch (e) {
-            this.notifications.error(this.translate.instant('Failed to stop forwarding {fw}', { fw: fw.toString() }), e.toString())
+            this.notifications.error(this.translate.instant(_('Failed to stop forwarding {fw}'), { fw: fw.toString() }), e.toString())
         }
     }
 }

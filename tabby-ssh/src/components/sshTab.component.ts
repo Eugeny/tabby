@@ -111,7 +111,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                     })
                 } catch (err) {
                     this.notifications.error(
-                        this.translate.instant('Could not set up port forward on {host}', { host: jumpConnection.name }),
+                        this.translate.instant(_('Could not set up port forward on {host}'), { host: jumpConnection.name }),
                         err.toString(),
                     )
                     throw err
