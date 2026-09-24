@@ -110,7 +110,10 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                         originatorPort: 0,
                     })
                 } catch (err) {
-                    jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
+                    this.notifications.error(
+                        this.translate.instant(_('Could not set up port forward on {host}'), { host: jumpConnection.name }),
+                        err.toString(),
+                    )
                     throw err
                 }
             }

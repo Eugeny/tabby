@@ -3,6 +3,7 @@ import * as crypto from 'crypto'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import * as shellQuote from 'shell-quote'
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, FileProvidersService, NotificationsService, PromptModalComponent, LogService, Logger, TranslateService, Platform, HostAppService } from 'tabby-core'
@@ -498,8 +499,14 @@ export class SSHSession {
             this.passwordStorage.savePassword(this.profile, this.savedPassword, this.authUsername ?? undefined)
         }
 
-        for (const fw of this.profile.options.forwardedPorts) {
-            this.addPortForward(Object.assign(new ForwardedPort(), fw))
+        for (const fwConfig of this.profile.options.forwardedPorts) {
+            const fw = Object.assign(new ForwardedPort(), fwConfig)
+            this.addPortForward(fw).catch(e => {
+                this.notifications.error(
+                    this.translate.instant(_('Failed to forward port {fw}'), { fw: fw.toString() }),
+                    e.toString(),
+                )
+            })
         }
 
         this.open = true
@@ -524,7 +531,7 @@ export class SSHSession {
             socket.connect(forward.targetPort, forward.targetAddress)
             socket.on('error', e => {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
+                this.logger.warn(`Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
                 channel.close()
             })
 
@@ -818,7 +825,7 @@ export class SSHSession {
                     originatorAddress: sourceAddress ?? '127.0.0.1',
                     originatorPort: sourcePort ?? 0,
                 }).catch(err => {
-                    this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
+                    this.logger.warn(`Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
                     reject()
                     throw err
                 }))
@@ -826,10 +833,10 @@ export class SSHSession {
 
                 this.setupSocketChannelEvents(channel, socket, 'Local forward')
             }).then(() => {
-                this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwarded ${fw}`)
+                this.logger.info(`Forwarded ${fw}`)
                 this.forwardedPorts.push(fw)
             }).catch(e => {
-                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Failed to forward port ${fw}: ${e}`)
+                this.logger.error(`Failed to forward port ${fw}: ${e}`)
                 throw e
             })
         }
@@ -841,10 +848,10 @@ export class SSHSession {
                 await this.ssh.forwardTCPPort(fw.host, fw.port)
             } catch (err) {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
-                return
+                this.logger.error(`Remote rejected port forwarding for ${fw}: ${err}`)
+                throw err
             }
-            this.emitServiceMessage(colors.bgGreen.black(' <- ') + ` Forwarded ${fw}`)
+            this.logger.info(`Forwarded ${fw}`)
             this.forwardedPorts.push(fw)
         }
     }
@@ -858,10 +865,10 @@ export class SSHSession {
             if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
                 throw new Error('Cannot remove remote port forward before auth')
             }
-            this.ssh.stopForwardingTCPPort(fw.host, fw.port)
+            await this.ssh.stopForwardingTCPPort(fw.host, fw.port)
             this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
         }
-        this.emitServiceMessage(`Stopped forwarding ${fw}`)
+        this.logger.info(`Stopped forwarding ${fw}`)
     }
 
     async destroy (): Promise<void> {
