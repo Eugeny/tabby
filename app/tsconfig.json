@@ -15,6 +15,7 @@
         "noFallthroughCasesInSwitch": true,
         "noUnusedParameters": true,
         "noUnusedLocals": true,
+        "strictNullChecks": true,
         "lib": [
            "dom",
            "es2015",

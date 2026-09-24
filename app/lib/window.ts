@@ -83,8 +83,8 @@ export class Window {
             const [left2, top2, right2, bottom2] = [closestDisplay.bounds.x, closestDisplay.bounds.y, closestDisplay.bounds.x + closestDisplay.bounds.width, closestDisplay.bounds.y + closestDisplay.bounds.height]
 
             if ((left2 > right1 || right2 < left1 || top2 > bottom1 || bottom2 < top1) && !maximized) {
-                bwOptions.x = closestDisplay.bounds.width / 2 - bwOptions.width / 2
-                bwOptions.y = closestDisplay.bounds.height / 2 - bwOptions.height / 2
+                bwOptions.x = closestDisplay.bounds.width / 2 - bwOptions.width! / 2
+                bwOptions.y = closestDisplay.bounds.height / 2 - bwOptions.height! / 2
             }
         }
 

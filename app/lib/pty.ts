@@ -44,11 +44,11 @@ class PTYDataQueue {
                 return
             }
 
-            const buffersToSend = []
+            const buffersToSend: Buffer[] = []
             let totalLength = 0
             while (totalLength < this.maxChunk && this.buffers.length) {
                 totalLength += this.buffers[0].length
-                buffersToSend.push(this.buffers.shift())
+                buffersToSend.push(this.buffers.shift()!)
             }
 
             if (buffersToSend.length === 0) {
