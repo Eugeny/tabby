@@ -1702,7 +1702,11 @@ msgid "Release notes"
 msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
-msgid "Remember for {time}"
+msgid "Remember for {time} while Tabby is open"
+msgstr ""
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:12
+msgid "The master passphrase is kept in memory only. Closing Tabby requires unlocking the vault again."
 msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:41
