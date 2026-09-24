@@ -2,8 +2,9 @@ import deepEqual from 'deep-equal'
 import { BehaviorSubject, filter, firstValueFrom, fromEvent, takeUntil } from 'rxjs'
 import { Injector } from '@angular/core'
 import {
-    ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService,
+    ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService, isWindowsBuild,
     Platform, PlatformService, TerminalColorScheme, ThemesService,
+    WIN_BUILD_BUNDLED_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_REFLOW_SUPPORTED,
 } from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from '@xterm/xterm'
@@ -153,7 +154,9 @@ export class XTermFrontend extends Frontend {
             overviewRulerWidth: 8,
             windowsPty: process.platform === 'win32' ? {
                 backend: this.configService.store.terminal.useConPTY ? 'conpty' : 'winpty',
-                buildNumber: getWindows10Build(),
+                buildNumber: this.configService.store.terminal.useConPTY && isWindowsBuild(WIN_BUILD_BUNDLED_CONPTY_SUPPORTED)
+                    ? WIN_BUILD_CONPTY_REFLOW_SUPPORTED
+                    : getWindows10Build(),
             } : undefined,
         })
         this.flowControl = new FlowControl(this.xterm)
