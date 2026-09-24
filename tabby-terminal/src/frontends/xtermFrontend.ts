@@ -264,7 +264,7 @@ export class XTermFrontend extends Frontend {
                 return false
             }
 
-            if (this.hostApp.platform === Platform.Linux && isIMETextKey(event)) {
+            if (event.type === 'keydown' && this.hostApp.platform === Platform.Linux && isIMETextKey(event)) {
                 // Returning false keeps xterm from sending/cancelling keydown.
                 // The resulting keypress/input event contains either the IME
                 // commit string or the original character when IME is inactive.
