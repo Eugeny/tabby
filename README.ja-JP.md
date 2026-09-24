@@ -370,6 +370,7 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/balajieswaramoorthi"><img src="https://avatars.githubusercontent.com/u/212661894?v=4?s=100" width="100px;" alt="Balaji Eswaramoorthi"/><br /><sub><b>Balaji Eswaramoorthi</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=balajieswaramoorthi" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/linzack"><img src="https://avatars.githubusercontent.com/u/8398628?v=4?s=100" width="100px;" alt="linzack"/><br /><sub><b>linzack</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=linzack" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/anseltaft"><img src="https://avatars.githubusercontent.com/u/5069775?v=4?s=100" width="100px;" alt="Ansel Taft"/><br /><sub><b>Ansel Taft</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=anseltaft" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/cofedish"><img src="https://avatars.githubusercontent.com/u/57003706?v=4?s=100" width="100px;" alt="cofedish"/><br /><sub><b>cofedish</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=cofedish" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
