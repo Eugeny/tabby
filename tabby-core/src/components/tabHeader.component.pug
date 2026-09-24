@@ -12,6 +12,9 @@ profile-icon(
     [color]='tab.color ?? undefined'
 )
 
+.pin-indicator(*ngIf='tab.pinned')
+    i.fas.fa-thumbtack
+
 .name(
     [class.no-hover]='config.store.terminal.hideCloseButton && config.store.terminal.hideTabOptionsButton'
     cdkDrag,
@@ -24,6 +27,6 @@ profile-icon(
 .buttons
     button(*ngIf='!config.store.terminal.hideTabOptionsButton',(click)='onContextMenu($event)') !{require('../icons/tab-options.svg')}
 
-    button(*ngIf='!config.store.terminal.hideCloseButton',(click)='app.closeTab(tab, true)') &times;
+    button(*ngIf='!config.store.terminal.hideCloseButton && !tab.effectivelyPinned',(click)='app.closeTab(tab, true)') &times;
 
 ng-content

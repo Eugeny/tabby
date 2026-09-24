@@ -22,7 +22,8 @@ export class MultiHotkeyInputComponent {
         this.hotkeys = this.hotkeys.map(hotkey => typeof hotkey.strokes === 'string' ? { ...hotkey, strokes: [hotkey.strokes] } : hotkey)
     }
 
-    editItem (index: number): void {
+    editItem (index: number, event?: MouseEvent): void {
+        if (event && event.button !== 0) { return } // Ignore non-left clicks
         this.ngbModal.open(HotkeyInputModalComponent).result.then((newStrokes: string[]) => {
             if (this.hotkeys[index]) {
                 this.hotkeys[index].strokes = newStrokes
@@ -38,7 +39,8 @@ export class MultiHotkeyInputComponent {
         })
     }
 
-    removeItem (index: number): void {
+    removeItem (index: number, event?: MouseEvent): void {
+        if (event && event.button !== 0) { return } // Ignore non-left clicks
         this.hotkeys = this.hotkeys.filter((_, i) => i !== index)
         this.storeUpdatedHotkeys()
     }

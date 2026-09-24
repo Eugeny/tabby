@@ -71,6 +71,18 @@ export class ProfilesService {
         return new ConfigProxy(profile, defaults) as any
     }
 
+    /*
+    * Re-resolve provider/group defaults into an existing ConfigProxy, so a long-lived
+    * profile picks up config changes. Pass the same options the proxy was built with.
+    */
+    refreshConfigProxyForProfile <T extends Profile> (profile: FullyDefined<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): FullyDefined<T> {
+        if (profile instanceof ConfigProxy) {
+            const defaults = this.getProfileDefaults(profile, options).reduce(configMerge, {})
+            profile.__setDefaults(defaults)
+        }
+        return profile
+    }
+
     /**
     * Return an Array of Profiles
     * arg: includeBuiltin (default: true) -> include BuiltinProfiles

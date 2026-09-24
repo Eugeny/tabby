@@ -18,8 +18,8 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "@types/semver": "^7.1.0",
-    "semver": "^7.1.1"
+    "@types/semver": "^7",
+    "semver": "^7"
   },
   "peerDependencies": {
     "@angular/common": "^15",

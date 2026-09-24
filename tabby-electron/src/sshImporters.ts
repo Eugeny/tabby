@@ -90,23 +90,45 @@ function convertSSHConfigValuesToString (arg: string | string[] | object[]): str
         .join(' ')
 }
 
-// Function to read in the SSH config file recursively and parse any Include directives
+// ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
+function resolveSSHIncludePath (value: string): string {
+    if (path.isAbsolute(value)) {
+        return value
+    }
+    if (value.startsWith('~')) {
+        return path.join(process.env.HOME ?? '~', value.slice(1))
+    }
+    return path.join(process.env.HOME ?? '~', '.ssh', value)
+}
+
+interface ParsedSSHConfig {
+    config: SSHConfig
+    // Newest mtime across the config file and every file it Includes, so the
+    // import cache is invalidated when an included file changes — not only
+    // when the top-level ~/.ssh/config does.
+    mtime: number
+}
+
+// Read the SSH config file recursively, merging any Include directives and
+// tracking the newest mtime among all files involved.
 async function parseSSHConfigFile (
     filePath: string,
     visited = new Set<string>(),
-): Promise<SSHConfig> {
+): Promise<ParsedSSHConfig> {
     // If we've already processed this file, return an empty config to avoid infinite recursion
     if (visited.has(filePath)) {
-        return SSHConfig.parse('')
+        return { config: SSHConfig.parse(''), mtime: 0 }
     }
     visited.add(filePath)
 
     let raw = ''
+    let mtime = 0
     try {
+        mtime = (await fs.stat(filePath)).mtimeMs
         raw = await fs.readFile(filePath, 'utf8')
     } catch (err) {
         console.error(`Error reading SSH config file: ${filePath}`, err)
-        return SSHConfig.parse('')
+        return { config: SSHConfig.parse(''), mtime: 0 }
     }
 
     const parsed = SSHConfig.parse(raw)
@@ -118,30 +140,21 @@ async function parseSSHConfigFile (
                 continue
             }
 
-            // ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
-            let incPath = ''
-            if (path.isAbsolute(directive.value)) {
-                incPath = directive.value
-            } else if (directive.value.startsWith('~')) {
-                incPath = path.join(process.env.HOME ?? '~', directive.value.slice(1))
-            } else {
-                incPath = path.join(process.env.HOME ?? '~', '.ssh', directive.value)
-            }
-
-            const matches = glob.sync(incPath)
+            const matches = glob.sync(resolveSSHIncludePath(directive.value))
             for (const match of matches) {
                 const stat = await fs.stat(match)
                 if (stat.isDirectory()) {
                     continue
                 }
-                const matchedConfig = await parseSSHConfigFile(match, visited)
-                merged.push(...matchedConfig)
+                const included = await parseSSHConfigFile(match, visited)
+                mtime = Math.max(mtime, included.mtime)
+                merged.push(...included.config)
             }
         } else {
             merged.push(entry)
         }
     }
-    return merged
+    return { config: merged, mtime }
 }
 
 // Function to convert an SSH Profile name into a sha256 hash-based ID
@@ -332,17 +345,18 @@ async function convertToSSHProfiles (config: SSHConfig): Promise<PartialProfile<
             }
             // for each Host identified on this line, check that there are no wildcards in the
             // name and that we've not seen the name before.
-            // If that is the case, then get the full configuration for this name.
-            // If that has a 'Hostname' property (if that's missing, the name is not usable
-            // for our purposes) then convert the configuration into an SSHProfile and stash it
+            // If that is the case, then get the full configuration for this name and convert it
+            // into an SSHProfile. OpenSSH defaults HostName to the Host alias when it is omitted.
             for (const host of hostList) {
                 if (noWildCardsInName(host)) {
                     if (!(host in myMap)) {
                         // NOTE: SSHConfig.compute() lies about the return types
                         const configuration: Record<string, string | string[] | object[]> = config.compute(host)
-                        if (Object.keys(configuration).map(key => key.toLowerCase()).includes('hostname')) {
-                            myMap[host] = await convertHostToSSHProfile(host, configuration)
+                        const hasHostName = Object.keys(configuration).some(key => key.toLowerCase() === 'hostname')
+                        if (!hasHostName) {
+                            configuration.HostName = host
                         }
+                        myMap[host] = await convertHostToSSHProfile(host, configuration)
                     }
                 }
             }
@@ -381,8 +395,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
 
         _openSSHCachePromise = (async () => {
             try {
-                const stat = await fs.stat(configPath)
-                const mtime = stat.mtimeMs
+                const { config, mtime } = await parseSSHConfigFile(configPath)
 
                 if (_openSSHCache && _openSSHCacheMtime === mtime) {
                     return _openSSHCache
@@ -400,7 +413,6 @@ export class OpenSSHImporter extends SSHProfileImporter {
                     }
                 } catch { /* no cache or invalid */ }
 
-                const config: SSHConfig = await parseSSHConfigFile(configPath)
                 _openSSHCache = await convertToSSHProfiles(config)
                 _openSSHCacheMtime = mtime
 

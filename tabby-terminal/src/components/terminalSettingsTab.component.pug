@@ -209,6 +209,15 @@ div.mt-4
             label.btn.btn-secondary(for='bellAudible')
                 span(translate) Audible
 
+    .form-line(*ngIf='hostApp.platform !== Platform.Web')
+        .header
+            .title(translate) Flash taskbar
+            .description(translate) Flash the taskbar or dock icon when the terminal bell rings and the window is not focused
+        toggle(
+            [(ngModel)]='config.store.terminal.bellFlashFrame',
+            (ngModelChange)='config.save()',
+        )
+
     .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && (config.store.terminal.profile || "").startsWith("wsl")')
         .me-auto(translate) WSL terminal bell can only be muted via Volume Mixer
         button.btn.btn-secondary((click)='openWSLVolumeMixer()', translate) Show Mixer
@@ -243,5 +252,14 @@ div.mt-4(*ngIf='hostApp.platform === Platform.Windows')
             .description(translate) Allows opening .bat files in tabs, but breaks some shells
         toggle(
             [(ngModel)]='config.store.terminal.setComSpec',
+            (ngModelChange)='config.save()',
+        )
+
+    .form-line
+        .header
+            .title(translate) Refresh environment variables from registry
+            .description(translate) Reload PATH and other variables from the Windows registry for each new session
+        toggle(
+            [(ngModel)]='config.store.terminal.windowsRefreshEnvironment',
             (ngModelChange)='config.save()',
         )

@@ -27,8 +27,6 @@ export class DefaultColorSchemes extends TerminalColorSchemeProvider {
             '#b7fff9',
             '#ffffff',
         ],
-        selection: undefined,
-        cursorAccent: undefined,
     }
 
     static defaultLightColorScheme: TerminalColorScheme = {
@@ -54,8 +52,6 @@ export class DefaultColorSchemes extends TerminalColorSchemeProvider {
             '#3e999f',
             '#ffffff',
         ],
-        selection: undefined,
-        cursorAccent: undefined,
     }
 
     async getSchemes (): Promise<TerminalColorScheme[]> {

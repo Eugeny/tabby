@@ -7,6 +7,7 @@
         "noImplicitAny": false,
         "removeComments": false,
         "esModuleInterop": true,
+        "skipLibCheck": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
@@ -14,6 +15,7 @@
         "noFallthroughCasesInSwitch": true,
         "noUnusedParameters": true,
         "noUnusedLocals": true,
+        "strictNullChecks": true,
         "lib": [
            "dom",
            "es2015",

@@ -178,7 +178,11 @@ export class VaultService {
     async getPassphrase (): Promise<string> {
         if (!_rememberedPassphrase) {
             const modal = this.ngbModal.open(UnlockVaultModalComponent)
-            const { passphrase, rememberFor } = await modal.result
+            const result = await modal.result.catch(() => null)
+            if (!result) {
+                throw new Error('Vault unlock cancelled')
+            }
+            const { passphrase, rememberFor } = result
             setTimeout(() => {
                 _rememberedPassphrase = null
                 // avoid multiple consequent prompts
@@ -198,7 +202,7 @@ export class VaultService {
         let vaultSecret = vault.secrets.find(s => s.type === type && this.keyMatches(key, s))
         if (!vaultSecret) {
             // search for secret without host in vault (like a default user/password used in multiple servers)
-            key['host'] = null
+            key['host'] = ''
             vaultSecret = vault.secrets.find(s => s.type === type && this.keyMatches(key, s))
         }
         return vaultSecret ?? null

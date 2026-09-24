@@ -18,8 +18,8 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "14.14.14",
-    "ansi-colors": "^4.1.1"
+    "@types/node": "22",
+    "ansi-colors": "^4"
   },
   "peerDependencies": {
     "@angular/animations": "^15",

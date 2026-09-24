@@ -90,7 +90,7 @@ export class ProfileTreeComponent extends BaseComponent {
         const provider = this.profilesService.providerForProfile(profile)
         if (!provider) { throw new Error('Cannot edit a profile without a provider') }
 
-        modal.componentInstance.partialProfile = deepClone(profile)
+        modal.componentInstance.partialProfile = deepClone({ ...profile })
         modal.componentInstance.profileProvider = provider
 
         const result = await modal.result.catch(() => null)
