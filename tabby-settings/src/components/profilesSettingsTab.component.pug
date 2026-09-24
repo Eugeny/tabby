@@ -81,6 +81,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                                     button.dropdown-item(*ngIf='!profile.isBuiltin', (click)='$event.stopPropagation(); deleteProfile(profile)')
                                         i.fas.fa-fw.fa-trash-alt
                                         span(translate) Delete
+                            i.fas.fa-tag.text-muted.ms-2(*ngIf='profile.tags?.length', [title]='profile.tags.join(", ")')
                             .ms-1(class='badge text-bg-{{getTypeColorClass(profile)}}') {{ getTypeLabel(profile) }}
                             .ms-1.text-danger.fas.fa-eye-slash(*ngIf='isProfileBlacklisted(profile)')
 

@@ -25,6 +25,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
     protected profile: FullyDefined<P> & ConfigProxy<FullyDefined<P>>
+    private knownTags: string[] = []
     private settingsComponentInstance?: ProfileSettingsComponent<P, PP>
 
     constructor (
@@ -37,6 +38,9 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
             this.profilesService.getProfileGroups().then(groups => {
                 this.groups = groups
                 this.profileGroup = groups.find(g => g.id === this.partialProfile.group)
+            })
+            this.profilesService.getProfiles().then(profiles => {
+                this.knownTags = [...new Set(profiles.flatMap(p => p.tags ?? []))].sort()
             })
         }
     }
@@ -53,6 +57,17 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
 
     colorsFormatter = value => {
         return TAB_COLORS.find(x => x.value === value)?.name ?? value
+    }
+
+    get tagsString (): string {
+        return this.profile.tags.join(', ')
+    }
+
+    set tagsString (value: string) {
+        this.profile.tags = value
+            .split(',')
+            .map(x => x.trim())
+            .filter(x => !!x)
     }
 
     ngOnInit () {
@@ -86,6 +101,23 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
             debounceTime(200),
             map(term => iconsClassList.filter(v => v.toLowerCase().includes(term.toLowerCase())).slice(0, 10)),
         )
+
+    tagSearch: OperatorFunction<string, string[]> = (text$: Observable<string>) =>
+        text$.pipe(
+            debounceTime(200),
+            map(text => {
+                const parts = text.split(',')
+                const term = parts.pop()!.trim().toLowerCase()
+                const used = parts.map(x => x.trim().toLowerCase())
+                const prefix = parts.map(x => x.trim() + ', ').join('')
+                return this.knownTags
+                    .filter(tag => !used.includes(tag.toLowerCase()) && tag.toLowerCase().includes(term))
+                    .slice(0, 10)
+                    .map(tag => prefix + tag)
+            }),
+        )
+
+    tagFormatter = (value: string) => value.split(',').pop()!.trim()
 
     save () {
         if (!this.profileGroup) {

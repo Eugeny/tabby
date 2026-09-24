@@ -1,5 +1,6 @@
 import * as os from 'os'
 import { NgZone } from '@angular/core'
+import FuzzySearch from 'fuzzy-search'
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 
 export const WIN_BUILD_CONPTY_SUPPORTED = 17692
@@ -73,4 +74,25 @@ export function serializeFunction <T extends () => Promise<any>> (fn: T): T {
         queue = res.catch(() => null)
         return res
     }) as T
+}
+
+export function splitSearchTerms (query: string): string[] {
+    return query.toLowerCase().split(/[\s,]+/).filter(x => x)
+}
+
+/**
+ * Fuzzy search where every term has to match on its own,
+ * so that e.g. "web prod" finds items tagged with both
+ */
+export function fuzzySearchAllTerms <T> (items: T[], keys: string[], query: string, sort = false): T[] {
+    const [firstTerm, ...otherTerms] = splitSearchTerms(query)
+    if (!firstTerm) {
+        return items
+    }
+    let results = new FuzzySearch(items, keys, { sort }).search(firstTerm)
+    for (const term of otherTerms) {
+        const matches = new Set(new FuzzySearch(results, keys).search(term))
+        results = results.filter(x => matches.has(x))
+    }
+    return results
 }

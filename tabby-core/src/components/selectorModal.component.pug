@@ -10,7 +10,7 @@
     .list-group.list-group-light(*ngIf='filteredOptions.length')
         ng-container(*ngFor='let option of filteredOptions; let i = index')
             label.group-header(
-                *ngIf='hasGroups && option.group !== filteredOptions[i - 1]?.group'
+                *ngIf='(hasGroups || isTagGroup(option)) && option.group !== filteredOptions[i - 1]?.group'
             ) {{option.group}}
             a.list-group-item.list-group-item-action.d-flex.align-items-center(
                 #item,
