@@ -11,12 +11,7 @@ import { saveConfig } from './config'
 import { Window, WindowOptions } from './window'
 import { pluginManager } from './pluginManager'
 import { PTYManager } from './pty'
-
-/* eslint-disable block-scoped-var */
-
-try {
-    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
-} catch (_) { }
+import { logMainError } from './errors'
 
 export class Application {
     private tray?: Tray
@@ -30,8 +25,13 @@ export class Application {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     constructor (private configStore: any) {
         remote.initialize()
-        this.useBuiltinGraphics()
         this.ptyManager.init(this)
+
+        app.on('child-process-gone', (_event, details) => {
+            if (details.type === 'GPU' && details.reason !== 'clean-exit') {
+                logMainError('GPU process exited', JSON.stringify(details))
+            }
+        })
 
         ipcMain.handle('app:save-config', async (event, config) => {
             await saveConfig(config)
@@ -93,7 +93,8 @@ export class Application {
         app.commandLine.appendSwitch('max-active-webgl-contexts', '9000')
         app.commandLine.appendSwitch('lang', 'EN')
 
-        for (const flag of this.configStore.flags || [['force_discrete_gpu', '0']]) {
+        // Leave adapter selection to the OS unless the user supplies a flag
+        for (const flag of this.configStore.electronFlags || []) {
             app.commandLine.appendSwitch(flag[0], flag[1])
         }
 
@@ -292,16 +293,6 @@ export class Application {
         }
         this.presentAllWindows()
         this.windows[this.windows.length - 1].passCliArguments(argv, cwd, true)
-    }
-
-    private useBuiltinGraphics (): void {
-        if (process.platform === 'win32') {
-            const keyPath = 'SOFTWARE\\Microsoft\\DirectX\\UserGpuPreferences'
-            const valueName = app.getPath('exe')
-            if (!wnr.getRegistryValue(wnr.HK.CU, keyPath, valueName)) {
-                wnr.setRegistryValue(wnr.HK.CU, keyPath, valueName, wnr.REG.SZ, 'GpuPreference=1;')
-            }
-        }
     }
 
     private setupMenu () {
