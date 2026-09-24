@@ -105,6 +105,15 @@ export class ConfigProxy<T extends AnyRec> {
             return deepClone(defaults[key])
         }
 
+        this.__setDefaults = (newDefaults: T) => { // eslint-disable-line @typescript-eslint/unbound-method
+            for (const key in defaults) {
+                if (isStructuralMember(defaults[key]) && isStructuralMember(newDefaults[key])) {
+                    (this as any)[key].__setDefaults(newDefaults[key])
+                }
+            }
+            defaults = newDefaults
+        }
+
         this.__setValue = (key: keyof T, value: any) => { // eslint-disable-line @typescript-eslint/unbound-method
             if (deepEqual(value, this.__getDefault(key))) {
                 // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
@@ -131,6 +140,8 @@ export class ConfigProxy<T extends AnyRec> {
     __getValue (_key: keyof T): any { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
     __setValue (_key: keyof T, _value: any) { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    __setDefaults (_defaults: T): void { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
     __getDefault (_key: keyof T): any { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function

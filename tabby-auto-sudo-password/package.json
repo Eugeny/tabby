@@ -16,7 +16,7 @@
     "typings"
   ],
   "devDependencies": {
-    "ansi-colors": "^4.1.1"
+    "ansi-colors": "^4"
   },
   "author": "Tabby Developers",
   "license": "MIT"

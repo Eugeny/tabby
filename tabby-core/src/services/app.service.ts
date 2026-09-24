@@ -49,9 +49,21 @@ export class AppService {
 
     get activeTab (): BaseTabComponent|null { return this._activeTab ?? null }
 
+    /** Tabs ordered by last use, most-recent first */
+    get mruTabs (): BaseTabComponent[] { return this._mruTabs }
+
     private lastTabIndex = 0
     private _activeTab: BaseTabComponent | null = null
     private closedTabsStack: RecoveryToken[] = []
+
+    /** MRU list – most-recently-used tab is at index 0 */
+    private _mruTabs: BaseTabComponent[] = []
+    /** Index into _mruTabs that the user is currently browsing (0 = "selected before traversal started") */
+    private mruTraversalIndex = 0
+    /** True while the user is holding a modifier and cycling through the MRU list */
+    private mruTraversing = false
+    /** Set to true inside nextMRUTab/previousMRUTab so selectTab() skips the MRU update */
+    private skipMRUUpdate = false
 
     private activeTabChange = new Subject<BaseTabComponent|null>()
     private tabsChanged = new Subject<void>()
@@ -161,6 +173,10 @@ export class AppService {
     removeTab (tab: BaseTabComponent): void {
         const newIndex = Math.min(this.tabs.length - 2, this.tabs.indexOf(tab))
         this.tabs = this.tabs.filter((x) => x !== tab)
+        this._mruTabs = this._mruTabs.filter(t => t !== tab)
+        if (this.mruTraversalIndex >= this._mruTabs.length) {
+            this.mruTraversalIndex = Math.max(0, this._mruTabs.length - 1)
+        }
         if (tab === this._activeTab) {
             this.selectTab(this.tabs[newIndex])
         }
@@ -222,10 +238,14 @@ export class AppService {
             this._activeTab.emitFocused()
             return
         }
-        if (this._activeTab && this.tabs.includes(this._activeTab)) {
-            this.lastTabIndex = this.tabs.indexOf(this._activeTab)
-        } else {
-            this.lastTabIndex = 0
+        // Stepping through the MRU list shouldn't rewrite "last tab" on every step -
+        // after a traversal it should still point at where the traversal started.
+        if (!this.skipMRUUpdate) {
+            if (this._activeTab && this.tabs.includes(this._activeTab)) {
+                this.lastTabIndex = this.tabs.indexOf(this._activeTab)
+            } else {
+                this.lastTabIndex = 0
+            }
         }
         if (this._activeTab) {
             this._activeTab.clearActivity()
@@ -238,7 +258,17 @@ export class AppService {
             this._activeTab?.emitFocused()
             this._activeTab?.emitVisibility(true)
         })
-        this.hostWindow.setTitle(this._activeTab?.title)
+        const active = this._activeTab
+        this.hostWindow.setTitle(active ? active.customTitle || active.title : undefined)
+
+        // Keep the MRU list up-to-date. nextMRUTab/previousMRUTab set skipMRUUpdate so the
+        // list stays stable while the user is cycling through it.
+        if (!this.skipMRUUpdate && tab) {
+            this._mruTabs = [tab, ...this._mruTabs.filter(t => t !== tab)]
+            // Any non-MRU selection commits an ongoing traversal.
+            this.mruTraversalIndex = 0
+            this.mruTraversing = false
+        }
     }
 
     getParentTab (tab: BaseTabComponent): SplitTabComponent|null {
@@ -258,6 +288,53 @@ export class AppService {
             this.lastTabIndex = 0
         }
         this.selectTab(this.tabs[this.lastTabIndex])
+    }
+
+    /**
+     * Switch to the next tab in Most-Recently-Used order.
+     * Call [[commitMRUTraversal]] when the user releases the modifier key.
+     */
+    nextMRUTab (): void {
+        this.stepMRUTab(1)
+    }
+
+    /**
+     * Switch to the previous tab in Most-Recently-Used order.
+     * Call [[commitMRUTraversal]] when the user releases the modifier key.
+     */
+    previousMRUTab (): void {
+        this.stepMRUTab(-1)
+    }
+
+    private stepMRUTab (delta: number): void {
+        const count = this._mruTabs.length
+        if (count <= 1) {
+            return
+        }
+        if (!this.mruTraversing) {
+            this.mruTraversing = true
+            this.mruTraversalIndex = 0
+        }
+        this.mruTraversalIndex = (this.mruTraversalIndex + delta + count) % count
+        this.skipMRUUpdate = true
+        this.selectTab(this._mruTabs[this.mruTraversalIndex])
+        this.skipMRUUpdate = false
+    }
+
+    /**
+     * Finish an MRU traversal session: move the currently-previewed tab to the
+     * front of the MRU list so the next traversal starts from it.
+     * Should be called when the user releases the modifier key.
+     */
+    commitMRUTraversal (): void {
+        if (!this.mruTraversing || !this._mruTabs.length) {
+            this.mruTraversing = false
+            return
+        }
+        const selectedTab = this._mruTabs[this.mruTraversalIndex]
+        this.mruTraversing = false
+        this.mruTraversalIndex = 0
+        this._mruTabs = [selectedTab, ...this._mruTabs.filter(t => t !== selectedTab)]
     }
 
     nextTab (): void {
@@ -397,8 +474,10 @@ export class AppService {
         const modal = this.ngbModal.open(RenameTabModalComponent)
         modal.componentInstance.value = tab.customTitle || tab.title
         modal.result.then(result => {
-            tab.setTitle(result)
-            tab.customTitle = result
+            tab.setCustomTitle(result)
+            if (tab === this._activeTab) {
+                this.hostWindow.setTitle(tab.customTitle || tab.title)
+            }
             this.emitTabsChanged()
         }).catch(() => null)
     }
@@ -472,8 +551,8 @@ export class AppService {
     }
 
     async closeWindow (): Promise<void> {
-        this.tabRecovery.enabled = false
         await this.tabRecovery.saveTabs(this.tabs)
+        this.tabRecovery.enabled = false
         if (await this.closeAllTabs()) {
             this.hostWindow.close()
         } else {

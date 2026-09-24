@@ -11,7 +11,7 @@ import 'dotenv/config'
 process.env.TABBY_PLUGINS ??= ''
 process.env.TABBY_CONFIG_DIRECTORY ??= app.getPath('userData')
 
-import 'source-map-support/register'
+process.setSourceMapsEnabled(true)
 import './sentry'
 import './lru'
 import { parseArgs } from './cli'
@@ -91,7 +91,7 @@ if (!app.requestSingleInstanceLock()) {
 
 app.on('ready', async () => {
     if (process.platform === 'darwin') {
-        app.dock.setMenu(Menu.buildFromTemplate([
+        app.dock?.setMenu(Menu.buildFromTemplate([
             {
                 label: 'New window',
                 click () {
