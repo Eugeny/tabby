@@ -113,6 +113,23 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
 
     async getItems (tab: BaseTabComponent, tabHeader?: boolean): Promise<MenuItemOptions[]> {
         let items: MenuItemOptions[] = []
+        if (!tabHeader && tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
+            items.push({
+                label: this.translate.instant('Rename pane'),
+                click: () => {
+                    this.app.renameTab(tab)
+                },
+            }, {
+                label: this.translate.instant('Show pane label'),
+                type: 'checkbox',
+                enabled: !!tab.customTitle,
+                checked: !!tab.customTitle && tab.customTitleVisible,
+                click: () => {
+                    tab.setCustomTitleVisible(!tab.customTitleVisible)
+                    this.app.emitTabsChanged()
+                },
+            })
+        }
         if (tabHeader) {
             const currentColor = TAB_COLORS.find(x => x.value === tab.color)?.name
             items = [
