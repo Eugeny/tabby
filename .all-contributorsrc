@@ -1445,6 +1445,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "liewstar",
+      "name": "Liao Xin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/93535922?v=4",
+      "profile": "http://liewstar.cn",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
