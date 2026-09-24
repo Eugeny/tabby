@@ -65,6 +65,15 @@ overrides:
     '@typescript-eslint/typedef': off
     '@typescript-eslint/consistent-type-imports': off
     '@typescript-eslint/sort-type-union-intersection-members': off
+    # Started failing when plugin:@typescript-eslint/all picked up new/changed rules
+    # with the 6.4.1 -> 6.21.0 bump. None reflect a decision made about this codebase.
+    '@typescript-eslint/max-params': off
+    '@typescript-eslint/prefer-destructuring': off
+    '@typescript-eslint/no-unsafe-enum-comparison': off
+    '@typescript-eslint/prefer-promise-reject-errors': off
+    '@typescript-eslint/no-unnecessary-type-assertion': off
+    '@typescript-eslint/prefer-find': off
+    '@typescript-eslint/no-useless-template-literals': off
     '@typescript-eslint/no-use-before-define':
     - error
     - classes: false

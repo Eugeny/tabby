@@ -14,7 +14,7 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "@types/webpack-env": "^1.16.0"
+    "@types/webpack-env": "^1"
   },
   "dependencies": {
     "svg-inline-loader": "^0.8.2"

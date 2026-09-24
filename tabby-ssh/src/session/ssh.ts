@@ -16,7 +16,9 @@ import { SSHAlgorithmType, SSHProfile, AutoPrivateKeyLocator, PortForwardType } 
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
+import { requestShellPTY, SSHShellChannelOptions } from './shellChannel'
 import * as russh from 'russh'
+import { selectNextAuthMethod, updateAuthPlanAfterFailure } from './authMethodSelection'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -160,46 +162,6 @@ export class SSHSession {
 
     async init (): Promise<void> {
         this.allAuthMethods = [{ type: 'none' }]
-        if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
-            if (this.profile.options.privateKeys.length) {
-                for (let pk of this.profile.options.privateKeys) {
-                    // eslint-disable-next-line @typescript-eslint/init-declarations
-                    let contents: Buffer
-                    pk = pk.replace('%h', this.profile.options.host)
-                    pk = pk.replace('%r', this.profile.options.user)
-                    try {
-                        contents = await this.fileProviders.retrieveFile(pk)
-                    } catch (error) {
-                        this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not load private key ${pk}: ${error}`)
-                        continue
-                    }
-
-                    // If the file parses as a public key, it was likely a .pub file
-                    // mistakenly configured in the privateKeys list. In that case,
-                    // skip it here and warn the user instead of treating it as a
-                    // private key.
-                    try {
-                        russh.parsePublicKey(contents.toString('utf-8'))
-                        this.emitServiceMessage(
-                            colors.bgYellow.yellow.black(' ! ') +
-                            ` Expected a private key, but ${pk} appears to be a public key. Skipping it for private key authentication.`,
-                        )
-                        continue
-                    } catch {
-                        // Not a valid public key; treat the file contents as a private key below.
-                    }
-
-                    this.addPublicKeyAuthMethod(pk, contents)
-                }
-            } else {
-                for (const importer of this.privateKeyImporters) {
-                    for (const [name, contents] of await importer.getKeys()) {
-                        this.addPublicKeyAuthMethod(name, contents)
-                    }
-                }
-            }
-        }
-
         if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
             const spec = await this.getAgentConnectionSpec()
             if (!spec) {
@@ -242,6 +204,46 @@ export class SSHSession {
                     type: 'agent',
                     ...spec,
                 })
+            }
+        }
+
+        if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
+            if (this.profile.options.privateKeys.length) {
+                for (let pk of this.profile.options.privateKeys) {
+                    // eslint-disable-next-line @typescript-eslint/init-declarations
+                    let contents: Buffer
+                    pk = pk.replace('%h', this.profile.options.host)
+                    pk = pk.replace('%r', this.profile.options.user)
+                    try {
+                        contents = await this.fileProviders.retrieveFile(pk)
+                    } catch (error) {
+                        this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not load private key ${pk}: ${error}`)
+                        continue
+                    }
+
+                    // If the file parses as a public key, it was likely a .pub file
+                    // mistakenly configured in the privateKeys list. In that case,
+                    // skip it here and warn the user instead of treating it as a
+                    // private key.
+                    try {
+                        russh.parsePublicKey(contents.toString('utf-8'))
+                        this.emitServiceMessage(
+                            colors.bgYellow.yellow.black(' ! ') +
+                            ` Expected a private key, but ${pk} appears to be a public key. Skipping it for private key authentication.`,
+                        )
+                        continue
+                    } catch {
+                        // Not a valid public key; treat the file contents as a private key below.
+                    }
+
+                    this.addPublicKeyAuthMethod(pk, contents)
+                }
+            } else {
+                for (const importer of this.privateKeyImporters) {
+                    for (const [name, contents] of await importer.getKeys()) {
+                        this.addPublicKeyAuthMethod(name, contents)
+                    }
+                }
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
@@ -384,7 +386,13 @@ export class SSHSession {
         if (this.profile.options.proxyCommand) {
             this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
 
+            // parse() yields operator objects for things like && or |, which newCommand
+            // can't run - it spawns a single process, not a shell. Dropping them silently
+            // would turn "a && b" into "a b", so refuse instead.
             const argv = shellQuote.parse(this.profile.options.proxyCommand)
+            if (!argv.every((x): x is string => typeof x === 'string')) {
+                throw new Error('Proxy command contains shell operators, which are not supported')
+            }
             transport = await russh.SshTransport.newCommand(argv[0], argv.slice(1))
         } else if (this.jumpChannel) {
             transport = await russh.SshTransport.newSshChannel(this.jumpChannel.take())
@@ -563,6 +571,12 @@ export class SSHSession {
 
             const channel = await this.ssh.activateChannel(newChannel)
 
+            if (!this.profile.options.agentForward) {
+                this.logger.warn('Rejecting unsolicited agent channel: agent forwarding is disabled')
+                await channel.close()
+                return
+            }
+
             const spec = await this.getAgentConnectionSpec()
             if (!spec) {
                 await channel.close()
@@ -652,15 +666,21 @@ export class SSHSession {
         let remainingMethods = [...this.allAuthMethods]
         let methodsLeft = noneResult.remainingMethods
 
-        function maybeSetRemainingMethods (r: russh.AuthFailure) {
-            if (r.remainingMethods.length) {
-                methodsLeft = r.remainingMethods
+        const updateAuthPlan = (failure: russh.AuthFailure) => {
+            const plan = updateAuthPlanAfterFailure(
+                remainingMethods,
+                failure,
+                sshAuthTypeForMethod,
+                (authType): AuthMethod|null => authType === 'keyboard-interactive' ? { type: 'keyboard-interactive' } : null,
+            )
+            remainingMethods = plan.remainingMethods
+            if (plan.allowedMethods.length) {
+                methodsLeft = plan.allowedMethods
             }
         }
 
         while (true) {
-            const m = methodsLeft
-            const method = remainingMethods.find(x => m.length === 0 || m.includes(sshAuthTypeForMethod(x)))
+            const method = selectNextAuthMethod(remainingMethods, methodsLeft, sshAuthTypeForMethod)
 
             if (this.previouslyDisconnected || !method) {
                 return null
@@ -674,7 +694,7 @@ export class SSHSession {
                 if (result instanceof russh.AuthenticatedSSHClient) {
                     return result
                 }
-                maybeSetRemainingMethods(result)
+                updateAuthPlan(result)
             }
             if (method.type === 'prompt-password') {
                 const modal = this.ngbModal.open(PromptModalComponent)
@@ -696,7 +716,7 @@ export class SSHSession {
                         if (result instanceof russh.AuthenticatedSSHClient) {
                             return result
                         }
-                        maybeSetRemainingMethods(result)
+                        updateAuthPlan(result)
                     } else {
                         continue
                     }
@@ -712,7 +732,7 @@ export class SSHSession {
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
-                    maybeSetRemainingMethods(result)
+                    updateAuthPlan(result)
                 } catch (e) {
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.name}: ${e}`)
                     continue
@@ -723,7 +743,7 @@ export class SSHSession {
 
                 while (true) {
                     if (state.state === 'failure') {
-                        maybeSetRemainingMethods(state)
+                        updateAuthPlan(state)
                         break
                     }
 
@@ -772,7 +792,7 @@ export class SSHSession {
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
-                    maybeSetRemainingMethods(result)
+                    updateAuthPlan(result)
                 } catch (e) {
                     const identitySuffix = method.publicKey ? ` with identity ${method.publicKey.fingerprint()}` : ''
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent${identitySuffix}: ${e}`)
@@ -852,17 +872,12 @@ export class SSHSession {
         this.ssh.disconnect()
     }
 
-    async openShellChannel (options: { x11: boolean }): Promise<russh.Channel> {
+    async openShellChannel (options: SSHShellChannelOptions): Promise<russh.Channel> {
         if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
             throw new Error('Cannot open shell channel before auth')
         }
         const ch = await this.ssh.activateChannel(await this.ssh.openSessionChannel())
-        await ch.requestPTY('xterm-256color', {
-            columns: 80,
-            rows: 24,
-            pixHeight: 0,
-            pixWidth: 0,
-        })
+        await requestShellPTY(ch, options)
         if (options.x11) {
             await ch.requestX11Forwarding({
                 singleConnection: false,

@@ -9,9 +9,7 @@
   "typings": "typings/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color",
-    "watch": "webpack --progress --color --watch",
-    "postinstall": "run-script-os",
-    "postinstall:darwin:linux": "exit"
+    "watch": "webpack --progress --color --watch"
   },
   "files": [
     "dist",
@@ -21,13 +19,12 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "22",
-    "ansi-colors": "^4.1.1",
-    "strip-ansi": "^7.0.0"
+    "ansi-colors": "^4",
+    "strip-ansi": "^7"
   },
   "dependencies": {
     "@luminati-io/socksv5": "^0.0.7",
-    "run-script-os": "^1.1.3",
-    "tmp-promise": "^3.0.3"
+    "tmp-promise": "^3"
   },
   "peerDependencies": {
     "@angular/animations": "^15",

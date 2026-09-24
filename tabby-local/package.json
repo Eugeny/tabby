@@ -18,7 +18,7 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "ansi-colors": "^4.1.1",
+    "ansi-colors": "^4",
     "dataurl": "0.1.0",
     "runes": "^0.4.2"
   },
