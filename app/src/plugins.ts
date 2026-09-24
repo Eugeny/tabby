@@ -238,7 +238,7 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
 
     progress(0, 1)
     for (const foundPlugin of foundPlugins) {
-        pluginsPromises.push(new Promise(x => {
+        pluginsPromises.push(new Promise((resolve, reject) => {
             console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
             try {
                 const packageModule = nodeRequire(foundPlugin.path)
@@ -251,9 +251,16 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
                 plugins.push(pluginModule)
             } catch (error) {
                 console.error(`Could not load ${foundPlugin.name}:`, error)
+                if (foundPlugin.isBuiltin) {
+                    const pluginError = new Error(`Could not load bundled plugin ${foundPlugin.packageName} from ${foundPlugin.path}: ${error?.message ?? error}`)
+                    pluginError.stack = error?.stack ?? pluginError.stack
+                    setProgress()
+                    reject(pluginError)
+                    return
+                }
             }
             setProgress()
-            setTimeout(x, 50)
+            setTimeout(resolve, 50)
         }))
     }
     await Promise.all(pluginsPromises)
