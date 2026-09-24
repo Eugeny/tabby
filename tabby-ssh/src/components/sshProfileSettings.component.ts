@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, ViewChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { firstBy } from 'thenby'
 
-import { FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile, ProfilesService, ProfileSettingsComponent, FullyDefined, ProxifiedConfig } from 'tabby-core'
+import { FileProvidersService, Platform, PlatformService, HostAppService, PromptModalComponent, PartialProfile, ProfilesService, ProfileSettingsComponent, FullyDefined, ProxifiedConfig, TranslateService } from 'tabby-core'
 import { LoginScriptsSettingsComponent } from 'tabby-terminal'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
@@ -32,6 +33,8 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
         private fileProviders: FileProvidersService,
+        private platform: PlatformService,
+        private translate: TranslateService,
     ) { }
 
     async ngOnInit () {
@@ -75,13 +78,34 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         modal.componentInstance.password = true
         try {
             const result = await modal.result.catch(() => null)
-            // Allow saving a blank password (empty string), but guard against a
-            // malformed modal result that carries no string value.
-            if (typeof result?.value === 'string') {
-                this.passwordStorage.savePassword(this.profile, result.value)
-                this.hasSavedPassword = true
+            // Allow saving a blank password (servers with PermitEmptyPasswords),
+            // but guard against a malformed modal result carrying no string value.
+            if (typeof result?.value !== 'string') {
+                return
             }
+            // An empty field is far more often an accidental OK than a deliberate
+            // blank password, and a stored blank is then offered - and rejected -
+            // on every connection, so make the intent explicit.
+            if (result.value === '' && !await this.confirmBlankPassword()) {
+                return
+            }
+            this.passwordStorage.savePassword(this.profile, result.value)
+            this.hasSavedPassword = true
         } catch { }
+    }
+
+    private async confirmBlankPassword (): Promise<boolean> {
+        return (await this.platform.showMessageBox({
+            type: 'warning',
+            message: this.translate.instant(_('Save an empty password?')),
+            detail: this.translate.instant(_('This only works if the server permits empty passwords. Tabby will offer it on every connection.')),
+            buttons: [
+                this.translate.instant(_('Save')),
+                this.translate.instant(_('Cancel')),
+            ],
+            defaultId: 0,
+            cancelId: 1,
+        })).response === 0
     }
 
     clearSavedPassword () {
@@ -106,8 +130,8 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
     save () {
         for (const k of Object.values(SSHAlgorithmType)) {
             this.profile.options.algorithms[k] = Object.entries(this.algorithms[k])
-                .filter(([_, v]) => !!v)
-                .map(([key, _]) => key)
+                .filter(([, v]) => !!v)
+                .map(([key]) => key)
             if(k !== SSHAlgorithmType.COMPRESSION) { this.profile.options.algorithms[k].sort() }
         }
 
