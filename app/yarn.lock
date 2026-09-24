@@ -346,13 +346,6 @@
     "@sigstore/core" "^3.2.1"
     "@sigstore/protobuf-specs" "^0.5.0"
 
-"@tabby-gang/windows-blurbehind@^3":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/windows-blurbehind/-/windows-blurbehind-3.1.0.tgz#bd1462f2a970d195e277d48cceb8b2c0a20f09bd"
-  integrity sha512-wTvyNrBDNxD4yq1bXv7lvXRQujJYRQ2Ke3LJyE9yzY9e/L9/fHVIuprIgAMiLsnW+BKPERq0k27iC38WnxUBZQ==
-  dependencies:
-    "@types/node" "^10.12.18"
-
 "@tabby-gang/windows-process-tree@^0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@tabby-gang/windows-process-tree/-/windows-process-tree-0.6.1.tgz#2a5a5cbbee16f611fc61d53cbadf930c8d3d20a8"
@@ -386,11 +379,6 @@
   integrity sha512-xlvWf4Vs9n1PEVYwP1n4vvG07M6y8WgvJ2t0vbrWTmijsIHp1cS+uJ2kMIRdY3nHZK0nCYKrPeD171+SzF4/zw==
   dependencies:
     undici-types "~6.21.0"
-
-"@types/node@^10.12.18":
-  version "10.17.60"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.60.tgz#35f3d6213daed95da7f0f73e75bcc6980e90597b"
-  integrity sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==
 
 "@types/semver@^7.3.6":
   version "7.8.0"
