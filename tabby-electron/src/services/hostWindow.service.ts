@@ -127,4 +127,8 @@ export class ElectronHostWindow extends HostWindowService {
     bringToFront (): void {
         this.electron.ipcRenderer.send('window-bring-to-front')
     }
+
+    flashFrame (): void {
+        this.electron.ipcRenderer.send('window-flash-frame')
+    }
 }

@@ -202,7 +202,7 @@ export class VaultService {
         let vaultSecret = vault.secrets.find(s => s.type === type && this.keyMatches(key, s))
         if (!vaultSecret) {
             // search for secret without host in vault (like a default user/password used in multiple servers)
-            key['host'] = null
+            key['host'] = ''
             vaultSecret = vault.secrets.find(s => s.type === type && this.keyMatches(key, s))
         }
         return vaultSecret ?? null
