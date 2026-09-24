@@ -126,6 +126,10 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
             this.profile.group = this.profileGroup.id
         }
 
+        if (this.defaultsMode === 'disabled') {
+            this.profile.tags = this.profile.tags.filter((tag, i, tags) => tags.findIndex(x => x.toLowerCase() === tag.toLowerCase()) === i)
+        }
+
         this.settingsComponentInstance?.save?.()
         this.profile.__cleanup()
         this.modalInstance.close(this.partialProfile)
