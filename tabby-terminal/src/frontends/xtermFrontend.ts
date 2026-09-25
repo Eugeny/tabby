@@ -19,6 +19,7 @@ import { CanvasAddon } from '@xterm/addon-canvas'
 import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
 import { generatePalette } from '../generatePalette'
+import { disposeWebglAddon } from './webglAddon'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -544,7 +545,7 @@ export class XTermFrontend extends Frontend {
             this.detach(this.element)
         }
         super.destroy()
-        this.webGLAddon?.dispose()
+        disposeWebglAddon(this.webGLAddon)
         this.canvasAddon?.dispose()
         this.xterm.dispose()
     }
@@ -835,7 +836,7 @@ export class XTermFrontend extends Frontend {
     }
 
     private onWebGLContextLoss (): void {
-        this.webGLAddon?.dispose()
+        disposeWebglAddon(this.webGLAddon)
         this.webGLAddon = undefined
         this.pendingRendererRecovery = true
         this.recoverRenderer()
