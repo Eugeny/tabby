@@ -19,6 +19,7 @@ import { CanvasAddon } from '@xterm/addon-canvas'
 import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
 import { generatePalette } from '../generatePalette'
+import { disposeWebglAddon } from './webglAddon'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -544,7 +545,7 @@ export class XTermFrontend extends Frontend {
             this.detach(this.element)
         }
         super.destroy()
-        this.disposeWebGLAddon()
+        disposeWebglAddon(this.webGLAddon)
         this.canvasAddon?.dispose()
         this.xterm.dispose()
     }
@@ -825,19 +826,6 @@ export class XTermFrontend extends Frontend {
         }
     }
 
-    /**
-     * @xterm/addon-webgl <= 0.19 never disposes WebglRenderer._cursorBlinkStateManager (it is not
-     * registered for disposal), so its 600ms blink interval keeps the disposed renderer - and
-     * through it the whole Terminal, scrollback and this frontend - alive forever. Dispose it
-     * explicitly. Fixed upstream in addon-webgl 0.20 (xtermjs/xterm.js#5817); drop this then.
-     */
-    private disposeWebGLAddon (): void {
-        try {
-            (this.webGLAddon as any)?._renderer?._cursorBlinkStateManager?.dispose()
-        } catch { }
-        this.webGLAddon?.dispose()
-    }
-
     private attachWebGLAddon (): void {
         const addon = new WebglAddon()
         // xterm fires this when the GPU drops the canvas context (driver reset,
@@ -848,7 +836,7 @@ export class XTermFrontend extends Frontend {
     }
 
     private onWebGLContextLoss (): void {
-        this.disposeWebGLAddon()
+        disposeWebglAddon(this.webGLAddon)
         this.webGLAddon = undefined
         this.pendingRendererRecovery = true
         this.recoverRenderer()
