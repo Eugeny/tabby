@@ -76,7 +76,7 @@
     "webpack": "^5",
     "webpack-bundle-analyzer": "^4",
     "webpack-cli": "^5",
-    "yaml-loader": "0.8.0",
+    "yaml-loader": "0.9.0",
     "zone.js": "^0.13.0"
   },
   "resolutions": {
