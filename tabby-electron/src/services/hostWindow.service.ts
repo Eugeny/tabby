@@ -1,8 +1,9 @@
 import type { BrowserWindow, TouchBar } from 'electron'
-import { Subject, asyncScheduler, distinctUntilChanged, throttleTime } from 'rxjs'
+import { Subject } from 'rxjs'
 import { Injectable, Inject, NgZone } from '@angular/core'
 import { BootstrapData, BOOTSTRAP_DATA, HostWindowService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
+import { throttleNativeUpdates } from '../nativeUpdates'
 
 export interface Bounds {
     x: number
@@ -18,13 +19,7 @@ export class ElectronHostWindow extends HostWindowService {
     private _isFullscreen = false
     private _isMaximized = false
 
-    /**
-     * Native window title updates. Terminal apps often animate their title (spinners at
-     * 10-30 Hz), and every change of the active tab's title used to become a native
-     * setTitle call - on macOS 26 each one runs a WindowManagement/SwiftUI transaction on the
-     * main thread. Apply the first change immediately, then at most once per second, always
-     * ending on the latest title.
-     */
+    /** Native window title updates, rate-limited: see throttleNativeUpdates() */
     private windowTitle = new Subject<string>()
 
     constructor (
@@ -70,10 +65,7 @@ export class ElectronHostWindow extends HostWindowService {
         this._isMaximized = this.getWindow().isMaximized()
 
         zone.runOutsideAngular(() => {
-            this.windowTitle.pipe(
-                throttleTime(1000, asyncScheduler, { leading: true, trailing: true }),
-                distinctUntilChanged(),
-            ).subscribe(title => {
+            this.windowTitle.pipe(throttleNativeUpdates()).subscribe(title => {
                 this.electron.ipcRenderer.send('window-set-title', title)
             })
         })

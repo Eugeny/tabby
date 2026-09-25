@@ -1,8 +1,9 @@
 import deepEqual from 'deep-equal'
-import { Subject, asyncScheduler, distinctUntilChanged, map, throttleTime } from 'rxjs'
+import { Subject, distinctUntilChanged, map } from 'rxjs'
 import { ipcRenderer } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
 import { AppService, HostAppService, Platform } from 'tabby-core'
+import { throttleNativeUpdates } from '../nativeUpdates'
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })
@@ -32,16 +33,10 @@ export class TouchbarService {
             this.app.selectTab(this.app.tabs[index])
         }))
 
-        // Tab titles change on every frame of a title spinner (TUIs animate them at 10-30 Hz),
-        // and each update rebuilds the native segmented control in the main process - whose
-        // cost keeps growing on macOS 26 until the main thread saturates. The Touch Bar doesn't
-        // need that rate: apply the first change right away, then at most once per second,
-        // always ending on the latest state.
+        // Each update rebuilds the native segmented control in the main process: rate-limit
+        // title-driven updates (see throttleNativeUpdates())
         this.zone.runOutsideAngular(() => {
-            this.touchbarState$.pipe(
-                throttleTime(1000, asyncScheduler, { leading: true, trailing: true }),
-                distinctUntilChanged(deepEqual),
-            ).subscribe(state => {
+            this.touchbarState$.pipe(throttleNativeUpdates(deepEqual)).subscribe(state => {
                 ipcRenderer.send('window-set-touch-bar', ...state)
             })
         })
