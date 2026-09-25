@@ -58,7 +58,7 @@
     "pug-loader": "^2",
     "rxjs": "^7",
     "sass": "^1",
-    "sass-loader": "^13",
+    "sass-loader": "^17",
     "shell-quote": "^1",
     "shelljs": "0.8.5",
     "slugify": "^1",
