@@ -10,7 +10,7 @@ import { SessionMiddlewareStack } from './api/middleware'
  */
 export abstract class BaseSession {
     open: boolean
-    readonly oscProcessor = new OSCProcessor()
+    readonly oscProcessor = new OSCProcessor(this.logger)
     readonly middleware = new SessionMiddlewareStack()
     protected output = new Subject<string>()
     protected binaryOutput = new Subject<Buffer>()
