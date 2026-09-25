@@ -28,6 +28,9 @@ jobs:
     - name: Test SSH TERM
       run: yarn run test:ssh-term
 
+    - name: Unit tests
+      run: yarn run test:unit
+
     - name: Build typings
       run: yarn run build:typings
 
