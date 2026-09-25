@@ -3,6 +3,7 @@ import { Subject, distinctUntilChanged, map } from 'rxjs'
 import { ipcRenderer } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
 import { AppService, HostAppService, Platform } from 'tabby-core'
+import { throttleNativeUpdates } from '../nativeUpdates'
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })
@@ -32,8 +33,12 @@ export class TouchbarService {
             this.app.selectTab(this.app.tabs[index])
         }))
 
-        this.touchbarState$.pipe(distinctUntilChanged(deepEqual)).subscribe(state => {
-            ipcRenderer.send('window-set-touch-bar', ...state)
+        // Each update rebuilds the native segmented control in the main process: rate-limit
+        // title-driven updates (see throttleNativeUpdates())
+        this.zone.runOutsideAngular(() => {
+            this.touchbarState$.pipe(throttleNativeUpdates(deepEqual)).subscribe(state => {
+                ipcRenderer.send('window-set-touch-bar', ...state)
+            })
         })
     }
 
