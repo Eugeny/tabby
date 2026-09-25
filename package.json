@@ -35,7 +35,7 @@
     "cross-env": "7.0.3",
     "css-loader": "^6",
     "deep-equal": "2.0.5",
-    "electron": "43",
+    "electron": "44",
     "electron-builder": "^26.16",
     "eslint": "^8",
     "eslint-import-resolver-typescript": "^3",
