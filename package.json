@@ -43,7 +43,7 @@
     "file-loader": "^6",
     "filesize": "^9",
     "gettext-extractor": "^3",
-    "html-loader": "4.2.0",
+    "html-loader": "5.1.0",
     "json-loader": "^0.5.7",
     "lru-cache": "^6",
     "macos-release": "^3",
