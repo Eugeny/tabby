@@ -119,7 +119,18 @@ export class XTermFrontend extends Frontend {
         mouseup: (event: Event) => void
         mousewheel: (event: Event) => void
         contextmenu: (event: Event) => void
+        paste: (event: Event) => void
     }
+
+    // Timestamp of the last keydown where our own "paste" hotkey claimed the
+    // event. The browser (or a third-party tool like a clipboard manager)
+    // can still dispatch a native `paste` DOM event for the same keystroke
+    // (this happens reliably for Ctrl-Shift-V, which Chromium treats as its
+    // own "paste without formatting" edit command, and for some synthetic
+    // key events), which would let xterm.js's built-in paste handling run
+    // *in addition* to our own, resulting in the clipboard content being
+    // inserted twice. See #11706, #11710, #468.
+    private lastPasteHotkeyAt = 0
 
     private resizeTimeout?: ReturnType<typeof setTimeout>
     private resizeAnimationFrame?: number
@@ -239,7 +250,17 @@ export class XTermFrontend extends Frontend {
             this.hotkeysService.pushKeyEvent(name, event)
 
             let ret = true
-            if (this.hotkeysService.matchActiveHotkey(true) !== null) {
+            const matchedHotkey = this.hotkeysService.matchActiveHotkey(true)
+            if (matchedHotkey !== null) {
+                if (matchedHotkey === 'paste') {
+                    // The browser may still deliver a native `paste` DOM event for
+                    // this same keystroke (e.g. Ctrl-Shift-V is Chromium's built-in
+                    // "paste without formatting" shortcut, and some clipboard
+                    // managers synthesize paste commands that bypass preventDefault).
+                    // Remember this so the `paste` listener below can drop it and
+                    // avoid inserting the clipboard contents twice.
+                    this.lastPasteHotkeyAt = performance.now()
+                }
                 event.stopPropagation()
                 event.preventDefault()
                 ret = false
@@ -493,6 +514,18 @@ export class XTermFrontend extends Frontend {
                 event.preventDefault()
                 event.stopPropagation()
             },
+            paste: event => {
+                // Swallow native paste events that immediately follow our own
+                // "paste" hotkey having already handled the keystroke, so
+                // xterm.js's built-in clipboard handling doesn't paste again.
+                // Registered with `capture: true` on an ancestor of xterm's
+                // textarea so it always runs before xterm's own listener,
+                // regardless of listener registration order.
+                if (performance.now() - this.lastPasteHotkeyAt < 500) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+            },
         }
 
         host.addEventListener('wheel', this.hostEventHandlers.wheel, { capture: true, passive: true })
@@ -502,6 +535,7 @@ export class XTermFrontend extends Frontend {
         host.addEventListener('mouseup', this.hostEventHandlers.mouseup)
         host.addEventListener('mousewheel', this.hostEventHandlers.mousewheel)
         host.addEventListener('contextmenu', this.hostEventHandlers.contextmenu)
+        host.addEventListener('paste', this.hostEventHandlers.paste, { capture: true })
 
         this.resizeObserver = new window['ResizeObserver'](() => this.resizeHandler())
         this.resizeObserver.observe(host)
@@ -527,6 +561,7 @@ export class XTermFrontend extends Frontend {
             host.removeEventListener('mouseup', this.hostEventHandlers.mouseup)
             host.removeEventListener('mousewheel', this.hostEventHandlers.mousewheel)
             host.removeEventListener('contextmenu', this.hostEventHandlers.contextmenu)
+            host.removeEventListener('paste', this.hostEventHandlers.paste, true)
             this.hostEventHandlers = undefined
         }
         this.resizeObserver?.disconnect()
