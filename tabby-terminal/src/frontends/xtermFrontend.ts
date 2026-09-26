@@ -117,6 +117,7 @@ export class XTermFrontend extends Frontend {
         drop: (event: Event) => void
         mousedown: (event: Event) => void
         mouseup: (event: Event) => void
+        rightButtonCapture: (event: Event) => void
         mousewheel: (event: Event) => void
         contextmenu: (event: Event) => void
     }
@@ -488,6 +489,15 @@ export class XTermFrontend extends Frontend {
             drop: event => this.drop.next(event as DragEvent),
             mousedown: event => this.mouseEvent.next(event as MouseEvent),
             mouseup: event => this.mouseEvent.next(event as MouseEvent),
+            rightButtonCapture: event => {
+                // Tabby always handles right-click itself (menu/paste/copy).
+                // Don't let xterm also report it to apps with mouse tracking
+                // enabled - some of them paste on right-click, doubling the paste
+                if ((event as MouseEvent).button === 2 && this.xterm.modes.mouseTrackingMode !== 'none') {
+                    event.stopPropagation()
+                    this.mouseEvent.next(event as MouseEvent)
+                }
+            },
             mousewheel: event => this.mouseEvent.next(event as MouseEvent),
             contextmenu: event => {
                 event.preventDefault()
@@ -500,6 +510,8 @@ export class XTermFrontend extends Frontend {
         host.addEventListener('drop', this.hostEventHandlers.drop)
         host.addEventListener('mousedown', this.hostEventHandlers.mousedown)
         host.addEventListener('mouseup', this.hostEventHandlers.mouseup)
+        host.addEventListener('mousedown', this.hostEventHandlers.rightButtonCapture, true)
+        host.addEventListener('mouseup', this.hostEventHandlers.rightButtonCapture, true)
         host.addEventListener('mousewheel', this.hostEventHandlers.mousewheel)
         host.addEventListener('contextmenu', this.hostEventHandlers.contextmenu)
 
@@ -525,6 +537,8 @@ export class XTermFrontend extends Frontend {
             host.removeEventListener('drop', this.hostEventHandlers.drop)
             host.removeEventListener('mousedown', this.hostEventHandlers.mousedown)
             host.removeEventListener('mouseup', this.hostEventHandlers.mouseup)
+            host.removeEventListener('mousedown', this.hostEventHandlers.rightButtonCapture, true)
+            host.removeEventListener('mouseup', this.hostEventHandlers.rightButtonCapture, true)
             host.removeEventListener('mousewheel', this.hostEventHandlers.mousewheel)
             host.removeEventListener('contextmenu', this.hostEventHandlers.contextmenu)
             this.hostEventHandlers = undefined
