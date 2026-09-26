@@ -9,6 +9,8 @@ export class TerminalConfigProvider extends ConfigProvider {
             environment: {},
             setComSpec: false,
             windowsRefreshEnvironment: true,
+            newTabButtonLeftClick: 'default',
+            newTabButtonRightClick: 'none',
         },
     }
 

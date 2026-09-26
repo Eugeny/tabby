@@ -23,6 +23,31 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             [ngValue]='profile.id'
                         ) {{profile.name}}
 
+            .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                .header
+                    .title(translate) New tab button: left click
+                    .description(translate) What the + button does when clicked
+
+                select.form-control(
+                    [(ngModel)]='config.store.terminal.newTabButtonLeftClick',
+                    (ngModelChange)='config.save()'
+                )
+                    option(ngValue='default', translate) Open the default profile
+                    option(ngValue='recent', translate) Show recent profiles
+
+            .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                .header
+                    .title(translate) New tab button: right click
+                    .description(translate) What the + button does when right-clicked
+
+                select.form-control(
+                    [(ngModel)]='config.store.terminal.newTabButtonRightClick',
+                    (ngModelChange)='config.save()'
+                )
+                    option(ngValue='none', translate) Nothing
+                    option(ngValue='default', translate) Open the default profile
+                    option(ngValue='recent', translate) Show recent profiles
+
             .d-flex.mb-3
                 .input-group
                     .input-group-text

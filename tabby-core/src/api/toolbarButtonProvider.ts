@@ -23,6 +23,11 @@ export interface ToolbarButton {
 
     click?: () => void
 
+    /**
+     * Optional right-click handler
+     */
+    contextMenu?: () => void
+
     submenu?: () => Promise<ToolbarButton[]>
 
     /** @hidden */
