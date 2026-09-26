@@ -11,6 +11,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             windowsRefreshEnvironment: true,
             newTabButtonLeftClick: 'default',
             newTabButtonRightClick: 'none',
+            newTabButtonRecentCount: 10,
         },
     }
 

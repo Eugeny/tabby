@@ -48,6 +48,20 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     option(ngValue='default', translate) Open the default profile
                     option(ngValue='recent', translate) Show recent profiles
 
+            .form-line(*ngIf='hostApp.platform !== Platform.Web && (config.store.terminal.newTabButtonLeftClick === "recent" || config.store.terminal.newTabButtonRightClick === "recent")')
+                .header
+                    .title(translate) New tab button: recent profiles to show
+                    .description(translate) How many recent profiles the + button menu lists (1-10)
+
+                input.form-control(
+                    type='number',
+                    min='1',
+                    max='10',
+                    step='1',
+                    [(ngModel)]='config.store.terminal.newTabButtonRecentCount',
+                    (ngModelChange)='config.save()'
+                )
+
             .d-flex.mb-3
                 .input-group
                     .input-group-text

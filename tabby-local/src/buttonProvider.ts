@@ -48,7 +48,8 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     private async showRecentProfilesMenu (): Promise<void> {
-        const recentProfiles = this.profiles.getRecentProfiles(RECENT_PROFILES_HISTORY_SIZE)
+        const count = Math.min(Math.max(Math.round(this.config.store.terminal.newTabButtonRecentCount) || 1, 1), RECENT_PROFILES_HISTORY_SIZE)
+        const recentProfiles = this.profiles.getRecentProfiles(count)
         if (!recentProfiles.length) {
             this.openDefaultProfile()
             return
