@@ -579,7 +579,22 @@ export class XTermFrontend extends Frontend {
     }
 
     focus (): void {
-        setTimeout(() => this.xterm.focus())
+        setTimeout(() => {
+            // Don't steal focus from modal dialogs (e.g. the SSH password prompt)
+            // or the tab's own overlay inputs - the deferred focus from a window
+            // focus event would otherwise land right after the user clicks into one
+            const active = document.activeElement
+            const tabHost = this.element?.parentElement
+            if (
+                active instanceof HTMLElement
+                && active !== this.xterm.textarea
+                && active.matches('input, textarea, select')
+                && ((tabHost?.contains(active) ?? false) || active.closest('ngb-modal-window') !== null)
+            ) {
+                return
+            }
+            this.xterm.focus()
+        })
     }
 
     async write (data: string): Promise<void> {
