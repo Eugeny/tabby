@@ -16,6 +16,11 @@ export class Command {
     run: () => Promise<void>
 
     /**
+     * Optional right-click handler for toolbar buttons
+     */
+    contextMenu?: () => void
+
+    /**
      * Raw SVG icon code
      */
     icon?: string
@@ -36,6 +41,7 @@ export class Command {
         const command = new Command()
         command.label = button.title
         command.run = async () => button.click?.()
+        command.contextMenu = button.contextMenu
         command.icon = button.icon
         command.locations = [CommandLocation.StartPage]
         if ((button.weight ?? 0) <= 0) {

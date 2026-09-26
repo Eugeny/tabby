@@ -55,6 +55,7 @@ title-bar(
                     button.btn.btn-secondary.btn-tab-bar(
                         [ngbTooltip]='button.label',
                         (click)='button.run && button.run()',
+                        (contextmenu)='onToolbarButtonContextMenu(button, $event)',
                         [fastHtmlBind]='button.icon'
                     )
 
@@ -87,6 +88,7 @@ title-bar(
                     button.btn.btn-secondary.btn-tab-bar(
                         [ngbTooltip]='button.label',
                         (click)='button.run && button.run()',
+                        (contextmenu)='onToolbarButtonContextMenu(button, $event)',
                         [fastHtmlBind]='button.icon'
                     )
 
