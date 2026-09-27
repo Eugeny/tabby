@@ -1,8 +1,35 @@
+diff --git a/node_modules/glasstron/src/browser_window.js b/node_modules/glasstron/src/browser_window.js
+index 292b61a..d6ec8de 100644
+--- a/node_modules/glasstron/src/browser_window.js
++++ b/node_modules/glasstron/src/browser_window.js
+@@ -23,10 +23,19 @@ const Utils = require("./utils.js");
+  */
+ class BrowserWindow extends electron.BrowserWindow {
+ 	constructor(options) {
+-		if(process.platform === "linux") options.transparent = true;
++		// Tabby: on Linux only use a transparent window when the caller explicitly asked
++		// for it. Electron treats transparent windows as translucent and then refuses to
++		// draw client-side window shadows/corners for them, see
++		// SetSupportsClientFrameShadow() in electron_desktop_window_tree_host_linux.cc
++		// Other platforms keep their previous behavior, where the transparent background
++		// is what lets the blur effect show through.
++		const useTransparentBackground = process.platform !== "linux" || options.transparent === true;
+ 
+-		const _backgroundColor = options.backgroundColor;
+-		options.backgroundColor = "#00ffffff";
++		let _backgroundColor;
++		if(useTransparentBackground) {
++			_backgroundColor = options.backgroundColor;
++			options.backgroundColor = "#00ffffff";
++		}
+ 		// We do not call super to get an actual BrowserWindow from electron and not mess with native casts (broke GTK modals)
+ 		const window = new electron.BrowserWindow(options);
+ 		BrowserWindow._bindAndReplace(window, BrowserWindow.setBackgroundColor);
 diff --git a/node_modules/glasstron/src/native/linux_x11/x11.js b/node_modules/glasstron/src/native/linux_x11/x11.js
-index e38682a..5a9f214 100644
+index e0b97eb..13042e5 100644
 --- a/node_modules/glasstron/src/native/linux_x11/x11.js
 +++ b/node_modules/glasstron/src/native/linux_x11/x11.js
-@@ -58,10 +58,16 @@ class X11Connection {
+@@ -57,10 +57,16 @@ module.exports = class X11 extends EventEmitter {
  				id = this.display.screen[0].root;
  
  			this.display.client.GetProperty(0, id, prop, 0, 0, 10000000, (err, propData) => {

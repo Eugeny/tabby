@@ -40,7 +40,7 @@ h3.mb-3(translate) Window
 
     toggle(
         [(ngModel)]='config.store.appearance.vibrancy',
-        (ngModelChange)='config.save()'
+        (ngModelChange)='config.save(); (hostApp.platform === Platform.Linux && config.requestRestart())'
     )
 
 .form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported && config.store.hacks.enableFluentBackground')

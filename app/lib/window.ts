@@ -29,6 +29,10 @@ const macOSVibrancyType: any = process.platform === 'darwin' ? compareVersions(m
 
 const activityIcon = nativeImage.createFromPath(`${app.getAppPath()}/assets/activity.png`)
 
+// Opaque fallback background for Linux windows: transparency is reserved for the
+// blurred ("vibrancy") mode, see the transparent window option below.
+const linuxWindowBackgroundColor = '#131d27'
+
 export class Window {
     ready: Promise<void>
     isMainWindow = false
@@ -56,6 +60,14 @@ export class Window {
         this.windowBounds = this.windowConfig.get('windowBoundaries')
 
         const maximized = this.windowConfig.get('maximized')
+        // Transparent windows are treated as translucent by Electron, which makes it
+        // refuse to draw its client-side window shadow (and rounded corners) on Linux.
+        // Only request a transparent window when the blur effect actually needs one.
+        // See SetSupportsClientFrameShadow() in electron_desktop_window_tree_host_linux.cc
+        const linuxTransparency = process.platform === 'linux' && !!this.configStore.appearance?.vibrancy
+        const backgroundColor = process.platform === 'linux' && !linuxTransparency
+            ? linuxWindowBackgroundColor
+            : '#00000000'
         const bwOptions: BrowserWindowConstructorOptions = {
             width: 800,
             height: 600,
@@ -71,8 +83,12 @@ export class Window {
             maximizable: true,
             frame: false,
             show: false,
-            backgroundColor: '#00000000',
+            backgroundColor,
             acceptFirstMouse: true,
+        }
+
+        if (linuxTransparency) {
+            bwOptions.transparent = true
         }
 
         if (this.windowBounds) {
@@ -116,6 +132,13 @@ export class Window {
                 this.window!.setVibrancy(macOSVibrancyType)
             } else if (process.platform === 'win32' && this.configStore.appearance?.vibrancy) {
                 this.setVibrancy(true)
+            } else if (process.platform === 'linux') {
+                // Paint the window background before the renderer sends the config over
+                if (this.configStore.appearance?.vibrancy) {
+                    this.setVibrancy(true)
+                } else {
+                    this.window!.setBackgroundColor(linuxWindowBackgroundColor)
+                }
             }
 
             this.setDarkMode(this.configStore.appearance?.colorSchemeMode ?? 'dark')
@@ -209,7 +232,9 @@ export class Window {
                 }
             }
         } else if (process.platform === 'linux') {
-            this.window.setBackgroundColor(enabled ? '#00000000' : '#131d27')
+            // Transparency can only be requested when the window is created, so enabling
+            // this at runtime takes effect after a restart (the settings UI requests one)
+            this.window.setBackgroundColor(enabled ? '#00000000' : linuxWindowBackgroundColor)
             this.window.setBlur?.(enabled)
         } else {
             this.window.setVibrancy(enabled ? macOSVibrancyType : null)
