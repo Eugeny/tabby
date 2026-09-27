@@ -8,7 +8,7 @@ export function selectBaudRate (
     notifications: NotificationsService,
 ): Promise<number|null> {
     return new Promise(resolve => {
-        selector.show<number>(translate.instant(_('Baud rate')), [
+        selector.show<number|undefined>(translate.instant(_('Baud rate')), [
             ...BAUD_RATES.map(x => ({ name: x.toString(), result: x, weight: x })),
             {
                 name: translate.instant('custom'), // not visible
