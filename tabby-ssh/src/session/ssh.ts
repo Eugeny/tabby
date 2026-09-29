@@ -880,7 +880,7 @@ export class SSHSession {
 
     /**
      * Open a session channel and run a single command, without a PTY.
-     * Used by tabby-et to bootstrap etterminal.
+     * Useful for clients that need to run a command without starting a shell.
      */
     async openExecChannel (command: string): Promise<russh.Channel> {
         if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {

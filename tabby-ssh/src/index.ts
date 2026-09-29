@@ -72,4 +72,3 @@ export { SFTPFile, SFTPSession } from './session/sftp'
 export { SFTPPanelComponent, SSHTabComponent }
 export { PasswordStorageService } from './services/passwordStorage.service'
 export { SSHSession, KeyboardInteractivePrompt } from './session/ssh'
-export { SSHProfilesService } from './profiles'
