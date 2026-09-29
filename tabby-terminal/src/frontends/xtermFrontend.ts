@@ -52,6 +52,50 @@ function isIMETextKey (event: KeyboardEvent): boolean {
 // before giving up and letting xterm fall back to its DOM renderer.
 const MAX_WEBGL_RECOVERY_ATTEMPTS = 3
 
+// How often to check the glyph atlas against terminal.webGLAtlasBudgetMB.
+const WEBGL_ATLAS_CHECK_INTERVAL = 60 * 1000
+
+type AnyWebGLContext = WebGLRenderingContext | WebGL2RenderingContext
+
+function collectWebGLContexts (canvases: HTMLCanvasElement[]): AnyWebGLContext[] {
+    const contexts: AnyWebGLContext[] = []
+    for (const canvas of canvases) {
+        try {
+            // getContext returns the existing context for the type a canvas was
+            // created with and null for any other type, so this never creates
+            // a context on xterm's 2D layers.
+            const gl = canvas.getContext('webgl2') ?? canvas.getContext('webgl')
+            if (gl) {
+                contexts.push(gl)
+            }
+        } catch {
+            // A detached or already-lost canvas; nothing to release.
+        }
+    }
+    return contexts
+}
+
+function loseWebGLContexts (contexts: AnyWebGLContext[]): void {
+    for (const gl of contexts) {
+        try {
+            gl.getExtension('WEBGL_lose_context')?.loseContext()
+        } catch {
+            // Context already gone.
+        }
+    }
+}
+
+// A 0x0 canvas has no GPU backing store. Only canvases the renderer has already
+// removed from the DOM are touched; live layers (overview ruler, images) keep theirs.
+function releaseCanvasBackingStores (canvases: HTMLCanvasElement[]): void {
+    for (const canvas of canvases) {
+        if (!canvas.isConnected) {
+            canvas.width = 0
+            canvas.height = 0
+        }
+    }
+}
+
 class FlowControl {
     private blocked = false
     private blocked$ = new BehaviorSubject<boolean>(false)
@@ -129,6 +173,8 @@ export class XTermFrontend extends Frontend {
     private pinnedToBottom = true
     private pendingRendererRecovery = false
     private rendererRecoveryAttempts = 0
+    private rendererReleasedWhileHidden = false
+    private atlasBudgetTimer?: ReturnType<typeof setInterval>
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -209,7 +255,10 @@ export class XTermFrontend extends Frontend {
         this.xterm.unicode.activeVersion = '11'
 
         if (this.configService.store.terminal.sixel) {
-            this.xterm.loadAddon(new ImageAddon())
+            this.xterm.loadAddon(new ImageAddon({
+                // Decoded images are kept as canvases; the addon default is 128 MB per terminal.
+                storageLimit: this.configService.store.terminal.imageStorageLimitMB,
+            }))
         }
 
         const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
@@ -396,22 +445,14 @@ export class XTermFrontend extends Frontend {
         // Just configure the colors to avoid a flash
         this.configureColors(profile.terminalColorScheme)
 
-        if (this.enableWebGL) {
-            this.attachWebGLAddon()
-            this.platformService.displayMetricsChanged$.pipe(
-                takeUntil(this.destroyed$),
-            ).subscribe(() => {
-                this.webGLAddon?.clearTextureAtlas()
-            })
-        } else {
-            this.canvasAddon = new CanvasAddon()
-            this.xterm.loadAddon(this.canvasAddon)
-            this.platformService.displayMetricsChanged$.pipe(
-                takeUntil(this.destroyed$),
-            ).subscribe(() => {
-                this.canvasAddon?.clearTextureAtlas()
-            })
-        }
+        this.attachRendererAddon()
+        this.platformService.displayMetricsChanged$.pipe(
+            takeUntil(this.destroyed$),
+        ).subscribe(() => {
+            this.webGLAddon?.clearTextureAtlas()
+            this.canvasAddon?.clearTextureAtlas()
+        })
+        this.atlasBudgetTimer = setInterval(() => this.enforceAtlasBudget(), WEBGL_ATLAS_CHECK_INTERVAL)
 
         // Allow an animation frame
         await new Promise(r => setTimeout(r, 100))
@@ -519,6 +560,10 @@ export class XTermFrontend extends Frontend {
             this.resizeAnimationFrame = undefined
         }
         this.resizePending = false
+        if (this.atlasBudgetTimer !== undefined) {
+            clearInterval(this.atlasBudgetTimer)
+            this.atlasBudgetTimer = undefined
+        }
         if (host && this.hostEventHandlers) {
             host.removeEventListener('wheel', this.hostEventHandlers.wheel, true)
             host.removeEventListener('dragOver', this.hostEventHandlers.dragOver)
@@ -544,9 +589,12 @@ export class XTermFrontend extends Frontend {
             this.detach(this.element)
         }
         super.destroy()
-        this.webGLAddon?.dispose()
-        this.canvasAddon?.dispose()
+        // Lose the GL context and drop every canvas backing store now instead
+        // of waiting for garbage collection, which GPU pressure never triggers.
+        const canvases = this.collectCanvases()
+        this.releaseRendererAddons()
         this.xterm.dispose()
+        releaseCanvasBackingStores(canvases)
     }
 
     getSelection (): string {
@@ -805,15 +853,26 @@ export class XTermFrontend extends Frontend {
     /**
      * Redraw the terminal and recover the renderer when its tab is shown again.
      * Reactivating clears stale renderer state left behind while the tab was
-     * hidden, and flushes any GPU context recovery deferred until now.
+     * hidden, brings back a renderer released by deactivate(), and flushes any
+     * GPU context recovery deferred until now.
      */
     reactivate (): void {
-        // An app- or window-level GPU reset can blank the canvas without firing
-        // xterm's per-canvas contextlost event, so pendingRendererRecovery stays
-        // unset. Treat a WebGL frontend that has lost its addon as needing
-        // recovery too, so a shown-but-blank pane always gets its context back
-        // instead of relying on a manual window resize.
-        if (this.pendingRendererRecovery || this.enableWebGL && !this.webGLAddon) {
+        if (this.rendererReleasedWhileHidden) {
+            // A planned re-attach after deactivate(): this is not a lost
+            // context and must not spend the recovery budget below.
+            this.rendererReleasedWhileHidden = false
+            if (this.isAttachActive()) {
+                this.attachRendererAddon()
+            }
+            this.pendingRendererRecovery = false
+            this.rendererRecoveryAttempts = 0
+            this.redraw()
+        } else if (this.pendingRendererRecovery || this.enableWebGL && !this.webGLAddon) {
+            // An app- or window-level GPU reset can blank the canvas without firing
+            // xterm's per-canvas contextlost event, so pendingRendererRecovery stays
+            // unset. Treat a WebGL frontend that has lost its addon as needing
+            // recovery too, so a shown-but-blank pane always gets its context back
+            // instead of relying on a manual window resize.
             this.pendingRendererRecovery = true
             this.recoverRenderer()
         } else {
@@ -823,9 +882,40 @@ export class XTermFrontend extends Frontend {
             this.rendererRecoveryAttempts = 0
             this.redraw()
         }
+        this.enforceAtlasBudget()
+    }
+
+    /**
+     * Release the renderer of a tab that has stayed hidden for a while. Tabby
+     * parks inactive tabs off-screen rather than display:none, so without this
+     * every background tab keeps two to three window-sized RGBA buffers, a 2D
+     * link layer and a full copy of the glyph atlas on the GPU indefinitely.
+     * reactivate() brings the renderer back when the tab is shown.
+     */
+    deactivate (): void {
+        if (!this.isAttachActive() || this.pendingRendererRecovery) {
+            return
+        }
+        if (!this.webGLAddon && !this.canvasAddon) {
+            return
+        }
+        this.releaseRendererAddons()
+        this.rendererReleasedWhileHidden = true
+    }
+
+    private attachRendererAddon (): void {
+        if (this.enableWebGL) {
+            this.attachWebGLAddon()
+        } else if (!this.canvasAddon) {
+            this.canvasAddon = new CanvasAddon()
+            this.xterm.loadAddon(this.canvasAddon)
+        }
     }
 
     private attachWebGLAddon (): void {
+        if (this.webGLAddon) {
+            return
+        }
         const addon = new WebglAddon()
         // xterm fires this when the GPU drops the canvas context (driver reset,
         // backgrounded app, too many live contexts).
@@ -834,9 +924,70 @@ export class XTermFrontend extends Frontend {
         this.webGLAddon = addon
     }
 
-    private onWebGLContextLoss (): void {
-        this.webGLAddon?.dispose()
+    /**
+     * Dispose the WebGL addon and lose its GL context explicitly. The addon's
+     * own dispose() only detaches the canvas; the context and its drawing
+     * buffers stay allocated until garbage collection, which GPU pressure
+     * never triggers.
+     */
+    private releaseWebGLAddon (): void {
+        const addon = this.webGLAddon
+        if (!addon) {
+            return
+        }
+        const canvases = this.collectCanvases()
+        const contexts = collectWebGLContexts(canvases)
         this.webGLAddon = undefined
+        addon.dispose()
+        loseWebGLContexts(contexts)
+        releaseCanvasBackingStores(canvases)
+    }
+
+    private releaseRendererAddons (): void {
+        this.releaseWebGLAddon()
+        if (this.canvasAddon) {
+            const canvases = this.collectCanvases()
+            this.canvasAddon.dispose()
+            this.canvasAddon = undefined
+            releaseCanvasBackingStores(canvases)
+        }
+    }
+
+    private collectCanvases (): HTMLCanvasElement[] {
+        return Array.from(this.xterm.element?.querySelectorAll('canvas') ?? [])
+    }
+
+    private atlasBytes (): number {
+        const pages: any[] | undefined = (this.webGLAddon as any)?._renderer?._charAtlas?.pages
+        if (!Array.isArray(pages)) {
+            return 0
+        }
+        let bytes = 0
+        for (const page of pages) {
+            if (page?.canvas) {
+                bytes += page.canvas.width * page.canvas.height * 4
+            }
+        }
+        return bytes
+    }
+
+    /**
+     * Clear the glyph atlas once it outgrows its budget. xterm never evicts
+     * glyphs, the atlas is shared by every terminal with the same font and
+     * theme, and each of their GPU contexts holds a full copy plus mipmaps.
+     */
+    private enforceAtlasBudget (): void {
+        const budgetMB = this.configService.store.terminal.webGLAtlasBudgetMB
+        if (!this.webGLAddon || !(budgetMB > 0)) {
+            return
+        }
+        if (this.atlasBytes() > budgetMB * 1024 * 1024) {
+            this.webGLAddon.clearTextureAtlas()
+        }
+    }
+
+    private onWebGLContextLoss (): void {
+        this.releaseWebGLAddon()
         this.pendingRendererRecovery = true
         this.recoverRenderer()
     }
@@ -860,7 +1011,18 @@ export class XTermFrontend extends Frontend {
     }
 
     private canRecoverRenderer (): boolean {
-        return !!this.element && this.element.offsetParent !== null && document.hasFocus()
+        const element = this.element
+        if (!element?.offsetParent || !document.hasFocus()) {
+            return false
+        }
+        // Inactive tabs are parked off-screen rather than display:none, so a
+        // non-null offsetParent does not mean the pane is on screen. Recovering
+        // an off-screen pane would only create a context that Chromium may
+        // evict again before the tab is ever shown.
+        const rect = element.getBoundingClientRect()
+        return rect.width > 0 && rect.height > 0
+            && rect.right > 0 && rect.bottom > 0
+            && rect.left < window.innerWidth && rect.top < window.innerHeight
     }
 
     private redraw (): void {
