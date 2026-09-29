@@ -47,7 +47,7 @@
   "devDependencies": {
     "@ngx-translate/core": "^14",
     "@types/mz": "2.7.4",
-    "@types/node": "22"
+    "@types/node": "26"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",
