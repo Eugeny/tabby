@@ -267,6 +267,21 @@ export class XTermFrontend extends Frontend {
                 return false
             }
 
+            if (
+                this.configService.store.terminal.altArrowIsMeta &&
+                event.type === 'keydown' &&
+                event.altKey && !event.ctrlKey && !event.shiftKey && !event.metaKey &&
+                (event.key === 'ArrowLeft' || event.key === 'ArrowRight')
+            ) {
+                // xterm.js 5 rewrites Alt+arrow into Ctrl+arrow (or ESC b / ESC f on
+                // macOS) to emulate word jumps, so apps can't tell Alt+arrow from
+                // Ctrl+arrow. Send the real CSI modifier instead. The rewrite is gone
+                // in xterm.js 6 (xtermjs/xterm.js#5346).
+                this.input.next(Buffer.from(event.key === 'ArrowRight' ? '\x1b[1;3C' : '\x1b[1;3D', 'binary'))
+                event.preventDefault()
+                return false
+            }
+
             if (event.type === 'keydown' && this.hostApp.platform === Platform.Linux && isIMETextKey(event)) {
                 // Returning false keeps xterm from sending/cancelling keydown.
                 // The resulting keypress/input event contains either the IME
