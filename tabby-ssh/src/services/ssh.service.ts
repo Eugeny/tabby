@@ -96,8 +96,15 @@ export class SSHService {
             privateKeyContent = buffer.toString()
             await fs.writeFile(tmpFile.path, privateKeyContent)
             const keyHash = crypto.createHash('sha512').update(privateKeyContent).digest('hex')
+            const savedPassphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash)
+            // WinSCP's /keygen refuses PPK input with nothing to change ("No action specified"), so use PuTTY keys as-is
+            if (privateKeyContent.trimStart().startsWith('PuTTY-User-Key-File-')) {
+                tmpPrivateKeyFile = tmpFile
+                passphrase = savedPassphrase
+                break
+            }
             // need to pass an default passphrase, otherwise it might get stuck at the passphrase input
-            const curPassphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash) ?? 'tabby'
+            const curPassphrase = savedPassphrase ?? 'tabby'
             const winSCPcom = path.slice(0, -3) + 'com'
             try {
                 await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, '-o', tmpFile.path, '--old-passphrase', curPassphrase])
