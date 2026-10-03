@@ -351,9 +351,18 @@ hotkey-input-modal {
     }
 }
 
-.list-group-item svg {
+// Font Awesome / simple icon SVGs in list rows. Do not target
+// profile-icon's authored inline SVGs — those set fill/stroke on the
+// root and rely on inheritance (see #11756).
+.list-group-item > svg,
+.list-group-item > i svg {
     fill: var(--bs-body-color);
     fill-opacity: 0.75;
+}
+
+.list-group-item profile-icon svg {
+    fill: unset;
+    fill-opacity: unset;
 }
 
 *::-webkit-scrollbar {
