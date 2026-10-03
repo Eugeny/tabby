@@ -15,6 +15,7 @@ import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { SFTPSession } from './sftp'
 import { SSHAlgorithmType, SSHProfile, AutoPrivateKeyLocator, PortForwardType } from '../api'
 import { ForwardedPort } from './forwards'
+import { connectThroughSocks5, createOneShotRelay } from './socksProxy'
 import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
 import { requestShellPTY, SSHShellChannelOptions } from './shellChannel'
@@ -400,12 +401,26 @@ export class SSHSession {
             this.jumpChannel = null
         } else if (this.profile.options.socksProxyHost) {
             this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
-            transport = await russh.SshTransport.newSocksProxy(
-                this.profile.options.socksProxyHost,
-                this.profile.options.socksProxyPort ?? 1080,
-                this.profile.options.host,
-                this.profile.options.port ?? 22,
-            )
+            if (this.profile.options.socksProxyUsername) {
+                // russh can't authenticate against the proxy, so do the SOCKS5
+                // handshake here and hand it the resulting socket.
+                const socket = await connectThroughSocks5({
+                    proxyHost: this.profile.options.socksProxyHost.trim(),
+                    proxyPort: this.profile.options.socksProxyPort ?? 1080,
+                    username: this.profile.options.socksProxyUsername,
+                    password: this.profile.options.socksProxyPassword ?? '',
+                    host: this.profile.options.host.trim(),
+                    port: this.profile.options.port ?? 22,
+                })
+                transport = await russh.SshTransport.newSocket(await createOneShotRelay(socket))
+            } else {
+                transport = await russh.SshTransport.newSocksProxy(
+                    this.profile.options.socksProxyHost,
+                    this.profile.options.socksProxyPort ?? 1080,
+                    this.profile.options.host,
+                    this.profile.options.port ?? 22,
+                )
+            }
         } else if (this.profile.options.httpProxyHost) {
             this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.httpProxyHost}:${this.profile.options.httpProxyPort}`)
             transport = await russh.SshTransport.newHttpProxy(
