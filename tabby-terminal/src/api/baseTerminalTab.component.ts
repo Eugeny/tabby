@@ -1,7 +1,7 @@
 import { Observable, Subject, first, auditTime, debounce, interval } from 'rxjs'
 import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
-import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
+import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component, ChangeDetectorRef } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
 import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined } from 'tabby-core'
 
@@ -220,12 +220,14 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             if (hotkey === 'search') {
                 this.showSearchPanel = true
                 setImmediate(() => {
-                    const input = this.element.nativeElement.querySelector('.search-input')
                     const selectedText = (this.frontend?.getSelection() ?? '').trim()
-                    if (input && selectedText.length) {
-                        input.value = selectedText
+                    if (this.searchPanel && selectedText.length) {
+                        this.searchPanel.query = selectedText
+                        this.searchPanel.onQueryChange()
+                        this.injector.get(ChangeDetectorRef).detectChanges()
                     }
 
+                    const input = this.element.nativeElement.querySelector('.search-input')
                     input?.focus()
                     input?.select()
                 })
