@@ -15,7 +15,6 @@ import { WebglAddon } from '@xterm/addon-webgl'
 import { Unicode11Addon } from '@xterm/addon-unicode11'
 import { SerializeAddon } from '@xterm/addon-serialize'
 import { ImageAddon } from '@xterm/addon-image'
-import { CanvasAddon } from '@xterm/addon-canvas'
 import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
 import { generatePalette } from '../generatePalette'
@@ -109,7 +108,6 @@ export class XTermFrontend extends Frontend {
     private serializeAddon = new SerializeAddon()
     private ligaturesAddon?: LigaturesAddon
     private webGLAddon?: WebglAddon
-    private canvasAddon?: CanvasAddon
     private opened = false
     private resizeObserver?: any
     private hostEventHandlers?: {
@@ -152,7 +150,7 @@ export class XTermFrontend extends Frontend {
         this.xterm = new Terminal({
             allowTransparency: true,
             allowProposedApi: true,
-            overviewRulerWidth: 8,
+            overviewRuler: { width: 8 },
             windowsPty: process.platform === 'win32' ? {
                 backend: this.configService.store.terminal.useConPTY ? 'conpty' : 'winpty',
                 buildNumber: this.configService.store.terminal.useConPTY && isWindowsBuild(WIN_BUILD_BUNDLED_CONPTY_SUPPORTED)
@@ -271,6 +269,18 @@ export class XTermFrontend extends Frontend {
                 return false
             }
 
+            // xterm 6 sends Alt+Left/Right as ESC[1;3D/C, which shells don't bind by default.
+            // Keep xterm 5's word-jump sequences.
+            if (
+                event.type === 'keydown' && event.altKey && !event.ctrlKey && !event.shiftKey && !event.metaKey &&
+                (event.key === 'ArrowLeft' || event.key === 'ArrowRight')
+            ) {
+                const left = event.key === 'ArrowLeft'
+                const seq = this.hostApp.platform === Platform.macOS ? left ? '\x1bb' : '\x1bf' : left ? '\x1b[1;5D' : '\x1b[1;5C'
+                this.input.next(Buffer.from(seq, 'binary'))
+                return false
+            }
+
             if (event.type === 'keydown' && this.hostApp.platform === Platform.Linux && isIMETextKey(event)) {
                 // Returning false keeps xterm from sending/cancelling keydown.
                 // The resulting keypress/input event contains either the IME
@@ -299,7 +309,8 @@ export class XTermFrontend extends Frontend {
                     const savedViewportY = this.xterm.buffer.active.viewportY
 
                     this.fitAddon.fit()
-                    this.xtermCore.viewport._refresh()
+                    // xterm only re-syncs the scroll area when cols/rows change, not cell size
+                    this.xtermCore._viewport?.queueSync()
 
                     if (savedPinned) {
                         this.xtermCore._scrollToBottom()
@@ -406,14 +417,6 @@ export class XTermFrontend extends Frontend {
                 takeUntil(this.destroyed$),
             ).subscribe(() => {
                 this.webGLAddon?.clearTextureAtlas()
-            })
-        } else {
-            this.canvasAddon = new CanvasAddon()
-            this.xterm.loadAddon(this.canvasAddon)
-            this.platformService.displayMetricsChanged$.pipe(
-                takeUntil(this.destroyed$),
-            ).subscribe(() => {
-                this.canvasAddon?.clearTextureAtlas()
             })
         }
 
@@ -549,7 +552,6 @@ export class XTermFrontend extends Frontend {
         }
         super.destroy()
         disposeWebglAddon(this.webGLAddon)
-        this.canvasAddon?.dispose()
         this.xterm.dispose()
     }
 
@@ -679,6 +681,7 @@ export class XTermFrontend extends Frontend {
             background: getXtermBackgroundColor(this.configService, this.themes, scheme),
             cursor: scheme.cursor,
             cursorAccent: scheme.cursorAccent,
+            overviewRulerBorder: '#00000000',
         }
 
         for (let i = 0; i < COLOR_NAMES.length; i++) {
@@ -715,9 +718,12 @@ export class XTermFrontend extends Frontend {
             }
         })
 
-        this.xtermCore.browser.isWindows = this.hostApp.platform === Platform.Windows
-        this.xtermCore.browser.isLinux = this.hostApp.platform === Platform.Linux
-        this.xtermCore.browser.isMac = this.hostApp.platform === Platform.macOS
+        this.xtermCore.browser = {
+            ...this.xtermCore.browser,
+            isWindows: this.hostApp.platform === Platform.Windows,
+            isLinux: this.hostApp.platform === Platform.Linux,
+            isMac: this.hostApp.platform === Platform.macOS,
+        }
 
         this.xterm.options.fontFamily = getCSSFontFamily(config)
         this.xterm.options.cursorStyle = {
@@ -886,9 +892,8 @@ export class XTermFrontend extends Frontend {
         const renderService = this.xtermCore._renderService
         renderService?.clear()
         // handleResize() alone is a no-op when cols/rows are unchanged
-        // resizeHandler() runs a real itAddon.fit() followed
-        // by an unconditional viewport._refresh(),
-        // forcing a full repaint
+        // resizeHandler() runs a real fitAddon.fit() and an
+        // explicit _renderRows(), forcing a full repaint
         this.resizeHandler()
         renderService?.handleResize(this.xterm.cols, this.xterm.rows)
     }
