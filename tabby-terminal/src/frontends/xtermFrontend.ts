@@ -261,7 +261,10 @@ export class XTermFrontend extends Frontend {
                 return false
             }
 
-            const handled = keyboardEventHandler('keydown', event)
+            // xterm calls this handler for keypress and keyup too, so pass the real
+            // event type - labelling them all as keydown makes the hotkey service
+            // match the same keystroke several times.
+            const handled = keyboardEventHandler(event.type, event)
             if (!handled) {
                 // a hotkey claimed the event and already cancelled it
                 return false
