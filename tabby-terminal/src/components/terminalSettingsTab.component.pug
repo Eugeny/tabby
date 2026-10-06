@@ -57,6 +57,18 @@ div.mt-4
 
     .form-line
         .header
+            .title(
+                translate="Send {altKeyName}+arrow keys as Meta",
+                [translateParams]='{altKeyName: altKeyName}'
+            )
+            .description(translate) Sends the Meta modifier instead of emulating Ctrl+arrow word jumps
+        toggle(
+            [(ngModel)]='config.store.terminal.altArrowIsMeta',
+            (ngModelChange)='config.save()',
+        )
+
+    .form-line
+        .header
             .title(translate) Scroll on input
             .description(translate) Scrolls the terminal to the bottom on user input
         toggle(
