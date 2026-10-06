@@ -34,6 +34,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             hideCloseButton: false,
             hideTabOptionsButton: false,
             rightClick: 'menu',
+            rightClickSelectsWord: false,
             pasteOnMiddleClick: true,
             copyOnSelect: false,
             copyAsHTML: true,
@@ -72,6 +73,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.macOS]: {
             terminal: {
                 font: 'Menlo',
+                rightClickSelectsWord: true,
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],

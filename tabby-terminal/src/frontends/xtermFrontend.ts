@@ -725,6 +725,9 @@ export class XTermFrontend extends Frontend {
         }[config.terminal.cursor] || config.terminal.cursor
         this.xterm.options.cursorBlink = config.terminal.cursorBlink
         this.xterm.options.macOptionIsMeta = config.terminal.altIsMeta
+        if (this.hostApp.platform === Platform.macOS) {
+            this.xterm.options.rightClickSelectsWord = config.terminal.rightClickSelectsWord
+        }
         this.xterm.options.scrollback = config.terminal.scrollbackLines
         this.xterm.options.wordSeparator = config.terminal.wordSeparator
         this.xterm.options.drawBoldTextInBrightColors = config.terminal.drawBoldTextInBrightColors
