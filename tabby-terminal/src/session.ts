@@ -69,7 +69,18 @@ export abstract class BaseSession {
         this.loginScriptProcessor = newProcessor
     }
 
+    private destroying = false
+
     async destroy (): Promise<void> {
+        // closed$ subscribers can call destroy() again synchronously - closing a local tab
+        // runs LocalTerminalTabComponent.ngOnDestroy() -> session.destroy(). That inner call
+        // used to complete destroyed$ before this call emitted it, so destroyed$ subscribers
+        // (e.g. the local session's pty.unsubscribeAll()) never ran and every closed session
+        // stayed reachable through its PTY IPC listeners.
+        if (this.destroying) {
+            return
+        }
+        this.destroying = true
         if (this.open) {
             this.logger.info('Destroying')
             this.open = false
