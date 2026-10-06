@@ -13,7 +13,7 @@ const MAX_INITIAL_DATA_BUFFER = 8 * 1024 * 1024
  */
 export abstract class BaseSession {
     open: boolean
-    readonly oscProcessor = new OSCProcessor()
+    readonly oscProcessor = new OSCProcessor(this.logger)
     readonly middleware = new SessionMiddlewareStack()
     protected output = new Subject<string>()
     protected binaryOutput = new Subject<Buffer>()
