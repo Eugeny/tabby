@@ -14,7 +14,7 @@
     "@biesbjerg/ngx-translate-extract-marker": "^1",
     "@electron/notarize": "^1",
     "@electron/rebuild": "^4",
-    "@fortawesome/fontawesome-free": "^6",
+    "@fortawesome/fontawesome-free": "^7",
     "@ng-bootstrap/ng-bootstrap": "^14",
     "@ngtools/webpack": "^15",
     "@popperjs/core": "^2",
