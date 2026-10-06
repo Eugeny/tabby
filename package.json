@@ -34,7 +34,7 @@
     "core-js": "^3",
     "cross-env": "7.0.3",
     "css-loader": "^6",
-    "deep-equal": "2.0.5",
+    "deep-equal": "2.2.3",
     "electron": "43",
     "electron-builder": "^26.16",
     "eslint": "^8",
