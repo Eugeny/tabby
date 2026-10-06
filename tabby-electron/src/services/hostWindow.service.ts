@@ -1,7 +1,9 @@
 import type { BrowserWindow, TouchBar } from 'electron'
+import { Subject } from 'rxjs'
 import { Injectable, Inject, NgZone } from '@angular/core'
 import { BootstrapData, BOOTSTRAP_DATA, HostWindowService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
+import { throttleNativeUpdates } from '../nativeUpdates'
 
 export interface Bounds {
     x: number
@@ -16,6 +18,9 @@ export class ElectronHostWindow extends HostWindowService {
 
     private _isFullscreen = false
     private _isMaximized = false
+
+    /** Native window title updates, rate-limited: see throttleNativeUpdates() */
+    private windowTitle = new Subject<string>()
 
     constructor (
         zone: NgZone,
@@ -58,6 +63,12 @@ export class ElectronHostWindow extends HostWindowService {
         }))
 
         this._isMaximized = this.getWindow().isMaximized()
+
+        zone.runOutsideAngular(() => {
+            this.windowTitle.pipe(throttleNativeUpdates()).subscribe(title => {
+                this.electron.ipcRenderer.send('window-set-title', title)
+            })
+        })
     }
 
     getWindow (): BrowserWindow {
@@ -73,7 +84,7 @@ export class ElectronHostWindow extends HostWindowService {
     }
 
     setTitle (title?: string): void {
-        this.electron.ipcRenderer.send('window-set-title', title ?? 'Tabby')
+        this.windowTitle.next(title ?? 'Tabby')
     }
 
     toggleFullscreen (): void {
