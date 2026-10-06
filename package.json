@@ -25,7 +25,7 @@
     "@types/electron-debug": "^2",
     "@types/js-yaml": "^4",
     "@types/node": "^20",
-    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^6",
     "apply-loader": "2.0.0",
     "babel-loader": "^9",
