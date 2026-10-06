@@ -42,7 +42,7 @@
     "eslint-plugin-import": "^2",
     "file-loader": "^6",
     "filesize": "^9",
-    "gettext-extractor": "^3",
+    "gettext-extractor": "^4",
     "html-loader": "4.2.0",
     "json-loader": "^0.5.7",
     "lru-cache": "^6",
