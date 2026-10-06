@@ -6227,13 +6227,12 @@ yallist@^5.0.0:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-5.0.0.tgz#00e2de443639ed0d78fd87de0d27469fbcffb533"
   integrity sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==
 
-yaml-loader@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/yaml-loader/-/yaml-loader-0.8.0.tgz#c839325e3fdee082b3768b2a21fe34fde5d96f61"
-  integrity sha512-LjeKnTzVBKWiQBeE2L9ssl6WprqaUIxCSNs5tle8PaDydgu3wVFXTbMfsvF2MSErpy9TDVa092n4q6adYwJaWg==
+yaml-loader@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/yaml-loader/-/yaml-loader-0.9.0.tgz#4de1f70dd5fb6965c4c126337729c41fd6ad0aba"
+  integrity sha512-N0bPfDR42qCruELfmpF6Q8XnDu1elTULGjvVn7u6rsfDa8WhlmJbjXQRh+x5TGmpOqw8R9qfiUgc3aKP+8Hd4w==
   dependencies:
     javascript-stringify "^2.0.1"
-    loader-utils "^2.0.0"
     yaml "^2.0.0"
 
 yaml@^1.10.2:
