@@ -1,8 +1,9 @@
 import { firstBy } from 'thenby'
 import { Component, Input, HostListener, ViewChildren, QueryList, ElementRef } from '@angular/core' // eslint-disable-line @typescript-eslint/no-unused-vars
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import FuzzySearch from 'fuzzy-search'
+import { TranslateService } from '@ngx-translate/core'
 import { SelectorOption } from '../api/selector'
+import { fuzzySearchAllTerms, splitSearchTerms } from '../utils'
 
 /** @hidden */
 @Component({
@@ -19,8 +20,12 @@ export class SelectorModalComponent<T> {
     hasGroups = false
     @ViewChildren('item') itemChildren: QueryList<ElementRef>
     private preventEdit: boolean
+    private tagGroupOptions = new WeakSet<SelectorOption<T>>()
 
-    constructor (public modalInstance: NgbActiveModal) {
+    constructor (
+        public modalInstance: NgbActiveModal,
+        private translate: TranslateService,
+    ) {
         this.preventEdit = false
     }
 
@@ -82,12 +87,12 @@ export class SelectorModalComponent<T> {
             )
                 .filter(x => !x.freeInputPattern)
         } else {
-            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            this.filteredOptions = new FuzzySearch(
+            this.filteredOptions = this.groupByMatchedTags(fuzzySearchAllTerms(
                 this.options,
-                ['name', 'group', 'description'],
-                { sort: true },
-            ).search(f)
+                ['name', 'group', 'description', 'tags'],
+                f,
+                true,
+            ))
 
             this.options.filter(x => x.freeInputPattern).sort(firstBy<SelectorOption<T>, number>(x => x.weight ?? 0)).forEach(freeOption => {
                 if (!this.filteredOptions.includes(freeOption)) {
@@ -102,6 +107,31 @@ export class SelectorModalComponent<T> {
     filterMatches (option: SelectorOption<T>, terms: string[]): boolean {
         const content = (option.group ?? '') + option.name + (option.description ?? '')
         return terms.every(term => content.toLowerCase().includes(term))
+    }
+
+    groupByMatchedTags (options: SelectorOption<T>[]): SelectorOption<T>[] {
+        const tagGroups = new Map<string, SelectorOption<T>[]>()
+        const rest: SelectorOption<T>[] = []
+        for (const option of options) {
+            const tag = this.getMatchedTags(option)[0] as string|undefined
+            if (tag === undefined) {
+                rest.push(option)
+                continue
+            }
+            const tagOption = { ...option, group: this.translate.instant('Tag') }
+            this.tagGroupOptions.add(tagOption)
+            tagGroups.set(tag, [...tagGroups.get(tag) ?? [], tagOption])
+        }
+        return [...[...tagGroups.values()].flat(), ...rest]
+    }
+
+    isTagGroup (option: SelectorOption<T>): boolean {
+        return this.tagGroupOptions.has(option)
+    }
+
+    getMatchedTags (option: SelectorOption<T>): string[] {
+        const terms = splitSearchTerms(this.filter)
+        return (option.tags ?? []).filter(tag => terms.some(term => tag.toLowerCase().includes(term)))
     }
 
     getOptionText (option: SelectorOption<T>): string {

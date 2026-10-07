@@ -2,7 +2,6 @@ import { Component, HostBinding, HostListener, Input } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import deepClone from 'clone-deep'
-import FuzzySearch from 'fuzzy-search'
 
 import { ConfigService } from '../services/config.service'
 import { ProfilesService } from '../services/profiles.service'
@@ -11,6 +10,7 @@ import { PlatformService } from '../api/platform'
 import { ProfileProvider } from '../api/index'
 import { PartialProfileGroup, ProfileGroup, PartialProfile, Profile } from '../index'
 import { BaseComponent } from './base.component'
+import { fuzzySearchAllTerms } from '../utils'
 
 interface CollapsableProfileGroup extends ProfileGroup {
     collapsed: boolean
@@ -213,11 +213,11 @@ export class ProfileTreeComponent extends BaseComponent {
                 clone: true,
             })
 
-            const matches = new FuzzySearch(
+            const matches = fuzzySearchAllTerms(
                 profiles.filter(p => !p.isTemplate),
-                ['name', 'description'],
-                { sort: false },
-            ).search(q)
+                ['name', 'description', 'tags'],
+                q,
+            )
 
             this.rootGroups = [
                 {
