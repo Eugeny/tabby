@@ -30,7 +30,7 @@
     "keytar": "^7",
     "mz": "^2",
     "native-process-working-directory": "^1",
-    "node-abi": "4.35.0",
+    "node-abi": "4.36.0",
     "node-pty": "^1.2.0-beta.8",
     "russh": "0.1.38",
     "rxjs": "^7",
@@ -61,7 +61,7 @@
     "tabby-terminal": "*"
   },
   "resolutions": {
-    "node-abi": "4.35.0",
+    "node-abi": "4.36.0",
     "node-gyp": "^13",
     "nan": "2.22.2",
     "node-addon-api": "^8"
