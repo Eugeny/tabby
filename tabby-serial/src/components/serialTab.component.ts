@@ -4,7 +4,8 @@ import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { Platform, SelectorService } from 'tabby-core'
 import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
-import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
+import { SerialSession, SerialProfile } from '../api'
+import { selectBaudRate } from '../baudRate'
 
 /** @hidden */
 @Component({
@@ -89,14 +90,11 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
     }
 
     async changeBaudRate () {
-        const rate = await this.selector.show(
-            this.translate.instant(_('Baud rate')),
-            BAUD_RATES.map(x => ({
-                name: x.toString(), result: x, weight: x,
-            })),
-        )
-        this.session?.serial?.update({ baudRate: rate })
-        this.profile.options.baudrate = rate
+        const rate = await selectBaudRate(this.selector, this.translate, this.notifications)
+        if (rate) {
+            this.session?.serial?.update({ baudRate: rate })
+            this.profile.options.baudrate = rate
+        }
     }
 
     protected isSessionExplicitlyTerminated (): boolean {
