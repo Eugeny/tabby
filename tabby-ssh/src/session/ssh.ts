@@ -900,6 +900,19 @@ export class SSHSession {
         return ch
     }
 
+    /**
+     * Open a session channel and run a single command, without a PTY.
+     * Useful for clients that need to run a command without starting a shell.
+     */
+    async openExecChannel (command: string): Promise<russh.Channel> {
+        if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+            throw new Error('Cannot open an exec channel before auth')
+        }
+        const ch = await this.ssh.activateChannel(await this.ssh.openSessionChannel())
+        await ch.requestExec(command)
+        return ch
+    }
+
     private setupSocketChannelEvents (channel: russh.Channel, socket: Socket, logPrefix: string): void {
         // Channel → Socket data flow with error handling
         channel.data$.subscribe({
