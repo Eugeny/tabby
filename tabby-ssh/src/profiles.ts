@@ -40,6 +40,8 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
             scripts: [],
             socksProxyHost: null,
             socksProxyPort: null,
+            socksProxyUsername: null,
+            socksProxyPassword: null,
             httpProxyHost: null,
             httpProxyPort: null,
             reuseSession: true,
