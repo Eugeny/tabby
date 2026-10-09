@@ -19,16 +19,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
     // Touch ID support
     touchIdAvailable = false
     touchIdEnabled = false
-    touchIdExpireOptions = [
-        { value: 1, label: '1 day' },
-        { value: 7, label: '7 days' },
-        { value: 30, label: '30 days' },
-    ]
-
-    private touchIdExpirePresetValues = [1, 7, 30]
-
-    customExpireDays = 1
-    customExpireSelected = false
+    touchIdExpireDays = 1
 
     @HostBinding('class.content-box') true
 
@@ -60,26 +51,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
         }
 
         this.touchIdEnabled = this.platform.getTouchIdSettings().enabled
-
-        if (!this.touchIdExpirePresetValues.includes(expireDays)) {
-            this.customExpireDays = expireDays
-        }
-    }
-
-
-    get touchIdExpireDays (): number {
-        return this.platform.getTouchIdSettings().expireDays
-    }
-
-    get touchIdExpireSelection (): number {
-        if (this.customExpireSelected) {
-            return -1
-        }
-        const expireDays = this.touchIdExpireDays
-        if (expireDays > 0 && !this.touchIdExpirePresetValues.includes(expireDays)) {
-            return -1
-        }
-        return expireDays
+        this.touchIdExpireDays = expireDays
     }
 
     get touchIdExpireOnRestart (): boolean {
@@ -124,33 +96,13 @@ export class VaultSettingsTabComponent extends BaseComponent {
         }
     }
 
-    async setTouchIdExpireDays (days: number): Promise<void> {
-        if (days === -1) {
-            this.customExpireSelected = true
-            await this.platform.setTouchIdSettings(this.touchIdEnabled, this.customExpireDays, this.touchIdExpireOnRestart)
-            return
-        }
-        this.customExpireSelected = false
-        await this.platform.setTouchIdSettings(this.touchIdEnabled, days, this.touchIdExpireOnRestart)
+    async setTouchIdExpireDays (): Promise<void> {
+        this.touchIdExpireDays = Math.max(1, Math.min(30, Math.floor(this.touchIdExpireDays || 1)))
+        await this.platform.setTouchIdSettings(this.touchIdEnabled, this.touchIdExpireDays, this.touchIdExpireOnRestart)
     }
 
     async setTouchIdExpireOnRestart (value: boolean): Promise<void> {
         await this.platform.setTouchIdSettings(this.touchIdEnabled, this.touchIdExpireDays, value)
-    }
-
-    async setCustomExpireDays (days: number|null|undefined): Promise<void> {
-        if (days === null || days === undefined) {
-            return
-        }
-        const validatedDays = Math.max(1, Math.min(30, Math.floor(days)))
-        if (days !== validatedDays) {
-            // Force the UI to reflect the validated value
-            this.customExpireDays = 0
-            setTimeout(() => this.customExpireDays = validatedDays)
-        } else {
-            this.customExpireDays = validatedDays
-        }
-        await this.platform.setTouchIdSettings(this.touchIdEnabled, validatedDays, this.touchIdExpireOnRestart)
     }
 
     async loadVault (): Promise<void> {

@@ -87,28 +87,16 @@ div(*ngIf='vault.isEnabled()')
             .header
                 .title(translate) Touch ID expires after
                 .description(translate) After this period, you will need to enter the passphrase again
-            .d-flex.align-items-center.gap-2
-                select.form-control(
-                    style='width: auto',
-                    [ngModel]='touchIdExpireSelection',
-                    (ngModelChange)='setTouchIdExpireDays($event)',
+            .input-group(style='width: 120px')
+                input.form-control(
+                    type='number',
+                    min='1',
+                    max='30',
+                    step='1',
+                    [(ngModel)]='touchIdExpireDays',
+                    (change)='setTouchIdExpireDays()',
                 )
-                    option(
-                        *ngFor='let opt of touchIdExpireOptions',
-                        [ngValue]='opt.value',
-                    ) {{opt.label | translate}}
-                    option([ngValue]='-1', translate) Custom
-                // Custom days input (show when custom is selected)
-                .input-group(*ngIf='touchIdExpireSelection === -1', style='width: 120px')
-                    input.form-control(
-                        type='number',
-                        min='1',
-                        max='30',
-                        step='1',
-                        [ngModel]='customExpireDays',
-                        (ngModelChange)='setCustomExpireDays($event)',
-                    )
-                    span.input-group-text(translate) days
+                span.input-group-text(translate) days
 
         // Expire on restart (show only when Touch ID is enabled)
         .form-line(*ngIf='touchIdAvailable && touchIdEnabled')
