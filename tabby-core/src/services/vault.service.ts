@@ -7,6 +7,7 @@ import { wrapPromise, serializeFunction } from '../utils'
 import { UnlockVaultModalComponent } from '../components/unlockVaultModal.component'
 import { NotificationsService } from './notifications.service'
 import { SelectorService } from './selector.service'
+import { VaultBiometricsService } from './vaultBiometrics.service'
 import { FileProvider } from '../api/fileProvider'
 import { PlatformService } from '../api/platform'
 
@@ -118,7 +119,7 @@ export class VaultService {
         private zone: NgZone,
         private notifications: NotificationsService,
         private ngbModal: NgbModal,
-        private platform: PlatformService,
+        private biometrics: VaultBiometricsService,
     ) {
         this.getPassphrase = serializeFunction(this.getPassphrase.bind(this))
     }
@@ -130,6 +131,7 @@ export class VaultService {
             }
         } else {
             this.store = null
+            this.biometrics.disable()
             this.contentChanged.next()
         }
     }
@@ -178,6 +180,18 @@ export class VaultService {
         await this.ready$.toPromise()
         this.store = await this.encrypt(vault, passphrase)
         this.contentChanged.next()
+        if (passphrase) {
+            // The passphrase might have changed
+            await this.biometrics.storePassphrase(passphrase)
+        }
+    }
+
+    /**
+     * Lets the vault be unlocked with Touch ID instead of the current passphrase
+     */
+    async enableBiometricUnlock (): Promise<void> {
+        const passphrase = await this.getPassphrase()
+        await this.biometrics.enable(passphrase)
     }
 
     async getPassphrase (): Promise<string> {
@@ -187,21 +201,16 @@ export class VaultService {
             if (!result) {
                 throw new Error('Vault unlock cancelled')
             }
-            const { passphrase, rememberFor, updateTouchId } = result
+            const { passphrase, rememberFor, fromBiometrics } = result
             setTimeout(() => {
                 _rememberedPassphrase = null
                 // avoid multiple consequent prompts
             }, Math.max(1000, rememberFor * 60000))
             _rememberedPassphrase = passphrase
 
-            // Update Touch ID storage if needed (e.g., after expiration)
-            if (updateTouchId) {
-                try {
-                    await this.platform.secureStorePassphrase(passphrase)
-                } catch (e) {
-                    // Silently fail, Touch ID update is optional
-                    console.error('Failed to update Touch ID storage:', e)
-                }
+            if (!fromBiometrics) {
+                // Entering the passphrase restarts the Touch ID expiry period
+                await this.biometrics.storePassphrase(passphrase)
             }
         }
 

@@ -260,6 +260,31 @@ export abstract class PlatformService {
         return 'dark'
     }
 
+    /**
+     * Whether the user can be verified with Touch ID, and secrets can be encrypted with a key held by the OS
+     */
+    async isBiometricAuthAvailable (): Promise<boolean> {
+        return false
+    }
+
+    /**
+     * Resolves once the user has been verified with Touch ID, rejects if they cancel
+     */
+    async promptBiometricAuth (reason: string): Promise<void> {
+        throw new Error('Not implemented')
+    }
+
+    /**
+     * Encrypts a secret with a key held by the OS (the macOS Keychain), so that only this app can decrypt it
+     */
+    async encryptSecret (secret: string): Promise<string> {
+        throw new Error('Not implemented')
+    }
+
+    async decryptSecret (encrypted: string): Promise<string> {
+        throw new Error('Not implemented')
+    }
+
     abstract getOSRelease (): string
     abstract getAppVersion (): string
     abstract openExternal (url: string): Promise<void>
@@ -269,50 +294,6 @@ export abstract class PlatformService {
     abstract showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult>
     abstract pickDirectory (): Promise<string | null>
     abstract quit (): void
-
-    // Biometric authentication (Touch ID on macOS)
-    async isBiometricAuthAvailable (): Promise<boolean> {
-        return false
-    }
-
-    async promptBiometricAuth (_reason: string): Promise<void> {
-        throw new Error('Biometric authentication not available')
-    }
-
-    // Secure storage for vault passphrase (uses macOS Keychain via safeStorage)
-    async isSecureStorageAvailable (): Promise<boolean> {
-        return false
-    }
-
-    async secureStorePassphrase (_passphrase: string): Promise<void> {
-        throw new Error('Secure storage not available')
-    }
-
-    async secureRetrievePassphrase (): Promise<string|null> {
-        return null
-    }
-
-    async secureDeletePassphrase (): Promise<void> {
-        // No-op by default
-    }
-
-    getSecureStorageTimestamp (): number|null {
-        return null
-    }
-
-    // Touch ID settings (stored separately from encrypted config)
-    getTouchIdSettings (): { enabled: boolean, expireDays: number, expireOnRestart: boolean } {
-        return { enabled: false, expireDays: 1, expireOnRestart: false }
-    }
-
-    async setTouchIdSettings (_enabled: boolean, _expireDays: number, _expireOnRestart?: boolean): Promise<void> {
-        // No-op by default
-    }
-
-    // Check if Touch ID should be considered expired (including restart check)
-    isTouchIdExpired (): boolean {
-        return true
-    }
 }
 
 export class HTMLFileUpload extends FileUpload {

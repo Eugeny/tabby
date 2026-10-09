@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { PlatformService } from '../api/platform'
-import { TranslateService } from '@ngx-translate/core'
+import { VaultBiometricsService } from '../services/vaultBiometrics.service'
 
 /** @hidden */
 @Component({
@@ -11,17 +10,14 @@ export class UnlockVaultModalComponent {
     passphrase: string
     rememberFor = 1
     rememberOptions = [1, 5, 15, 60, 1440, 10080]
-    @ViewChild('input') input: ElementRef
-
-    touchIdAvailable = false
     touchIdEnabled = false
-    touchIdExpired = false
+    canUseTouchId = false
     touchIdError = ''
+    @ViewChild('input') input: ElementRef
 
     constructor (
         private modalInstance: NgbActiveModal,
-        private platform: PlatformService,
-        private translate: TranslateService,
+        private biometrics: VaultBiometricsService,
     ) { }
 
     async ngOnInit (): Promise<void> {
@@ -33,60 +29,30 @@ export class UnlockVaultModalComponent {
             this.rememberFor = isNaN(parsed) ? 1 : parsed
         }
 
-        // Check Touch ID availability and status
-        const biometricAvailable = await (this.platform.isBiometricAuthAvailable() as any)
-        const secureStorageAvailable = await (this.platform.isSecureStorageAvailable() as any)
-        this.touchIdAvailable = biometricAvailable && secureStorageAvailable
-
-        const touchIdSettings = this.platform.getTouchIdSettings()
-        this.touchIdEnabled = touchIdSettings.enabled
-
-        if (this.touchIdAvailable && this.touchIdEnabled) {
-            // Check if Touch ID has expired (time-based or restart-based)
-            this.touchIdExpired = this.platform.isTouchIdExpired()
-
-            // Auto-trigger Touch ID if available and not expired
-            if (!this.touchIdExpired) {
-                await this.unlockWithTouchId()
-            }
+        this.touchIdEnabled = this.biometrics.getSettings().enabled && await this.biometrics.isAvailable()
+        this.canUseTouchId = this.touchIdEnabled && this.biometrics.canUnlock()
+        if (this.canUseTouchId) {
+            await this.unlockWithTouchId()
         }
 
         setTimeout(() => {
-            this.input.nativeElement?.focus()
+            this.input.nativeElement.focus()
         })
     }
 
     async unlockWithTouchId (): Promise<void> {
         this.touchIdError = ''
         try {
-            await this.platform.promptBiometricAuth(this.translate.instant('Unlock Tabby Vault'))
-            const passphrase = await this.platform.secureRetrievePassphrase()
-            if (passphrase) {
-                this.modalInstance.close({
-                    passphrase,
-                    rememberFor: this.rememberFor,
-                    usedTouchId: true,
-                })
-            } else {
-                this.touchIdError = this.translate.instant('Could not retrieve passphrase')
-                // Hide Touch ID button since the stored passphrase seems invalid
-                this.touchIdEnabled = false
-            }
-        } catch (e: any) {
-            // User cancelled or Touch ID failed
-            this.touchIdError = e.message || this.translate.instant('Touch ID failed')
+            this.close(await this.biometrics.unlock(), true)
+        } catch (e) {
+            // Cancelled, or the stored passphrase could not be used
+            this.touchIdError = e.message
+            this.canUseTouchId = this.biometrics.canUnlock()
         }
     }
 
     ok (): void {
-        window.localStorage.vaultRememberPassphraseFor = this.rememberFor
-        this.modalInstance.close({
-            passphrase: this.passphrase,
-            rememberFor: this.rememberFor,
-            usedTouchId: false,
-            // Update Touch ID storage when enabled (both when expired and to refresh timestamp)
-            updateTouchId: this.touchIdEnabled,
-        })
+        this.close(this.passphrase, false)
     }
 
     cancel (): void {
@@ -101,5 +67,14 @@ export class UnlockVaultModalComponent {
         } else {
             return `${rememberOption} min`
         }
+    }
+
+    private close (passphrase: string, fromBiometrics: boolean): void {
+        window.localStorage.vaultRememberPassphraseFor = this.rememberFor
+        this.modalInstance.close({
+            passphrase,
+            rememberFor: this.rememberFor,
+            fromBiometrics,
+        })
     }
 }

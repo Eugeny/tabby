@@ -38,23 +38,17 @@ export class Application {
             this.broadcastExcept('host:config-change', event.sender, config)
         })
 
-        // safeStorage IPC handlers for vault Touch ID support
+        // Lets the vault keep its passphrase for Touch ID unlock
         ipcMain.handle('app:safe-storage-available', () => {
             return safeStorage.isEncryptionAvailable()
         })
 
-        ipcMain.handle('app:safe-storage-encrypt', (_event, plainText: string) => {
-            if (!safeStorage.isEncryptionAvailable()) {
-                throw new Error('Encryption is not available')
-            }
-            return safeStorage.encryptString(plainText)
+        ipcMain.handle('app:safe-storage-encrypt', async (_event, plainText: string) => {
+            return (await safeStorage.encryptStringAsync(plainText)).toString('base64')
         })
 
-        ipcMain.handle('app:safe-storage-decrypt', (_event, encrypted: Buffer) => {
-            if (!safeStorage.isEncryptionAvailable()) {
-                throw new Error('Encryption is not available')
-            }
-            return safeStorage.decryptString(Buffer.from(encrypted as unknown as ArrayBuffer))
+        ipcMain.handle('app:safe-storage-decrypt', async (_event, encrypted: string) => {
+            return (await safeStorage.decryptStringAsync(Buffer.from(encrypted, 'base64'))).result
         })
 
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {

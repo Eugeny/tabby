@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, HostBinding } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService, VAULT_SECRET_TYPE_FILE, PromptModalComponent, VaultFileSecret, TranslateService, NotificationsService } from 'tabby-core'
+import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService, VAULT_SECRET_TYPE_FILE, PromptModalComponent, VaultFileSecret, TranslateService, NotificationsService, VaultBiometricsService } from 'tabby-core'
 import { SetVaultPassphraseModalComponent } from './setVaultPassphraseModal.component'
 import { ShowSecretModalComponent } from './showSecretModal.component'
 
@@ -15,12 +15,10 @@ export class VaultSettingsTabComponent extends BaseComponent {
     vaultContents: Vault|null = null
     VAULT_SECRET_TYPE_FILE = VAULT_SECRET_TYPE_FILE
     searchTerm = ''
-
-    // Touch ID support
     touchIdAvailable = false
     touchIdEnabled = false
     touchIdExpireDays = 1
-
+    touchIdExpireOnRestart = false
     @HostBinding('class.content-box') true
 
     constructor (
@@ -30,79 +28,40 @@ export class VaultSettingsTabComponent extends BaseComponent {
         private ngbModal: NgbModal,
         private translate: TranslateService,
         private notifications: NotificationsService,
+        private biometrics: VaultBiometricsService,
     ) {
         super()
         if (vault.isOpen()) {
             this.loadVault()
         }
-        this.checkTouchIdAvailability()
+        this.loadTouchIdSettings()
     }
 
-    async checkTouchIdAvailability (): Promise<void> {
-        const biometricAvailable = await (this.platform.isBiometricAuthAvailable() as any)
-        const secureStorageAvailable = await (this.platform.isSecureStorageAvailable() as any)
-        this.touchIdAvailable = biometricAvailable && secureStorageAvailable
-
-        let expireDays = this.platform.getTouchIdSettings().expireDays
-        // Migration: ensure at least 1 day if previously set to 0 (for security)
-        if (expireDays <= 0) {
-            expireDays = 1
-            await this.platform.setTouchIdSettings(true, 1, this.platform.getTouchIdSettings().expireOnRestart)
-        }
-
-        this.touchIdEnabled = this.platform.getTouchIdSettings().enabled
-        this.touchIdExpireDays = expireDays
-    }
-
-    get touchIdExpireOnRestart (): boolean {
-        return this.platform.getTouchIdSettings().expireOnRestart
-    }
-
-    async enableTouchId (): Promise<void> {
-        try {
-            // Prompt for Touch ID to confirm
-            await this.platform.promptBiometricAuth(this.translate.instant('Enable Touch ID for Vault'))
-
-            // Get the current passphrase and store it securely
-            const passphrase = await this.vault.getPassphrase()
-            await this.platform.secureStorePassphrase(passphrase)
-
-            // Update settings in separate file (not affected by vault encryption)
-            await this.platform.setTouchIdSettings(true, this.touchIdExpireDays)
-            this.touchIdEnabled = true
-        } catch (e: any) {
-            // User cancelled or Touch ID failed
-            console.error('Failed to enable Touch ID:', e)
-            this.notifications.error(this.translate.instant('Failed to enable Touch ID'), e.message || e.toString())
-
-            // Force toggle back
-            this.touchIdEnabled = true
-            setTimeout(() => this.touchIdEnabled = false)
-        }
-    }
-
-    async disableTouchId (): Promise<void> {
-        const settings = this.platform.getTouchIdSettings()
-        await this.platform.setTouchIdSettings(false, settings.expireDays, settings.expireOnRestart)
-        await this.platform.secureDeletePassphrase()
-        this.touchIdEnabled = false
+    async loadTouchIdSettings (): Promise<void> {
+        const settings = this.biometrics.getSettings()
+        this.touchIdEnabled = settings.enabled
+        this.touchIdExpireDays = settings.expireDays
+        this.touchIdExpireOnRestart = settings.expireOnRestart
+        this.touchIdAvailable = await this.biometrics.isAvailable()
     }
 
     async toggleTouchId (enabled: boolean): Promise<void> {
-        if (enabled) {
-            await this.enableTouchId()
-        } else {
-            await this.disableTouchId()
+        if (!enabled) {
+            this.biometrics.disable()
+            return
+        }
+        try {
+            await this.vault.enableBiometricUnlock()
+        } catch (e) {
+            this.touchIdEnabled = false
+            console.error('Failed to enable Touch ID:', e)
+            this.notifications.error(this.translate.instant('Failed to enable Touch ID'), e.message)
         }
     }
 
-    async setTouchIdExpireDays (): Promise<void> {
-        this.touchIdExpireDays = Math.max(1, Math.min(30, Math.floor(this.touchIdExpireDays || 1)))
-        await this.platform.setTouchIdSettings(this.touchIdEnabled, this.touchIdExpireDays, this.touchIdExpireOnRestart)
-    }
-
-    async setTouchIdExpireOnRestart (value: boolean): Promise<void> {
-        await this.platform.setTouchIdSettings(this.touchIdEnabled, this.touchIdExpireDays, value)
+    setTouchIdExpiry (): void {
+        this.biometrics.setExpiry(this.touchIdExpireDays, this.touchIdExpireOnRestart)
+        this.touchIdExpireDays = this.biometrics.getSettings().expireDays
     }
 
     async loadVault (): Promise<void> {
@@ -138,11 +97,8 @@ export class VaultSettingsTabComponent extends BaseComponent {
                 cancelId: 1,
             },
         )).response === 0) {
-            // Also disable Touch ID when vault is disabled
-            if (this.touchIdEnabled) {
-                await this.disableTouchId()
-            }
             await this.vault.setEnabled(false)
+            this.touchIdEnabled = false
         }
     }
 
@@ -157,10 +113,6 @@ export class VaultSettingsTabComponent extends BaseComponent {
         const newPassphrase = await modal.result.catch(() => null)
         if (newPassphrase) {
             await this.vault.save(this.vaultContents, newPassphrase)
-            // Update Touch ID storage if enabled
-            if (this.touchIdEnabled) {
-                await this.platform.secureStorePassphrase(newPassphrase)
-            }
         }
     }
 
