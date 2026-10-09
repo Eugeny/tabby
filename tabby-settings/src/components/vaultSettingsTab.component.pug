@@ -84,8 +84,8 @@ div(*ngIf='vault.isEnabled()')
         ng-container(*ngIf='touchIdAvailable && touchIdEnabled')
             .form-line
                 .header
-                    .title(translate) Touch ID expires after
-                    .description(translate) After this period, you will need to enter the passphrase again
+                    .title(translate) Require the passphrase every
+                    .description(translate) Touch ID stops working this many days after the passphrase was last entered
                 .input-group(style='width: 120px')
                     input.form-control(
                         type='number',
@@ -99,8 +99,8 @@ div(*ngIf='vault.isEnabled()')
 
             .form-line
                 .header
-                    .title(translate) Expire on restart
-                    .description(translate) Require passphrase after computer restart
+                    .title(translate) Require the passphrase after the computer restarts
+                    .description(translate) Touch ID only works once the passphrase has been entered since the last restart
                 toggle(
                     [(ngModel)]='touchIdExpireOnRestart',
                     (ngModelChange)='setTouchIdExpiry()',

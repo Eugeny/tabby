@@ -23,10 +23,6 @@ msgstr ""
 msgid "Accept a ZMODEM session?"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:50
-msgid "After this period, you will need to enter the passphrase again"
-msgstr ""
-
 #: tabby-terminal/src/settings.ts:14
 msgid "Appearance"
 msgstr ""
@@ -360,10 +356,6 @@ msgstr ""
 
 #: tabby-core/src/components/profileTree.component.ts:182
 msgid "Expand group"
-msgstr ""
-
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:58
-msgid "Expire on restart"
 msgstr ""
 
 #: tabby-electron/src/terminalContextMenu.ts:23
@@ -874,8 +866,12 @@ msgstr ""
 msgid "Reopen last tab"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:59
-msgid "Require passphrase after computer restart"
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:58
+msgid "Require the passphrase after the computer restarts"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:49
+msgid "Require the passphrase every"
 msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:62
@@ -1195,12 +1191,16 @@ msgstr ""
 msgid "Toggle the Option key between Meta and normal (macOS)"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:49
-msgid "Touch ID expires after"
-msgstr ""
-
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:14
 msgid "Touch ID has expired. Please enter your passphrase."
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:59
+msgid "Touch ID only works once the passphrase has been entered since the last restart"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:50
+msgid "Touch ID stops working this many days after the passphrase was last entered"
 msgstr ""
 
 #: tabby-core/src/services/config.service.ts:486
