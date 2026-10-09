@@ -23,6 +23,10 @@ msgstr ""
 msgid "Accept a ZMODEM session?"
 msgstr ""
 
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:50
+msgid "After this period, you will need to enter the passphrase again"
+msgstr ""
+
 #: tabby-terminal/src/settings.ts:14
 msgid "Appearance"
 msgstr ""
@@ -190,6 +194,10 @@ msgstr ""
 msgid "Could not decrypt config"
 msgstr ""
 
+#: tabby-core/src/services/vaultBiometrics.service.ts:95
+msgid "Could not retrieve passphrase"
+msgstr ""
+
 #: tabby-ssh/src/components/sshTab.component.ts:114
 msgid "Could not set up port forward on {host}"
 msgstr ""
@@ -200,6 +208,10 @@ msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:209
 msgid "Current process: {name}"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:53
+msgid "days"
 msgstr ""
 
 #: tabby-core/src/hotkeys.ts:268
@@ -333,6 +345,10 @@ msgstr ""
 msgid "Edit profile"
 msgstr ""
 
+#: tabby-core/src/services/vaultBiometrics.service.ts:103
+msgid "enable Touch ID for the vault"
+msgstr ""
+
 #: tabby-terminal/src/hotkeys.ts:26
 msgid "End of the line"
 msgstr ""
@@ -346,8 +362,16 @@ msgstr ""
 msgid "Expand group"
 msgstr ""
 
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:58
+msgid "Expire on restart"
+msgstr ""
+
 #: tabby-electron/src/terminalContextMenu.ts:23
 msgid "Export to file"
+msgstr ""
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:58
+msgid "Failed to enable Touch ID"
 msgstr ""
 
 #: tabby-ssh/src/components/sshPortForwardingModal.component.ts:28
@@ -667,6 +691,10 @@ msgstr ""
 msgid "Open SFTP panel"
 msgstr ""
 
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:21
+msgid "or enter passphrase"
+msgstr ""
+
 #: tabby-core/src/utils.ts:63
 msgid "Orange"
 msgstr ""
@@ -844,6 +872,10 @@ msgstr ""
 
 #: tabby-core/src/hotkeys.ts:32
 msgid "Reopen last tab"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:59
+msgid "Require passphrase after computer restart"
 msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:62
@@ -1163,6 +1195,14 @@ msgstr ""
 msgid "Toggle the Option key between Meta and normal (macOS)"
 msgstr ""
 
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:49
+msgid "Touch ID expires after"
+msgstr ""
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:14
+msgid "Touch ID has expired. Please enter your passphrase."
+msgstr ""
+
 #: tabby-core/src/services/config.service.ts:486
 #: tabby-core/src/services/config.service.ts:503
 msgid "Try again"
@@ -1185,12 +1225,28 @@ msgstr ""
 msgid "Unknown secret of type {type} for {key}"
 msgstr ""
 
+#: tabby-core/src/services/vaultBiometrics.service.ts:89
+msgid "unlock the vault"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:42
+msgid "Unlock the vault using Touch ID instead of entering the passphrase"
+msgstr ""
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:18
+msgid "Unlock with Touch ID"
+msgstr ""
+
 #: tabby-core/src/tabContextMenu.ts:82
 msgid "Up"
 msgstr ""
 
 #: tabby-electron/src/services/updater.service.ts:126
 msgid "Update"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:41
+msgid "Use Touch ID to unlock"
 msgstr ""
 
 #: tabby-electron/src/shells/linuxDefault.ts:31
@@ -1204,58 +1260,6 @@ msgstr ""
 
 #: tabby-core/src/services/config.service.ts:483
 msgid "Vault is locked"
-msgstr ""
-
-#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:23
-msgid "Touch ID has expired. Please enter your passphrase."
-msgstr ""
-
-#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:33
-msgid "Unlock with Touch ID"
-msgstr ""
-
-#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:40
-msgid "or enter passphrase"
-msgstr ""
-
-#: tabby-core/src/components/unlockVaultModal.component.ts:53
-msgid "Unlock Tabby Vault"
-msgstr ""
-
-#: tabby-core/src/components/unlockVaultModal.component.ts:62
-msgid "Could not retrieve passphrase"
-msgstr ""
-
-#: tabby-core/src/components/unlockVaultModal.component.ts:66
-msgid "Touch ID failed"
-msgstr ""
-
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:49
-msgid "Use Touch ID to unlock"
-msgstr ""
-
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:50
-msgid "Unlock the vault using Touch ID instead of entering the passphrase"
-msgstr ""
-
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:55
-msgid "Touch ID expires after"
-msgstr ""
-
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:56
-msgid "After this period, you will need to enter the passphrase again"
-msgstr ""
-
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:66
-msgid "Expire on restart"
-msgstr ""
-
-#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:67
-msgid "Require passphrase after computer restart"
-msgstr ""
-
-#: tabby-settings/src/components/vaultSettingsTab.component.ts:68
-msgid "Enable Touch ID for Vault"
 msgstr ""
 
 #: tabby-core/src/services/fileProviders.service.ts:40
