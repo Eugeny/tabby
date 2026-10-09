@@ -3,9 +3,9 @@
 
 
 marked@^18:
-  version "18.0.13"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.13.tgz#f642286759fcd640b29c1ea7b0d964a63afc01e3"
-  integrity sha512-xTxVzZsBFwunP6HDmtBkabUQEYArnP7/rMDGmPj9SlrKlQ4i8MdYVow+nJL0eOqwpUqhzBoTBRADGN6uYwPyOw==
+  version "18.1.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-18.1.0.tgz#16e3d81d9d92fbc5c5cb502e6c2aa065ca3490e9"
+  integrity sha512-PamYXWWWg2nboG3oX5Ffzpy3EFZROqZJK9hSlMmUnekp7TxPs5DcT95vwd46m73/exfKCRVMtgXoPMI4FEJL6w==
 
 ngx-infinite-scroll@^16:
   version "16.0.0"
