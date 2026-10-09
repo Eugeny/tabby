@@ -39,10 +39,6 @@ export class Application {
         })
 
         // Lets the vault keep its passphrase for Touch ID unlock
-        ipcMain.handle('app:safe-storage-available', () => {
-            return safeStorage.isEncryptionAvailable()
-        })
-
         ipcMain.handle('app:safe-storage-encrypt', async (_event, plainText: string) => {
             return (await safeStorage.encryptStringAsync(plainText)).toString('base64')
         })

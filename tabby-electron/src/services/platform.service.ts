@@ -374,9 +374,8 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async isBiometricAuthAvailable (): Promise<boolean> {
-        return this.hostApp.platform === Platform.macOS
-            && this.electron.systemPreferences.canPromptTouchID()
-            && await this.electron.ipcRenderer.invoke('app:safe-storage-available')
+        // Not checking safeStorage.isEncryptionAvailable() here, on macOS it already accesses the Keychain
+        return this.hostApp.platform === Platform.macOS && this.electron.systemPreferences.canPromptTouchID()
     }
 
     async promptBiometricAuth (reason: string): Promise<void> {

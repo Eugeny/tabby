@@ -261,7 +261,7 @@ export abstract class PlatformService {
     }
 
     /**
-     * Whether the user can be verified with Touch ID, and secrets can be encrypted with a key held by the OS
+     * Whether the user can be verified with Touch ID
      */
     async isBiometricAuthAvailable (): Promise<boolean> {
         return false
