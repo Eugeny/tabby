@@ -19,7 +19,7 @@
                     (click)='rememberFor = x',
                 ) {{getRememberForDisplay(x)}}
 
-    .text-muted.small.mb-3(translate)
+    .text-muted.small.mb-3(*ngIf='!touchIdEnabled', translate)
         | The master passphrase is kept in memory only. Closing Tabby requires unlocking the vault again.
 
     .alert.alert-warning.mb-3(*ngIf='touchIdEnabled && !canUseTouchId')
