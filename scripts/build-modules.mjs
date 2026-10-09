@@ -8,15 +8,20 @@ const configs = [
     '../app/webpack.config.main.mjs',
     '../app/webpack.config.mjs',
     ...vars.allPackages.map(x => `../${x}/webpack.config.mjs`),
-]
+];
 
-;(async () => {
-    for (const c of configs) {
-        log.info('build', c)
-        const stats = await promisify(webpack)((await import(c)).default())
-        console.log(stats.toString({ colors: true }))
-        if (stats.hasErrors()) {
-            process.exit(1)
+(async () => {
+    try {
+        for (const c of configs) {
+            log.info('build', c)
+            const stats = await promisify(webpack)((await import(c)).default())
+            console.log(stats.toString({ colors: true }))
+            if (stats.hasErrors()) {
+                process.exit(1)
+            }
         }
+    } catch (error) {
+        log.error('build', String(error))
+        process.exit(1)
     }
 })()

@@ -21,7 +21,7 @@ export const configMergeByDefault = (a, b) => deepmerge(a, b) // eslint-disable-
 
 const LATEST_VERSION = 1
 
-function isStructuralMember (v) {
+function isStructuralMember (v): v is AnyRec {
     return v instanceof Object && !(v instanceof Array) &&
         Object.keys(v).length > 0 && !v.__nonStructural
 }
@@ -30,15 +30,38 @@ function isNonStructuralObjectMember (v): boolean {
     return v instanceof Object && (v instanceof Array || v.__nonStructural)
 }
 
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+type AnyRec = Record<string, any>
+
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+type IsRecord<T> = T extends object
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    ? (T extends Function ? false : true)
+    : false
+
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+export type ProxifiedConfig<T extends AnyRec> = {
+    [K in keyof T]:
+    IsRecord<T[K]> extends true
+        ? ProxifiedConfig<T[K]>   // structural -> nested proxy
+        : T[K];                        // leaf -> original type
+}
+
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+export type FullyDefined<T> = T extends object
+    ? { [K in keyof T]-?: FullyDefined<T[K]> }
+    : T
+
 /** @hidden */
-export class ConfigProxy {
-    constructor (real: Record<string, any>, defaults: Record<string, any>) {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
+export class ConfigProxy<T extends AnyRec> {
+    constructor (real: Partial<T>, defaults: T) {
         for (const key in defaults) {
             if (isStructuralMember(defaults[key])) {
                 if (!real[key]) {
-                    real[key] = {}
+                    real[key] = {} as any
                 }
-                const proxy = new ConfigProxy(real[key], defaults[key])
+                const proxy = new ConfigProxy(real[key] as any, defaults[key])
                 Object.defineProperty(
                     this,
                     key,
@@ -64,7 +87,7 @@ export class ConfigProxy {
             }
         }
 
-        this.__getValue = (key: string) => { // eslint-disable-line @typescript-eslint/unbound-method
+        this.__getValue = (key: keyof T) => { // eslint-disable-line @typescript-eslint/unbound-method
             if (real[key] !== undefined) {
                 return real[key]
             } else {
@@ -78,11 +101,20 @@ export class ConfigProxy {
             }
         }
 
-        this.__getDefault = (key: string) => { // eslint-disable-line @typescript-eslint/unbound-method
+        this.__getDefault = (key: keyof T) => { // eslint-disable-line @typescript-eslint/unbound-method
             return deepClone(defaults[key])
         }
 
-        this.__setValue = (key: string, value: any) => { // eslint-disable-line @typescript-eslint/unbound-method
+        this.__setDefaults = (newDefaults: T) => { // eslint-disable-line @typescript-eslint/unbound-method
+            for (const key in defaults) {
+                if (isStructuralMember(defaults[key]) && isStructuralMember(newDefaults[key])) {
+                    (this as any)[key].__setDefaults(newDefaults[key])
+                }
+            }
+            defaults = newDefaults
+        }
+
+        this.__setValue = (key: keyof T, value: any) => { // eslint-disable-line @typescript-eslint/unbound-method
             if (deepEqual(value, this.__getDefault(key))) {
                 // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
                 delete real[key]
@@ -95,7 +127,7 @@ export class ConfigProxy {
             // Trigger removal of default values
             for (const key in defaults) {
                 if (isStructuralMember(defaults[key])) {
-                    this[key].__cleanup()
+                    (this as any)[key].__cleanup()
                 } else {
                     const v = this.__getValue(key)
                     this.__setValue(key, v)
@@ -105,14 +137,19 @@ export class ConfigProxy {
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
-    __getValue (_key: string): any { }
+    __getValue (_key: keyof T): any { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
-    __setValue (_key: string, _value: any) { }
+    __setValue (_key: keyof T, _value: any) { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    __setDefaults (_defaults: T): void { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
-    __getDefault (_key: string): any { }
+    __getDefault (_key: keyof T): any { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
     __cleanup () { }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-type-alias, @typescript-eslint/no-redeclare
+// export type ConfigProxy<T extends AnyRec> = ProxifiedConfig<T>
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
@@ -440,6 +477,24 @@ export class ConfigService {
                 decryptedVault = await this.vault.decrypt(store.vault, passphrase)
                 break
             } catch (e) {
+                if (e.toString().includes('Vault unlock cancelled')) {
+                    const cancelResult = await this.platform.showMessageBox({
+                        type: 'warning',
+                        message: this.translate.instant('Vault is locked'),
+                        detail: this.translate.instant('The vault must be unlocked to load your configuration.'),
+                        buttons: [
+                            this.translate.instant('Try again'),
+                            this.translate.instant('Quit'),
+                        ],
+                        defaultId: 0,
+                        cancelId: 1,
+                    })
+                    if (cancelResult.response === 1) {
+                        this.platform.quit()
+                        return {}
+                    }
+                    continue
+                }
                 let result = await this.platform.showMessageBox({
                     type: 'error',
                     message: this.translate.instant('Could not decrypt config'),

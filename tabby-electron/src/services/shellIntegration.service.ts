@@ -1,6 +1,6 @@
 import * as path from 'path'
 import * as fs from 'mz/fs'
-import { exec } from 'mz/child_process'
+import { execFile } from 'mz/child_process'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
@@ -63,7 +63,7 @@ export class ShellIntegrationService {
         const exe: string = process.env.PORTABLE_EXECUTABLE_FILE ?? this.electron.app.getPath('exe')
         if (this.hostApp.platform === Platform.macOS) {
             for (const wf of this.automatorWorkflows) {
-                await exec(`cp -r "${this.automatorWorkflowsLocation}/${wf}" "${this.automatorWorkflowsDestination}"`)
+                await execFile('cp', ['-r', path.join(this.automatorWorkflowsLocation, wf), this.automatorWorkflowsDestination])
             }
         } else if (this.hostApp.platform === Platform.Windows) {
             for (const registryKey of this.registryKeys) {
@@ -86,7 +86,7 @@ export class ShellIntegrationService {
     async remove (): Promise<void> {
         if (this.hostApp.platform === Platform.macOS) {
             for (const wf of this.automatorWorkflows) {
-                await exec(`rm -rf "${this.automatorWorkflowsDestination}/${wf}"`)
+                await execFile('rm', ['-rf', path.join(this.automatorWorkflowsDestination, wf)])
             }
         } else if (this.hostApp.platform === Platform.Windows) {
             for (const registryKey of this.registryKeys) {

@@ -1,6 +1,6 @@
 {
   "name": "tabby-settings",
-  "version": "1.0.197-nightly.1",
+  "version": "1.0.231-nightly.0",
   "description": "Tabby terminal settings page",
   "keywords": [
     "tabby-builtin-plugin"
@@ -18,8 +18,7 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "@types/marked": "^5.0.1",
-    "marked": "^5.1.2",
+    "marked": "^18",
     "ngx-infinite-scroll": "^16"
   },
   "peerDependencies": {

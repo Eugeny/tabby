@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs'
-import { HostAppService, Platform, ProfileSettingsComponent } from 'tabby-core'
+import { FullyDefined, HostAppService, Platform, ProfileSettingsComponent } from 'tabby-core'
 import { SerialPortInfo, BAUD_RATES, SerialProfile } from '../api'
 import { SerialService } from '../services/serial.service'
+import { SerialProfilesService } from '../profiles'
 
 /** @hidden */
 @Component({
     templateUrl: './serialProfileSettings.component.pug',
 })
-export class SerialProfileSettingsComponent implements ProfileSettingsComponent<SerialProfile> {
-    profile: SerialProfile
+export class SerialProfileSettingsComponent implements ProfileSettingsComponent<SerialProfile, SerialProfilesService> {
+    profile: FullyDefined<SerialProfile>
     foundPorts: SerialPortInfo[]
     Platform = Platform
 

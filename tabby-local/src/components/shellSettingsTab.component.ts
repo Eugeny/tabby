@@ -1,5 +1,5 @@
 import { Component, HostBinding } from '@angular/core'
-import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild, ConfigService } from 'tabby-core'
+import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_BUNDLED_CONPTY_SUPPORTED, isWindowsBuild, ConfigService } from 'tabby-core'
 
 /** @hidden */
 @Component({
@@ -7,7 +7,7 @@ import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild, Co
 })
 export class ShellSettingsTabComponent {
     isConPTYAvailable: boolean
-    isConPTYStable: boolean
+    isBundledConPTYAvailable: boolean
 
     @HostBinding('class.content-box') true
 
@@ -15,6 +15,6 @@ export class ShellSettingsTabComponent {
         public config: ConfigService,
     ) {
         this.isConPTYAvailable = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED)
-        this.isConPTYStable = isWindowsBuild(WIN_BUILD_CONPTY_STABLE)
+        this.isBundledConPTYAvailable = isWindowsBuild(WIN_BUILD_BUNDLED_CONPTY_SUPPORTED)
     }
 }

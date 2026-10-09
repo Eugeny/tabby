@@ -1,6 +1,6 @@
 {
   "name": "tabby-local",
-  "version": "1.0.197-nightly.1",
+  "version": "1.0.231-nightly.0",
   "description": "Tabby's local shell plugin",
   "keywords": [
     "tabby-builtin-plugin"
@@ -18,7 +18,7 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "ansi-colors": "^4.1.1",
+    "ansi-colors": "^4",
     "dataurl": "0.1.0",
     "runes": "^0.4.2"
   },

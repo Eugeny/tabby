@@ -1,0 +1,23 @@
+diff --git a/node_modules/glasstron/src/native/linux_x11/x11.js b/node_modules/glasstron/src/native/linux_x11/x11.js
+index e38682a..5a9f214 100644
+--- a/node_modules/glasstron/src/native/linux_x11/x11.js
++++ b/node_modules/glasstron/src/native/linux_x11/x11.js
+@@ -58,10 +58,16 @@ class X11Connection {
+ 				id = this.display.screen[0].root;
+ 
+ 			this.display.client.GetProperty(0, id, prop, 0, 0, 10000000, (err, propData) => {
+-				if(err) console.error(err);
++				if(err) {
++					console.error(err);
++					return reject(err);
++				}
+ 
+ 				this.display.client.GetAtomName(propData.type, (err, typeName) => {
+-					if(err) console.error(err);
++					if(err) {
++						console.error(err);
++						return reject(err);
++					}
+ 
+ 					propData.typeName = typeName;
+ 					resolve(propData);

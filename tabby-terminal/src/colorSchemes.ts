@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { TerminalColorScheme } from './api/interfaces'
 import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
+import { TerminalColorScheme } from 'tabby-core'
 
 @Injectable({ providedIn: 'root' })
 export class DefaultColorSchemes extends TerminalColorSchemeProvider {
@@ -27,8 +27,6 @@ export class DefaultColorSchemes extends TerminalColorSchemeProvider {
             '#b7fff9',
             '#ffffff',
         ],
-        selection: undefined,
-        cursorAccent: undefined,
     }
 
     static defaultLightColorScheme: TerminalColorScheme = {
@@ -54,8 +52,6 @@ export class DefaultColorSchemes extends TerminalColorSchemeProvider {
             '#3e999f',
             '#ffffff',
         ],
-        selection: undefined,
-        cursorAccent: undefined,
     }
 
     async getSchemes (): Promise<TerminalColorScheme[]> {

@@ -3,16 +3,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { BaseTabComponent } from '../components/baseTab.component'
 import { NewTabParameters } from '../services/tabs.service'
+import { FullyDefined } from '../services/config.service'
 
 export interface Profile {
     id: string
     type: string
     name: string
-    group?: string
+    group: string
     options: any
 
-    icon?: string
-    color?: string
+    icon: string | null
+    color: string | null
     disableDynamicTitle: boolean
     behaviorOnSessionEnd: 'auto'|'keep'|'reconnect'|'close'
 
@@ -37,6 +38,9 @@ export type PartialProfile<T extends Profile> = Omit<Omit<Omit<{
 
 export interface ProfileGroup {
     id: string
+    parentGroupId?: string
+    icon?: string
+    color?: string
     name: string
     profiles: PartialProfile<Profile>[]
     defaults: any
@@ -50,16 +54,16 @@ export type PartialProfileGroup<T extends ProfileGroup> = Omit<Omit<{
     name: string
 }
 
-export interface ProfileSettingsComponent<P extends Profile> {
-    profile: P
+export interface ProfileSettingsComponent<P extends Profile, PP extends ProfileProvider<P>> {
+    profile: FullyDefined<P>
     save?: () => void
 }
 
 export abstract class ProfileProvider<P extends Profile> {
     id: string
     name: string
-    settingsComponent?: new (...args: any[]) => ProfileSettingsComponent<P>
-    configDefaults = {}
+    settingsComponent?: new (...args: any[]) => ProfileSettingsComponent<P, ProfileProvider<P>>
+    configDefaults: Pick<Profile, 'options'>
 
     abstract getBuiltinProfiles (): Promise<PartialProfile<P>[]>
 

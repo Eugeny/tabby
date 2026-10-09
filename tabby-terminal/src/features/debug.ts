@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core'
+import { HotkeysService, PlatformService } from 'tabby-core'
 import { TerminalDecorator } from '../api/decorator'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
-import { PlatformService } from 'tabby-core'
 
 /** @hidden */
 @Injectable()
 export class DebugDecorator extends TerminalDecorator {
     constructor (
+        private hotkeys: HotkeysService,
         private platform: PlatformService,
     ) {
         super()
@@ -28,40 +29,37 @@ export class DebugDecorator extends TerminalDecorator {
 
         this.subscribeUntilDetached(terminal, terminal.session?.output$.subscribe(handler))
 
-        terminal.addEventListenerUntilDestroyed(terminal.content.nativeElement, 'keyup', (e: KeyboardEvent) => {
-            // Ctrl-Shift-Alt-1
-            if (e.which === 49 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doSaveState(terminal)
+        this.subscribeUntilDetached(terminal, this.hotkeys.hotkey$.subscribe(hotkey => {
+            if (!terminal.hasFocus) {
+                return
             }
-            // Ctrl-Shift-Alt-2
-            if (e.which === 50 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doLoadState(terminal)
+            switch (hotkey) {
+                case 'debug-save-state':
+                    this.doSaveState(terminal)
+                    break
+                case 'debug-load-state':
+                    void this.doLoadState(terminal)
+                    break
+                case 'debug-copy-state':
+                    void this.doCopyState(terminal)
+                    break
+                case 'debug-paste-state':
+                    void this.doPasteState(terminal)
+                    break
+                case 'debug-save-output':
+                    this.doSaveOutput(sessionOutputBuffer)
+                    break
+                case 'debug-load-output':
+                    void this.doLoadOutput(terminal)
+                    break
+                case 'debug-copy-output':
+                    void this.doCopyOutput(sessionOutputBuffer)
+                    break
+                case 'debug-paste-output':
+                    void this.doPasteOutput(terminal)
+                    break
             }
-            // Ctrl-Shift-Alt-3
-            if (e.which === 51 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doCopyState(terminal)
-            }
-            // Ctrl-Shift-Alt-4
-            if (e.which === 52 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doPasteState(terminal)
-            }
-            // Ctrl-Shift-Alt-5
-            if (e.which === 53 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doSaveOutput(sessionOutputBuffer)
-            }
-            // Ctrl-Shift-Alt-6
-            if (e.which === 54 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doLoadOutput(terminal)
-            }
-            // Ctrl-Shift-Alt-7
-            if (e.which === 55 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doCopyOutput(sessionOutputBuffer)
-            }
-            // Ctrl-Shift-Alt-8
-            if (e.which === 56 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doPasteOutput(terminal)
-            }
-        })
+        }))
     }
 
     private async loadFile (): Promise<string|null> {

@@ -26,6 +26,7 @@ builder({
             version: vars.version,
             teamId: process.env.APPLE_TEAM_ID,
         },
+        forceCodeSigning: !!process.env.CSC_LINK,
         mac: {
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
             notarize: !!process.env.APPLE_TEAM_ID,

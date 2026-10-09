@@ -8,6 +8,14 @@ terminal-toolbar([tab]='this')
     button.btn.btn-sm.btn-link.me-3((click)='changeBaudRate()', *ngIf='session && session.open && hostApp.platform !== Platform.Web')
         span(translate) Change baud rate
 
-    button.btn.btn-sm.btn-link((click)='reconnect()', *ngIf='!session || !session.open')
+    button.btn.btn-sm.btn-link.me-2((click)='disconnect()', *ngIf='session && session.open')
+        i.fas.fa-times
+        span(translate) Disconnect
+
+    button.btn.btn-sm.btn-link((click)='reconnect()', *ngIf='session && session.open')
         i.fas.fa-redo
         span(translate) Reconnect
+
+    button.btn.btn-sm.btn-link((click)='reconnect()', *ngIf='!session || !session.open')
+        i.fas.fa-plug
+        span(translate) Connect

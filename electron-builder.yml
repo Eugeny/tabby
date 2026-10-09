@@ -3,6 +3,10 @@ appId: org.tabby
 productName: Tabby
 compression: normal
 npmRebuild: false
+protocols:
+  - name: Tabby URL
+    schemes:
+      - tabby
 files:
 - '**/*'
 - dist
@@ -18,6 +22,9 @@ files:
 - '!**/node_modules/**/include/node'
 - '!**/node_modules/.bin'
 - '!**/node_modules/*/*/{esm5,fesm5,esm2015,fesm2015,_esm2015,_fesm2015}'
+- '!**/node_modules/**/Release/obj'
+- '!**/node_modules/**/*.{exp,iobj,ipdb,lib}'
+- '!**/node_modules/**/*.vcxproj*'
 - '!**/*.{woff,ttf,otf,eot}'
 - '!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}'
 - '!.editorconfig'
@@ -27,6 +34,8 @@ files:
 - '!**/{appveyor.yml,.travis.yml,circle.yml}'
 - '!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}'
 - '!**/deps/cpu_features/build'
+- '!**/node_modules/node-pty/third_party'
+- '!**/node_modules/node-pty/prebuilds/*/conpty'
 extraResources:
 - builtin-plugins
 - extras
@@ -34,11 +43,15 @@ asarUnpack:
 - 'dist/*.map'
 - node_modules/keytar/build/Release/*.node
 - node_modules/**/*.node
+- node_modules/node-pty/build/Release/conpty/*
 win:
   icon: "./build/windows/icon.ico"
   artifactName: tabby-${version}-portable-${env.ARCH}.${ext}
   signtoolOptions:
     rfc3161TimeStampServer: http://timestamp.sectigo.com
+  # OpenConsole.exe is already signed by Microsoft
+  signExts:
+  - '!OpenConsole.exe'
 nsis:
   oneClick: false
   artifactName: tabby-${version}-setup-${env.ARCH}.${ext}
@@ -74,6 +87,7 @@ linux:
   desktop:
     entry:
       StartupWMClass: tabby
+      MimeType: x-scheme-handler/tabby
 snap:
   plugs:
   - default

@@ -8,25 +8,27 @@ export class DockMenuService {
     appVersion: string
 
     private constructor (
-        config: ConfigService,
+        private configService: ConfigService,
         private electron: ElectronService,
         private hostApp: HostAppService,
         private zone: NgZone,
         private profilesService: ProfilesService,
         private translate: TranslateService,
     ) {
-        config.changed$.subscribe(() => this.update())
+        this.configService.changed$.subscribe(() => this.update())
     }
 
     async update (): Promise<void> {
-        const profiles = await this.profilesService.getProfiles()
+        let profiles = await this.profilesService.getProfiles()
+        profiles = profiles.filter(x => x.id && !this.configService.store.profileBlacklist.includes(x.id))
+        const recentProfiles = this.profilesService.getRecentProfiles().filter(x => x.id && !this.configService.store.profileBlacklist.includes(x.id))
 
         if (this.hostApp.platform === Platform.Windows) {
             this.electron.app.setJumpList([
                 {
                     type: 'custom',
                     name: this.translate.instant('Recent'),
-                    items: this.profilesService.getRecentProfiles().map((profile, index) => ({
+                    items: recentProfiles.map((profile, index) => ({
                         type: 'task',
                         program: process.execPath,
                         args: `recent ${index}`,
@@ -39,8 +41,7 @@ export class DockMenuService {
                     type: 'custom',
                     name: this.translate.instant('Profiles'),
                     items: profiles.map(profile => ({
-                        type: 'task',
-                        program: process.execPath,
+                        type: 'task', program: process.execPath,
                         args: `profile "${profile.name}"`,
                         title: profile.name,
                         iconPath: process.execPath,
@@ -52,7 +53,7 @@ export class DockMenuService {
         if (this.hostApp.platform === Platform.macOS) {
             this.electron.app.dock?.setMenu(this.electron.Menu.buildFromTemplate(
                 [
-                    ...[...this.profilesService.getRecentProfiles(), ...profiles].map(profile => ({
+                    ...[...recentProfiles, ...profiles].map(profile => ({
                         label: profile.name,
                         click: () => this.zone.run(async () => {
                             this.profilesService.openNewTabForProfile(profile)

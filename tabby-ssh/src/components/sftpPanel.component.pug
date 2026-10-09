@@ -17,6 +17,10 @@
 
     .breadcrumb-spacer.flex-grow-1.h-100((dblclick)='editPath()')
 
+    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='navigate(path)')
+        i.fas.fa-sync-alt.me-1
+        div(translate) Refresh
+
     button.btn.btn-link.btn-sm.flex-shrink-0.d-flex(*ngIf='!showFilter', (click)='showFilter = true')
         i.fas.fa-filter.me-1
         div(translate) Filter

@@ -22,9 +22,23 @@ try {
     var wnr = require('windows-native-registry')
 } catch { }
 
+/**
+ * Resolve `relativePath` against `basePath` and ensure the result stays inside `basePath`.
+ */
+export function resolveInsideBase (basePath: string, relativePath: string): string {
+    const base = path.resolve(basePath)
+    const target = path.resolve(base, relativePath)
+    const rel = path.relative(base, target)
+    if (rel !== '' && (rel === '..' || rel.startsWith('..' + path.sep) || path.isAbsolute(rel))) {
+        throw new Error(`Refusing access outside the target directory: ${relativePath}`)
+    }
+    return target
+}
+
 @Injectable({ providedIn: 'root' })
 export class ElectronPlatformService extends PlatformService {
     supportsWindowControls = true
+    private safeExternalSchemes = new Set(['http', 'https', 'ftp', 'mailto'])
     private configPath: string
 
     constructor (
@@ -140,8 +154,44 @@ export class ElectronPlatformService extends PlatformService {
         this.electron.shell.showItemInFolder(p)
     }
 
-    openExternal (url: string): void {
-        this.electron.shell.openExternal(url)
+    async openExternal (url: string): Promise<void> {
+        const scheme = this.getExternalScheme(url)
+        if (scheme && this.safeExternalSchemes.has(scheme)) {
+            await this.electron.shell.openExternal(url)
+        } else {
+            await this.confirmAndOpenExternal(url)
+        }
+    }
+
+    private getExternalScheme (url: string): string | null {
+        try {
+            const protocol = new URL(url.trim()).protocol
+            return protocol ? protocol.replace(':', '').toLowerCase() : null
+        } catch {
+            return null
+        }
+    }
+
+    private async confirmAndOpenExternal (url: string): Promise<void> {
+        const scheme = this.getExternalScheme(url)
+        const result = await this.electron.dialog.showMessageBox(
+            this.hostWindow.getWindow(),
+            {
+                type: 'warning',
+                message: this.translate.instant(`Open this app-specific "${scheme}" URI?`),
+                detail: url,
+                buttons: [
+                    this.translate.instant('Open'),
+                    this.translate.instant('Cancel'),
+                ],
+                defaultId: 0,
+                cancelId: 1,
+            },
+        )
+
+        if (result.response === 0) {
+            await this.electron.shell.openExternal(url)
+        }
     }
 
     openPath (p: string): void {
@@ -277,10 +327,10 @@ export class ElectronPlatformService extends PlatformService {
             return null
         }
 
-        let downloadPath = path.join(selectedFolder, name)
+        let downloadPath = resolveInsideBase(selectedFolder, name)
         let counter = 1
         while (fsSync.existsSync(downloadPath)) {
-            downloadPath = path.join(selectedFolder, `${name} (${counter})`)
+            downloadPath = resolveInsideBase(selectedFolder, `${name} (${counter})`)
             counter++
         }
 
@@ -606,12 +656,12 @@ class ElectronDirectoryDownload extends DirectoryDownload {
     }
 
     async createDirectory (relativePath: string): Promise<void> {
-        const fullPath = path.join(this.basePath, relativePath)
+        const fullPath = resolveInsideBase(this.basePath, relativePath)
         await fs.mkdir(fullPath, { recursive: true })
     }
 
     async createFile (relativePath: string, mode: number, size: number): Promise<FileDownload> {
-        const fullPath = path.join(this.basePath, relativePath)
+        const fullPath = resolveInsideBase(this.basePath, relativePath)
         await fs.mkdir(path.dirname(fullPath), { recursive: true })
 
         const fileDownload = new ElectronFileDownload(fullPath, mode, size, this.electron)

@@ -1,4 +1,4 @@
-import { TerminalColorScheme } from './interfaces'
+import { TerminalColorScheme } from 'tabby-core'
 
 /**
  * Extend to add more terminal color schemes

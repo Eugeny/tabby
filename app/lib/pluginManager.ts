@@ -1,40 +1,17 @@
-import { promisify } from 'util'
+import Arborist from '@npmcli/arborist'
 
-
+// Arborist is npm's own install engine, used in-process so we don't have to bundle the 18 MB npm CLI
+// and run it via ELECTRON_RUN_AS_NODE. reify() resolves and installs the full dependency tree.
 export class PluginManager {
-    npm: any
-    npmReady?: Promise<void>
-
-    async ensureLoaded (): Promise<void> {
-        if (!this.npmReady) {
-            this.npmReady = new Promise(resolve => {
-                const npm = require('npm')
-                npm.load(err => {
-                    if (err) {
-                        console.error(err)
-                        return
-                    }
-                    npm.config.set('global', false)
-                    this.npm = npm
-                    resolve()
-                })
-            })
-        }
-        return this.npmReady
+    async install (targetPath: string, name: string, version: string): Promise<void> {
+        await new Arborist({ path: targetPath, save: false, audit: false, fund: false })
+            .reify({ add: [`${name}@${version}`] })
     }
 
-    async install (path: string, name: string, version: string): Promise<void> {
-        await this.ensureLoaded()
-        this.npm.prefix = path
-        return promisify(this.npm.commands.install)([`${name}@${version}`])
-    }
-
-    async uninstall (path: string, name: string): Promise<void> {
-        await this.ensureLoaded()
-        this.npm.prefix = path
-        return promisify(this.npm.commands.remove)([name])
+    async uninstall (targetPath: string, name: string): Promise<void> {
+        await new Arborist({ path: targetPath, save: false })
+            .reify({ rm: [name] })
     }
 }
-
 
 export const pluginManager = new PluginManager()

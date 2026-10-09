@@ -1,3 +1,6 @@
+// Registers main-process error logging - must be first so it catches import-time errors
+import { logMainError } from './errors'
+
 import { app, ipcMain, Menu, dialog } from 'electron'
 
 // set userData Path on portable version
@@ -8,16 +11,13 @@ import 'dotenv/config'
 process.env.TABBY_PLUGINS ??= ''
 process.env.TABBY_CONFIG_DIRECTORY ??= app.getPath('userData')
 
-
-import 'v8-compile-cache'
-import 'source-map-support/register'
+process.setSourceMapsEnabled(true)
 import './sentry'
 import './lru'
 import { parseArgs } from './cli'
 import { Application } from './app'
-import electronDebug = require('electron-debug')
+import electronDebug from 'electron-debug'
 import { loadConfig } from './config'
-
 
 const argv = parseArgs(process.argv, process.cwd())
 
@@ -35,12 +35,20 @@ process.mainModule = module
 
 const application = new Application(configStore)
 
+// Register tabby:// URL scheme
+if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+        app.setAsDefaultProtocolClient('tabby', process.execPath, [process.argv[1]])
+    }
+} else {
+    app.setAsDefaultProtocolClient('tabby')
+}
+
 ipcMain.on('app:new-window', () => {
     application.newWindow()
 })
 
-process.on('uncaughtException' as any, err => {
-    console.log(err)
+process.on('uncaughtException', err => {
     application.broadcast('uncaughtException', err)
 })
 
@@ -60,6 +68,18 @@ app.on('activate', async () => {
     }
 })
 
+// Handle URL scheme on macOS
+app.on('open-url', async (event, url) => {
+    event.preventDefault()
+    console.log('Received open-url event:', url)
+    if (!application.hasWindows()) {
+        process.argv.push(url)
+    } else {
+        await app.whenReady()
+        application.handleSecondInstance([url], process.cwd())
+    }
+})
+
 app.on('second-instance', async (_event, newArgv, cwd) => {
     application.handleSecondInstance(newArgv, cwd)
 })
@@ -71,7 +91,7 @@ if (!app.requestSingleInstanceLock()) {
 
 app.on('ready', async () => {
     if (process.platform === 'darwin') {
-        app.dock.setMenu(Menu.buildFromTemplate([
+        app.dock?.setMenu(Menu.buildFromTemplate([
             {
                 label: 'New window',
                 click () {
@@ -81,10 +101,16 @@ app.on('ready', async () => {
         ]))
     }
 
-    application.init()
+    try {
+        application.init()
 
-    const window = await application.newWindow({ hidden: argv.hidden })
-    await window.ready
-    window.passCliArguments(process.argv, process.cwd(), false)
-    window.focus()
+        const window = await application.newWindow({ hidden: argv.hidden })
+        await window.ready
+        window.passCliArguments(process.argv, process.cwd(), false)
+        window.focus()
+    } catch (err) {
+        logMainError('Failed to open window', err)
+        dialog.showErrorBox('Tabby failed to start', String(err?.stack ?? err))
+        app.exit(1)
+    }
 })

@@ -15,6 +15,10 @@
     flex-grow: 1;
     display: flex;
     align-items: center;
+
+    ::ng-deep .cdk-drag-placeholder {
+        display: none !important;
+    }
 }
 
 .drag-handle {

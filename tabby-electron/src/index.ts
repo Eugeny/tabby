@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
-import { TerminalColorSchemeProvider, TerminalDecorator } from 'tabby-terminal'
+import { TerminalColorSchemeProvider, TerminalContextMenuItemProvider, TerminalDecorator } from 'tabby-terminal'
 import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
 import { PTYInterface, ShellProvider, UACService } from 'tabby-local'
 import { auditTime } from 'rxjs'
@@ -21,6 +21,7 @@ import { ElectronUACService } from './services/uac.service'
 import { ElectronHotkeyProvider } from './hotkeys'
 import { ElectronConfigProvider } from './config'
 import { EditSFTPContextMenu } from './sftpContextMenu'
+import { ExportTerminalContextMenu } from './terminalContextMenu'
 import { OpenSSHImporter, PrivateKeyLocator, StaticFileImporter } from './sshImporters'
 import { ElectronPTYInterface } from './pty'
 import { PathDropDecorator } from './pathDrop'
@@ -75,6 +76,8 @@ import { VSDevToolsProvider } from './shells/vs'
         { provide: PTYInterface, useClass: ElectronPTYInterface },
 
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
+
+        { provide: TerminalContextMenuItemProvider, useClass: ExportTerminalContextMenu, multi: true },
 
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,

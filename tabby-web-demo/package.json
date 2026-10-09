@@ -1,6 +1,6 @@
 {
   "name": "tabby-web-demo",
-  "version": "1.0.197-nightly.1",
+  "version": "1.0.231-nightly.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
@@ -14,7 +14,7 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "@types/webpack-env": "^1.16.0"
+    "@types/webpack-env": "^1"
   },
   "dependencies": {
     "svg-inline-loader": "^0.8.2"

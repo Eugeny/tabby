@@ -8,6 +8,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             useConPTY: true,
             environment: {},
             setComSpec: false,
+            windowsRefreshEnvironment: true,
         },
     }
 

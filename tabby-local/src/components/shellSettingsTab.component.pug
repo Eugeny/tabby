@@ -2,16 +2,13 @@ h3.mb-3(translate) Shell
 
 .form-line(*ngIf='isConPTYAvailable')
     .header
-        .title(translate) Use ConPTY
-        .description(translate) Enables the experimental Windows ConPTY API
+        .title(translate) Use bundled ConPTY
+        .description(translate) Uses the newer ConPTY from Windows Terminal
 
     toggle(
         [(ngModel)]='config.store.terminal.useConPTY',
         (ngModelChange)='config.save()'
     )
 
-.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.useConPTY && isConPTYAvailable && !isConPTYStable')
-    .me-auto(translate) Windows 10 build 18309 or above is recommended for ConPTY
-
-.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.profile.startsWith("WSL") && (!config.store.terminal.useConPTY)')
-    .me-auto(translate) WSL terminal only supports TrueColor with ConPTY
+.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.useConPTY && isConPTYAvailable && !isBundledConPTYAvailable')
+    .me-auto(translate) Windows 10 2004 (build 19041) or above is required for the bundled ConPTY

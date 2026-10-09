@@ -9,7 +9,7 @@ export class ColorSchemes extends TerminalColorSchemeProvider {
         const schemes: TerminalColorScheme[] = []
 
         schemeContents.keys().filter(x => !x.startsWith('./')).forEach(schemeFile => {
-            const lines = (schemeContents(schemeFile).default as string).split('\n')
+            const lines = (schemeContents(schemeFile) as string).split('\n')
 
             // process #define variables
             const variables: any = {}

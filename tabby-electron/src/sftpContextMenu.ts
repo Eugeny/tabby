@@ -1,11 +1,10 @@
 import * as tmp from 'tmp-promise'
-import * as path from 'path'
 import * as fs from 'fs'
 import { Subject, debounceTime, debounce } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { MenuItemOptions, TranslateService } from 'tabby-core'
 import { SFTPFile, SFTPPanelComponent, SFTPContextMenuItemProvider, SFTPSession } from 'tabby-ssh'
-import { ElectronPlatformService } from './services/platform.service'
+import { ElectronPlatformService, resolveInsideBase } from './services/platform.service'
 
 
 /** @hidden */
@@ -40,7 +39,7 @@ export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
 
     private async edit (item: SFTPFile, sftp: SFTPSession) {
         const tempDir = (await tmp.dir({ unsafeCleanup: true })).path
-        const tempPath = path.join(tempDir, item.name)
+        const tempPath = resolveInsideBase(tempDir, item.name)
         const transfer = await this.platform.startDownload(item.name, item.mode, item.size, tempPath)
         if (!transfer) {
             return

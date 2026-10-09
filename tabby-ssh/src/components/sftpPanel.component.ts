@@ -61,12 +61,16 @@ export class SFTPPanelComponent {
 
         let p = newPath
         this.pathSegments = []
-        while (p !== '/') {
+        while (p !== '/' && p !== '.') {
             this.pathSegments.unshift({
                 name: path.basename(p),
                 path: p,
             })
-            p = path.dirname(p)
+            const parent = path.dirname(p)
+            if (parent === p) {
+                break
+            }
+            p = parent
         }
 
         this.fileList = null
@@ -168,6 +172,26 @@ export class SFTPPanelComponent {
         } else {
             await this.download(item.fullPath, item.mode, item.size)
         }
+    }
+
+    async downloadItem (item: SFTPFile): Promise<void> {
+        if (item.isDirectory) {
+            await this.downloadFolder(item)
+            return
+        }
+
+        if (item.isSymlink) {
+            const target = path.resolve(this.path, await this.sftp.readlink(item.fullPath))
+            const stat = await this.sftp.stat(target)
+            if (stat.isDirectory) {
+                await this.downloadFolder(item)
+                return
+            }
+            await this.download(item.fullPath, stat.mode, stat.size)
+            return
+        }
+
+        await this.download(item.fullPath, item.mode, item.size)
     }
 
     async openCreateDirectoryModal (): Promise<void> {

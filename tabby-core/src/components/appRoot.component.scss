@@ -25,7 +25,7 @@ $tab-border-radius: 4px;
 }
 
 .content {
-    width: 100vw;
+    width: 100%;
     flex: 1 1 0;
     min-height: 0;
     display: flex;
@@ -50,7 +50,7 @@ $tab-border-radius: 4px;
     overflow-y: auto;
     overflow-x: hidden;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.25);
+    background: var(--theme-bg-more-2);
 
     .tabs {
         width: var(--side-tab-width);

@@ -10,7 +10,7 @@ export interface LoginScript {
 }
 
 export interface LoginScriptsOptions {
-    scripts?: LoginScript[]
+    scripts: LoginScript[]
 }
 
 export class LoginScriptProcessor extends SessionMiddleware {
@@ -32,7 +32,7 @@ export class LoginScriptProcessor extends SessionMiddleware {
         options: LoginScriptsOptions,
     ) {
         super()
-        this.remainingScripts = deepClone(options.scripts ?? [])
+        this.remainingScripts = deepClone(options.scripts)
         for (const script of this.remainingScripts) {
             if (!script.isRegex) {
                 script.expect = this.unescape(script.expect)

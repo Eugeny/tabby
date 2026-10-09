@@ -31,7 +31,7 @@ jobs:
       env:
         DOCS_PRIVATE_KEY: ${{ secrets.DOCS_PRIVATE_KEY }}
 
-    - uses: FirebaseExtended/action-hosting-deploy@v0
+    - uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c # v0
       with:
         repoToken: '${{ secrets.GITHUB_TOKEN }}'
         firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TABBY_DOCS }}'

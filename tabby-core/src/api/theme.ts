@@ -15,3 +15,14 @@ export abstract class Theme {
     macOSWindowButtonsInsetY?: number
     followsColorScheme?: boolean
 }
+
+export interface TerminalColorScheme {
+    name: string
+    foreground: string
+    background: string
+    cursor: string
+    colors: string[]
+    selection?: string
+    selectionForeground?: string
+    cursorAccent?: string
+}

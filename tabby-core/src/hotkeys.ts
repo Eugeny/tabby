@@ -44,6 +44,14 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Previous tab'),
         },
         {
+            id: 'next-mru-tab',
+            name: this.translate.instant('Next tab (MRU order)'),
+        },
+        {
+            id: 'previous-mru-tab',
+            name: this.translate.instant('Previous tab (MRU order)'),
+        },
+        {
             id: 'move-tab-left',
             name: this.translate.instant('Move tab to the left'),
         },
@@ -58,6 +66,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
         {
             id: 'duplicate-tab',
             name: this.translate.instant('Duplicate tab'),
+        },
+        {
+            id: 'pin-tab',
+            name: this.translate.instant('Pin or unpin tab'),
         },
         {
             id: 'restart-tab',

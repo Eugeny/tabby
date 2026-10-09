@@ -31,6 +31,7 @@ export class LinuxDefaultShellProvider extends ShellProvider {
                 name: this.translate.instant('User default'),
                 command: '/bin/sh',
                 env: {},
+                shellType: 'unix',
             }]
         } else {
             return [{
@@ -40,6 +41,7 @@ export class LinuxDefaultShellProvider extends ShellProvider {
                 args: ['--login'],
                 hidden: true,
                 env: {},
+                shellType: 'unix',
             }]
         }
     }

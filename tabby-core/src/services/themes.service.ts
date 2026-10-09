@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core'
 import { Subject, Observable } from 'rxjs'
-import * as Color from 'color'
+import Color from 'color'
 import { ConfigService } from '../services/config.service'
-import { Theme } from '../api/theme'
+import { TerminalColorScheme, Theme } from '../api/theme'
 import { PlatformService, PlatformTheme } from '../api/platform'
 import { NewTheme } from '../theme'
 
@@ -172,20 +172,22 @@ export class ThemesService {
         document.body.classList.toggle('no-animations', !this.getConfigStoreOrDefaults().accessibility.animations)
     }
 
-    private ensureContrast (color: Color, against: Color): Color {
+    private ensureContrast (color: ReturnType<typeof Color>, against: ReturnType<typeof Color>): ReturnType<typeof Color> {
         const a = this.increaseContrast(color, against, 1.1)
         const b = this.increaseContrast(color, against, 0.9)
         return a.contrast(against) > b.contrast(against) ? a : b
     }
 
-    private increaseContrast (color: Color, against: Color, step=1.1): Color {
+    private increaseContrast (color: ReturnType<typeof Color>, against: ReturnType<typeof Color>, step=1.1): ReturnType<typeof Color> {
         color = color.hsl()
-        color.color[2] = Math.max(color.color[2], 0.01)
+        let lightness = Math.max(color.lightness(), 0.01)
+        color = color.lightness(lightness)
         while (
-            (step < 1 && color.color[2] > 1 ||
-             step > 1 && color.color[2] < 99) &&
+            (step < 1 && lightness > 1 ||
+             step > 1 && lightness < 99) &&
              color.contrast(against) < this.getConfigStoreOrDefaults().terminal.minimumContrastRatio) {
-            color.color[2] *= step
+            lightness *= step
+            color = color.lightness(lightness)
         }
         return color
     }
@@ -199,7 +201,7 @@ export class ThemesService {
     }
 
     /// @hidden
-    _getActiveColorScheme (): any {
+    _getActiveColorScheme (): TerminalColorScheme {
         let theme: PlatformTheme = 'dark'
         if (this.getConfigStoreOrDefaults().appearance.colorSchemeMode === 'light') {
             theme = 'light'
@@ -208,9 +210,9 @@ export class ThemesService {
         }
 
         if (theme === 'light') {
-            return this.getConfigStoreOrDefaults().terminal.lightColorScheme
+            return this.getConfigStoreOrDefaults().terminal.lightColorScheme as TerminalColorScheme
         } else {
-            return this.getConfigStoreOrDefaults().terminal.colorScheme
+            return this.getConfigStoreOrDefaults().terminal.colorScheme as TerminalColorScheme
         }
     }
 

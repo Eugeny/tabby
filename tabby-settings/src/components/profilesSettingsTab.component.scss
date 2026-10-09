@@ -1,8 +1,20 @@
 profile-icon {
-    width: 1.25rem;
-    margin-right: 0.25rem;
+    width: 1rem;
+    height: 1rem;
 }
 
-profile-icon + * {
-    margin-left: 10px;
+.collapse-container {
+    background-color: var(--theme-bg-less);
+    border-radius: 0.375rem;
+}
+
+.collapse-item {
+    height: 2.25rem;
+    background-color: var(--theme-bg-less);
+    border-radius: 0.3rem;
+    cursor: pointer;
+}
+
+.collapse-item:hover {
+    background-color: var(--theme-bg-less-2);
 }

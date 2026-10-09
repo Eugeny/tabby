@@ -14,6 +14,7 @@ import { ShowSecretModalComponent } from './showSecretModal.component'
 export class VaultSettingsTabComponent extends BaseComponent {
     vaultContents: Vault|null = null
     VAULT_SECRET_TYPE_FILE = VAULT_SECRET_TYPE_FILE
+    searchTerm = ''
 
     // Touch ID support
     touchIdAvailable = false
@@ -156,6 +157,13 @@ export class VaultSettingsTabComponent extends BaseComponent {
         this.vaultContents = await this.vault.load()
     }
 
+    get filteredSecrets (): VaultSecret[] {
+        const term = this.searchTerm.toLowerCase()
+        return this.vaultContents?.secrets.filter(
+            secret => this.getSecretLabel(secret).toLowerCase().includes(term),
+        ) ?? []
+    }
+
     async enableVault () {
         const modal = this.ngbModal.open(SetVaultPassphraseModalComponent)
         const newPassphrase = await modal.result.catch(() => null)
@@ -224,6 +232,10 @@ export class VaultSettingsTabComponent extends BaseComponent {
         if (secret.type === VAULT_SECRET_TYPE_FILE) {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             return this.translate.instant('File: {description}', (secret as VaultFileSecret).key)
+        }
+        // A plugin's secret: listed by the description its key carries, when it has one
+        if (typeof (secret.key as any).description === 'string' && (secret.key as any).description) {
+            return (secret.key as any).description
         }
         return this.translate.instant('Unknown secret of type {type} for {key}', { type: secret.type, key: JSON.stringify(secret.key) })
     }

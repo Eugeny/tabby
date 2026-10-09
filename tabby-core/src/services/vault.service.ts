@@ -42,6 +42,10 @@ export interface Vault {
     secrets: VaultSecret[]
 }
 
+/**
+ * Identifies a secret within its type. A plugin's own secret type may include a `description` field, which the Vault
+ * settings page shows as the secret's label (the key is otherwise shown as JSON).
+ */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface VaultSecretKey { }
 
@@ -179,7 +183,7 @@ export class VaultService {
     async getPassphrase (): Promise<string> {
         if (!_rememberedPassphrase) {
             const modal = this.ngbModal.open(UnlockVaultModalComponent)
-            const result = await modal.result
+            const result = await modal.result.catch(() => null)
             if (!result) {
                 throw new Error('Vault unlock cancelled')
             }
@@ -213,7 +217,7 @@ export class VaultService {
         let vaultSecret = vault.secrets.find(s => s.type === type && this.keyMatches(key, s))
         if (!vaultSecret) {
             // search for secret without host in vault (like a default user/password used in multiple servers)
-            key['host'] = null
+            key['host'] = ''
             vaultSecret = vault.secrets.find(s => s.type === type && this.keyMatches(key, s))
         }
         return vaultSecret ?? null

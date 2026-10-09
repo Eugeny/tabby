@@ -25,7 +25,13 @@ export class UnlockVaultModalComponent {
     ) { }
 
     async ngOnInit (): Promise<void> {
-        this.rememberFor = parseInt(window.localStorage.vaultRememberPassphraseFor ?? 0)
+        const stored = window.localStorage.vaultRememberPassphraseFor
+        if (stored === undefined || stored === null || stored === '') {
+            this.rememberFor = 1
+        } else {
+            const parsed = parseInt(stored, 10)
+            this.rememberFor = isNaN(parsed) ? 1 : parsed
+        }
 
         // Check Touch ID availability and status
         const biometricAvailable = await (this.platform.isBiometricAuthAvailable() as any)

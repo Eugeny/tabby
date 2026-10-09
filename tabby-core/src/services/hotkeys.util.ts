@@ -16,8 +16,11 @@ export interface KeyEventData {
     metaKey?: boolean
     altKey?: boolean
     shiftKey?: boolean
-    key: string
-    code: string
+    key?: string
+    code?: string
+    deltaX?: number
+    deltaY?: number
+    button?: number
     eventName: string
     time: number
     registrationTime: number
@@ -29,6 +32,25 @@ export type KeyName = string
 export type Keystroke = string
 
 export function getKeyName (event: KeyEventData): KeyName {
+    if (event.eventName === 'mouseup' || event.eventName === 'auxclick') {
+        if (event.button === 1) {
+            return 'MiddleClick'
+        }
+        return 'Mouse'
+    }
+
+    if (event.eventName === 'wheel') {
+        const deltaX = event.deltaX ?? 0
+        const deltaY = event.deltaY ?? 0
+        if (Math.abs(deltaY) >= Math.abs(deltaX) && deltaY !== 0) {
+            return deltaY < 0 ? 'WheelUp' : 'WheelDown'
+        }
+        if (deltaX !== 0) {
+            return deltaX < 0 ? 'WheelLeft' : 'WheelRight'
+        }
+        return 'Wheel'
+    }
+
     // eslint-disable-next-line @typescript-eslint/init-declarations
     let key: string
     if (event.key === 'Control') {
@@ -44,8 +66,8 @@ export function getKeyName (event: KeyEventData): KeyName {
     } else if (event.key === '~') {
         key = '~'
     } else {
-        key = event.code
-        if (REGEX_LATIN_KEYNAME.test(event.key)) {
+        key = event.code ?? ''
+        if (event.key && REGEX_LATIN_KEYNAME.test(event.key)) {
             // Handle Dvorak etc via the reported "character" instead of the scancode
             key = event.key.toUpperCase()
         } else {

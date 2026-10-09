@@ -1,6 +1,6 @@
 {
   "name": "tabby-telnet",
-  "version": "1.0.197-nightly.1",
+  "version": "1.0.231-nightly.0",
   "description": "Telnet/socket connections for Tabby",
   "keywords": [
     "tabby-builtin-plugin"
@@ -18,8 +18,8 @@
   "author": "Tabby Developers",
   "license": "MIT",
   "devDependencies": {
-    "ansi-colors": "^4.1.1",
-    "@types/node": "14.14.31"
+    "@types/node": "22",
+    "ansi-colors": "^4"
   },
   "peerDependencies": {
     "@angular/animations": "^15",

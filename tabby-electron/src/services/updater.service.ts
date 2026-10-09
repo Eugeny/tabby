@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import axios from 'axios'
 
 import { Logger, LogService, ConfigService, UpdaterService, PlatformService, TranslateService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
@@ -101,8 +100,8 @@ export class ElectronUpdaterService extends UpdaterService {
 
         } else {
             this.logger.debug('Checking for updates through fallback method.')
-            const response = await axios.get(UPDATES_URL)
-            const data = response.data
+            const response = await fetch(UPDATES_URL)
+            const data = await response.json()
             const version = data.tag_name.substring(1)
             if (this.electron.app.getVersion() !== version) {
                 this.logger.info('Update available')

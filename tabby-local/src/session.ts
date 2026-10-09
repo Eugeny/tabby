@@ -1,9 +1,22 @@
 import * as fs from 'mz/fs'
-import * as fsSync from 'fs'
 import { Injector } from '@angular/core'
-import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
+import { HostAppService, ConfigService, WIN_BUILD_BUNDLED_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { SessionOptions, ChildProcess, PTYInterface, PTYProxy } from './api'
+import { getEnvironment, substituteEnv } from './environment'
+import { resolveGuestCWD } from './wslPath'
+import { isDirectory, isDirectorySync } from './util'
+
+function usableCWD (path?: string|null): string|undefined {
+    if (!path) {
+        return undefined
+    }
+    if (!isDirectorySync(path)) {
+        console.warn('Ignoring invalid CWD:', path)
+        return undefined
+    }
+    return path
+}
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 
@@ -19,21 +32,6 @@ function mergeEnv (...envs) {
         }
     }
     return result
-}
-
-function substituteEnv (env: Record<string, string>) {
-    env = { ...env }
-    const pattern = process.platform === 'win32' ? /%(\w+)%/g : /\$(\w+)\b/g
-    for (const [key, value] of Object.entries(env)) {
-        env[key] = value.toString().replace(pattern, function (substring, p1) {
-            if (process.platform === 'win32') {
-                return Object.entries(process.env).find(x => x[0].toLowerCase() === p1.toLowerCase())?.[1] ?? ''
-            } else {
-                return process.env[p1] ?? ''
-            }
-        })
-    }
-    return env
 }
 
 /** @hidden */
@@ -63,18 +61,22 @@ export class Session extends BaseSession {
 
         if (options.restoreFromPTYID) {
             pty = await this.ptyInterface.restore(options.restoreFromPTYID)
-            options.restoreFromPTYID = undefined
+            options.restoreFromPTYID = null
         }
 
         if (!pty) {
+            const baseEnv = getEnvironment(
+                this.hostApp.platform === Platform.Windows && this.config.store.terminal.windowsRefreshEnvironment,
+            )
+
             let env = mergeEnv(
-                process.env,
+                baseEnv,
                 {
                     COLORTERM: 'truecolor',
                     TERM: 'xterm-256color',
                     TERM_PROGRAM: 'Tabby',
                 },
-                substituteEnv(options.env ?? {}),
+                substituteEnv(options.env),
                 this.config.store.terminal.environment || {},
             )
 
@@ -96,24 +98,44 @@ export class Session extends BaseSession {
                 })
             }
 
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            let cwd = options.cwd || process.env.HOME
+            // resolveGuestCWD maps a POSIX cwd reported by a guest shell (WSL) onto its
+            // Windows-visible path before we validate it.
+            const explicitCWD = usableCWD(resolveGuestCWD(options.cwd, options.fsBase))
 
-            if (!fsSync.existsSync(cwd!)) {
-                console.warn('Ignoring non-existent CWD:', cwd)
-                cwd = undefined
-            }
+            // A shell that knows how to start in its own home directory (WSL's `--cd ~`) only gets
+            // to do so when we have no working directory for it - those args outrank the cwd below.
+            const args = explicitCWD ? options.args : [...options.args, ...options.homeDirArgs]
 
-            pty = await this.ptyInterface.spawn(options.command, options.args ?? [], {
+            const cwd = explicitCWD ?? usableCWD(process.env.HOME)
+
+            const ptyOptions = {
                 name: 'xterm-256color',
                 cols: options.width ?? 80,
                 rows: options.height ?? 30,
                 encoding: null,
                 cwd,
                 env: env,
-                // `1` instead of `true` forces ConPTY even if unstable
-                useConpty: isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false,
-            })
+                // node-pty's bundled ConPTY passes VT mouse tracking through to fullscreen TUIs,
+                // which the one built into Windows swallows. It needs Windows 10 2004+.
+                useConptyDll: this.config.store.terminal.useConPTY && isWindowsBuild(WIN_BUILD_BUNDLED_CONPTY_SUPPORTED),
+            }
+
+            try {
+                try {
+                    pty = await this.ptyInterface.spawn(options.command, args, ptyOptions)
+                } catch (error) {
+                    if (!ptyOptions.useConptyDll) {
+                        throw error
+                    }
+                    // A missing or blocked conpty.dll must not cost the user their terminal
+                    this.logger.warn('Bundled ConPTY failed, retrying with the built-in one:', error)
+                    pty = await this.ptyInterface.spawn(options.command, args, { ...ptyOptions, useConptyDll: false })
+                }
+            } catch (error) {
+                this.logger.error('Could not spawn the shell:', error)
+                this.emitOutput(Buffer.from(`\r\nCould not start ${options.command}:\r\n${error.message}\r\n`))
+                return
+            }
 
             this.guessedCWD = cwd ?? null
         }
@@ -152,7 +174,7 @@ export class Session extends BaseSession {
             }
         })
 
-        this.pauseAfterExit = options.pauseAfterExit ?? false
+        this.pauseAfterExit = options.pauseAfterExit
 
         this.destroyed$.subscribe(() => this.pty!.unsubscribeAll())
     }
@@ -229,18 +251,23 @@ export class Session extends BaseSession {
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         cwd = cwd || this.guessedCWD
 
-        try {
-            await fs.access(cwd)
-        } catch {
+        if (!await isDirectory(cwd)) {
             return null
         }
         return cwd
     }
 
-    private guessWindowsCWD (data: string) {
+    private async guessWindowsCWD (data: string): Promise<void> {
         const match = windowsDirectoryRegex.exec(data)
-        if (match) {
-            this.guessedCWD = match[0]
+        if (!match) {
+            return
+        }
+        // The regex also matches file paths (e.g. an echoed command line
+        // containing `D:\tools\7z.exe`), which are useless as a CWD and
+        // break process spawning once inherited by another tab.
+        const guess = match[0].trim()
+        if (await isDirectory(guess)) {
+            this.guessedCWD = guess
         }
     }
 }

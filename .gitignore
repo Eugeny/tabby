@@ -37,3 +37,6 @@ sentry-symbols.js
 
 crowdin.yml
 .crowdin.env
+
+# built from tabby-uac/ by CI; see .github/workflows/build.yml
+extras/UAC.exe

@@ -3,28 +3,38 @@ import { Component, Input, HostBinding, ElementRef } from '@angular/core'
 import { HotkeysService } from '../services/hotkeys.service'
 import { AppService } from '../services/app.service'
 import { BaseTabComponent } from './baseTab.component'
+import { SplitPaneGeometry, SplitTabComponent } from './splitTab.component'
 import { SelfPositioningComponent } from './selfPositioning.component'
 
 /** @hidden */
 @Component({
     selector: 'split-tab-pane-label',
     template: `
-    <div
-        cdkDrag
-        [cdkDragData]='tab'
-        (cdkDragStarted)='onTabDragStart(tab)'
-        (cdkDragEnded)='onTabDragEnd()'
-    >
-        <i class="fa fa-window-maximize me-3"></i>
-        <label>{{tab.title}}</label>
+    <div *ngIf='tab.customTitle && tab.customTitleVisible' class='custom-name'>{{tab.customTitle}}</div>
+    <div class='rearrange-overlay'>
+        <div
+            class='rearrange-label'
+            cdkDrag
+            [cdkDragData]='tab'
+            (cdkDragStarted)='onTabDragStart(tab)'
+            (cdkDragEnded)='onTabDragEnd()'
+        >
+            <i class="fa fa-window-maximize me-3"></i>
+            <label>{{tab.displayTitle}}</label>
+        </div>
     </div>
     `,
     styleUrls: ['./splitTabPaneLabel.component.scss'],
 })
 export class SplitTabPaneLabelComponent extends SelfPositioningComponent {
     @Input() tab: BaseTabComponent
-    @Input() parent: BaseTabComponent
+    @Input() parent: SplitTabComponent
+    @Input() geometry: SplitPaneGeometry|null
     @HostBinding('class.active') isActive = false
+    @HostBinding('class.positioned') isPositioned = false
+    @HostBinding('class.minimized') get isMinimized (): boolean {
+        return !!this.parent.getMaximizedTab() && this.parent.getMaximizedTab() !== this.tab
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
@@ -62,19 +72,17 @@ export class SplitTabPaneLabelComponent extends SelfPositioningComponent {
     }
 
     layout () {
-        const tabElement: HTMLElement|undefined = this.tab.viewContainerEmbeddedRef?.rootNodes[0]
-
-        if (!tabElement) {
-            // being destroyed
+        if (!this.geometry) {
+            this.isPositioned = false
             return
         }
 
         this.setDimensions(
-            tabElement.offsetLeft,
-            tabElement.offsetTop,
-            tabElement.clientWidth,
-            tabElement.clientHeight,
-            'px',
+            this.geometry.x,
+            this.geometry.y,
+            this.geometry.w,
+            this.geometry.h,
         )
+        this.isPositioned = true
     }
 }

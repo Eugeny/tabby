@@ -39,6 +39,7 @@ export class Cygwin32ShellProvider extends ShellProvider {
             env: {
                 TERM: 'cygwin',
             },
+            shellType: 'unix',
         }]
     }
 }

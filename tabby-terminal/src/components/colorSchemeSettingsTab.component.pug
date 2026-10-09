@@ -42,6 +42,24 @@ h3.mb-3(translate) Color schemes
         )
             span(translate) Always light
 
+.form-line.mb-4
+    .header
+        .title(translate) Generate 256-color palette
+        .description(translate) Generate extended 256-color palette from your base 16 colors
+    toggle(
+        [(ngModel)]='config.store.terminal.paletteGenerate',
+        (ngModelChange)='config.save()'
+    )
+
+.form-line.mb-4
+    .header
+        .title(translate) Harmonious palette
+        .description(translate) Whether to invert generated light theme colors. This helps give the 256-color palette more semantic meaning.
+    toggle(
+        [(ngModel)]='config.store.terminal.paletteHarmonious',
+        (ngModelChange)='config.save()'
+    )
+
 ul.nav-tabs(ngbNav, #nav='ngbNav', [activeId]='defaultTab')
     li(ngbNavItem='dark')
         a(ngbNavLink, translate) Dark mode

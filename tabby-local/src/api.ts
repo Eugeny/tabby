@@ -1,5 +1,7 @@
 import { BaseTerminalProfile } from 'tabby-terminal'
 
+export type ShellType = 'unix' | 'powershell' | 'cmd'
+
 export interface Shell {
     id: string
     name: string
@@ -16,9 +18,18 @@ export interface Shell {
     cwd?: string
 
     /**
+     * Args that make the shell start in its own home directory (e.g. WSL's `--cd ~`).
+     * Only applied when the session has no working directory of its own, since these
+     * would otherwise override it.
+     */
+    homeDirArgs?: string[]
+
+    /**
      * SVG icon
      */
     icon?: string
+
+    shellType?: ShellType
 
     hidden?: boolean
 }
@@ -32,16 +43,24 @@ export abstract class ShellProvider {
 
 
 export interface SessionOptions {
-    restoreFromPTYID?: string
-    name?: string
+    restoreFromPTYID: string | null
     command: string
-    args?: string[]
-    cwd?: string
-    env?: Record<string, string>
-    width?: number
-    height?: number
-    pauseAfterExit?: boolean
-    runAsAdministrator?: boolean
+    args: string[]
+    /** See {@link Shell.homeDirArgs} */
+    homeDirArgs: string[]
+    cwd: string | null
+    env: Record<string, string>
+    width: number | null
+    height: number | null
+    shellType: ShellType | null
+    pauseAfterExit: boolean
+    runAsAdministrator: boolean
+
+    /**
+     * Base path to which cwd is relative, e.g. `\\wsl$\Ubuntu` for WSL shells.
+     * Used to translate a POSIX cwd reported by the guest shell into a real Windows path.
+     */
+    fsBase: string | null
 }
 
 export interface LocalProfile extends BaseTerminalProfile {

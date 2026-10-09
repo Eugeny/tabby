@@ -136,6 +136,13 @@ export interface SplitSpannerInfo {
     index: number
 }
 
+export interface SplitPaneGeometry {
+    x: number
+    y: number
+    w: number
+    h: number
+}
+
 /**
  * Represents a tab drop zone
  */
@@ -183,6 +190,7 @@ export type SplitDropZoneInfo = {
             cdkAutoDropGroup='app-tabs'
             [tab]='tab'
             [parent]='this'
+            [geometry]='getPaneGeometry(tab)'
         >
         </split-tab-pane-label>
     `,
@@ -223,6 +231,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     private focusedTab: BaseTabComponent|null = null
     private maximizedTab: BaseTabComponent|null = null
     private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
+    private paneGeometries = new Map<BaseTabComponent, SplitPaneGeometry>()
 
     private tabAdded = new Subject<BaseTabComponent>()
     private tabAdopted = new Subject<BaseTabComponent>()
@@ -407,6 +416,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
     getMaximizedTab (): BaseTabComponent|null {
         return this.maximizedTab
+    }
+
+    getPaneGeometry (tab: BaseTabComponent): SplitPaneGeometry|null {
+        return this.paneGeometries.get(tab) ?? null
     }
 
     focus (tab: BaseTabComponent): void {
@@ -782,6 +795,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.root.normalize()
         this._spanners = []
         this._dropZones = []
+        this.paneGeometries.clear()
         this.layoutInternal(this.root, 0, 0, 100, 100)
     }
 
@@ -822,10 +836,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             return
         }
         const titles = [
-            this.getFocusedTab()?.title,
+            this.getFocusedTab()?.displayTitle,
             ...this.getAllTabs()
                 .filter(x => x !== this.getFocusedTab())
-                .map(x => x.title),
+                .map(x => x.displayTitle),
         ]
         this.setTitle([...new Set(titles)].join(' | '))
     }
@@ -941,6 +955,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             if (child instanceof SplitContainer) {
                 this.layoutInternal(child, childX, childY, childW, childH)
             } else {
+                const geometry: SplitPaneGeometry = child === this.maximizedTab
+                    ? { x: 5, y: 5, w: 90, h: 90 }
+                    : { x: childX, y: childY, w: childW, h: childH }
+                this.paneGeometries.set(child, geometry)
                 const viewRef = this.viewRefs.get(child)
                 if (viewRef) {
                     const element = viewRef.rootNodes[0]
@@ -948,17 +966,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                     element.classList.toggle('maximized', child === this.maximizedTab)
                     element.classList.toggle('minimized', this.maximizedTab && child !== this.maximizedTab)
                     element.classList.toggle('focused', this._allFocusMode || child === this.focusedTab)
-                    element.style.left = `${childX}%`
-                    element.style.top = `${childY}%`
-                    element.style.width = `${childW}%`
-                    element.style.height = `${childH}%`
-
-                    if (child === this.maximizedTab) {
-                        element.style.left = '5%'
-                        element.style.top = '5%'
-                        element.style.width = '90%'
-                        element.style.height = '90%'
-                    }
+                    element.style.left = `${geometry.x}%`
+                    element.style.top = `${geometry.y}%`
+                    element.style.width = `${geometry.w}%`
+                    element.style.height = `${geometry.h}%`
                 }
             }
 

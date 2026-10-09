@@ -1,21 +1,23 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, ViewChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { firstBy } from 'thenby'
 
-import { FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile, ProfilesService } from 'tabby-core'
+import { FileProvidersService, Platform, PlatformService, HostAppService, PromptModalComponent, PartialProfile, ProfilesService, ProfileSettingsComponent, FullyDefined, ProxifiedConfig, TranslateService } from 'tabby-core'
 import { LoginScriptsSettingsComponent } from 'tabby-terminal'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
 import { supportedAlgorithms } from '../algorithms'
+import { SSHProfilesService } from '../profiles'
 
 /** @hidden */
 @Component({
     templateUrl: './sshProfileSettings.component.pug',
 })
-export class SSHProfileSettingsComponent {
+export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSHProfile, SSHProfilesService> {
     Platform = Platform
-    profile: SSHProfile
+    profile: ProxifiedConfig<FullyDefined<SSHProfile>>
     hasSavedPassword: boolean
 
     connectionMode: 'direct'|'proxyCommand'|'jumpHost'|'socksProxy'|'httpProxy' = 'direct'
@@ -31,6 +33,8 @@ export class SSHProfileSettingsComponent {
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
         private fileProviders: FileProvidersService,
+        private platform: PlatformService,
+        private translate: TranslateService,
     ) { }
 
     async ngOnInit () {
@@ -39,13 +43,10 @@ export class SSHProfileSettingsComponent {
 
         for (const k of Object.values(SSHAlgorithmType)) {
             this.algorithms[k] = {}
-            for (const alg of this.profile.options.algorithms?.[k] ?? []) {
+            for (const alg of this.profile.options.algorithms[k]) {
                 this.algorithms[k][alg] = true
             }
         }
-
-        this.profile.options.auth = this.profile.options.auth ?? null
-        this.profile.options.privateKeys ??= []
 
         if (this.profile.options.proxyCommand) {
             this.connectionMode = 'proxyCommand'
@@ -59,7 +60,8 @@ export class SSHProfileSettingsComponent {
 
         if (this.profile.options.user) {
             try {
-                this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.profile)
+                const savedPassword = await this.passwordStorage.loadPassword(this.profile)
+                this.hasSavedPassword = savedPassword != null
             } catch (e) {
                 console.error('Could not check for saved password', e)
             }
@@ -76,11 +78,34 @@ export class SSHProfileSettingsComponent {
         modal.componentInstance.password = true
         try {
             const result = await modal.result.catch(() => null)
-            if (result?.value) {
-                this.passwordStorage.savePassword(this.profile, result.value)
-                this.hasSavedPassword = true
+            // Allow saving a blank password (servers with PermitEmptyPasswords),
+            // but guard against a malformed modal result carrying no string value.
+            if (typeof result?.value !== 'string') {
+                return
             }
+            // An empty field is far more often an accidental OK than a deliberate
+            // blank password, and a stored blank is then offered - and rejected -
+            // on every connection, so make the intent explicit.
+            if (result.value === '' && !await this.confirmBlankPassword()) {
+                return
+            }
+            this.passwordStorage.savePassword(this.profile, result.value)
+            this.hasSavedPassword = true
         } catch { }
+    }
+
+    private async confirmBlankPassword (): Promise<boolean> {
+        return (await this.platform.showMessageBox({
+            type: 'warning',
+            message: this.translate.instant(_('Save an empty password?')),
+            detail: this.translate.instant(_('This only works if the server permits empty passwords. Tabby will offer it on every connection.')),
+            buttons: [
+                this.translate.instant(_('Save')),
+                this.translate.instant(_('Cancel')),
+            ],
+            defaultId: 0,
+            cancelId: 1,
+        })).response === 0
     }
 
     clearSavedPassword () {
@@ -92,49 +117,48 @@ export class SSHProfileSettingsComponent {
         const ref = await this.fileProviders.selectAndStoreFile(`private key for ${this.profile.name}`).catch(() => null)
         if (ref) {
             this.profile.options.privateKeys = [
-                ...this.profile.options.privateKeys!,
+                ...this.profile.options.privateKeys,
                 ref,
             ]
         }
     }
 
     removePrivateKey (path: string) {
-        this.profile.options.privateKeys = this.profile.options.privateKeys?.filter(x => x !== path)
+        this.profile.options.privateKeys = this.profile.options.privateKeys.filter(x => x !== path)
     }
 
     save () {
         for (const k of Object.values(SSHAlgorithmType)) {
-            this.profile.options.algorithms![k] = Object.entries(this.algorithms[k])
-                .filter(([_, v]) => !!v)
-                .map(([key, _]) => key)
-            if(k !== SSHAlgorithmType.COMPRESSION) { this.profile.options.algorithms![k].sort() }
+            this.profile.options.algorithms[k] = Object.entries(this.algorithms[k])
+                .filter(([, v]) => !!v)
+                .map(([key]) => key)
+            if(k !== SSHAlgorithmType.COMPRESSION) { this.profile.options.algorithms[k].sort() }
         }
 
         if (this.connectionMode !== 'jumpHost') {
-            this.profile.options.jumpHost = undefined
+            this.profile.options.jumpHost = null
         }
         if (this.connectionMode !== 'proxyCommand') {
-            this.profile.options.proxyCommand = undefined
+            this.profile.options.proxyCommand = null
         }
         if (this.connectionMode !== 'socksProxy') {
-            this.profile.options.socksProxyHost = undefined
-            this.profile.options.socksProxyPort = undefined
+            this.profile.options.socksProxyHost = null
+            this.profile.options.socksProxyPort = null
         }
         if (this.connectionMode !== 'httpProxy') {
-            this.profile.options.httpProxyHost = undefined
-            this.profile.options.httpProxyPort = undefined
+            this.profile.options.httpProxyHost = null
+            this.profile.options.httpProxyPort = null
         }
 
         this.loginScriptsSettings?.save()
     }
 
     onForwardAdded (fw: ForwardedPortConfig) {
-        this.profile.options.forwardedPorts = this.profile.options.forwardedPorts ?? []
         this.profile.options.forwardedPorts.push(fw)
     }
 
     onForwardRemoved (fw: ForwardedPortConfig) {
-        this.profile.options.forwardedPorts = this.profile.options.forwardedPorts?.filter(x => x !== fw)
+        this.profile.options.forwardedPorts = this.profile.options.forwardedPorts.filter(x => x !== fw)
     }
 
     getConnectionDropdownTitle () {
