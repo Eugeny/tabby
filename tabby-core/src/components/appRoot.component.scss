@@ -12,7 +12,8 @@
     transition: 0.25s background;
 
     --tabs-height: calc(38px * var(--spaciness));
-    --side-tab-width: calc(200px * var(--spaciness));
+    --tabs-sidebar-width-factor: 1;
+    --side-tab-width: calc(200px * var(--spaciness) * var(--tabs-sidebar-width-factor));
 }
 
 $tab-border-radius: 4px;

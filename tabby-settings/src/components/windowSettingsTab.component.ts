@@ -57,4 +57,11 @@ export class WindowSettingsTabComponent extends BaseComponent {
             this.config.requestRestart()
         }
     }
+
+    isTabsSidebarWidthEnabled (): boolean {
+        return (
+            (this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right')
+            && !this.config.store.appearance.flexTabs
+        )
+    }
 }
