@@ -260,6 +260,31 @@ export abstract class PlatformService {
         return 'dark'
     }
 
+    /**
+     * Whether the user can be verified with Touch ID
+     */
+    async isBiometricAuthAvailable (): Promise<boolean> {
+        return false
+    }
+
+    /**
+     * Resolves once the user has been verified with Touch ID, rejects if they cancel
+     */
+    async promptBiometricAuth (reason: string): Promise<void> {
+        throw new Error('Not implemented')
+    }
+
+    /**
+     * Encrypts a secret with a key held by the OS (the macOS Keychain), so that only this app can decrypt it
+     */
+    async encryptSecret (secret: string): Promise<string> {
+        throw new Error('Not implemented')
+    }
+
+    async decryptSecret (encrypted: string): Promise<string> {
+        throw new Error('Not implemented')
+    }
+
     abstract getOSRelease (): string
     abstract getAppVersion (): string
     abstract openExternal (url: string): Promise<void>

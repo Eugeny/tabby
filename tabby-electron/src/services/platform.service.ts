@@ -372,6 +372,23 @@ export class ElectronPlatformService extends PlatformService {
             return 'light'
         }
     }
+
+    async isBiometricAuthAvailable (): Promise<boolean> {
+        // Not checking safeStorage.isEncryptionAvailable() here, on macOS it already accesses the Keychain
+        return this.hostApp.platform === Platform.macOS && this.electron.systemPreferences.canPromptTouchID()
+    }
+
+    async promptBiometricAuth (reason: string): Promise<void> {
+        await this.electron.systemPreferences.promptTouchID(reason)
+    }
+
+    async encryptSecret (secret: string): Promise<string> {
+        return this.electron.ipcRenderer.invoke('app:safe-storage-encrypt', secret)
+    }
+
+    async decryptSecret (encrypted: string): Promise<string> {
+        return this.electron.ipcRenderer.invoke('app:safe-storage-decrypt', encrypted)
+    }
 }
 
 class ElectronFileUpload extends FileUpload {
