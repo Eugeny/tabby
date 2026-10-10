@@ -87,6 +87,16 @@ h3.mb-3(translate) Appearance
 
     .form-line
         .header
+            .title(translate) Transparent terminal background
+            .description(translate) Show in-app background images without making the window acrylic
+
+        toggle(
+            [(ngModel)]='config.store.terminal.transparentBackground',
+            (ngModelChange)='config.save()',
+        )
+
+    .form-line
+        .header
             .title(translate) Cursor shape
 
         .btn-group(role='group')

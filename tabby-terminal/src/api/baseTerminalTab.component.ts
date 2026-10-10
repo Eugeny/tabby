@@ -600,7 +600,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     configure (): void {
         this.frontend?.configure(this.profile)
 
-        this.backgroundColor = getTerminalBackgroundColor(this.config, this.themes, this.profile.terminalColorScheme)
+        this.backgroundColor = this.config.store.terminal.transparentBackground
+            ? null
+            : getTerminalBackgroundColor(this.config, this.themes, this.profile.terminalColorScheme)
     }
 
     zoomIn (): void {
