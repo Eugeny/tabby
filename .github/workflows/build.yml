@@ -31,6 +31,9 @@ jobs:
     - name: Test GPU memory lifecycle
       run: yarn run test:gpu-memory
 
+    - name: Unit tests
+      run: yarn run test:unit
+
     - name: Build typings
       run: yarn run build:typings
 

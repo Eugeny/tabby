@@ -26,6 +26,16 @@ function loadFrontend () {
         if (name === './frontend') {
             return { Frontend: class { destroy () {} } }
         }
+        if (name === './webglAddon') {
+            const helper = { exports: {} }
+            const helperSource = readFileSync(path.join(terminalRoot, 'src/frontends/webglAddon.ts'), 'utf8')
+            vm.runInNewContext(compile(helperSource), {
+                exports: helper.exports,
+                module: helper,
+                require: fakeRequire,
+            })
+            return helper.exports
+        }
         if (name === '@xterm/addon-webgl') {
             return { WebglAddon: FakeWebglAddon }
         }
@@ -63,7 +73,7 @@ function loadFrontend () {
 function createFrontend () {
     const { XTermWebGLFrontend } = loadFrontend()
     const frontend = Object.create(XTermWebGLFrontend.prototype)
-    const events = { addonDisposed: 0, contextLost: 0, redraws: 0, atlasClears: 0, terminalDisposed: 0 }
+    const events = { addonDisposed: 0, contextLost: 0, redraws: 0, atlasClears: 0, terminalDisposed: 0, cleanupOrder: [] }
     const gl = { getExtension: name => name === 'WEBGL_lose_context'
         ? { loseContext: () => { events.contextLost++ } }
         : null }
@@ -82,10 +92,14 @@ function createFrontend () {
     const addon = {
         dispose () {
             events.addonDisposed++
+            events.cleanupOrder.push('addon')
             rendererCanvas.isConnected = false
         },
         clearTextureAtlas () { events.atlasClears++ },
-        _renderer: { _charAtlas: { pages: [{ canvas: { width: 4096, height: 4096 } }] } },
+        _renderer: {
+            _charAtlas: { pages: [{ canvas: { width: 4096, height: 4096 } }] },
+            _cursorBlinkStateManager: { dispose: () => events.cleanupOrder.push('blink manager') },
+        },
     }
     frontend.enableWebGL = true
     frontend.opened = true
@@ -154,6 +168,7 @@ test('planned hidden-tab release frees only detached renderer canvases and reatt
     frontend.deactivate()
     assert.equal(events.addonDisposed, 1)
     assert.equal(events.contextLost, 1)
+    assert.deepEqual(events.cleanupOrder, ['blink manager', 'addon'])
     assert.equal(rendererCanvas.width, 0)
     assert.equal(rendererCanvas.height, 0)
     assert.equal(rulerCanvas.width, 8, 'live ruler canvas must stay intact')
@@ -169,8 +184,22 @@ test('closing a terminal explicitly releases its WebGL context and canvas backin
     frontend.destroy()
     assert.equal(events.terminalDisposed, 1)
     assert.equal(events.contextLost, 1)
+    assert.deepEqual(events.cleanupOrder, ['blink manager', 'addon'])
     assert.equal(rendererCanvas.width, 0)
     assert.equal(rendererCanvas.height, 0)
+})
+
+test('context loss disposes the cursor blink timer and releases the renderer before deferred recovery', () => {
+    const { frontend, events, rendererCanvas } = createFrontend()
+    frontend.element = undefined
+    frontend.onWebGLContextLoss()
+    assert.deepEqual(events.cleanupOrder, ['blink manager', 'addon'])
+    assert.equal(events.contextLost, 1)
+    assert.equal(rendererCanvas.width, 0)
+    assert.equal(rendererCanvas.height, 0)
+    assert.equal(frontend.webGLAddon, undefined)
+    assert.equal(frontend.pendingRendererRecovery, true)
+    assert.equal(frontend.rendererRecoveryAttempts, 2)
 })
 
 test('a glyph atlas above the configured budget is cleared when the tab is shown', () => {

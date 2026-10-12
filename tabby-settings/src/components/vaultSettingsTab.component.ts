@@ -102,6 +102,10 @@ export class VaultSettingsTabComponent extends BaseComponent {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             return this.translate.instant('File: {description}', (secret as VaultFileSecret).key)
         }
+        // A plugin's secret: listed by the description its key carries, when it has one
+        if (typeof (secret.key as any).description === 'string' && (secret.key as any).description) {
+            return (secret.key as any).description
+        }
         return this.translate.instant('Unknown secret of type {type} for {key}', { type: secret.type, key: JSON.stringify(secret.key) })
     }
 

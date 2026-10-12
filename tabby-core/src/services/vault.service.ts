@@ -42,6 +42,10 @@ export interface Vault {
     secrets: VaultSecret[]
 }
 
+/**
+ * Identifies a secret within its type. A plugin's own secret type may include a `description` field, which the Vault
+ * settings page shows as the secret's label (the key is otherwise shown as JSON).
+ */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface VaultSecretKey { }
 

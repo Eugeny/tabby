@@ -401,7 +401,14 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             })
 
             setTimeout(() => {
-                this.session?.resize(columns, rows)
+                // Send the *current* size, not the one captured when the frontend
+                // first reported: if the layout settles to a different size while
+                // the session is still connecting, the captured value would arrive
+                // last and revert the pty to a stale geometry, permanently
+                // desyncing the shell's idea of the terminal size (#11759).
+                if (this.session) {
+                    this.session.resize(this.size.columns, this.size.rows)
+                }
             }, 1000)
 
             this.session?.releaseInitialDataBuffer()
