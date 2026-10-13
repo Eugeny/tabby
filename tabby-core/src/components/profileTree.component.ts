@@ -30,6 +30,8 @@ export class ProfileTreeComponent extends BaseComponent {
     filteredProfiles: PartialProfile<Profile>[] = []
     @Input() filter = ''
 
+    activeProfileId: string | null = null
+
 
     panelMinWidth = 200
     panelMaxWidth = 600
@@ -192,7 +194,8 @@ export class ProfileTreeComponent extends BaseComponent {
     }
 
     private async tabStateChanged (): Promise<void> {
-        // TODO: show active tab in the side panel with eye icon
+        const activeTab = this.app.activeTab
+        this.activeProfileId = activeTab ? (activeTab as any).profile?.id ?? null : null
     }
 
     async launchProfile<P extends Profile> (profile: PartialProfile<P>): Promise<any> {
