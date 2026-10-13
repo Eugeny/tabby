@@ -20,6 +20,7 @@ import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.c
 import { ReleaseNotesComponent } from './components/releaseNotesTab.component'
 import { ConfigSyncSettingsTabComponent } from './components/configSyncSettingsTab.component'
 import { ShowSecretModalComponent } from './components/showSecretModal.component'
+import { ContextMenuSettingsTabComponent } from './components/contextMenuSettingsTab.component'
 
 import { ConfigSyncService } from './services/configSync.service'
 
@@ -27,7 +28,7 @@ import { SettingsTabProvider } from './api'
 import { ButtonProvider } from './buttonProvider'
 import { SettingsHotkeyProvider } from './hotkeys'
 import { SettingsConfigProvider } from './config'
-import { HotkeySettingsTabProvider, WindowSettingsTabProvider, VaultSettingsTabProvider, ProfilesSettingsTabProvider, ConfigSyncSettingsTabProvider } from './settings'
+import { HotkeySettingsTabProvider, WindowSettingsTabProvider, VaultSettingsTabProvider, ProfilesSettingsTabProvider, ConfigSyncSettingsTabProvider, ContextMenuSettingsTabProvider } from './settings'
 
 /** @hidden */
 @NgModule({
@@ -47,6 +48,7 @@ import { HotkeySettingsTabProvider, WindowSettingsTabProvider, VaultSettingsTabP
         { provide: SettingsTabProvider, useClass: VaultSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ProfilesSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ConfigSyncSettingsTabProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: ContextMenuSettingsTabProvider, multi: true },
     ],
     declarations: [
         EditProfileModalComponent,
@@ -63,6 +65,7 @@ import { HotkeySettingsTabProvider, WindowSettingsTabProvider, VaultSettingsTabP
         ConfigSyncSettingsTabComponent,
         ReleaseNotesComponent,
         ShowSecretModalComponent,
+        ContextMenuSettingsTabComponent,
     ],
 })
 export default class SettingsModule {

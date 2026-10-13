@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TabbyCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ProfileProvider } from 'tabby-core'
+import TabbyCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ProfileProvider, ContextMenuItemDefinitionProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 import { SettingsTabProvider } from 'tabby-settings'
 
@@ -21,7 +21,7 @@ import { RecoveryProvider } from './recoveryProvider'
 import { ShellSettingsTabProvider } from './settings'
 import { TerminalConfigProvider } from './config'
 import { LocalTerminalHotkeyProvider } from './hotkeys'
-import { NewTabContextMenu } from './tabContextMenu'
+import { NewTabContextMenu, LocalContextMenuItemDefinitions } from './tabContextMenu'
 
 import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from './cli'
 import { LocalProfilesService } from './profiles'
@@ -47,6 +47,7 @@ import { LocalProfilesService } from './profiles'
         { provide: ProfileProvider, useClass: LocalProfilesService, multi: true },
 
         { provide: TabContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
+        { provide: ContextMenuItemDefinitionProvider, useClass: LocalContextMenuItemDefinitions, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
         { provide: CLIHandler, useClass: OpenPathCLIHandler, multi: true },

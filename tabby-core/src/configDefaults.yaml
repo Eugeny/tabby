@@ -26,6 +26,13 @@ terminal:
   paneResizeStep: 0.1
   focusFollowsMouse: false
   identification: null
+contextMenu:
+  confirmContextMenuClose: true
+  confirmTabClose: true
+  disabledTabItems: []
+  disabledPaneItems: []
+  tabItemsOrder: []
+  paneItemsOrder: []
 hotkeys:
   profile:
     __nonStructural: true

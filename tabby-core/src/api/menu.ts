@@ -9,4 +9,10 @@ export interface MenuItemOptions {
 
     /** @hidden */
     commandLabel?: string
+
+    /**
+     * Stable identifier used to let the user enable/disable this item from the
+     * "Context menu" settings tab. Only top-level items that set this are configurable.
+     */
+    id?: string
 }

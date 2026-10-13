@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, MenuItemOptions, ProfilesService, TranslateService } from 'tabby-core'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, MenuItemOptions, ProfilesService, TranslateService, ContextMenuItemDefinitionProvider, ContextMenuItemDefinition } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { TerminalService } from './services/terminal.service'
 import { LocalProfile, UACService } from './api'
@@ -24,6 +24,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
 
         const items: MenuItemOptions[] = [
             {
+                id: 'new-terminal',
                 label: this.translate.instant('New terminal'),
                 click: () => {
                     if (tab instanceof TerminalTabComponent) {
@@ -34,6 +35,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                 },
             },
             {
+                id: 'new-with-profile',
                 label: this.translate.instant('New with profile'),
                 submenu: profiles.map(profile => ({
                     label: profile.name,
@@ -50,6 +52,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
 
         if (this.uac?.isAvailable) {
             items.push({
+                id: 'new-admin-tab',
                 label: this.translate.instant('New admin tab'),
                 submenu: profiles.map(profile => ({
                     label: profile.name,
@@ -69,6 +72,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         if (tab instanceof TerminalTabComponent && tabHeader && this.uac?.isAvailable) {
             const terminalTab = tab
             items.push({
+                id: 'duplicate-as-admin',
                 label: this.translate.instant('Duplicate as administrator'),
                 click: () => {
                     this.profilesService.openNewTabForProfile({
@@ -83,5 +87,23 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         }
 
         return items
+    }
+}
+
+/** @hidden */
+@Injectable()
+export class LocalContextMenuItemDefinitions extends ContextMenuItemDefinitionProvider {
+    constructor (private translate: TranslateService) {
+        super()
+    }
+
+    getItems (): ContextMenuItemDefinition[] {
+        // Weight mirrors NewTabContextMenu's real `weight = 10`.
+        return [
+            { id: 'new-terminal', name: this.translate.instant('New terminal'), weight: 10 },
+            { id: 'new-with-profile', name: this.translate.instant('New with profile'), weight: 10 },
+            { id: 'new-admin-tab', name: this.translate.instant('New admin tab'), weight: 10 },
+            { id: 'duplicate-as-admin', name: this.translate.instant('Duplicate as administrator'), scope: 'tab', weight: 10 },
+        ]
     }
 }
