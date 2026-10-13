@@ -12,7 +12,7 @@
     "@angular/platform-browser-dynamic": "^15",
     "@babel/core": "^7",
     "@biesbjerg/ngx-translate-extract-marker": "^1",
-    "@electron/notarize": "^1",
+    "@electron/notarize": "^3",
     "@electron/rebuild": "^4",
     "@fortawesome/fontawesome-free": "^6",
     "@ng-bootstrap/ng-bootstrap": "^14",
