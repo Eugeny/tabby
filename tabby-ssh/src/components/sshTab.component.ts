@@ -30,6 +30,8 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     sftpPath = '/'
     enableToolbar = true
     activeKIPrompt: KeyboardInteractivePrompt|null = null
+    showReconnectDialog = false
+    reconnectDialogMessage = ''
 
     constructor (
         injector: Injector,
@@ -155,6 +157,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     protected onSessionDestroyed (): void {
         if (this.frontend) {
             // Session was closed abruptly
+            this.reconnectDialogMessage = this.translate.instant(_('The connection was lost.'))
             this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
 
             super.onSessionDestroyed()
@@ -179,6 +182,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
 
     async initializeSession (): Promise<void> {
         await super.initializeSession()
+        this.showReconnectDialog = false
         try {
             await this.initializeSessionMaybeMultiplex(true)
         } catch {
@@ -187,9 +191,36 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
             } catch (e) {
                 console.error('SSH session initialization failed', e)
                 this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
+                // No live session remains: don't leave a dead, blinking terminal
+                if (this.profile.behaviorOnSessionEnd === 'close') {
+                    this.destroy()
+                } else {
+                    this.reconnectDialogMessage = e.message
+                    this.offerReconnection()
+                }
                 return
             }
         }
+    }
+
+    /**
+     * Instead of a hint line in the terminal, show a dialog in the middle of the tab
+     */
+    offerReconnection (): void {
+        if (!this.reconnectOffered) {
+            this.reconnectOffered = true
+            this.showReconnectDialog = true
+        }
+    }
+
+    reconnectFromDialog (): void {
+        this.showReconnectDialog = false
+        this.reconnect()
+    }
+
+    closeFromDialog (): void {
+        this.showReconnectDialog = false
+        this.destroy()
     }
 
     async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {

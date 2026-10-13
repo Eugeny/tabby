@@ -55,3 +55,20 @@ keyboard-interactive-auth-panel.bg-dark(
     (click)='$event.stopPropagation()',
     (done)='activeKIPrompt = null; frontend?.focus()'
 )
+
+.reconnect-overlay(*ngIf='showReconnectDialog')
+    .reconnect-dialog.bg-dark(
+        role='alertdialog',
+        (click)='$event.stopPropagation()'
+    )
+        h5.mb-2
+            i.fas.fa-plug-circle-xmark.text-danger.me-2
+            span(translate) Disconnected
+        .text-muted.mb-1 {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
+        .reconnect-message.mb-3(*ngIf='reconnectDialogMessage') {{reconnectDialogMessage}}
+        .d-flex.justify-content-end
+            button.btn.btn-secondary.me-2((click)='closeFromDialog()')
+                span(translate) Close tab
+            button.btn.btn-primary(autofocus, (click)='reconnectFromDialog()')
+                i.fas.fa-redo.me-1
+                span(translate) Reconnect
