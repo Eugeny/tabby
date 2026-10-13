@@ -75,7 +75,7 @@
     "utils-decorators": "^2",
     "webpack": "^5",
     "webpack-bundle-analyzer": "^4",
-    "webpack-cli": "^5",
+    "webpack-cli": "^7",
     "yaml-loader": "0.8.0",
     "zone.js": "^0.13.0"
   },
