@@ -276,6 +276,13 @@ export class AppRootComponent {
             .filter(x => x.locations?.includes(aboveZero ? CommandLocation.RightToolbar : CommandLocation.LeftToolbar))
     }
 
+    onToolbarButtonContextMenu (button: Command, event: MouseEvent): void {
+        if (button.contextMenu) {
+            event.preventDefault()
+            button.contextMenu()
+        }
+    }
+
     toggleMaximize (): void {
         this.hostWindow.toggleMaximize()
     }

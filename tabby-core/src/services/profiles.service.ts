@@ -12,6 +12,9 @@ import deepClone from 'clone-deep'
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
 
+/** How many recent profiles to keep for the new tab button's recent profiles menu */
+export const RECENT_PROFILES_HISTORY_SIZE = 10
+
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
     private profileDefaults = {
@@ -201,12 +204,15 @@ export class ProfilesService {
 
     async launchProfile (profile: PartialProfile<Profile>): Promise<void> {
         await this.openNewTabForProfile(profile)
+        this.addRecentProfile(profile)
+    }
 
+    addRecentProfile (profile: PartialProfile<Profile>): void {
         let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
         if (this.config.store.terminal.showRecentProfiles > 0) {
             recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
             recentProfiles.unshift(profile)
-            recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+            recentProfiles = recentProfiles.slice(0, Math.max(this.config.store.terminal.showRecentProfiles, RECENT_PROFILES_HISTORY_SIZE))
         } else {
             recentProfiles = []
         }
@@ -356,9 +362,9 @@ export class ProfilesService {
         })
     }
 
-    getRecentProfiles (): PartialProfile<Profile>[] {
+    getRecentProfiles (limit?: number): PartialProfile<Profile>[] {
         let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
-        recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+        recentProfiles = recentProfiles.slice(0, limit ?? this.config.store.terminal.showRecentProfiles)
         return recentProfiles
     }
 
