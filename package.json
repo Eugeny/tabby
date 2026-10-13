@@ -70,7 +70,7 @@
     "thenby": "^1",
     "ts-loader": "^9",
     "tslib": "^2",
-    "typedoc": "^0.22.18",
+    "typedoc": "^0.28.20",
     "typescript": "^4",
     "utils-decorators": "^2",
     "webpack": "^5",
