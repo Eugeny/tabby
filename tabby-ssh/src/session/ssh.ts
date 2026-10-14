@@ -844,15 +844,31 @@ export class SSHSession {
             if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
                 throw new Error('Cannot add remote port forward before auth')
             }
-            try {
-                await this.ssh.forwardTCPPort(fw.host, fw.port)
-            } catch (err) {
-                // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                this.logger.error(`Remote rejected port forwarding for ${fw}: ${err}`)
-                throw err
-            }
+            await this.requestRemoteForward(this.ssh, fw)
             this.logger.info(`Forwarded ${fw}`)
             this.forwardedPorts.push(fw)
+        }
+    }
+
+    /*
+    * Request a remote port forward, retrying briefly while the server answers
+    * RequestDenied - sshd replies that while the port is still held by a previous
+    * session that has not released it yet (see destroy()).
+    */
+    private async requestRemoteForward (client: russh.AuthenticatedSSHClient, fw: ForwardedPort, attempts = 3, retryDelay = 700): Promise<void> {
+        for (let attempt = 1; ; attempt++) {
+            try {
+                await client.forwardTCPPort(fw.host, fw.port)
+                return
+            } catch (err) {
+                if (attempt >= attempts || !String(err).includes('RequestDenied')) {
+                    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                    this.logger.error(`Remote rejected port forwarding for ${fw}: ${err}`)
+                    throw err
+                }
+                this.logger.warn(`Remote refused ${fw} (attempt ${attempt}/${attempts}), retrying`)
+                await new Promise(resolve => setTimeout(resolve, retryDelay))
+            }
         }
     }
 
@@ -876,6 +892,28 @@ export class SSHSession {
         this.willDestroy.next()
         this.willDestroy.complete()
         this.serviceMessage.complete()
+
+        /*
+        * Remote forwards must be cancelled explicitly while the connection is still
+        * alive: sshd keeps the port bound for as long as its session survives, and a
+        * connection dropped without this leaves the next session with "RequestDenied"
+        * when it tries to bind the same port again.
+        */
+        if (this.ssh instanceof russh.AuthenticatedSSHClient) {
+            const ssh = this.ssh
+            for (const fw of this.forwardedPorts) {
+                if (fw.type !== PortForwardType.Remote) {
+                    continue
+                }
+                try {
+                    await ssh.stopForwardingTCPPort(fw.host, fw.port)
+                } catch (e) {
+                    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                    this.logger.warn(`Failed to cancel remote forward ${fw}: ${e}`)
+                }
+            }
+        }
+
         this.ssh.disconnect()
     }
 
