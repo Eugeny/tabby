@@ -27,7 +27,7 @@
     "messageformat": "^2",
     "mixpanel": "^0.17.0",
     "ngx-translate-messageformat-compiler": "^4",
-    "uuid": "^9"
+    "uuid": "^14"
   },
   "peerDependencies": {
     "@angular/animations": "^15",
