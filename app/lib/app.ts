@@ -90,7 +90,10 @@ export class Application {
         }
 
         app.commandLine.appendSwitch('disable-http-cache')
-        app.commandLine.appendSwitch('max-active-webgl-contexts', '9000')
+        // Chromium evicts the oldest WebGL context past this cap. 9000 disabled
+        // that safety net entirely; hidden tabs now release their contexts, so
+        // only visible panes hold one and 64 leaves ample headroom.
+        app.commandLine.appendSwitch('max-active-webgl-contexts', '64')
         app.commandLine.appendSwitch('lang', 'EN')
 
         // Leave adapter selection to the OS unless the user supplies a flag

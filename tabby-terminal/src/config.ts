@@ -60,6 +60,8 @@ export class TerminalConfigProvider extends ConfigProvider {
             scrollbackLines: 25000,
             drawBoldTextInBrightColors: true,
             sixel: true,
+            imageStorageLimitMB: 32,
+            webGLAtlasBudgetMB: 48,
             minimumContrastRatio: 4,
             paletteGenerate: false,
             paletteHarmonious: false,
