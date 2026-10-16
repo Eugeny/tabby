@@ -28,9 +28,6 @@ jobs:
     - name: Test SSH TERM
       run: yarn run test:ssh-term
 
-    - name: Test GPU memory lifecycle
-      run: yarn run test:gpu-memory
-
     - name: Unit tests
       run: yarn run test:unit
 

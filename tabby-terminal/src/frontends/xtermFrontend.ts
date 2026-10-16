@@ -175,6 +175,13 @@ export class XTermFrontend extends Frontend {
     private rendererReleasedWhileHidden = false
     private atlasBudgetTimer?: ReturnType<typeof setInterval>
 
+    // Attached WebGL frontends, so an over-budget glyph atlas can be dropped by
+    // every terminal sharing it at once.
+    private static webGLFrontends = new Set<XTermFrontend>()
+    // Atlases already rebuilt once. One that survived its rebuild is still held
+    // by a renderer outside webGLFrontends, so it is never retried.
+    private static rebuiltAtlases = new WeakSet()
+
     private configService: ConfigService
     private hotkeysService: HotkeysService
     private platformService: PlatformService
@@ -467,6 +474,7 @@ export class XTermFrontend extends Frontend {
             ).subscribe(() => {
                 this.webGLAddon?.clearTextureAtlas()
             })
+            XTermFrontend.webGLFrontends.add(this)
             this.atlasBudgetTimer = setInterval(() => this.enforceAtlasBudget(), WEBGL_ATLAS_CHECK_INTERVAL)
         }
 
@@ -580,6 +588,7 @@ export class XTermFrontend extends Frontend {
             clearInterval(this.atlasBudgetTimer)
             this.atlasBudgetTimer = undefined
         }
+        XTermFrontend.webGLFrontends.delete(this)
         if (host && this.hostEventHandlers) {
             host.removeEventListener('wheel', this.hostEventHandlers.wheel, true)
             host.removeEventListener('dragOver', this.hostEventHandlers.dragOver)
@@ -973,8 +982,12 @@ export class XTermFrontend extends Frontend {
         return Array.from(this.xterm.element?.querySelectorAll('canvas') ?? [])
     }
 
+    private textureAtlas (): any {
+        return (this.webGLAddon as any)?._renderer?._charAtlas
+    }
+
     private atlasBytes (): number {
-        const pages: any[] | undefined = (this.webGLAddon as any)?._renderer?._charAtlas?.pages
+        const pages: any[] | undefined = this.textureAtlas()?.pages
         if (!Array.isArray(pages)) {
             return 0
         }
@@ -988,17 +1001,33 @@ export class XTermFrontend extends Frontend {
     }
 
     /**
-     * Clear the glyph atlas once it outgrows its budget. xterm never evicts
+     * Rebuild the glyph atlas once it outgrows its budget. xterm never evicts
      * glyphs, the atlas is shared by every terminal with the same font and
      * theme, and each of their GPU contexts holds a full copy plus mipmaps.
+     * clearTextureAtlas() frees none of it: it blanks the pages but keeps them,
+     * and xterm never writes to a merged page again. xterm only disposes an
+     * atlas once no renderer uses it, so every terminal sharing this one drops
+     * its renderer and creates a new one, which starts a fresh atlas.
      */
     private enforceAtlasBudget (): void {
         const budgetMB = this.configService.store.terminal.webGLAtlasBudgetMB
-        if (!this.webGLAddon || !(budgetMB > 0)) {
+        const atlas = this.textureAtlas()
+        if (!atlas || !(budgetMB > 0) || XTermFrontend.rebuiltAtlases.has(atlas)) {
             return
         }
-        if (this.atlasBytes() > budgetMB * 1024 * 1024) {
-            this.webGLAddon.clearTextureAtlas()
+        if (this.atlasBytes() <= budgetMB * 1024 * 1024) {
+            return
+        }
+        XTermFrontend.rebuiltAtlases.add(atlas)
+        const owners = Array.from(XTermFrontend.webGLFrontends).filter(frontend => frontend.textureAtlas() === atlas)
+        // Release them all before recreating any: a renderer created while
+        // another one still holds the atlas would pick the same atlas back up.
+        for (const frontend of owners) {
+            frontend.releaseWebGLAddon()
+        }
+        for (const frontend of owners) {
+            frontend.attachWebGLAddon()
+            frontend.redraw()
         }
     }
 
