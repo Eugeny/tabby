@@ -5,12 +5,15 @@ export const DEFAULT_SSH_TERMINAL_TYPE = 'xterm-256color'
 export interface SSHShellChannelOptions {
     x11: boolean
     term: string | null | undefined
+    /** Equivalent of ssh_config RemoteCommand: run this instead of the login shell */
+    remoteCommand?: string
 }
 
 interface SSHShellProfile {
     options: {
         x11: boolean
         term?: string | null
+        remoteCommand?: string | null
     }
 }
 
@@ -26,9 +29,11 @@ export function resolveSSHTerminalType (term: unknown): string {
 }
 
 export function openShellChannelForProfile<T> (ssh: SSHShellChannelOpener<T>, profile: SSHShellProfile): Promise<T> {
+    const remoteCommand = typeof profile.options.remoteCommand === 'string' ? profile.options.remoteCommand.trim() : ''
     return ssh.openShellChannel({
         x11: profile.options.x11,
         term: profile.options.term,
+        ...remoteCommand ? { remoteCommand } : {},
     })
 }
 

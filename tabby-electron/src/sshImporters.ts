@@ -30,6 +30,7 @@ enum SSHProfilePropertyNames {
     AgentForward = 'agentForward',
     ProxyCommand = 'proxyCommand',
     ForwardedPorts = 'forwardedPorts',
+    RemoteCommand = 'remoteCommand',
 }
 
 // Data structure to map the (lowercase) ssh-config attributes (as keys) to a tuple
@@ -49,6 +50,7 @@ const decodeFields: Record<string, SSHProfilePropertyNames> = {
     localforward: SSHProfilePropertyNames.ForwardedPorts,
     remoteforward: SSHProfilePropertyNames.ForwardedPorts,
     dynamicforward: SSHProfilePropertyNames.ForwardedPorts,
+    remotecommand: SSHProfilePropertyNames.RemoteCommand,
 }
 
 // Function to use the above to return details corresponding to the supplied SSHProperty name.
@@ -270,6 +272,15 @@ async function convertHostToSSHProfile (host: string, settings: Record<string, s
                 options[targetName] = proxyCommand
                 break
 
+            // RemoteCommand is handled the same way: unquoted multi-word values come back as an array
+            case SSHProfilePropertyNames.RemoteCommand:
+                const remoteCommand = convertSSHConfigValuesToString(settings[key]).trim()
+                // "none" explicitly disables a RemoteCommand inherited from a wildcard Host block
+                if (remoteCommand && remoteCommand.toLowerCase() !== 'none') {
+                    options[targetName] = remoteCommand
+                }
+                break
+
             // IdentityFile may have multiple values and the need to have '~' converted to the
             // path to the HOME directory
             case SSHProfilePropertyNames.PrivateKeys:
@@ -372,7 +383,11 @@ let _openSSHCache: PartialProfile<SSHProfile>[] | null = null
 let _openSSHCacheMtime: number | null = null
 let _openSSHCachePromise: Promise<PartialProfile<SSHProfile>[]> | null = null
 
+// Bump when the set of imported ssh_config directives changes, to invalidate old disk caches
+const DISK_CACHE_VERSION = 2
+
 interface SSHProfileDiskCache {
+    version?: number
     mtime: number
     profiles: PartialProfile<SSHProfile>[]
 }
@@ -406,7 +421,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
                     const diskCache: SSHProfileDiskCache = JSON.parse(
                         await fs.readFile(this.diskCachePath, 'utf8'),
                     )
-                    if (diskCache.mtime === mtime) {
+                    if (diskCache.version === DISK_CACHE_VERSION && diskCache.mtime === mtime) {
                         _openSSHCache = diskCache.profiles
                         _openSSHCacheMtime = mtime
                         return _openSSHCache
@@ -417,7 +432,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
                 _openSSHCacheMtime = mtime
 
                 // Save to disk cache (fire and forget)
-                fs.writeFile(this.diskCachePath, JSON.stringify({ mtime, profiles: _openSSHCache }))
+                fs.writeFile(this.diskCachePath, JSON.stringify({ version: DISK_CACHE_VERSION, mtime, profiles: _openSSHCache }))
                     .catch(() => { /* ignore write errors */ })
 
                 return _openSSHCache

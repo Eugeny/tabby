@@ -246,6 +246,16 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .form-line
                 .header
+                    .title(translate) Remote command
+                    .description(translate) Run this command on the remote host instead of the login shell (same as RemoteCommand in ssh_config)
+                input.form-control(
+                    type='text',
+                    placeholder='tmux new -A -s main',
+                    [(ngModel)]='profile.options.remoteCommand',
+                )
+
+            .form-line
+                .header
                     .title(translate) Keep Alive Interval (Milliseconds)
                 input.form-control(
                     type='number',

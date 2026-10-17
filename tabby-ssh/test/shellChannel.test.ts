@@ -45,4 +45,18 @@ describe('shared SSH session shell channels', () => {
 
         assert.deepEqual(sharedSession.requestedTerms, [DEFAULT_SSH_TERMINAL_TYPE])
     })
+
+    it('passes a trimmed RemoteCommand through and omits it when blank', async () => {
+        const sharedSession = new SharedSSHSessionAdapter()
+
+        await openShellChannelForProfile(sharedSession, { options: { x11: false, term: 'xterm', remoteCommand: '  tmux new -A -s main ' } })
+        await openShellChannelForProfile(sharedSession, { options: { x11: false, term: 'xterm', remoteCommand: '   ' } })
+        await openShellChannelForProfile(sharedSession, { options: { x11: false, term: 'xterm', remoteCommand: null } })
+
+        assert.deepEqual(sharedSession.channelOptions, [
+            { x11: false, term: 'xterm', remoteCommand: 'tmux new -A -s main' },
+            { x11: false, term: 'xterm' },
+            { x11: false, term: 'xterm' },
+        ])
+    })
 })
