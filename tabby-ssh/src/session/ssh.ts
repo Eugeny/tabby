@@ -8,7 +8,7 @@ import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, FileProvidersService, NotificationsService, PromptModalComponent, LogService, Logger, TranslateService, Platform, HostAppService } from 'tabby-core'
 import { Socket } from 'net'
-import { Subject, Observable } from 'rxjs'
+import { Subject, Observable, firstValueFrom, filter, map, scan, timeout } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
@@ -20,6 +20,7 @@ import { supportedAlgorithms } from '../algorithms'
 import { requestShellPTY, SSHShellChannelOptions } from './shellChannel'
 import * as russh from 'russh'
 import { selectNextAuthMethod, updateAuthPlanAfterFailure } from './authMethodSelection'
+import { agentHasIdentity, buildRequestIdentitiesMessage, parseIdentitiesAnswer } from './agentIdentities'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -168,6 +169,11 @@ export class SSHSession {
             if (!spec) {
                 // getAgentConnectionSpec() already emitted a detailed reason.
             } else {
+                // Like OpenSSH, only offer keys the agent actually holds - asking the agent
+                // to sign with a key it doesn't have breaks the rest of the auth attempts.
+                // null means the agent couldn't be queried, in which case nothing is skipped.
+                const agentIdentities = await this.getAgentIdentities(spec)
+
                 // If user configured specific private keys, try to load their corresponding
                 // .pub files and use them first for agent-identity authentication
                 if (this.profile.options.privateKeys.length) {
@@ -184,6 +190,11 @@ export class SSHSession {
                         try {
                             const pubKeyContent = await this.fileProviders.retrieveFile(pubKeyPath)
                             const publicKey = russh.parsePublicKey(pubKeyContent.toString('utf-8'))
+                            // eslint-disable-next-line max-depth
+                            if (agentIdentities && !agentHasIdentity(agentIdentities, publicKey.bytes())) {
+                                this.emitServiceMessage(`Public key ${pubKeyPath} is not loaded in the SSH agent, skipping agent auth for it`)
+                                continue
+                            }
                             this.allAuthMethods.push({
                                 type: 'agent',
                                 ...spec,
@@ -200,11 +211,15 @@ export class SSHSession {
                     }
                 }
 
-                // Always add fallback agent auth that tries all keys
-                this.allAuthMethods.push({
-                    type: 'agent',
-                    ...spec,
-                })
+                if (agentIdentities?.length === 0) {
+                    this.emitServiceMessage('SSH agent has no keys, skipping agent auth')
+                } else {
+                    // Add fallback agent auth that tries all keys
+                    this.allAuthMethods.push({
+                        type: 'agent',
+                        ...spec,
+                    })
+                }
             }
         }
 
@@ -293,6 +308,31 @@ export class SSHSession {
                     this.allAuthMethods.push({ type: 'keyboard-interactive', savedPassword: storedPassword })
                 }
             }
+        }
+    }
+
+    private async getAgentIdentities (spec: russh.AgentConnectionSpec): Promise<Uint8Array[]|null> {
+        let agent: russh.SSHAgentStream|null = null
+        try {
+            agent = await russh.SSHAgentStream.connect(spec)
+            const answer = firstValueFrom(agent.data$.pipe(
+                scan((received, data) => {
+                    const merged = new Uint8Array(received.length + data.length)
+                    merged.set(received)
+                    merged.set(data, received.length)
+                    return merged
+                }, new Uint8Array(0)),
+                map(received => parseIdentitiesAnswer(received)),
+                filter((identities): identities is Uint8Array[] => identities !== null),
+                timeout(5000),
+            ))
+            await agent.write(buildRequestIdentitiesMessage())
+            return await answer
+        } catch (e) {
+            this.logger.warn('Could not list SSH agent identities:', e)
+            return null
+        } finally {
+            agent?.close().catch(() => null)
         }
     }
 
