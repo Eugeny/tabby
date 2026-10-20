@@ -154,13 +154,15 @@ export class Window {
         this.window.webContents.session.setSpellCheckerEnabled(false)
 
         if (process.platform === 'darwin') {
-            this.touchBarControl = new TouchBar.TouchBarSegmentedControl({
-                segments: [],
-                change: index => this.send('touchbar-selection', index),
-            })
-            this.window.setTouchBar(new TouchBar({
-                items: [this.touchBarControl],
-            }))
+            if (!this.configStore.hacks?.disableTouchBar) {
+                this.touchBarControl = new TouchBar.TouchBarSegmentedControl({
+                    segments: [],
+                    change: index => this.send('touchbar-selection', index),
+                })
+                this.window.setTouchBar(new TouchBar({
+                    items: [this.touchBarControl],
+                }))
+            }
         } else {
             this.window.setMenu(null)
         }
@@ -467,11 +469,22 @@ export class Window {
             this.window?.close()
         })
 
+        let touchBarSegments = ''
         this.on('window-set-touch-bar', (_, segments, selectedIndex) => {
-            this.touchBarControl.segments = segments.map(s => ({
-                label: s.label,
-                icon: s.hasActivity ? activityIcon : undefined,
-            }))
+            if (!this.touchBarControl) {
+                return
+            }
+            // Replacing the segments rebuilds the native control. On macOS 26
+            // that is a SwiftUI layout pass which also leaks, on every Mac,
+            // Touch Bar or not, so a tab switch only moves the selection.
+            const key = JSON.stringify(segments)
+            if (key !== touchBarSegments) {
+                touchBarSegments = key
+                this.touchBarControl.segments = segments.map(s => ({
+                    label: s.label,
+                    icon: s.hasActivity ? activityIcon : undefined,
+                }))
+            }
             this.touchBarControl.selectedIndex = selectedIndex
         })
 
