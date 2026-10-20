@@ -72,11 +72,29 @@ export class ProfilesService {
     }
 
     /*
-    * Re-resolve provider/group defaults into an existing ConfigProxy, so a long-lived
-    * profile picks up config changes. Pass the same options the proxy was built with.
+    * Re-resolve a long-lived profile against the current config, so it picks up
+    * config changes made since it was created. When the profile still exists in
+    * the config store (matched by id) the ConfigProxy is rebuilt over the current
+    * stored object - refreshing defaults alone is not enough because writes like
+    * writeProfile() replace nested objects (e.g. `options`) wholesale, leaving
+    * the old proxy bound to the stale object. Otherwise only the provider/group
+    * defaults are re-resolved into the existing ConfigProxy.
+    *
+    * `options` are not inherited from `profile` - a ConfigProxy does not record
+    * how it was built, so the skip flags have to be passed explicitly; omitting
+    * them means neither skip applies.
+    *
+    * The store-hit branch returns a NEW proxy, while the fallback branch mutates
+    * and returns the same instance - always use the return value. Profiles that
+    * are not ConfigProxy instances (e.g. restored from a recovery token) are
+    * returned unchanged.
     */
     refreshConfigProxyForProfile <T extends Profile> (profile: FullyDefined<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): FullyDefined<T> {
         if (profile instanceof ConfigProxy) {
+            const stored = profile.id ? this.config.store.profiles.find(p => p.id === profile.id) : undefined
+            if (stored) {
+                return this.getConfigProxyForProfile(stored as PartialProfile<T>, options)
+            }
             const defaults = this.getProfileDefaults(profile, options).reduce(configMerge, {})
             profile.__setDefaults(defaults)
         }
