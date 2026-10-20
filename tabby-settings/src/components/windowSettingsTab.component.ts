@@ -9,6 +9,7 @@ import {
     Platform,
     isWindowsBuild,
     WIN_BUILD_FLUENT_BG_SUPPORTED,
+    WIN_BUILD_MICA_SUPPORTED,
     BaseComponent,
     Screen,
     PlatformService,
@@ -24,6 +25,7 @@ export class WindowSettingsTabComponent extends BaseComponent {
     screens: Screen[]
     Platform = Platform
     isFluentVibrancySupported = false
+    isMicaVibrancySupported = false
 
     @HostBinding('class.content-box') true
 
@@ -48,6 +50,12 @@ export class WindowSettingsTabComponent extends BaseComponent {
         }
 
         this.isFluentVibrancySupported = isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)
+        this.isMicaVibrancySupported = hostApp.platform === Platform.Windows && isWindowsBuild(WIN_BUILD_MICA_SUPPORTED)
+    }
+
+    get isMicaVibrancySelected (): boolean {
+        return this.isMicaVibrancySupported && this.config.store.appearance.vibrancy &&
+            ['mica', 'mica-alt'].includes(this.config.store.appearance.vibrancyType)
     }
 
     @debounce(500)

@@ -43,6 +43,7 @@ export class Window {
     private disableVibrancyWhileDragging = false
     private touchBarControl: any
     private isFluentVibrancy = false
+    private opacity = 1
     private dockHidden = false
 
     get visible$ (): Observable<boolean> { return this.visible }
@@ -115,7 +116,7 @@ export class Window {
             if (process.platform === 'darwin') {
                 this.window!.setVibrancy(macOSVibrancyType)
             } else if (process.platform === 'win32' && this.configStore.appearance?.vibrancy) {
-                this.setVibrancy(true)
+                this.setVibrancy(true, this.configStore.appearance?.vibrancyType)
             }
 
             this.setDarkMode(this.configStore.appearance?.colorSchemeMode ?? 'dark')
@@ -194,10 +195,12 @@ export class Window {
         if (process.platform === 'win32') {
             if (isWindows11) {
                 try {
-                    this.window.setBackgroundMaterial(enabled ? 'acrylic' : 'none')
-                    this.isFluentVibrancy = enabled
+                    const material = !enabled ? 'none' : type === 'mica' ? 'mica' : type === 'mica-alt' ? 'tabbed' : 'acrylic'
+                    this.window.setBackgroundMaterial(material)
+                    this.isFluentVibrancy = material === 'acrylic'
+                    this.setOpacity(this.opacity)
                 } catch (error) {
-                    console.error('Failed to set window acrylic', error)
+                    console.error('Failed to set window background material', error)
                 }
             } else {
                 try {
@@ -216,8 +219,16 @@ export class Window {
         }
     }
 
+    setOpacity (opacity: number): void {
+        this.opacity = opacity
+        // Mica is wallpaper-based. Whole-window transparency would also reveal windows behind it.
+        const mica = isWindows11 && this.lastVibrancy?.enabled &&
+            (this.lastVibrancy.type === 'mica' || this.lastVibrancy.type === 'mica-alt')
+        this.window?.setOpacity(mica ? 1 : opacity)
+    }
+
     setDarkMode (mode: string): void {
-        if (process.platform === 'darwin') {
+        if (process.platform === 'darwin' || isWindows11) {
             if ('light' === mode ) {
                 nativeTheme.themeSource = 'light'
             } else if ('auto' === mode) {
@@ -396,16 +407,15 @@ export class Window {
         this.window.on('focus', () => {
             this.window?.flashFrame(false)
             this.send('host:window-focused')
-            // Re-apply acrylic on Win11 when window gains focus
+            // Preserve the selected material when Windows changes the window activation state.
             if (isWindows11 && this.lastVibrancy?.enabled) {
-                this.window?.setBackgroundMaterial('acrylic')
+                this.setVibrancy(true, this.lastVibrancy.type, false)
             }
         })
 
         this.window.on('blur', () => {
-            // Re-apply acrylic on Win11 when window loses focus
             if (isWindows11 && this.lastVibrancy?.enabled) {
-                this.window?.setBackgroundMaterial('acrylic')
+                this.setVibrancy(true, this.lastVibrancy.type, false)
             }
         })
 
@@ -504,7 +514,7 @@ export class Window {
         })
 
         this.on('window-set-opacity', (_event, opacity) => {
-            this.window?.setOpacity(opacity)
+            this.setOpacity(opacity)
         })
 
         this.on('window-set-progress-bar', (_, value) => {

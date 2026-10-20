@@ -34,19 +34,30 @@ h3.mb-3(translate) Window
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
-        .title(*ngIf='hostApp.platform !== Platform.macOS', translate) Acrylic background
+        .title(*ngIf='hostApp.platform !== Platform.macOS && !isMicaVibrancySupported', translate) Acrylic background
+        .title(*ngIf='isMicaVibrancySupported', translate) Background effect
         .title(*ngIf='hostApp.platform === Platform.macOS', translate) Vibrancy
-        .description(translate) Gives the window a blurred transparent background
+        .description(*ngIf='!isMicaVibrancySupported', translate) Gives the window a blurred transparent background
+        .description(*ngIf='isMicaVibrancySupported', translate) Applies a native Windows background material
 
     toggle(
         [(ngModel)]='config.store.appearance.vibrancy',
         (ngModelChange)='config.save()'
     )
 
-.form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported && config.store.hacks.enableFluentBackground')
+.form-line(*ngIf='config.store.appearance.vibrancy && (isMicaVibrancySupported || (isFluentVibrancySupported && config.store.hacks.enableFluentBackground))')
     .header
         .title(translate) Background type
-    .btn-group
+        .description(*ngIf='isMicaVibrancySelected', translate) Mica uses your desktop wallpaper and keeps the window opaque
+    select.form-control(
+        *ngIf='isMicaVibrancySupported',
+        [ngModel]='config.store.appearance.vibrancyType === "fluent" ? "blur" : config.store.appearance.vibrancyType',
+        (ngModelChange)='config.store.appearance.vibrancyType = $event; config.save()',
+    )
+        option(value='blur', translate) Acrylic
+        option(value='mica') Mica
+        option(value='mica-alt') Mica Alt
+    .btn-group(*ngIf='!isMicaVibrancySupported')
         input.btn-check(
             type='radio',
             name='vibracy',
@@ -72,7 +83,7 @@ h3.mb-3(translate) Window
         )
             span Fluent
 
-.form-line(*ngIf='platform.supportsWindowControls')
+.form-line(*ngIf='platform.supportsWindowControls && !isMicaVibrancySelected')
     .header
         .title(translate) Opacity
     input(
