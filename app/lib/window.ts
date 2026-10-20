@@ -43,7 +43,7 @@ export class Window {
     private disableVibrancyWhileDragging = false
     private touchBarControl: any
     private isFluentVibrancy = false
-    private opacity = 1
+    private configuredOpacity = 1
     private dockHidden = false
 
     get visible$ (): Observable<boolean> { return this.visible }
@@ -195,10 +195,15 @@ export class Window {
         if (process.platform === 'win32') {
             if (isWindows11) {
                 try {
-                    const material = !enabled ? 'none' : type === 'mica' ? 'mica' : type === 'mica-alt' ? 'tabbed' : 'acrylic'
-                    this.window.setBackgroundMaterial(material)
-                    this.isFluentVibrancy = material === 'acrylic'
-                    this.setOpacity(this.opacity)
+                    let material: 'acrylic' | 'mica' | 'tabbed' = 'acrylic'
+                    if (type === 'mica') {
+                        material = 'mica'
+                    } else if (type === 'mica-alt') {
+                        material = 'tabbed'
+                    }
+                    this.window.setBackgroundMaterial(enabled ? material : 'none')
+                    this.isFluentVibrancy = enabled && material === 'acrylic'
+                    this.setOpacity(this.configuredOpacity)
                 } catch (error) {
                     console.error('Failed to set window background material', error)
                 }
@@ -220,11 +225,11 @@ export class Window {
     }
 
     setOpacity (opacity: number): void {
-        this.opacity = opacity
+        this.configuredOpacity = opacity
         // Mica is wallpaper-based. Whole-window transparency would also reveal windows behind it.
-        const mica = isWindows11 && this.lastVibrancy?.enabled &&
+        const usesMica = isWindows11 && this.lastVibrancy?.enabled &&
             (this.lastVibrancy.type === 'mica' || this.lastVibrancy.type === 'mica-alt')
-        this.window?.setOpacity(mica ? 1 : opacity)
+        this.window?.setOpacity(usesMica ? 1 : opacity)
     }
 
     setDarkMode (mode: string): void {
@@ -404,20 +409,18 @@ export class Window {
             }
         })
 
+        const restoreVibrancy = () => {
+            if (isWindows11 && this.lastVibrancy?.enabled) {
+                this.setVibrancy(true, this.lastVibrancy.type, false)
+            }
+        }
+
         this.window.on('focus', () => {
             this.window?.flashFrame(false)
             this.send('host:window-focused')
-            // Preserve the selected material when Windows changes the window activation state.
-            if (isWindows11 && this.lastVibrancy?.enabled) {
-                this.setVibrancy(true, this.lastVibrancy.type, false)
-            }
+            restoreVibrancy()
         })
-
-        this.window.on('blur', () => {
-            if (isWindows11 && this.lastVibrancy?.enabled) {
-                this.setVibrancy(true, this.lastVibrancy.type, false)
-            }
-        })
+        this.window.on('blur', restoreVibrancy)
 
         this.on('ready', () => {
             this.window?.webContents.send('start', {

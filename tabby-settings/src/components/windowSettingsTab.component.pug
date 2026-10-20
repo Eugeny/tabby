@@ -34,11 +34,9 @@ h3.mb-3(translate) Window
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
-        .title(*ngIf='hostApp.platform !== Platform.macOS && !isMicaVibrancySupported', translate) Acrylic background
-        .title(*ngIf='isMicaVibrancySupported', translate) Background effect
+        .title(*ngIf='hostApp.platform !== Platform.macOS', translate) Background effect
         .title(*ngIf='hostApp.platform === Platform.macOS', translate) Vibrancy
         .description(*ngIf='!isMicaVibrancySupported', translate) Gives the window a blurred transparent background
-        .description(*ngIf='isMicaVibrancySupported', translate) Applies a native Windows background material
 
     toggle(
         [(ngModel)]='config.store.appearance.vibrancy',
@@ -50,38 +48,14 @@ h3.mb-3(translate) Window
         .title(translate) Background type
         .description(*ngIf='isMicaVibrancySelected', translate) Mica uses your desktop wallpaper and keeps the window opaque
     select.form-control(
-        *ngIf='isMicaVibrancySupported',
-        [ngModel]='config.store.appearance.vibrancyType === "fluent" ? "blur" : config.store.appearance.vibrancyType',
-        (ngModelChange)='config.store.appearance.vibrancyType = $event; config.save()',
+        [(ngModel)]='backgroundType',
+        (ngModelChange)='config.save()',
     )
-        option(value='blur', translate) Acrylic
-        option(value='mica') Mica
-        option(value='mica-alt') Mica Alt
-    .btn-group(*ngIf='!isMicaVibrancySupported')
-        input.btn-check(
-            type='radio',
-            name='vibracy',
-            [(ngModel)]='config.store.appearance.vibrancyType',
-            (ngModelChange)='config.save()',
-            id='vibrancyTypeBlur',
-            [value]='"blur"'
-        )
-        label.btn.btn-secondary(
-            for='vibrancyTypeBlur'
-        )
-            span(translate) Blur
-        input.btn-check(
-            type='radio',
-            name='vibracy',
-            [(ngModel)]='config.store.appearance.vibrancyType',
-            (ngModelChange)='config.save()',
-            id='vibrancyTypeFluent',
-            [value]='"fluent"'
-        )
-        label.btn.btn-secondary(
-            for='vibrancyTypeFluent'
-        )
-            span Fluent
+        option(*ngIf='isMicaVibrancySupported', value='blur', translate) Acrylic
+        option(*ngIf='!isMicaVibrancySupported', value='blur', translate) Blur
+        option(*ngIf='!isMicaVibrancySupported', value='fluent') Fluent
+        option(*ngIf='isMicaVibrancySupported', value='mica') Mica
+        option(*ngIf='isMicaVibrancySupported', value='mica-alt') Mica Alt
 
 .form-line(*ngIf='platform.supportsWindowControls && !isMicaVibrancySelected')
     .header
