@@ -53,13 +53,11 @@ export class WindowSettingsTabComponent extends BaseComponent {
         this.isMicaVibrancySupported = hostApp.platform === Platform.Windows && isWindowsBuild(WIN_BUILD_MICA_SUPPORTED)
     }
 
-    get isMicaVibrancySelected (): boolean {
-        return this.isMicaVibrancySupported && this.config.store.appearance.vibrancy &&
-            ['mica', 'mica-alt'].includes(this.config.store.appearance.vibrancyType)
-    }
-
     get backgroundType (): string {
         const type = this.config.store.appearance.vibrancyType
+        if (type === 'mica-alt') {
+            return 'mica'
+        }
         // Windows 11 uses native acrylic for both legacy blur types.
         return this.isMicaVibrancySupported && type === 'fluent' ? 'blur' : type
     }

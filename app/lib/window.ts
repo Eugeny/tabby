@@ -43,7 +43,6 @@ export class Window {
     private disableVibrancyWhileDragging = false
     private touchBarControl: any
     private isFluentVibrancy = false
-    private configuredOpacity = 1
     private dockHidden = false
 
     get visible$ (): Observable<boolean> { return this.visible }
@@ -195,15 +194,12 @@ export class Window {
         if (process.platform === 'win32') {
             if (isWindows11) {
                 try {
-                    let material: 'acrylic' | 'mica' | 'tabbed' = 'acrylic'
-                    if (type === 'mica') {
+                    let material: 'acrylic' | 'mica' = 'acrylic'
+                    if (type === 'mica' || type === 'mica-alt') {
                         material = 'mica'
-                    } else if (type === 'mica-alt') {
-                        material = 'tabbed'
                     }
                     this.window.setBackgroundMaterial(enabled ? material : 'none')
                     this.isFluentVibrancy = enabled && material === 'acrylic'
-                    this.setOpacity(this.configuredOpacity)
                 } catch (error) {
                     console.error('Failed to set window background material', error)
                 }
@@ -222,14 +218,6 @@ export class Window {
         } else {
             this.window.setVibrancy(enabled ? macOSVibrancyType : null)
         }
-    }
-
-    setOpacity (opacity: number): void {
-        this.configuredOpacity = opacity
-        // Mica is wallpaper-based. Whole-window transparency would also reveal windows behind it.
-        const usesMica = isWindows11 && this.lastVibrancy?.enabled &&
-            (this.lastVibrancy.type === 'mica' || this.lastVibrancy.type === 'mica-alt')
-        this.window?.setOpacity(usesMica ? 1 : opacity)
     }
 
     setDarkMode (mode: string): void {
@@ -517,7 +505,7 @@ export class Window {
         })
 
         this.on('window-set-opacity', (_event, opacity) => {
-            this.setOpacity(opacity)
+            this.window?.setOpacity(opacity)
         })
 
         this.on('window-set-progress-bar', (_, value) => {

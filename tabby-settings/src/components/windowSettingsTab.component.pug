@@ -46,7 +46,7 @@ h3.mb-3(translate) Window
 .form-line(*ngIf='config.store.appearance.vibrancy && (isMicaVibrancySupported || (isFluentVibrancySupported && config.store.hacks.enableFluentBackground))')
     .header
         .title(translate) Background type
-        .description(*ngIf='isMicaVibrancySelected', translate) Mica uses your desktop wallpaper and keeps the window opaque
+        .description(*ngIf='backgroundType === "mica"', translate) Mica uses your desktop wallpaper
     select.form-control(
         [(ngModel)]='backgroundType',
         (ngModelChange)='config.save()',
@@ -55,9 +55,8 @@ h3.mb-3(translate) Window
         option(*ngIf='!isMicaVibrancySupported', value='blur', translate) Blur
         option(*ngIf='!isMicaVibrancySupported', value='fluent') Fluent
         option(*ngIf='isMicaVibrancySupported', value='mica') Mica
-        option(*ngIf='isMicaVibrancySupported', value='mica-alt') Mica Alt
 
-.form-line(*ngIf='platform.supportsWindowControls && !isMicaVibrancySelected')
+.form-line(*ngIf='platform.supportsWindowControls')
     .header
         .title(translate) Opacity
     input(
