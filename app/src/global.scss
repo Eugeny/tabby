@@ -9,6 +9,12 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+body.wallpaper-background {
+    app-root, tab-body {
+        background: transparent !important;
+    }
+}
+
 .modal-dialog, .modal-backdrop, .no-drag {
     -webkit-app-region: no-drag;
 }

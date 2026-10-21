@@ -2,6 +2,7 @@
 import { rebuild } from '@electron/rebuild'
 import { execFileSync } from 'child_process'
 import * as path from 'path'
+import { copyFileSync, mkdirSync } from 'node:fs'
 import * as vars from './vars.mjs'
 
 import * as url from 'url'
@@ -42,6 +43,16 @@ for (let [lc, dir] of lifecycles) {
 await Promise.all(builds)
 
 if (process.platform === 'win32') {
+    execFileSync(process.execPath, [
+        path.resolve(__dirname, '../node_modules/node-gyp/bin/node-gyp.js'),
+        'rebuild', '--directory=' + path.resolve(__dirname, '../app/native'),
+        '--target=' + vars.electronVersion, '--arch=' + process.env.ARCH,
+        '--dist-url=https://www.electronjs.org/headers',
+    ], { stdio: 'inherit' })
+    mkdirSync(path.resolve(__dirname, '../app/dist'), { recursive: true })
+    copyFileSync(path.resolve(__dirname, '../app/native/build/Release/wallpaper.node'),
+        path.resolve(__dirname, '../app/dist/wallpaper.node'))
+
     // node-gyp's clean step just wiped node-pty's bundled conpty.dll + OpenConsole.exe out of
     // build/Release; node-pty's own postinstall puts them back for the arch we're targeting
     execFileSync(process.execPath, ['scripts/post-install.js'], {

@@ -22,6 +22,7 @@
     "tabby-local": "*"
   },
   "devDependencies": {
+    "color": "^4",
     "electron-promise-ipc": "^2",
     "ps-node": "^0.1.6",
     "ssh-config": "^5",

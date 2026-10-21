@@ -50,6 +50,7 @@
     "ngx-filesize": "^3",
     "ngx-toastr": "^16",
     "node-abi": "^4",
+    "node-gyp": "^13",
     "npmlog": "6.0.2",
     "patch-package": "^6",
     "po-gettext-loader": "^1",

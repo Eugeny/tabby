@@ -9,7 +9,6 @@ import {
     Platform,
     isWindowsBuild,
     WIN_BUILD_FLUENT_BG_SUPPORTED,
-    WIN_BUILD_MICA_SUPPORTED,
     BaseComponent,
     Screen,
     PlatformService,
@@ -25,7 +24,7 @@ export class WindowSettingsTabComponent extends BaseComponent {
     screens: Screen[]
     Platform = Platform
     isFluentVibrancySupported = false
-    isMicaVibrancySupported = false
+    isWallpaperSupported = false
 
     @HostBinding('class.content-box') true
 
@@ -50,20 +49,12 @@ export class WindowSettingsTabComponent extends BaseComponent {
         }
 
         this.isFluentVibrancySupported = isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)
-        this.isMicaVibrancySupported = hostApp.platform === Platform.Windows && isWindowsBuild(WIN_BUILD_MICA_SUPPORTED)
+        this.isWallpaperSupported = hostApp.platform === Platform.Windows && isWindowsBuild(22000)
     }
 
-    get backgroundType (): string {
-        const type = this.config.store.appearance.vibrancyType
-        if (type === 'mica-alt') {
-            return 'mica'
-        }
-        // Windows 11 uses native acrylic for both legacy blur types.
-        return this.isMicaVibrancySupported && type === 'fluent' ? 'blur' : type
-    }
-
-    set backgroundType (type: string) {
-        this.config.store.appearance.vibrancyType = type
+    get wallpaperEnabled (): boolean {
+        const appearance = this.config.store.appearance
+        return this.hostApp.platform === Platform.Windows && appearance.vibrancy && appearance.vibrancyType === 'wallpaper'
     }
 
     @debounce(500)
