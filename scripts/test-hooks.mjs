@@ -3,7 +3,8 @@
 //   Node version (Node's built-in type stripping does not support them);
 // - resolve extension-less relative imports the way webpack does;
 // - stand in for the few `tabby-core` runtime exports plugin internals use - the real package
-//   is the whole Angular app and cannot load outside Electron.
+//   is the whole Angular app and cannot load outside Electron;
+// - stand in for `electron`'s ipcRenderer, which only exists inside an Electron renderer.
 import { readFileSync, statSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
@@ -14,6 +15,16 @@ export class SubscriptionContainer {
     addSubscription (s) { this.subscriptions.push(s) }
     subscribe (observable, handler) { this.subscriptions.push(observable.subscribe(handler)) }
     cancelAll () { for (const s of this.subscriptions) s.unsubscribe(); this.subscriptions = [] }
+}
+export const Platform = { Linux: 'Linux', macOS: 'macOS', Windows: 'Windows', Web: 'Web' }
+`
+
+// Records what the renderer sends to the main process; tests read and reset `sent`.
+const ELECTRON_STUB = `
+export const ipcRenderer = {
+    sent: [],
+    send (...args) { this.sent.push(args) },
+    on () { },
 }
 `
 
@@ -29,6 +40,9 @@ export function resolve (specifier, context, nextResolve) {
     if (specifier === 'tabby-core') {
         return { url: 'tabby-test-stub:tabby-core', shortCircuit: true }
     }
+    if (specifier === 'electron') {
+        return { url: 'tabby-test-stub:electron', shortCircuit: true }
+    }
     if (/^\.\.?\//.test(specifier) && !/\.[cm]?[jt]s$/.test(specifier) && context.parentURL?.endsWith('.ts')) {
         for (const candidate of [`${specifier}.ts`, `${specifier}/index.ts`]) {
             const url = new URL(candidate, context.parentURL).href
@@ -43,6 +57,9 @@ export function resolve (specifier, context, nextResolve) {
 export function load (url, context, nextLoad) {
     if (url === 'tabby-test-stub:tabby-core') {
         return { format: 'module', source: TABBY_CORE_STUB, shortCircuit: true }
+    }
+    if (url === 'tabby-test-stub:electron') {
+        return { format: 'module', source: ELECTRON_STUB, shortCircuit: true }
     }
     if (url.startsWith('file:') && url.endsWith('.ts') && !url.includes('/node_modules/')) {
         const fileName = fileURLToPath(url)
