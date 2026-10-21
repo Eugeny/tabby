@@ -15,6 +15,7 @@ appearance:
   frame: thin
   css: '/* * { color: blue !important; } */'
   opacity: 1.0
+  wallpaperOpacity: 0.65
   vibrancy: false
   vibrancyType: 'blur'
   lastTabClosesWindow: false

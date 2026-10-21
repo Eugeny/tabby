@@ -24,6 +24,7 @@ export class WindowSettingsTabComponent extends BaseComponent {
     screens: Screen[]
     Platform = Platform
     isFluentVibrancySupported = false
+    isWallpaperSupported = false
 
     @HostBinding('class.content-box') true
 
@@ -48,6 +49,12 @@ export class WindowSettingsTabComponent extends BaseComponent {
         }
 
         this.isFluentVibrancySupported = isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)
+        this.isWallpaperSupported = hostApp.platform === Platform.Windows && isWindowsBuild(22000)
+    }
+
+    get wallpaperEnabled (): boolean {
+        const appearance = this.config.store.appearance
+        return this.hostApp.platform === Platform.Windows && appearance.vibrancy && appearance.vibrancyType === 'wallpaper'
     }
 
     @debounce(500)

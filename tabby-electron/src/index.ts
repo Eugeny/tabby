@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core'
+import Color from 'color'
 import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
 import { TerminalColorSchemeProvider, TerminalContextMenuItemProvider, TerminalDecorator } from 'tabby-terminal'
 import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
 import { PTYInterface, ShellProvider, UACService } from 'tabby-local'
-import { auditTime } from 'rxjs'
+import { auditTime, merge } from 'rxjs'
 
 import { HyperColorSchemes } from './colorSchemes'
 import { ElectronPlatformService } from './services/platform.service'
@@ -97,6 +98,9 @@ export default class ElectronModule {
         app: AppService,
         dockMenu: DockMenuService,
     ) {
+        electron.ipcRenderer.on('host:wallpaper-enabled', (_event, enabled: boolean) => {
+            document.body.classList.toggle('wallpaper-background', enabled)
+        })
         config.ready$.toPromise().then(() => {
             touchbar.update()
             docking.dock()
@@ -136,7 +140,8 @@ export default class ElectronModule {
             })
         })
 
-        config.changed$.subscribe(() => {
+        // Coalesce notifications after theme variables have been applied.
+        merge(config.changed$, themeService.themeChanged$).pipe(auditTime(0)).subscribe(() => {
             this.updateVibrancy()
             this.updateDarkMode()
         })
@@ -173,13 +178,17 @@ export default class ElectronModule {
     }
 
     private updateVibrancy () {
-        let vibrancyType = this.config.store.appearance.vibrancyType
-        if (this.hostApp.platform === Platform.Windows && !isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
+        const appearance = this.config.store.appearance
+        const wallpaper = this.hostApp.platform === Platform.Windows && appearance.vibrancy && appearance.vibrancyType === 'wallpaper'
+        const background = wallpaper
+            ? Color(getComputedStyle(document.documentElement).getPropertyValue('--bs-body-bg').trim() || '#131d27').rgbNumber()
+            : 0
+        let vibrancyType = appearance.vibrancyType
+        if (this.hostApp.platform === Platform.Windows && !wallpaper && !isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
             vibrancyType = null
         }
-        this.electron.ipcRenderer.send('window-set-vibrancy', this.config.store.appearance.vibrancy, vibrancyType)
-
-        this.hostWindow.setOpacity(this.config.store.appearance.opacity)
+        this.electron.ipcRenderer.send('window-set-vibrancy', appearance.vibrancy, vibrancyType, appearance.wallpaperOpacity, background)
+        this.hostWindow.setOpacity(wallpaper ? 1 : appearance.opacity)
     }
 
     private updateDarkMode () {

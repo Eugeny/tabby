@@ -34,52 +34,37 @@ h3.mb-3(translate) Window
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
-        .title(*ngIf='hostApp.platform !== Platform.macOS', translate) Acrylic background
+        .title(*ngIf='hostApp.platform !== Platform.macOS', translate) Background effect
         .title(*ngIf='hostApp.platform === Platform.macOS', translate) Vibrancy
-        .description(translate) Gives the window a blurred transparent background
+        .description(*ngIf='!wallpaperEnabled', translate) Gives the window a blurred transparent background
 
     toggle(
         [(ngModel)]='config.store.appearance.vibrancy',
         (ngModelChange)='config.save()'
     )
 
-.form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported && config.store.hacks.enableFluentBackground')
+.form-line(*ngIf='hostApp.platform === Platform.Windows && config.store.appearance.vibrancy')
     .header
         .title(translate) Background type
-    .btn-group
-        input.btn-check(
-            type='radio',
-            name='vibracy',
-            [(ngModel)]='config.store.appearance.vibrancyType',
-            (ngModelChange)='config.save()',
-            id='vibrancyTypeBlur',
-            [value]='"blur"'
-        )
-        label.btn.btn-secondary(
-            for='vibrancyTypeBlur'
-        )
-            span(translate) Blur
-        input.btn-check(
-            type='radio',
-            name='vibracy',
-            [(ngModel)]='config.store.appearance.vibrancyType',
-            (ngModelChange)='config.save()',
-            id='vibrancyTypeFluent',
-            [value]='"fluent"'
-        )
-        label.btn.btn-secondary(
-            for='vibrancyTypeFluent'
-        )
-            span Fluent
+        .description(*ngIf='wallpaperEnabled && isWallpaperSupported', translate) Blurs your desktop wallpaper and keeps text opaque
+        .description(*ngIf='wallpaperEnabled && !isWallpaperSupported', translate) Requires Windows 11
+    select.form-control(
+        [(ngModel)]='config.store.appearance.vibrancyType',
+        (ngModelChange)='config.save()',
+    )
+        option(value='blur', translate) Acrylic
+        option(*ngIf='isFluentVibrancySupported && (config.store.hacks.enableFluentBackground || config.store.appearance.vibrancyType === "fluent")', value='fluent') Fluent
+        option(*ngIf='isWallpaperSupported || wallpaperEnabled', [disabled]='!isWallpaperSupported', value='wallpaper', translate) Blurred wallpaper
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
-        .title(translate) Opacity
+        .title(*ngIf='wallpaperEnabled', translate) Wallpaper opacity
+        .title(*ngIf='!wallpaperEnabled', translate) Opacity
     input(
         type='range',
-        [(ngModel)]='config.store.appearance.opacity',
+        [(ngModel)]='config.store.appearance[wallpaperEnabled ? "wallpaperOpacity" : "opacity"]',
         (ngModelChange)='saveConfiguration(); (hostApp.platform === Platform.Linux && config.requestRestart())',
-        min='0.4',
+        [min]='wallpaperEnabled ? 0 : 0.4',
         max='1',
         step='0.01'
     )

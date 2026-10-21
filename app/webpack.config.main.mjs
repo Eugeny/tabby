@@ -38,6 +38,7 @@ const config = {
     externals: {
         'any-promise': 'commonjs any-promise',
         electron: 'commonjs electron',
+        './wallpaper.node': 'commonjs ./wallpaper.node',
         'electron-config': 'commonjs electron-config',
         'electron-debug': 'commonjs electron-debug',
         'electron-promise-ipc': 'commonjs electron-promise-ipc',

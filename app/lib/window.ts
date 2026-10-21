@@ -23,6 +23,11 @@ type GlasstronWindow = BrowserWindow & {
     setBlur?: (_: boolean) => void
 }
 
+interface WallpaperBinding {
+    set: (handle: Buffer, opacity: number, background: number) => boolean
+    clear: (handle: Buffer) => void
+}
+
 const isWindows11 = isWindowsBuild(22621)
 
 const macOSVibrancyType: any = process.platform === 'darwin' ? compareVersions(macOSRelease().version || '0.0', '10.14', '>=') ? 'fullscreen-ui' : 'dark' : null
@@ -43,6 +48,8 @@ export class Window {
     private disableVibrancyWhileDragging = false
     private touchBarControl: any
     private isFluentVibrancy = false
+    private wallpaper: WallpaperBinding | null = null
+    private wallpaperHandle?: Buffer
     private dockHidden = false
 
     get visible$ (): Observable<boolean> { return this.visible }
@@ -115,7 +122,7 @@ export class Window {
             if (process.platform === 'darwin') {
                 this.window!.setVibrancy(macOSVibrancyType)
             } else if (process.platform === 'win32' && this.configStore.appearance?.vibrancy) {
-                this.setVibrancy(true)
+                this.setVibrancy(true, this.configStore.appearance.vibrancyType, true, this.configStore.appearance.wallpaperOpacity)
             }
 
             this.setDarkMode(this.configStore.appearance?.colorSchemeMode ?? 'dark')
@@ -184,7 +191,7 @@ export class Window {
         this.window?.webContents.send('host:became-main-window')
     }
 
-    setVibrancy(enabled: boolean, type?: string, userRequested?: boolean): void {
+    setVibrancy(enabled: boolean, type?: string, userRequested?: boolean, opacity = 0.65, background = 0x131d27): void {
         if (!this.window) {
             return
         }
@@ -192,6 +199,30 @@ export class Window {
             this.lastVibrancy = { enabled, type }
         }
         if (process.platform === 'win32') {
+            if (enabled && type === 'wallpaper') {
+                this.isFluentVibrancy = false
+                let active = false
+                try {
+                    if (isWindows11) {
+                        this.window.setBackgroundMaterial('none')
+                    } else {
+                        this.window.setBlur?.(false)
+                    }
+                    if (isWindowsBuild(22000)) {
+                        this.wallpaperHandle ??= this.window.getNativeWindowHandle()
+                        this.wallpaper ??= require('./wallpaper.node')
+                        active = this.wallpaper!.set(this.wallpaperHandle, opacity, background)
+                    }
+                } catch (error) {
+                    console.warn('Could not enable the Windows wallpaper backdrop', error)
+                }
+                this.window.setBackgroundColor(active ? '#00000000' : '#' + background.toString(16).padStart(6, '0'))
+                this.send('host:wallpaper-enabled', active)
+                return
+            }
+            this.wallpaper?.clear(this.wallpaperHandle!)
+            this.send('host:wallpaper-enabled', false)
+            this.window.setBackgroundColor('#00000000')
             if (isWindows11) {
                 try {
                     this.window.setBackgroundMaterial(enabled ? 'acrylic' : 'none')
@@ -359,6 +390,7 @@ export class Window {
 
         this.window.on('closed', () => {
             moveSubscription.unsubscribe()
+            this.wallpaper?.clear(this.wallpaperHandle!)
         })
 
         this.window.on('enter-full-screen', () => this.send('host:window-enter-full-screen'))
@@ -397,14 +429,14 @@ export class Window {
             this.window?.flashFrame(false)
             this.send('host:window-focused')
             // Re-apply acrylic on Win11 when window gains focus
-            if (isWindows11 && this.lastVibrancy?.enabled) {
+            if (isWindows11 && this.lastVibrancy?.enabled && this.lastVibrancy.type !== 'wallpaper') {
                 this.window?.setBackgroundMaterial('acrylic')
             }
         })
 
         this.window.on('blur', () => {
             // Re-apply acrylic on Win11 when window loses focus
-            if (isWindows11 && this.lastVibrancy?.enabled) {
+            if (isWindows11 && this.lastVibrancy?.enabled && this.lastVibrancy.type !== 'wallpaper') {
                 this.window?.setBackgroundMaterial('acrylic')
             }
         })
@@ -431,8 +463,8 @@ export class Window {
             this.window?.setAlwaysOnTop(flag)
         })
 
-        this.on('window-set-vibrancy', (_, enabled, type) => {
-            this.setVibrancy(enabled, type)
+        this.on('window-set-vibrancy', (_, enabled, type, opacity, background) => {
+            this.setVibrancy(enabled, type, true, opacity, background)
         })
 
         this.on('window-set-dark-mode', (_, mode) => {
