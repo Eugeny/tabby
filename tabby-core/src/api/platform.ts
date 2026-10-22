@@ -179,12 +179,18 @@ export abstract class PlatformService {
                 } else if (item.isDirectory) {
                     const dirReader = item.createReader()
                     const childrenFolder = new DirectoryUpload(item.name)
-                    dirReader.readEntries(async (entries: any[]) => {
+                    const readEntries = async (entries: any[]): Promise<void> => {
+                        if (!entries.length) {
+                            resolve()
+                            return
+                        }
                         for (const entry of entries) {
                             await traverseFileTree(entry, childrenFolder)
                         }
-                        resolve()
-                    })
+                        // Directory entries arrive in batches; only an empty batch marks the end.
+                        dirReader.readEntries(readEntries)
+                    }
+                    dirReader.readEntries(readEntries)
                     root.pushChildren(childrenFolder)
                 } else {
                     resolve()
