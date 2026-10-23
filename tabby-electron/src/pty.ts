@@ -40,10 +40,11 @@ export class ElectronPTYProxy extends PTYProxy {
     ) {
         super()
         this.truePID = new Promise(async (resolve) => {
+            await new Promise(r => setTimeout(r, 2000))
+            // Read the PID only now: on Windows, node-pty connects ConPTY asynchronously
+            // and reports PID 0 until it has, which would hide every child process (#11810)
             let pid = await this.getPID()
             try {
-                await new Promise(r => setTimeout(r, 2000))
-
                 // Retrieve any possible single children now that shell has fully started
                 let processes = await this.getChildProcessesInternal(pid)
                 while (pid && processes.length === 1) {
