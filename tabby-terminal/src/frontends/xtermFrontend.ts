@@ -19,6 +19,7 @@ import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
 import { generatePalette } from '../generatePalette'
 import { disposeWebglAddon } from './webglAddon'
+import { WebGLRecoveryBudget } from './webglRecoveryBudget'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -47,10 +48,6 @@ function isIMETextKey (event: KeyboardEvent): boolean {
     }
     return LINUX_IME_TEXT_KEY_CODES.has(event.code) || event.code === 'Space' && event.shiftKey
 }
-
-// How many times to recreate the WebGL renderer after a lost GPU context
-// before giving up and letting xterm fall back to its DOM renderer.
-const MAX_WEBGL_RECOVERY_ATTEMPTS = 3
 
 class FlowControl {
     private blocked = false
@@ -127,7 +124,7 @@ export class XTermFrontend extends Frontend {
     private flowControl: FlowControl
     private pinnedToBottom = true
     private pendingRendererRecovery = false
-    private rendererRecoveryAttempts = 0
+    private rendererRecoveryBudget = new WebGLRecoveryBudget()
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -843,9 +840,9 @@ export class XTermFrontend extends Frontend {
             this.recoverRenderer()
         } else {
             // The pane is shown with a live renderer, so any earlier transient
-            // losses shouldn't count against a future recovery — reset the budget
-            // to avoid permanently downgrading the pane to the DOM renderer.
-            this.rendererRecoveryAttempts = 0
+            // losses shouldn't count against a future recovery — drop windowed
+            // attempts to avoid downgrading the pane to the DOM renderer.
+            this.rendererRecoveryBudget.expireOldAttempts()
             this.redraw()
         }
     }
@@ -876,11 +873,11 @@ export class XTermFrontend extends Frontend {
             return
         }
         this.pendingRendererRecovery = false
-        if (this.rendererRecoveryAttempts < MAX_WEBGL_RECOVERY_ATTEMPTS) {
-            this.rendererRecoveryAttempts++
+        if (this.rendererRecoveryBudget.trySpend()) {
             this.attachWebGLAddon()
         }
-        // Once the retry budget is exhausted xterm falls back to its DOM renderer.
+        // Once the windowed budget is exhausted xterm falls back to its DOM
+        // renderer; the budget re-arms automatically once the attempts age out.
         this.redraw()
     }
 
