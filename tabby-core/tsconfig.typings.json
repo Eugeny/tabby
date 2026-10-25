@@ -1,14 +1,23 @@
 {
   "extends": "../tsconfig.json",
-  "exclude": ["node_modules", "dist", "typings"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "typings",
+    "test"
+  ],
   "compilerOptions": {
     "baseUrl": "src",
     "emitDeclarationOnly": true,
     "declaration": true,
     "declarationDir": "./typings",
     "paths": {
-      "tabby-*": ["../../tabby-*"],
-      "*": ["../../app/node_modules/*"]
+      "tabby-*": [
+        "../../tabby-*"
+      ],
+      "*": [
+        "../../app/node_modules/*"
+      ]
     }
   }
 }

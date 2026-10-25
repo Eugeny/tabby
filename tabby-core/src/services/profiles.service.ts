@@ -11,6 +11,7 @@ import { SelectorService } from './selector.service'
 import deepClone from 'clone-deep'
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
+import { distributeProfilesByGroup } from '../utils/groupProfiles'
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
@@ -98,7 +99,17 @@ export class ProfilesService {
             ]
         }
 
-        const sortKey = p => `${this.resolveProfileGroupName(p.group ?? '')} / ${p.name}`
+        // Memoize sort keys for this snapshot to avoid repeatedly resolving group names.
+        // Both original stable sorts remain unchanged for compatibility.
+        const keys = new WeakMap<object, string>()
+        const sortKey = (p: PartialProfile<Profile>): string => {
+            let key = keys.get(p)
+            if (key === undefined) {
+                key = `${this.resolveProfileGroupName(p.group ?? '')} / ${p.name}`
+                keys.set(p, key)
+            }
+            return key
+        }
         list.sort((a, b) => sortKey(a).localeCompare(sortKey(b)))
         list.sort((a, b) => (a.isBuiltin ? 1 : 0) - (b.isBuiltin ? 1 : 0))
         return options?.clone ? deepClone(list) : list
@@ -437,16 +448,14 @@ export class ProfilesService {
         }
 
         let groups: PartialProfileGroup<ProfileGroup>[] = this.getSyncProfileGroups()
-        groups = groups.map(x => {
-            x.editable = true
-
-            if (options?.includeProfiles) {
-                x.profiles = profiles.filter(p => p.group === x.id)
-                profiles = profiles.filter(p => p.group !== x.id)
-            }
-
-            return x
-        })
+        for (const group of groups) {
+            group.editable = true
+        }
+        if (options?.includeProfiles) {
+            // This preserves the existing Built-in/Ungrouped handling below:
+            // only profiles not consumed by configured groups are returned.
+            profiles = distributeProfilesByGroup(profiles, groups)
+        }
 
         if (options?.includeNonUserGroup) {
             const builtInGroups: PartialProfileGroup<ProfileGroup>[] = []
