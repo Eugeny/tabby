@@ -6,6 +6,12 @@ import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@
 import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined } from 'tabby-core'
 
 import { BaseSession } from '../session'
+import { TerminalNotification } from '../middleware/oscProcessing'
+
+/** Progress reported via OSC 9;4 is removed if the program doesn't update it for this long */
+const REPORTED_PROGRESS_TIMEOUT = 15000
+/** Most OSC 99 notifications kept around so that the program can close them */
+const MAX_CLOSABLE_NOTIFICATIONS = 16
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
@@ -138,6 +144,10 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected sessionChanged = new Subject<BaseSession|null>()
     protected recentInputs = ''
     private bellPlayer: HTMLAudioElement
+    /** When the program last reported progress via OSC 9;4, which takes over from output-based detection */
+    private progressReportedAt = 0
+    /** Shown OSC 99 notifications by ID */
+    private closableNotifications = new Map<string, Notification>()
     private termContainerSubscriptions = new SubscriptionContainer()
     private sessionHandlers = new SubscriptionContainer()
     private spinner = new Spinner({
@@ -527,7 +537,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             throw new Error('Frontend not ready')
         }
 
-        if (this.config.store.terminal.detectProgress) {
+        if (this.config.store.terminal.detectProgress && Date.now() - this.progressReportedAt > REPORTED_PROGRESS_TIMEOUT) {
             const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
             if (!this.alternateScreenActive && percentageMatch) {
                 const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
@@ -847,6 +857,61 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.platform.setClipboard({ text: content })
             this.notifications.notice(this.translate.instant('Copied'))
         })
+
+        this.attachSessionHandler(this.session.oscProcessor.notificationRequested$, notification => {
+            this.showTerminalNotification(notification)
+        })
+
+        this.attachSessionHandler(this.session.oscProcessor.notificationCloseRequested$, id => {
+            this.closableNotifications.get(id)?.close()
+            this.closableNotifications.delete(id)
+        })
+
+        this.attachSessionHandler(this.session.oscProcessor.progressReported$, progress => {
+            this.progressReportedAt = progress ? Date.now() : 0
+            this.setProgress(progress && (progress.value ?? 'indeterminate'), REPORTED_PROGRESS_TIMEOUT)
+        })
+    }
+
+    /**
+     * Shows a desktop notification requested by the program running in the terminal,
+     * unless the user is already looking at this terminal.
+     */
+    protected showTerminalNotification (notification: TerminalNotification): void {
+        const focused = this.hasFocus && document.hasFocus()
+        const visible = this.visibility.value && !document.hidden
+        if (!this.config.store.terminal.desktopNotifications || focused || notification.occasion === 'invisible' && visible) {
+            return
+        }
+        this.displayActivity()
+
+        const session = this.session
+        const { id } = notification
+        const shown = new Notification(notification.title ? notification.title : this.title, { body: notification.body })
+        shown.addEventListener('click', () => {
+            if (notification.focusOnClick) {
+                this.hostWindow.bringToFront()
+                const parent = this.app.getParentTab(this)
+                this.app.selectTab(parent ?? this)
+                parent?.focus(this)
+            }
+            if (notification.reportClick && session === this.session) {
+                session?.oscProcessor.reportNotificationClick(id)
+            }
+        })
+
+        if (id) {
+            this.closableNotifications.delete(id)
+            this.closableNotifications.set(id, shown)
+            shown.addEventListener('close', () => {
+                if (this.closableNotifications.get(id) === shown) {
+                    this.closableNotifications.delete(id)
+                }
+            })
+            if (this.closableNotifications.size > MAX_CLOSABLE_NOTIFICATIONS) {
+                this.closableNotifications.delete(this.closableNotifications.keys().next().value!)
+            }
+        }
     }
 
     /**

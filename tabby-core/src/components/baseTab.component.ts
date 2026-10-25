@@ -1,4 +1,4 @@
-import { Observable, Subject, BehaviorSubject, distinctUntilChanged, filter, debounceTime } from 'rxjs'
+import { Observable, Subject, BehaviorSubject, distinctUntilChanged, filter, debounce, timer } from 'rxjs'
 import { EmbeddedViewRef, Injector, ViewContainerRef, ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BaseComponent } from './base.component'
@@ -15,6 +15,12 @@ export interface BaseTabProcess {
 export interface GetRecoveryTokenOptions {
     includeState: boolean
 }
+
+/**
+ * Progress shown on a tab: a percentage between 0 and 100,
+ * `'indeterminate'` when the tab is busy without a known percentage, or `null` for none
+ */
+export type TabProgress = number | 'indeterminate' | null
 
 /**
  * Abstract base class for custom tab components
@@ -106,18 +112,19 @@ export abstract class BaseTabComponent extends BaseComponent {
     private focused = new Subject<void>()
     private blurred = new Subject<void>()
     protected visibility = new BehaviorSubject<boolean>(false)
-    protected progress = new BehaviorSubject<number|null>(null)
+    protected progress = new BehaviorSubject<TabProgress>(null)
     protected activity = new BehaviorSubject<boolean>(false)
     private destroyed = new Subject<void>()
 
     private _destroyCalled = false
+    private progressClearDelay: number|null = 5000
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
     /* @hidden */
     get visibility$ (): Observable<boolean> { return this.visibility }
     get titleChange$ (): Observable<string> { return this.titleChange.pipe(distinctUntilChanged()) }
-    get progress$ (): Observable<number|null> { return this.progress.pipe(distinctUntilChanged()) }
+    get progress$ (): Observable<TabProgress> { return this.progress.pipe(distinctUntilChanged()) }
     get activity$ (): Observable<boolean> { return this.activity }
     get destroyed$ (): Observable<void> { return this.destroyed }
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
@@ -134,8 +141,8 @@ export abstract class BaseTabComponent extends BaseComponent {
             this.hasFocus = false
         })
         this.subscribeUntilDestroyed(this.progress.pipe(
-            filter(x => x !== null),
-            debounceTime(5000),
+            filter(x => x !== null && this.progressClearDelay !== null),
+            debounce(() => timer(this.progressClearDelay!)),
         ), () => {
             this.setProgress(null)
         })
@@ -170,9 +177,11 @@ export abstract class BaseTabComponent extends BaseComponent {
     /**
      * Sets visual progressbar on the tab
      *
-     * @param  {type} progress: value between 0 and 1, or `null` to remove
+     * @param  progress: percentage between 0 and 100, `'indeterminate'`, or `null` to remove
+     * @param  clearAfter: milliseconds without an update after which the progressbar is removed, `null` to keep it
      */
-    setProgress (progress: number|null): void {
+    setProgress (progress: TabProgress, clearAfter: number|null = 5000): void {
+        this.progressClearDelay = clearAfter
         this.progress.next(progress)
     }
 

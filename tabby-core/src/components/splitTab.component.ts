@@ -871,7 +871,8 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         )
         tab.subscribeUntilDestroyed(
             this.observeUntilChildDetached(tab, tab.progress$),
-            p => this.setProgress(p),
+            // The child clears its own progress
+            p => this.setProgress(p, null),
         )
         if (tab.title) {
             this.updateTitle()

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
+import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider, TabProgress } from 'tabby-core'
 import { TerminalColorSchemeProvider, TerminalContextMenuItemProvider, TerminalDecorator } from 'tabby-terminal'
 import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
 import { PTYInterface, ShellProvider, UACService } from 'tabby-local'
@@ -121,13 +121,16 @@ export default class ElectronModule {
             }
         })
 
-        let lastProgress: number|null = null
+        let lastProgress: TabProgress = null
         app.tabOpened$.subscribe(tab => {
             tab.progress$.pipe(auditTime(250)).subscribe(progress => {
                 if (lastProgress === progress) {
                     return
                 }
-                if (progress !== null) {
+                if (progress === 'indeterminate') {
+                    // Values above 1 show an indeterminate progressbar
+                    hostWindow.setProgressBar(2)
+                } else if (progress !== null) {
                     hostWindow.setProgressBar(progress / 100.0)
                 } else {
                     hostWindow.setProgressBar(-1)

@@ -2,7 +2,7 @@
 import { Component, Input, Optional, Inject, HostBinding, HostListener, NgZone } from '@angular/core'
 import { auditTime } from 'rxjs'
 import { TabContextMenuItemProvider } from '../api/tabContextMenuProvider'
-import { BaseTabComponent } from './baseTab.component'
+import { BaseTabComponent, TabProgress } from './baseTab.component'
 import { SplitTabComponent } from './splitTab.component'
 import { HotkeysService } from '../services/hotkeys.service'
 import { AppService } from '../services/app.service'
@@ -22,7 +22,7 @@ export class TabHeaderComponent extends BaseComponent {
     @Input() index: number
     @Input() @HostBinding('class.active') active: boolean
     @Input() tab: BaseTabComponent
-    @Input() progress: number|null
+    @Input() progress: TabProgress
     Platform = Platform
 
     constructor (
