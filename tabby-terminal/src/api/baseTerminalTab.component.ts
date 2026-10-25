@@ -6,6 +6,7 @@ import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@
 import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined } from 'tabby-core'
 
 import { BaseSession } from '../session'
+import { TerminalNotification } from '../middleware/oscProcessing'
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
@@ -138,6 +139,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected sessionChanged = new Subject<BaseSession|null>()
     protected recentInputs = ''
     private bellPlayer: HTMLAudioElement
+    /** Set while the program reports progress via OSC 9;4, which takes over from output-based detection */
+    private reportsProgress = false
     private termContainerSubscriptions = new SubscriptionContainer()
     private sessionHandlers = new SubscriptionContainer()
     private spinner = new Spinner({
@@ -527,7 +530,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             throw new Error('Frontend not ready')
         }
 
-        if (this.config.store.terminal.detectProgress) {
+        if (this.config.store.terminal.detectProgress && !this.reportsProgress) {
             const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
             if (!this.alternateScreenActive && percentageMatch) {
                 const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
@@ -846,6 +849,32 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
             this.platform.setClipboard({ text: content })
             this.notifications.notice(this.translate.instant('Copied'))
+        })
+
+        this.attachSessionHandler(this.session.oscProcessor.notificationRequested$, notification => {
+            this.showTerminalNotification(notification)
+        })
+
+        this.attachSessionHandler(this.session.oscProcessor.progressReported$, progress => {
+            this.reportsProgress = progress !== null
+            this.setProgress(progress)
+        })
+    }
+
+    /**
+     * Shows a desktop notification requested by the program running in the terminal,
+     * unless the user is already looking at this terminal.
+     */
+    protected showTerminalNotification ({ title, body }: TerminalNotification): void {
+        if (!this.config.store.terminal.desktopNotifications || (this.hasFocus && document.hasFocus())) {
+            return
+        }
+        this.displayActivity()
+        new Notification(title || this.title, { body }).addEventListener('click', () => {
+            this.hostWindow.bringToFront()
+            const parent = this.app.getParentTab(this)
+            this.app.selectTab(parent ?? this)
+            parent?.focus(this)
         })
     }
 
