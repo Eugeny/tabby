@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { sortPluginsByRelevance } from '../src/services/pluginSearchRanking.ts'
+import { sortPluginsByRelevance } from '../src/services/pluginSearchRanking'
 
 interface Plugin {
     name: string
