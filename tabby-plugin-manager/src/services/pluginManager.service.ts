@@ -3,6 +3,7 @@ import { Observable, from, forkJoin, map, of } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'tabby-core'
 import { PLUGIN_BLACKLIST } from '../../../app/src/pluginBlacklist'
+import { sortPluginsByRelevance } from './pluginSearchRanking'
 
 const OFFICIAL_NPM_ACCOUNT = 'eugenepankov'
 
@@ -40,7 +41,7 @@ export class PluginManagerService {
                     return true
                 })
             }),
-            map(x => x.sort((a, b) => b.searchScore! - a.searchScore!)),
+            map(x => sortPluginsByRelevance(x, query)),
         )
     }
 
@@ -49,8 +50,9 @@ export class PluginManagerService {
     }
 
     _listAvailableInternal (namePrefix: string, keyword: string, query?: string): Observable<PluginInfo[]> {
+        const searchText = encodeURIComponent(`keywords:${keyword} ${query?.trim() ?? ''}`.trim())
         return from(
-            fetch(`https://registry.npmjs.com/-/v1/search?text=keywords%3A${keyword}%20${query}&size=250`).then(r => r.json()),
+            fetch(`https://registry.npmjs.com/-/v1/search?text=${searchText}&size=250`).then(r => r.json()),
         ).pipe(
             map(response => response.objects
                 .filter(item => !item.keywords?.includes('tabby-dummy-transition-plugin'))
