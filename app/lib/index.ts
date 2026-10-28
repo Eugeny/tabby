@@ -2,6 +2,7 @@
 import { logMainError } from './errors'
 
 import { app, ipcMain, Menu, dialog } from 'electron'
+import { execFile } from 'child_process'
 
 // set userData Path on portable version
 import './portable'
@@ -36,7 +37,11 @@ process.mainModule = module
 const application = new Application(configStore)
 
 // Register tabby:// URL scheme
-if (process.defaultApp) {
+if (process.platform === 'linux') {
+    // setAsDefaultProtocolClient runs `xdg-settings set default-url-scheme-handler`,
+    // which in xdg-utils 1.1.3 also makes Tabby the text/html handler on GNOME-like desktops
+    execFile('xdg-mime', ['default', process.env.CHROME_DESKTOP ?? 'tabby.desktop', 'x-scheme-handler/tabby'], () => null)
+} else if (process.defaultApp) {
     if (process.argv.length >= 2) {
         app.setAsDefaultProtocolClient('tabby', process.execPath, [process.argv[1]])
     }
