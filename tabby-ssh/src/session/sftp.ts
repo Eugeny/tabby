@@ -4,6 +4,7 @@ import { posix as posixPath } from 'path'
 import { Injector } from '@angular/core'
 import { FileDownload, FileUpload, Logger, LogService } from 'tabby-core'
 import * as russh from 'russh'
+import { writeSFTPUpload } from './sftpUpload'
 
 export interface SFTPFile {
     name: string
@@ -114,15 +115,26 @@ export class SFTPSession {
         this.logger.info('Uploading into', path)
         const tempPath = path + '.tabby-upload'
         try {
-            const handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE)
-            while (true) {
-                const chunk = await transfer.read()
-                if (!chunk.length) {
-                    break
-                }
-                await handle.write(chunk)
-            }
-            await handle.close()
+            await writeSFTPUpload({
+                stat: async () => {
+                    const metadata = await this.sftp.stat(path)
+                    if (metadata.permissions != null) {
+                        return metadata
+                    }
+                    // russh 0.1.38's stat wrapper spreads a NAPI object, which
+                    // can omit its permissions getter. Directory entries read
+                    // the same metadata through explicit getters instead.
+                    const entry = (await this.sftp.readDirectory(posixPath.dirname(path))).find(
+                        candidate => candidate.name === posixPath.basename(path),
+                    )
+                    if (!entry) {
+                        throw new Error('The upload destination changed while reading its permissions')
+                    }
+                    return entry.metadata
+                },
+                open: () => this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE | russh.OPEN_TRUNCATE),
+                chmod: mode => this.chmod(tempPath, mode),
+            }, transfer)
             await this.unlink(path).catch(() => null)
             await this.rename(tempPath, path)
             transfer.close()
