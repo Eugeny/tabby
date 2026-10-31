@@ -6,10 +6,11 @@ import { parseConfig, serializeConfig } from '../src/api/configSerialization.ts'
 const require = createRequire(import.meta.url)
 const legacy = require('../../app/node_modules/js-yaml')
 
-test('hex salts remain strings through both bundled YAML parsers', () => {
+test('hex salts are quoted and remain strings through both bundled YAML parsers', () => {
     for (const salt of ['5631e17759586923', '7293376e16807802', '0000000000000001', '1234567890123456']) {
         const config = { vault: { version: 1, keySalt: salt, iv: 'ab'.repeat(16), contents: 'YWJj' } }
         const data = serializeConfig(config)
+        assert.match(data, /keySalt: ['"]/)
         assert.deepEqual(parseConfig(data), config)
         assert.deepEqual(legacy.load(data), config)
     }
