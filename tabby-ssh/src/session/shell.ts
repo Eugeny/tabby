@@ -14,6 +14,7 @@ export class SSHShellSession extends BaseSession {
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
     private ssh: SSHSession|null
+    private destroyingShell = false
 
     constructor (
         injector: Injector,
@@ -89,11 +90,18 @@ export class SSHShellSession extends BaseSession {
     }
 
     resize (columns: number, rows: number): void {
-        this.shell?.resizePTY({
+        if (!this.shell || this.destroyingShell) {
+            return
+        }
+        this.shell.resizePTY({
             columns,
             rows,
             pixHeight: 0,
             pixWidth: 0,
+        }).catch(error => {
+            if (!this.destroyingShell) {
+                this.logger.error('Could not resize SSH shell', error)
+            }
         })
     }
 
@@ -108,11 +116,16 @@ export class SSHShellSession extends BaseSession {
     }
 
     async destroy (): Promise<void> {
+        if (this.destroyingShell) {
+            return
+        }
+        this.destroyingShell = true
         this.logger.debug('Closing shell')
         this.serviceMessage.complete()
         this.kill()
-        this.ssh?.unref()
+        const ssh = this.ssh
         this.ssh = null
+        ssh?.unref()
         await super.destroy()
     }
 

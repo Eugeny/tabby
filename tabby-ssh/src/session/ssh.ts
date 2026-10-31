@@ -129,6 +129,7 @@ export class SSHSession {
     private knownHosts: SSHKnownHostsService
     private privateKeyImporters: AutoPrivateKeyLocator[]
     private previouslyDisconnected = false
+    private destroyed = false
 
     constructor (
         private injector: Injector,
@@ -872,11 +873,23 @@ export class SSHSession {
     }
 
     async destroy (): Promise<void> {
+        if (this.destroyed) {
+            return
+        }
+        // Shells and jump sessions can re-enter teardown from willDestroy.
+        this.destroyed = true
+        this.open = false
         this.logger.info('Destroying')
         this.willDestroy.next()
         this.willDestroy.complete()
         this.serviceMessage.complete()
-        this.ssh.disconnect()
+        if (!this.previouslyDisconnected) {
+            try {
+                await this.ssh.disconnect()
+            } catch (error) {
+                this.logger.error('Could not disconnect SSH session', error)
+            }
+        }
     }
 
     async openShellChannel (options: SSHShellChannelOptions): Promise<russh.Channel> {
