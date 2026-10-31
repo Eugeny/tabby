@@ -124,7 +124,7 @@ export class AppService {
 
         this.tabClosed$.subscribe(() => {
             if (!this.tabs.length && this.config.store.appearance.lastTabClosesWindow) {
-                this.hostWindow.close()
+                this.closeWindow()
             }
         })
 
