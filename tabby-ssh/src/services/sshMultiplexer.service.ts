@@ -12,19 +12,37 @@ export class SSHMultiplexerService {
     ) { }
 
     async addSession (session: SSHSession): Promise<void> {
-        const key = await this.getMultiplexerKey(session.profile)
-        this.sessions.set(key, session)
-        session.willDestroy$.subscribe(() => {
-            if (this.sessions.get(key) === session) {
+        const state = { destroyed: false }
+        let key: string|null = null
+        // Observe destruction before resolving a possibly asynchronous jump-host key.
+        const subscription = session.willDestroy$.subscribe(() => {
+            state.destroyed = true
+            if (key && this.sessions.get(key) === session) {
                 this.sessions.delete(key)
             }
         })
+        try {
+            key = await this.getMultiplexerKey(session.profile)
+        } catch (error) {
+            subscription.unsubscribe()
+            throw error
+        }
+        if (state.destroyed || !session.isReusable) {
+            subscription.unsubscribe()
+            return
+        }
+        this.sessions.set(key, session)
     }
 
     async getSession (profile: PartialProfile<SSHProfile>): Promise<SSHSession|null> {
         const fullProfile = this.profilesService.getConfigProxyForProfile(profile)
         const key = await this.getMultiplexerKey(fullProfile)
-        return this.sessions.get(key) ?? null
+        const session = this.sessions.get(key)
+        if (session && !session.isReusable) {
+            this.sessions.delete(key)
+            return null
+        }
+        return session ?? null
     }
 
     private async getMultiplexerKey (profile: SSHProfile) {
