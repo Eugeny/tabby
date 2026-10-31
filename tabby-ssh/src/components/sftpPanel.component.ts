@@ -22,6 +22,9 @@ export class SFTPPanelComponent {
     @Input() session: SSHSession
     @Output() closed = new EventEmitter<void>()
     sftp: SFTPSession
+    connected = false
+    connecting = false
+    connectionError: string|null = null
     fileList: SFTPFile[]|null = null
     filteredFileList: SFTPFile[] = []
     @Input() path = '/'
@@ -42,7 +45,25 @@ export class SFTPPanelComponent {
     }
 
     async ngOnInit (): Promise<void> {
-        this.sftp = await this.session.openSFTP()
+        await this.connect()
+    }
+
+    async connect (): Promise<void> {
+        if (this.connecting || this.connected) {
+            return
+        }
+        this.connecting = true
+        this.connectionError = null
+        try {
+            this.sftp = await this.session.openSFTP()
+            this.connected = true
+        } catch (error) {
+            this.connectionError = error instanceof Error ? error.message : String(error)
+            console.warn('Could not start SFTP:', error)
+            return
+        } finally {
+            this.connecting = false
+        }
         try {
             await this.navigate(this.path)
         } catch (error) {
@@ -53,6 +74,9 @@ export class SFTPPanelComponent {
     }
 
     async navigate (newPath: string, fallbackOnError = true): Promise<void> {
+        if (!this.connected) {
+            return
+        }
         const previousPath = this.path
         this.path = newPath
         this.pathChange.next(this.path)
