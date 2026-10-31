@@ -116,22 +116,7 @@ export class SFTPSession {
         const tempPath = path + '.tabby-upload'
         try {
             await writeSFTPUpload({
-                stat: async () => {
-                    const metadata = await this.sftp.stat(path)
-                    if (metadata.permissions != null) {
-                        return metadata
-                    }
-                    // russh 0.1.38's stat wrapper spreads a NAPI object, which
-                    // can omit its permissions getter. Directory entries read
-                    // the same metadata through explicit getters instead.
-                    const entry = (await this.sftp.readDirectory(posixPath.dirname(path))).find(
-                        candidate => candidate.name === posixPath.basename(path),
-                    )
-                    if (!entry) {
-                        throw new Error('The upload destination changed while reading its permissions')
-                    }
-                    return entry.metadata
-                },
+                stat: () => this.sftp.stat(path),
                 open: () => this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE | russh.OPEN_TRUNCATE),
                 chmod: mode => this.chmod(tempPath, mode),
             }, transfer)

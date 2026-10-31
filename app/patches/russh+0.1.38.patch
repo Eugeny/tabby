@@ -1,0 +1,12 @@
+diff --git a/node_modules/russh/lib/sftp.js b/node_modules/russh/lib/sftp.js
+--- a/node_modules/russh/lib/sftp.js
++++ b/node_modules/russh/lib/sftp.js
+@@ -54,7 +54,7 @@ class SFTP extends helpers_1.Destructible {
+         return __awaiter(this, void 0, void 0, function* () {
+             this.assertNotDestructed();
+             const md = yield this.inner.stat(path);
+-            return Object.assign(Object.assign({}, md), { type: md.type(), size: parseInt(md.size) });
++            return Object.assign(Object.assign({}, md), { type: md.type(), size: parseInt(md.size), permissions: md.permissions });
+         });
+     }
+     readDirectory(path) {
