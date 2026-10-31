@@ -35,28 +35,28 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             div(translate) HTTP proxy
                             .text-muted(translate) Using CONNECT method
 
-                .mb-3.w-100(*ngIf='connectionMode === "proxyCommand"')
-                    label(translate) Proxy command
-                    input.form-control(
-                        type='text',
-                        [(ngModel)]='profile.options.proxyCommand',
-                    )
-                    .form-text(translate) Supports %h (host), %p (port), and %% (literal %).
-
-                .mb-3.w-100.me-2(*ngIf='connectionMode !== "proxyCommand"')
+                .mb-3.w-100.me-2
                     label(translate) Host
                     input.form-control(
                         type='text',
                         [(ngModel)]='profile.options.host',
                     )
 
-                .mb-3(*ngIf='connectionMode !== "proxyCommand"')
+                .mb-3
                     label(translate) Port
                     input.form-control(
                         type='number',
                         placeholder='22',
                         [(ngModel)]='profile.options.port',
                     )
+
+            .mb-3(*ngIf='connectionMode === "proxyCommand"')
+                label(translate) Proxy command
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='profile.options.proxyCommand',
+                )
+                .form-text(translate) Supports %h (host), %p (port), and %% (literal %).
 
             .mb-3(*ngIf='connectionMode === "jumpHost"')
                 label(translate) Jump host
