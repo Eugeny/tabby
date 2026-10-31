@@ -1,6 +1,5 @@
-import * as yaml from 'js-yaml'
 import { Injectable } from '@angular/core'
-import { ConfigService, HostAppService, Logger, LogService, Platform, PlatformService } from 'tabby-core'
+import { ConfigService, HostAppService, Logger, LogService, Platform, PlatformService, parseConfig, serializeConfig } from 'tabby-core'
 
 export interface User {
     id: number
@@ -90,13 +89,13 @@ export class ConfigSyncService {
         }
         try {
             const data = await this.readConfigDataForSync()
-            const remoteData = yaml.load((await this.getConfig(this.config.store.configSync.configID)).content) as any
+            const remoteData = parseConfig((await this.getConfig(this.config.store.configSync.configID)).content) as any
             for (const part of OPTIONAL_CONFIG_PARTS) {
                 if (!this.config.store.configSync.parts[part]) {
                     data[part] = remoteData[part]
                 }
             }
-            const content = yaml.dump(data)
+            const content = serializeConfig(data)
             const result = await this.updateConfig(this.config.store.configSync.configID, {
                 content,
                 last_used_with_version: this.platform.getAppVersion(),
@@ -115,9 +114,9 @@ export class ConfigSyncService {
         }
         try {
             const config = await this.getConfig(this.config.store.configSync.configID)
-            const data = yaml.load(config.content) as any
+            const data = parseConfig(config.content) as any
 
-            const localData = yaml.load(this.config.readRaw()) as any
+            const localData = parseConfig(this.config.readRaw()) as any
             data.configSync = localData.configSync
 
             if (!data.encrypted) {
@@ -147,13 +146,13 @@ export class ConfigSyncService {
     }
 
     private async readConfigDataForSync (): Promise<any> {
-        const data = yaml.load(await this.platform.loadConfig()) as any
+        const data = parseConfig(await this.platform.loadConfig()) as any
         delete data.configSync
         return data
     }
 
     private async writeConfigDataFromSync (data: any) {
-        await this.platform.saveConfig(yaml.dump(data))
+        await this.platform.saveConfig(serializeConfig(data))
         await this.config.load()
         await this.config.save()
     }
