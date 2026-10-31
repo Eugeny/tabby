@@ -50,7 +50,12 @@ export class MultifocusService {
         return this.currentTab === tab ? this.inputTargets : [tab]
     }
 
-    cancel (): void {
+    cancel (blurredTab?: BaseTerminalTabComponent<any>): void {
+        // Restoring window focus also blurs the non-focused split panes.
+        // Only losing the input source should cancel the broadcast.
+        if (blurredTab && blurredTab !== this.currentTab) {
+            return
+        }
         this.warningElement.style.display = 'none'
         document.querySelector('app-root')!['style'].border = 'none'
 

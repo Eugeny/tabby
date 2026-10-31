@@ -449,7 +449,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.frontend.focus()
 
         this.blurred$.subscribe(() => {
-            this.multifocus.cancel()
+            this.multifocus.cancel(this)
         })
 
         this.visibility$

@@ -87,6 +87,24 @@ test('terminal focus reports stay local and do not scroll', () => {
     assert.equal(f.source.scrolls(), 0)
 })
 
+test('refocusing a split preserves broadcast when only another pane is blurred', async () => {
+    const f = fixture('one\ntwo')
+    let confirm = (_response: { response: number }) => { throw Error('Confirmation not initialized') }
+    f.state.response = new Promise(resolve => { confirm = resolve })
+    const pending = f.source.tab.paste()
+    // SplitTab.focus(source) emits blurred$ on the other panes when the native
+    // confirmation closes and Windows restores the app window's focus.
+    f.broadcast.cancel(f.other.tab)
+    confirm({ response: 0 })
+    await pending
+    assert.deepEqual(f.source.text(), ['one\rtwo'])
+    assert.deepEqual(f.other.text(), ['one\rtwo'])
+    f.broadcast.cancel(f.source.tab)
+    f.source.tab.sendInput('local')
+    assert.deepEqual(f.source.text(), ['one\rtwo', 'local'])
+    assert.deepEqual(f.other.text(), ['one\rtwo'])
+})
+
 test('paste applies bracketed framing separately for each destination', async () => {
     const f = fixture()
     f.source.tab.frontend.supportsBracketedPaste = () => true
