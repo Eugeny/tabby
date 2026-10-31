@@ -1,11 +1,12 @@
 import colors from 'ansi-colors'
 import * as ZModem from 'zmodem.js'
-import { Observable, filter, first } from 'rxjs'
+import { Observable, filter } from 'rxjs'
 import { EnvironmentInjector, inject, Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { SessionMiddleware } from '../api/middleware'
 import { LogService, Logger, PlatformService, FileUpload, TranslateService } from 'tabby-core'
+import { ZModemWriteBudget, ZModemWriteBuffer } from './zmodemWriteBuffer'
 
 const SPACER = '            '
 
@@ -15,6 +16,9 @@ class ZModemMiddleware extends SessionMiddleware {
     private logger: Logger
     private activeSession: any = null
     private cancelEvent: Observable<any>
+    private receiveBudget = new ZModemWriteBudget()
+    private receiveCancels = new Set<() => void>()
+    private disposed = false
 
     // While non-null, terminal output is buffered here instead of being sent
     // straight to the terminal. Used to hold back a receive session's trailing
@@ -108,7 +112,12 @@ class ZModemMiddleware extends SessionMiddleware {
             } catch (e) {
                 this.showMessage(colors.bgRed.black(' Error ') + ' ' + e)
                 this.logger.error('protocol error', e)
-                this.activeSession?.abort()
+                for (const cancel of this.receiveCancels) {
+                    cancel()
+                }
+                try {
+                    this.activeSession?.abort()
+                } catch { }
                 this.activeSession = null
                 this.isActive = false
                 // Don't forward the problematic data to terminal
@@ -126,6 +135,14 @@ class ZModemMiddleware extends SessionMiddleware {
                 this.outputToTerminal.next(data)
             }
         }
+    }
+
+    close (): void {
+        this.disposed = true
+        for (const cancel of this.receiveCancels) {
+            cancel()
+        }
+        super.close()
     }
 
     private async process (detection): Promise<void> {
@@ -150,9 +167,20 @@ class ZModemMiddleware extends SessionMiddleware {
 
                 this.showMessage(colors.bgBlue.black(' ZMODEM ') + ' Complete')
             } else {
-                const pendingReceives: Promise<void>[] = []
+                const pendingReceives = new Set<Promise<void>>()
+                const receiveErrors: Error[] = []
+                const writers = new Set<ZModemWriteBuffer>()
+                zsession.set_receive_window(65535, async () => {
+                    await Promise.all([...writers].map(writer => writer.flush()))
+                })
                 zsession.on('offer', xfer => {
-                    pendingReceives.push(this.receiveFile(xfer, zsession))
+                    const pending = this.receiveFile(xfer, zsession, writers).catch(error => {
+                        if (!receiveErrors.length) {
+                            receiveErrors.push(error instanceof Error ? error : new Error(String(error)))
+                        }
+                    })
+                    pendingReceives.add(pending)
+                    pending.then(() => pendingReceives.delete(pending))
                 })
 
                 // session_end fires synchronously inside sentry.consume(),
@@ -170,6 +198,9 @@ class ZModemMiddleware extends SessionMiddleware {
 
                 await new Promise(resolve => zsession.on('session_end', resolve))
                 await Promise.all(pendingReceives)
+                if (receiveErrors.length) {
+                    throw receiveErrors[0]
+                }
 
                 this.showMessage(colors.bgBlue.black(' ZMODEM ') + ' Complete')
                 this.flushTrailingBuffer()
@@ -192,7 +223,7 @@ class ZModemMiddleware extends SessionMiddleware {
         }
     }
 
-    private async receiveFile (xfer, zsession) {
+    private async receiveFile (xfer, zsession, writers: Set<ZModemWriteBuffer>) {
         const details: {
             name: string,
             size: number,
@@ -201,21 +232,44 @@ class ZModemMiddleware extends SessionMiddleware {
         this.logger.info('offered', xfer)
 
         const transfer = await this.platform.startDownload(details.name, 0o644, details.size)
-        if (!transfer) {
+        if (!transfer || this.disposed || this.activeSession !== zsession) {
+            transfer?.cancel()
             this.showMessage(colors.bgRed.black(' Rejected ') + ' ' + details.name)
-            xfer.skip()
+            if (!this.disposed && this.activeSession === zsession) {
+                xfer.skip()
+            }
             return
         }
 
-        let canceled = false
-        const cancelSubscription = this.cancelEvent.subscribe(() => {
+        const cancellationState = { canceled: false }
+        let skipped = false
+        const skip = () => {
+            if (skipped) {
+                return
+            }
+            skipped = true
             try {
                 zsession._skip()
             } catch {}
-            canceled = true
-        })
+        }
+        const writer = new ZModemWriteBuffer(async data => {
+            if (transfer.isCancelled()) {
+                throw new Error('ZMODEM download cancelled')
+            }
+            await transfer.write(data)
+        }, this.receiveBudget)
+        writers.add(writer)
+        let resolveCancellation: () => void = () => undefined
+        const cancellation = new Promise<void>(resolve => { resolveCancellation = resolve })
+        const cancel = () => {
+            cancellationState.canceled = true
+            writer.abort(new Error('ZMODEM download cancelled'))
+            skip()
+            resolveCancellation()
+        }
+        const cancelSubscription = this.cancelEvent.subscribe(cancel)
+        this.receiveCancels.add(cancel)
 
-        let writeQueue: Promise<void> = Promise.resolve()
         let receivedBytes = 0
         let lastUpdateTime = 0
 
@@ -223,7 +277,18 @@ class ZModemMiddleware extends SessionMiddleware {
             await Promise.race([
                 xfer.accept({
                     on_input: chunk => {
-                        if (canceled) {
+                        if (cancellationState.canceled) {
+                            return
+                        }
+                        if (transfer.isCancelled()) {
+                            cancel()
+                            return
+                        }
+                        try {
+                            writer.push(chunk)
+                        } catch (error) {
+                            writer.abort(error)
+                            skip()
                             return
                         }
 
@@ -236,31 +301,40 @@ class ZModemMiddleware extends SessionMiddleware {
                             this.showMessage(colors.bgYellow.black(` ${percentStr}% `) + ' ' + details.name, true)
                         }
 
-                        writeQueue = writeQueue
-                            .then(() => transfer.write(Buffer.from(chunk)))
-                            .catch(err => {
-                                this.logger.error('Zmodem write error', err)
-                            })
                     },
                 }),
-                this.cancelEvent.pipe(first()).toPromise(),
+                cancellation,
+                writer.failed,
             ])
 
-            await writeQueue
+            await writer.finish()
 
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if (canceled) {
+            if (cancellationState.canceled) {
                 transfer.cancel()
                 this.showMessage(colors.bgRed.black(' Canceled ') + ' ' + details.name)
             } else {
                 transfer.close()
                 this.showMessage(colors.bgGreen.black(' Received ') + ' ' + details.name)
             }
-        } catch {
-            this.showMessage(colors.bgRed.black(' Error ') + ' ' + details.name)
+        } catch (error) {
+            writer.abort(error)
+            skip()
+            if (cancellationState.canceled || transfer.isCancelled()) {
+                transfer.cancel()
+                this.showMessage(colors.bgRed.black(' Canceled ') + ' ' + details.name)
+            } else {
+                const message = error instanceof Error ? error.message : String(error)
+                this.logger.error('Zmodem write error', error)
+                transfer.setStatus(message)
+                transfer.cancel()
+                this.showMessage(colors.bgRed.black(' Error ') + ' ' + details.name + ': ' + message)
+                throw error
+            }
+        } finally {
+            cancelSubscription.unsubscribe()
+            this.receiveCancels.delete(cancel)
+            writers.delete(writer)
         }
-
-        cancelSubscription.unsubscribe()
     }
 
     private async sendFile (zsession, transfer: FileUpload, filesRemaining, sizeRemaining) {

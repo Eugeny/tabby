@@ -1,9 +1,7 @@
 diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src/zsession.js
-index 5f0b8f9..3f88b68 100644
 --- a/node_modules/zmodem.js/src/zsession.js
 +++ b/node_modules/zmodem.js/src/zsession.js
-@@ -572,7 +572,15 @@ Zmodem.Session.Receive = class ZmodemReceiveSession extends Zmodem.Session {
-             else {
+@@ -573,5 +573,13 @@
                  parsed = this._parse_and_consume_header();
              }
 -        } while (parsed && this._input_buffer.length);
@@ -17,5 +15,141 @@ index 5f0b8f9..3f88b68 100644
 +            this._consume_first();
 +        }
      }
- 
-     _consume_data(subpacket) {
+
+@@ -657,6 +665,20 @@
+         */
+
+-        if (subpacket.ack_expected() && !subpacket.frame_end()) {
+-            this._send_header( "ZACK", Zmodem.ENCODELIB.pack_u32_le(this._file_offset) );
++        if (subpacket.ack_expected()) {
++            var offset = this._file_offset;
++            var transfer = this._current_transfer;
++            var acknowledge = () => {
++                if (!this.has_ended() && this._current_transfer === transfer && this._file_info) {
++                    this._send_header( "ZACK", Zmodem.ENCODELIB.pack_u32_le(offset) );
++                }
++            };
++            if (this._before_ack) {
++                Promise.resolve().then(this._before_ack).then(acknowledge).catch(() => {
++                    if (!this.has_ended()) this.abort();
++                });
++            }
++            else {
++                acknowledge();
++            }
+         }
+     }
+@@ -748,4 +770,5 @@
+
+                     this._next_header_handler = {
++                        ZDATA: on_ZDATA,
+                         ZEOF: function on_ZEOF(hdr) {
+
+@@ -839,6 +862,16 @@
+     }
+
++    // A finite receive window makes the sender wait for ZACK. The callback
++    // resolves after the application has persisted the preceding bytes.
++    set_receive_window(size, before_ack) {
++        if (!Number.isInteger(size) || size < 1 || size > 65535) {
++            throw new Error("Invalid receive window");
++        }
++        this._receive_window = size;
++        this._before_ack = before_ack;
++    }
++
+     _send_ZRINIT() {
+-        this._send_header( "ZRINIT", ZRINIT_FLAGS );
++        this._send_header( "ZRINIT", ZRINIT_FLAGS, this._receive_window );
+     }
+
+@@ -987,6 +1020,7 @@
+      */
+     send(array_like) {
+-        this._send(array_like);
++        var ret = this._send(array_like);
+         this._file_offset += array_like.length;
++        return ret;
+     }
+
+@@ -1180,4 +1214,7 @@
+
+         this._file_offset = 0;
++        this.on("session_end", () => {
++            if (this._reject_ack) this._reject_ack(new Error("Session ended before acknowledgement"));
++        });
+
+         var zrqinit_count = 0;
+@@ -1294,7 +1331,5 @@
+         this._last_ZRINIT = hdr;
+
+-        if (hdr.get_buffer_size()) {
+-            throw( "Buffer size (" + hdr.get_buffer_size() + ") is unsupported!" );
+-        }
++        this._receive_window = hdr.get_buffer_size();
+
+         if (!hdr.can_full_duplex()) {
+@@ -1519,5 +1554,31 @@
+     */
+     //TODO: Put this on a Transfer object similar to what Receive uses?
+-    _send_interim_file_piece(bytes_obj) {
++    async _send_interim_file_piece(bytes_obj) {
++        if (this._receive_window) {
++            for (var offset = 0; offset < bytes_obj.length; offset += this._receive_window) {
++                var chunk = bytes_obj.slice(offset, offset + this._receive_window);
++                var expected = this._file_offset + chunk.length;
++                var handlers = this._next_header_handler;
++                try {
++                    await new Promise((resolve, reject) => {
++                        this._reject_ack = reject;
++                        this._next_header_handler = {
++                            ZACK: (hdr) => {
++                                if (hdr.get_offset() !== expected) throw new Error("ZACK offset mismatch");
++                                this._next_header_handler = handlers;
++                                resolve();
++                            },
++                            ZSKIP: () => reject(new Error("Peer skipped transfer")),
++                        };
++                        this._send_file_part(chunk, "end_ack");
++                        this._sent_ZDATA = false;
++                    });
++                }
++                finally {
++                    this._reject_ack = null;
++                }
++            }
++            return;
++        }
+
+         //We don’t ask the receiver to confirm because there’s no need.
+@@ -1536,6 +1597,10 @@
+
+     //This resolves once we receive ZEOF.
+-    _end_file(bytes_obj) {
++    async _end_file(bytes_obj) {
+         this._ensure_we_are_sending();
++        if (this._receive_window) {
++            await this._send_interim_file_piece(bytes_obj);
++            bytes_obj = [];
++        }
+
+         //Is the frame-end-ness of this last packet redundant
+diff --git a/node_modules/zmodem.js/src/zheader.js b/node_modules/zmodem.js/src/zheader.js
+--- a/node_modules/zmodem.js/src/zheader.js
++++ b/node_modules/zmodem.js/src/zheader.js
+@@ -305,5 +305,5 @@
+     //undefined if nonstop I/O is allowed
+     get_buffer_size() {
+-        return Zmodem.ENCODELIB.unpack_u16_be( this._bytes4.slice(0, 2) ) || undefined;
++        return Zmodem.ENCODELIB.unpack_u16_be( this._bytes4.slice(0, 2).reverse() ) || undefined;
+     }
+
+@@ -395,4 +395,8 @@
+ //to ZSINIT, which doesn’t require a payload.
+ class ZACK_HEADER extends Zmodem.Header {
++    get_offset() {
++        return Zmodem.ENCODELIB.unpack_u32_le(this._bytes4);
++    }
++
+     constructor(payload4) {
+         super();
