@@ -41,6 +41,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         type='text',
                         [(ngModel)]='profile.options.proxyCommand',
                     )
+                    .form-text(translate) Supports %h (host), %p (port), and %% (literal %).
 
                 .mb-3.w-100.me-2(*ngIf='connectionMode !== "proxyCommand"')
                     label(translate) Host
