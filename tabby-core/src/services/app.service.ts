@@ -122,9 +122,10 @@ export class AppService {
             }
         })
 
-        this.tabClosed$.subscribe(() => {
+        this.tabClosed$.subscribe(async () => {
             if (!this.tabs.length && this.config.store.appearance.lastTabClosesWindow) {
-                this.closeWindow()
+                await this.tabRecovery.saveTabs(this.tabs)
+                this.hostWindow.close()
             }
         })
 
