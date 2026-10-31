@@ -56,7 +56,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     type='text',
                     [(ngModel)]='profile.options.proxyCommand',
                 )
-                .form-text(translate) Supports %h (host), %p (port), and %% (literal %).
+                .text-muted.small.mt-1(translate) Supports %h (host), %p (port), and %% (literal %).
 
             .mb-3(*ngIf='connectionMode === "jumpHost"')
                 label(translate) Jump host
