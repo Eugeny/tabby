@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
-import { Subscription } from 'rxjs'
 import { SplitTabComponent, TranslateService, AppService, HotkeysService } from 'tabby-core'
 
 @Injectable({ providedIn: 'root' })
 export class MultifocusService {
-    private inputSubscription: Subscription|null = null
     private currentTab: BaseTerminalTabComponent<any>|null = null
+    private inputTargets: BaseTerminalTabComponent<any>[] = []
     private warningElement: HTMLElement
 
     constructor (
@@ -33,7 +32,7 @@ export class MultifocusService {
     }
 
     start (currentTab: BaseTerminalTabComponent<any>, tabs: BaseTerminalTabComponent<any>[]): void {
-        if (this.inputSubscription) {
+        if (this.currentTab) {
             return
         }
 
@@ -44,29 +43,26 @@ export class MultifocusService {
         }
 
         this.currentTab = currentTab
-        this.inputSubscription = currentTab.frontend?.input$.subscribe(data => {
-            for (const tab of tabs) {
-                if (tab !== currentTab) {
-                    tab.sendInput(data)
-                }
-            }
-        }) ?? null
+        this.inputTargets = [...new Set([currentTab, ...tabs])]
+    }
+
+    getInputTargets (tab: BaseTerminalTabComponent<any>): BaseTerminalTabComponent<any>[] {
+        return this.currentTab === tab ? this.inputTargets : [tab]
     }
 
     cancel (): void {
         this.warningElement.style.display = 'none'
         document.querySelector('app-root')!['style'].border = 'none'
 
-        if (!this.inputSubscription) {
+        if (!this.currentTab) {
             return
         }
-        this.inputSubscription.unsubscribe()
-        this.inputSubscription = null
-        if (this.currentTab?.parent instanceof SplitTabComponent) {
+        if (this.currentTab.parent instanceof SplitTabComponent) {
             this.currentTab.parent._allFocusMode = false
             this.currentTab.parent.layout()
         }
         this.currentTab = null
+        this.inputTargets = []
     }
 
     focusAllTabs (): void {
