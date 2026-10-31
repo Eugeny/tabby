@@ -1,6 +1,6 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile, ProfilesService, AppService } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
@@ -162,6 +162,8 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         private ngbModal: NgbModal,
         private notifications: NotificationsService,
         private translate: TranslateService,
+        private profiles: ProfilesService,
+        private app: AppService,
     ) {
         super()
     }
@@ -204,7 +206,9 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                             ...this.config.store.profiles,
                             profile,
                         ]
-                        this.config.save()
+                        await this.config.save()
+                        tab.profile = this.profiles.getConfigProxyForProfile(profile)
+                        this.app.emitTabsChanged()
                         this.notifications.info(this.translate.instant('Saved'))
                     },
                 },
