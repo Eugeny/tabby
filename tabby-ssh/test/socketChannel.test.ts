@@ -18,17 +18,24 @@ async function connected () {
     const port = (server.address() as { port: number }).port
     const accepted = once(server, 'connection')
     const client = createConnection(port, '127.0.0.1')
+    const connecting = once(client, 'connect')
     const [socket] = await accepted as [Socket]
-    await once(client, 'connect')
+    await connecting
+    let closed = false
     return { client, socket, async close () {
+        if (closed) {
+            return
+        }
+        closed = true
         client.destroy()
         socket.destroy()
         await new Promise<void>(resolve => server.close(() => resolve()))
     } }
 }
 
-test('serializes asynchronous writes and sends EOF after the final write', async () => {
+test('serializes asynchronous writes and sends EOF after the final write', { timeout: 10000 }, async t => {
     const pair = await connected(), remote = channel(), owner = new Subject<void>()
+    t.after(async () => { owner.next(); await pair.close() })
     const received: Buffer[] = [], errors: unknown[] = []
     let release: () => void = () => undefined
     const blocked = new Promise<void>(resolve => { release = resolve })
@@ -60,8 +67,9 @@ test('serializes asynchronous writes and sends EOF after the final write', async
     } finally { release(); owner.next(); await pair.close() }
 })
 
-test('flushes buffered channel output before destroying a closed connection', async () => {
+test('flushes buffered channel output before destroying a closed connection', { timeout: 10000 }, async t => {
     const pair = await connected(), remote = channel(), owner = new Subject<void>()
+    t.after(async () => { owner.next(); await pair.close() })
     const errors: unknown[] = [], received: Buffer[] = []
     bridgeSocketToChannel(remote, pair.socket, { error: (...args) => errors.push(args) }, 'test', owner)
     pair.client.on('data', data => received.push(data))
@@ -83,8 +91,9 @@ test('flushes buffered channel output before destroying a closed connection', as
     } finally { owner.next(); await pair.close() }
 })
 
-test('handles an asynchronous write failure and releases channel observers', async () => {
+test('handles an asynchronous write failure and releases channel observers', { timeout: 10000 }, async t => {
     const pair = await connected(), remote = channel(), owner = new Subject<void>()
+    t.after(async () => { owner.next(); await pair.close() })
     const errors: unknown[] = []
     remote.write = async () => { throw new Error('native write failed') }
     bridgeSocketToChannel(remote, pair.socket, { error: (...args) => errors.push(args) }, 'test', owner)
@@ -100,8 +109,9 @@ test('handles an asynchronous write failure and releases channel observers', asy
     } finally { owner.next(); await pair.close() }
 })
 
-test('ignores late data after EOF and cancels pending writes on session teardown', async () => {
+test('ignores late data after EOF and cancels pending writes on session teardown', { timeout: 10000 }, async t => {
     const pair = await connected(), remote = channel(), owner = new Subject<void>()
+    t.after(async () => { owner.next(); await pair.close() })
     const errors: unknown[] = []
     let closeCalls = 0, eofCalls = 0, release: () => void = () => undefined
     const blocked = new Promise<void>(resolve => { release = resolve })
