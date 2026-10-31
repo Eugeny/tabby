@@ -170,11 +170,12 @@ class ZModemMiddleware extends SessionMiddleware {
                 const pendingReceives = new Set<Promise<void>>()
                 const receiveErrors: Error[] = []
                 const writers = new Set<ZModemWriteBuffer>()
+                const cancelReceives = new Set<() => void>()
                 zsession.set_receive_window(65535, async () => {
                     await Promise.all([...writers].map(writer => writer.flush()))
                 })
                 zsession.on('offer', xfer => {
-                    const pending = this.receiveFile(xfer, zsession, writers).catch(error => {
+                    const pending = this.receiveFile(xfer, zsession, writers, cancelReceives).catch(error => {
                         if (!receiveErrors.length) {
                             receiveErrors.push(error instanceof Error ? error : new Error(String(error)))
                         }
@@ -192,6 +193,11 @@ class ZModemMiddleware extends SessionMiddleware {
                 // overwritten by showMessage()'s leading "\r".
                 zsession.on('session_end', () => {
                     this.trailingBuffer = []
+                    if (zsession.aborted()) {
+                        for (const cancel of cancelReceives) {
+                            cancel()
+                        }
+                    }
                 })
 
                 zsession.start()
@@ -223,7 +229,7 @@ class ZModemMiddleware extends SessionMiddleware {
         }
     }
 
-    private async receiveFile (xfer, zsession, writers: Set<ZModemWriteBuffer>) {
+    private async receiveFile (xfer, zsession, writers: Set<ZModemWriteBuffer>, cancelReceives: Set<() => void>) {
         const details: {
             name: string,
             size: number,
@@ -232,10 +238,10 @@ class ZModemMiddleware extends SessionMiddleware {
         this.logger.info('offered', xfer)
 
         const transfer = await this.platform.startDownload(details.name, 0o644, details.size)
-        if (!transfer || this.disposed || this.activeSession !== zsession) {
+        if (!transfer || this.disposed || this.activeSession !== zsession || zsession.aborted()) {
             transfer?.cancel()
             this.showMessage(colors.bgRed.black(' Rejected ') + ' ' + details.name)
-            if (!this.disposed && this.activeSession === zsession) {
+            if (!this.disposed && this.activeSession === zsession && !zsession.aborted()) {
                 xfer.skip()
             }
             return
@@ -244,7 +250,7 @@ class ZModemMiddleware extends SessionMiddleware {
         const cancellationState = { canceled: false }
         let skipped = false
         const skip = () => {
-            if (skipped) {
+            if (skipped || zsession._current_transfer !== xfer) {
                 return
             }
             skipped = true
@@ -269,6 +275,7 @@ class ZModemMiddleware extends SessionMiddleware {
         }
         const cancelSubscription = this.cancelEvent.subscribe(cancel)
         this.receiveCancels.add(cancel)
+        cancelReceives.add(cancel)
 
         let receivedBytes = 0
         let lastUpdateTime = 0
@@ -333,6 +340,7 @@ class ZModemMiddleware extends SessionMiddleware {
         } finally {
             cancelSubscription.unsubscribe()
             this.receiveCancels.delete(cancel)
+            cancelReceives.delete(cancel)
             writers.delete(writer)
         }
     }
