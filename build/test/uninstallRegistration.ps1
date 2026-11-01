@@ -10,12 +10,19 @@ $registrations = @(
 )
 $saved = @()
 $results = @()
+$registryChanged = $false
 try {
     for ($i = 0; $i -lt $registrations.Count; $i++) {
         $key = 'HKCU\Software\Classes\' + $registrations[$i].Key
         $exists = Test-Path -LiteralPath ('Registry::HKEY_CURRENT_USER\Software\Classes\' + $registrations[$i].Key)
-        $saved += @{ Key = $key; Exists = $exists; File = "$root\$i.reg" }
-        if ($exists) { & reg.exe export $key "$root\$i.reg" /y | Out-Null; if ($LASTEXITCODE) { throw 'Registry export failed' } }
+        $backup = "$root\$i.reg"
+        if ($exists) {
+            & reg.exe export $key $backup /y | Out-Null
+            if ($LASTEXITCODE -or -not (Test-Path -LiteralPath $backup) -or (Get-Item -LiteralPath $backup).Length -eq 0) {
+                throw "Registry export failed: $key"
+            }
+        }
+        $saved += @{ Key = $key; Exists = $exists; File = $backup }
     }
     foreach ($case in @('owned-unquoted', 'owned-quoted', 'other-installation', 'different-command', 'upgrade', 'missing')) {
         $install = Join-Path $root $case
@@ -23,6 +30,7 @@ try {
         if ($process.ExitCode) { throw "Fixture install failed: $case" }
         foreach ($registration in $registrations) {
             $key = 'Software\Classes\' + $registration.Key
+            $registryChanged = $true
             [Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($key, $false)
             if ($case -eq 'missing') { continue }
             $exe = "$install\Tabby.exe"
@@ -51,9 +59,22 @@ try {
     }
     $results | ConvertTo-Json -Depth 4
 } finally {
-    foreach ($entry in $saved) {
-        [Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($entry.Key.Substring(5), $false)
-        if ($entry.Exists) { & reg.exe import $entry.File | Out-Null }
+    $restoreErrors = @()
+    if ($registryChanged) {
+        foreach ($entry in $saved) {
+            try {
+                [Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree($entry.Key.Substring(5), $false)
+                if ($entry.Exists) {
+                    & reg.exe import $entry.File | Out-Null
+                    if ($LASTEXITCODE) { throw "Registry import failed: $($entry.Key)" }
+                }
+            } catch {
+                $restoreErrors += $_.Exception.Message
+            }
+        }
+    }
+    if ($restoreErrors.Count) {
+        throw "Registry restoration failed. Backups retained at ${root}: $($restoreErrors -join '; ')"
     }
     Remove-Item -LiteralPath $root -Recurse -Force
 }
