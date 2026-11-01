@@ -148,7 +148,9 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
 
             this.sshMultiplexer.addSession(session)
         } else {
-            await session.applyProfilePortForwards(profile)
+            // Let the new shell acquire its connection reference even if a
+            // profile forward is still waiting for its listener or server.
+            void session.applyProfilePortForwards(profile)
         }
 
         return session

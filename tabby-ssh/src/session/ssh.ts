@@ -587,7 +587,7 @@ export class SSHSession {
             channel.closed$.subscribe(() => agent.close())
         })
 
-        await this.applyProfilePortForwards(this.profile)
+        void this.applyProfilePortForwards(this.profile)
     }
 
     private async verifyHostKey (key: russh.SshPublicKey): Promise<boolean> {

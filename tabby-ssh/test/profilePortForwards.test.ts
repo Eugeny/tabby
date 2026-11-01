@@ -109,3 +109,39 @@ test('normalizes an omitted bind host using the forward default', async () => {
     await f.session.applyProfilePortForwards(profile(config))
     assert.equal(f.calls.length, 0)
 })
+
+test('reused-session attachment does not wait for a pending profile forward', async () => {
+    const setupFile = new URL('../src/components/sshTab.component.ts', import.meta.url)
+    const setupAst = ts.createSourceFile(setupFile.pathname, readFileSync(setupFile, 'utf8'), ts.ScriptTarget.Latest, true)
+    const setupClass = setupAst.statements.find(n => ts.isClassDeclaration(n) && n.name?.text === 'SSHTabComponent') as ts.ClassDeclaration
+    const setupMethod = setupClass.members.find(n => n.name?.getText(setupAst) === 'setupOneSession')!.getText(setupAst)
+    const setupCode = ts.transpileModule(`return class { ${setupMethod} }`, {
+        compilerOptions: { target: ts.ScriptTarget.ES2020 },
+    }).outputText
+    // eslint-disable-next-line @typescript-eslint/no-implied-eval
+    const Tab = new Function(setupCode)()
+    let release = () => { throw Error('Forward setup not initialized') }
+    let requested = false
+    const pending = new Promise<void>(resolve => { release = resolve })
+    const session = {
+        open: true,
+        applyProfilePortForwards: () => { requested = true; return pending },
+    }
+    const tab = Object.assign(new Tab(), {
+        sshMultiplexer: { getSession: async () => session },
+        attachSessionHandler: () => undefined,
+    })
+    let attached = false
+    const attaching = tab.setupOneSession({}, { options: { reuseSession: true } }).then(result => {
+        assert.equal(result, session)
+        attached = true
+    })
+    await new Promise(resolve => setImmediate(resolve))
+    try {
+        assert.equal(requested, true)
+        assert.equal(attached, true, 'a delayed bind must not block the shell from acquiring its connection ref')
+    } finally {
+        release()
+        await attaching
+    }
+})
