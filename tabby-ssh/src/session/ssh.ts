@@ -129,6 +129,7 @@ export class SSHSession {
     private knownHosts: SSHKnownHostsService
     private privateKeyImporters: AutoPrivateKeyLocator[]
     private previouslyDisconnected = false
+    private pendingProfileForwards = new Map<string, Promise<void>>()
 
     constructor (
         private injector: Injector,
@@ -499,16 +500,6 @@ export class SSHSession {
             this.passwordStorage.savePassword(this.profile, this.savedPassword, this.authUsername ?? undefined)
         }
 
-        for (const fwConfig of this.profile.options.forwardedPorts) {
-            const fw = Object.assign(new ForwardedPort(), fwConfig)
-            this.addPortForward(fw).catch(e => {
-                this.notifications.error(
-                    this.translate.instant(_('Failed to forward port {fw}'), { fw: fw.toString() }),
-                    e.toString(),
-                )
-            })
-        }
-
         this.open = true
 
         this.ssh.tcpChannelOpen$.subscribe(async event => {
@@ -595,6 +586,8 @@ export class SSHSession {
             agent.data$.subscribe(data => channel.write(data), undefined, () => channel.close())
             channel.closed$.subscribe(() => agent.close())
         })
+
+        await this.applyProfilePortForwards(this.profile)
     }
 
     private async verifyHostKey (key: russh.SshPublicKey): Promise<boolean> {
@@ -808,6 +801,34 @@ export class SSHSession {
             }
         }
         return null
+    }
+
+    async applyProfilePortForwards (profile: SSHProfile): Promise<void> {
+        // Shared connections keep the union of their profiles' forwards until
+        // explicitly removed or the connection closes.
+        await Promise.all(profile.options.forwardedPorts.map(fwConfig => {
+            const fw = Object.assign(new ForwardedPort(), fwConfig)
+            const keyFor = (port: ForwardedPort) => JSON.stringify([
+                port.type, port.host, port.port,
+                ...(port.type === PortForwardType.Dynamic ? [] : [port.targetAddress, port.targetPort]),
+            ])
+            const key = keyFor(fw)
+            if (this.forwardedPorts.some(port => keyFor(port) === key)) {
+                return
+            }
+            const pending = this.pendingProfileForwards.get(key)
+            if (pending) {
+                return pending
+            }
+            const adding = this.addPortForward(fw).catch(e => {
+                this.notifications.error(
+                    this.translate.instant(_('Failed to forward port {fw}'), { fw: fw.toString() }),
+                    e.toString(),
+                )
+            }).finally(() => this.pendingProfileForwards.delete(key))
+            this.pendingProfileForwards.set(key, adding)
+            return adding
+        }))
     }
 
     async addPortForward (fw: ForwardedPort): Promise<void> {

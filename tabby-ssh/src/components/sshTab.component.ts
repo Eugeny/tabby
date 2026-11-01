@@ -147,6 +147,8 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
             }
 
             this.sshMultiplexer.addSession(session)
+        } else {
+            await session.applyProfilePortForwards(profile)
         }
 
         return session
