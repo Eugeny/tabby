@@ -1,7 +1,7 @@
 $titlebar-height: 30px;
 
 :host {
-    flex: 0 0 $titlebar-height;
+    flex: 0 0 max($titlebar-height, env(titlebar-area-height, $titlebar-height));
     display: flex;
     background: var(--theme-bg-more-2);
     color: var(--bs-body-color);
@@ -9,7 +9,7 @@ $titlebar-height: 30px;
     .title {
         flex: auto;
         padding-left: 15px;
-        line-height: $titlebar-height;
+        line-height: max($titlebar-height, env(titlebar-area-height, $titlebar-height));
         -webkit-app-region: drag;
         color: var(--bs-body-color);
     }

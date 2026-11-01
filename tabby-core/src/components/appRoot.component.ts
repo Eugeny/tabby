@@ -287,7 +287,7 @@ export class AppRootComponent {
                 this.hostApp.platform !== Platform.macOS
                 && this.config.store.appearance.frame === 'thin'
                 && this.config.store.appearance.tabsLocation !== 'top'
-                && this.config.store.appearance.tabsLocation !== 'bottom'
+                && (this.config.store.appearance.tabsLocation !== 'bottom' || this.hostApp.platform === Platform.Windows)
         )
     }
 }
