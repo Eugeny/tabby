@@ -6,19 +6,23 @@ import ts from 'typescript'
 const file = new URL('../src/session/ssh.ts', import.meta.url)
 const ast = ts.createSourceFile(file.pathname, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true)
 const cls = ast.statements.find(n => ts.isClassDeclaration(n) && n.name?.text === 'SSHSession') as ts.ClassDeclaration
-const method = cls.members.find(n => n.name?.getText(ast) === 'applyProfilePortForwards')!.getText(ast)
-const code = ts.transpileModule(`return class { ${method} }`, {
+const methods = ['applyProfilePortForwards', 'addPortForward'].map(name => cls.members.find(n => n.name?.getText(ast) === name)!.getText(ast))
+const code = ts.transpileModule(`return class { ${methods.join('\n')} }`, {
     compilerOptions: { target: ts.ScriptTarget.ES2020 },
 }).outputText
 class Forward {
     host = '127.0.0.1'
     toString () { return 'forward' }
 }
-// Compile the real method without bootstrapping Angular or a native SSH client.
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+class AuthenticatedSSHClient {}
+const PortForwardType = { Local: 'Local', Dynamic: 'Dynamic', Remote: 'Remote' }
+// Compile the real methods without bootstrapping Angular or a native SSH client.
 // eslint-disable-next-line @typescript-eslint/no-implied-eval
-const Session = new Function('ForwardedPort', 'PortForwardType', '_', code)(Forward, { Dynamic: 'Dynamic' }, x => x)
+const Session = new Function('ForwardedPort', 'PortForwardType', '_', 'russh', code)(Forward, PortForwardType, x => x, { AuthenticatedSSHClient })
 const forward = (port = 1000, extra = {}) => ({ type: 'Local', host: '127.0.0.1', port, targetAddress: 'localhost', targetPort: 22, ...extra })
 const profile = (...forwardedPorts) => ({ options: { forwardedPorts } })
+const logger = { info () { /* quiet */ }, warn () { /* quiet */ }, error () { /* quiet */ } }
 function fixture () {
     const calls: any[] = [], errors: any[] = []
     const session = Object.assign(new Session(), {
@@ -108,6 +112,41 @@ test('normalizes an omitted bind host using the forward default', async () => {
     delete config.host
     await f.session.applyProfilePortForwards(profile(config))
     assert.equal(f.calls.length, 0)
+})
+
+test('a local bind that completes after the connection closed is stopped and not kept', async () => {
+    const session = Object.assign(new Session(), { open: true, forwardedPorts: [], logger })
+    let bound = () => { throw Error('Listener not started') }
+    const listening = new Promise<void>(resolve => { bound = resolve })
+    let stopped = 0
+    const fw = Object.assign(new Forward(), forward(), {
+        startLocalListener: () => listening,
+        stopLocalListener: () => { stopped++ },
+    })
+    const adding = session.addPortForward(fw)
+    session.open = false // what destroy() does once #11873 lands
+    bound()
+    await assert.rejects(adding, /Connection closed before the port forward was ready/)
+    assert.equal(stopped, 1)
+    assert.equal(session.forwardedPorts.length, 0)
+})
+
+test('a remote forward registered after the connection closed is cancelled and not kept', async () => {
+    const session = Object.assign(new Session(), { open: true, forwardedPorts: [], logger })
+    let registered = () => { throw Error('Forward not requested') }
+    const registering = new Promise<void>(resolve => { registered = resolve })
+    const cancelled: any[] = []
+    session.ssh = Object.assign(new AuthenticatedSSHClient(), {
+        forwardTCPPort: () => registering,
+        stopForwardingTCPPort: async (...args) => { cancelled.push(args); throw Error('Connection lost') },
+    })
+    const fw = Object.assign(new Forward(), forward(2000, { type: 'Remote' }))
+    const adding = session.addPortForward(fw)
+    session.open = false
+    registered()
+    await assert.rejects(adding, /Connection closed before the port forward was ready/)
+    assert.deepEqual(cancelled, [['127.0.0.1', 2000]])
+    assert.equal(session.forwardedPorts.length, 0)
 })
 
 test('reused-session attachment does not wait for a pending profile forward', async () => {

@@ -854,6 +854,12 @@ export class SSHSession {
 
                 this.setupSocketChannelEvents(channel, socket, 'Local forward')
             }).then(() => {
+                if (!this.open) {
+                    // Effective once destroy() resets `open` (#11873): a bind that completes
+                    // after teardown must not leave a listener behind.
+                    fw.stopLocalListener()
+                    throw new Error('Connection closed before the port forward was ready')
+                }
                 this.logger.info(`Forwarded ${fw}`)
                 this.forwardedPorts.push(fw)
             }).catch(e => {
@@ -871,6 +877,14 @@ export class SSHSession {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.logger.error(`Remote rejected port forwarding for ${fw}: ${err}`)
                 throw err
+            }
+            if (!this.open) {
+                // Effective once destroy() resets `open` (#11873): the remote end must not keep
+                // a forward that no session will serve. Cancelling is best-effort.
+                this.ssh.stopForwardingTCPPort(fw.host, fw.port).catch(err => {
+                    this.logger.warn(`Could not cancel the port forward ${fw} after the connection closed: ${err}`)
+                })
+                throw new Error('Connection closed before the port forward was ready')
             }
             this.logger.info(`Forwarded ${fw}`)
             this.forwardedPorts.push(fw)
