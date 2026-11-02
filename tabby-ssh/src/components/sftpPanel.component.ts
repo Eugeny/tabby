@@ -1,7 +1,7 @@
 import * as C from 'constants'
 import { posix as path } from 'path'
 import { Component, Input, Output, EventEmitter, Inject, Optional } from '@angular/core'
-import { FileUpload, DirectoryUpload, DirectoryDownload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
+import { FileUpload, DirectoryUpload, DirectoryDownload, MenuItemOptions, NotificationsService, PlatformService, TranslateService } from 'tabby-core'
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
 import { SFTPContextMenuItemProvider } from '../api'
@@ -22,6 +22,9 @@ export class SFTPPanelComponent {
     @Input() session: SSHSession
     @Output() closed = new EventEmitter<void>()
     sftp: SFTPSession
+    connected = false
+    connecting = false
+    connectionError: string|null = null
     fileList: SFTPFile[]|null = null
     filteredFileList: SFTPFile[] = []
     @Input() path = '/'
@@ -36,13 +39,34 @@ export class SFTPPanelComponent {
         private ngbModal: NgbModal,
         private notifications: NotificationsService,
         public platform: PlatformService,
+        private translate: TranslateService,
         @Optional() @Inject(SFTPContextMenuItemProvider) protected contextMenuProviders: SFTPContextMenuItemProvider[],
     ) {
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
     }
 
     async ngOnInit (): Promise<void> {
-        this.sftp = await this.session.openSFTP()
+        await this.connect()
+    }
+
+    async connect (): Promise<void> {
+        if (this.connecting || this.connected) {
+            return
+        }
+        this.connecting = true
+        this.connectionError = null
+        try {
+            const sftp = await this.session.openSFTP()
+            this.sftp = sftp
+            this.connected = true
+            sftp.closed$.subscribe(() => this.onSFTPClosed(sftp))
+        } catch (error) {
+            this.connectionError = error instanceof Error ? error.message : String(error)
+            console.warn('Could not start SFTP:', error)
+            return
+        } finally {
+            this.connecting = false
+        }
         try {
             await this.navigate(this.path)
         } catch (error) {
@@ -52,7 +76,22 @@ export class SFTPPanelComponent {
         }
     }
 
+    private onSFTPClosed (sftp: SFTPSession): void {
+        // A session that was already replaced by a successful retry must not
+        // disconnect the panel.
+        if (sftp !== this.sftp) {
+            return
+        }
+        this.connected = false
+        this.fileList = null
+        this.filteredFileList = []
+        this.connectionError = this.translate.instant('The SFTP session was closed')
+    }
+
     async navigate (newPath: string, fallbackOnError = true): Promise<void> {
+        if (!this.connected) {
+            return
+        }
         const previousPath = this.path
         this.path = newPath
         this.pathChange.next(this.path)
