@@ -82,6 +82,45 @@ test('finite-window transfers support empty files and multiple offers', { timeou
     }
 })
 
+test('skipping a file while its acknowledgement is pending keeps the session going', { timeout: 5000 }, async () => {
+    // Ctrl+C in Tabby aborts the file's writer and answers the offer with ZSKIP
+    // (zsession._skip()); the flush the pending ZACK was waiting for then fails.
+    let failFlush: (error: Error) => void = () => undefined
+    const flushes: Promise<void>[] = []
+    const received: Buffer[] = []
+    const { sender, receiver } = pair(1024, () => {
+        const flush = flushes.length ? Promise.resolve() : new Promise<void>((_resolve, reject) => { failFlush = reject })
+        flushes.push(flush)
+        return flush
+    }, data => received.push(Buffer.from(data)))
+    try {
+        const skipped = await sender.send_offer({ name: 'skipped.bin', size: 4096 })
+        const sending = skipped.send(Buffer.alloc(2048, 1))
+        await setImmediate()
+        assert.equal(flushes.length, 1, 'the first window waits for the flush')
+        receiver._skip()
+        failFlush(new Error('ZMODEM download cancelled'))
+        await assert.rejects(sending, /Peer skipped transfer/)
+        await setImmediate()
+        assert.equal(receiver.aborted(), false, 'a skipped file must not abort the session')
+        assert.equal(sender.aborted(), false)
+        // The bundled sender keeps its per-file state after a peer skip (lrzsz
+        // clears it and offers the next file), so clear it here.
+        sender._sending_file = false
+        sender._file_offset = 0
+        const next = await sender.send_offer({ name: 'next.bin', size: 3 })
+        await next.end([1, 2, 3])
+        await sender.close()
+        assert.equal(received[0].length, 1024)
+        assert.deepEqual(Buffer.concat(received.slice(1)), Buffer.from([1, 2, 3]))
+        assert.equal(receiver.has_ended(), true)
+    } finally {
+        if (!sender.has_ended()) {
+            sender.abort()
+        }
+    }
+})
+
 test('peer abort rejects a sender waiting for a disk acknowledgement', { timeout: 5000 }, async () => {
     let release: () => void = () => undefined
     const blocked = new Promise<void>(resolve => { release = resolve })

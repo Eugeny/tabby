@@ -16,7 +16,7 @@ diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src
 +        }
      }
 
-@@ -657,6 +665,20 @@
+@@ -657,6 +665,25 @@
          */
 
 -        if (subpacket.ack_expected() && !subpacket.frame_end()) {
@@ -24,14 +24,19 @@ diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src
 +        if (subpacket.ack_expected()) {
 +            var offset = this._file_offset;
 +            var transfer = this._current_transfer;
++            //The sender waits for this ZACK until the session ends or the
++            //application skips the transfer, which answers it with ZSKIP.
++            var awaited = () => !this.has_ended() && this._current_transfer === transfer && !!this._file_info;
 +            var acknowledge = () => {
-+                if (!this.has_ended() && this._current_transfer === transfer && this._file_info) {
++                if (awaited()) {
 +                    this._send_header( "ZACK", Zmodem.ENCODELIB.pack_u32_le(offset) );
 +                }
 +            };
 +            if (this._before_ack) {
 +                Promise.resolve().then(this._before_ack).then(acknowledge).catch(() => {
-+                    if (!this.has_ended()) this.abort();
++                    //A skipped transfer's failed flush is already answered;
++                    //only a sender still waiting needs the session aborted.
++                    if (awaited()) this.abort();
 +                });
 +            }
 +            else {
@@ -39,13 +44,13 @@ diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src
 +            }
          }
      }
-@@ -748,4 +770,5 @@
+@@ -748,4 +775,5 @@
 
                      this._next_header_handler = {
 +                        ZDATA: on_ZDATA,
                          ZEOF: function on_ZEOF(hdr) {
 
-@@ -839,6 +862,16 @@
+@@ -839,6 +867,16 @@
      }
 
 +    // A finite receive window makes the sender wait for ZACK. The callback
@@ -63,7 +68,7 @@ diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src
 +        this._send_header( "ZRINIT", ZRINIT_FLAGS, this._receive_window );
      }
 
-@@ -987,6 +1020,7 @@
+@@ -987,6 +1025,7 @@
       */
      send(array_like) {
 -        this._send(array_like);
@@ -72,7 +77,7 @@ diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src
 +        return ret;
      }
 
-@@ -1180,4 +1214,7 @@
+@@ -1180,4 +1219,7 @@
 
          this._file_offset = 0;
 +        this.on("session_end", () => {
@@ -80,7 +85,7 @@ diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src
 +        });
 
          var zrqinit_count = 0;
-@@ -1294,7 +1331,5 @@
+@@ -1294,7 +1336,5 @@
          this._last_ZRINIT = hdr;
 
 -        if (hdr.get_buffer_size()) {
@@ -89,7 +94,7 @@ diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src
 +        this._receive_window = hdr.get_buffer_size();
 
          if (!hdr.can_full_duplex()) {
-@@ -1519,5 +1554,31 @@
+@@ -1519,5 +1559,31 @@
      */
      //TODO: Put this on a Transfer object similar to what Receive uses?
 -    _send_interim_file_piece(bytes_obj) {
@@ -122,7 +127,7 @@ diff --git a/node_modules/zmodem.js/src/zsession.js b/node_modules/zmodem.js/src
 +        }
 
          //We don’t ask the receiver to confirm because there’s no need.
-@@ -1536,6 +1597,10 @@
+@@ -1536,6 +1602,10 @@
 
      //This resolves once we receive ZEOF.
 -    _end_file(bytes_obj) {
