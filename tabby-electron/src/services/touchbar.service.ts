@@ -52,7 +52,10 @@ export class TouchbarService {
             hasActivity: this.app.activeTab !== tab && tab.hasActivity,
         }))
 
-        this.touchbarState$.next([tabSegments, this.app.activeTab ? this.app.tabs.indexOf(this.app.activeTab) : undefined])
+        // The throttle schedules its timer from within next(), so leave the Angular zone here too
+        this.zone.runOutsideAngular(() => {
+            this.touchbarState$.next([tabSegments, this.app.activeTab ? this.app.tabs.indexOf(this.app.activeTab) : undefined])
+        })
     }
 
     private shortenTitle (title: string): string {

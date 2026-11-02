@@ -23,7 +23,7 @@ export class ElectronHostWindow extends HostWindowService {
     private windowTitle = new Subject<string>()
 
     constructor (
-        zone: NgZone,
+        private zone: NgZone,
         private electron: ElectronService,
         @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
@@ -84,7 +84,9 @@ export class ElectronHostWindow extends HostWindowService {
     }
 
     setTitle (title?: string): void {
-        this.windowTitle.next(title ?? 'Tabby')
+        // The throttle schedules its timer from within next(), so leave the Angular zone here,
+        // not only around the subscription, or the trailing update triggers change detection
+        this.zone.runOutsideAngular(() => this.windowTitle.next(title ?? 'Tabby'))
     }
 
     toggleFullscreen (): void {
