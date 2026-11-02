@@ -1,7 +1,7 @@
-import * as psNode from 'ps-node'
 import { ipcRenderer } from 'electron'
 import { ChildProcess, PTYInterface, PTYProxy } from 'tabby-local'
 import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
+import { getLinuxChildProcesses } from './linuxProcess'
 
 /* eslint-disable block-scoped-var */
 
@@ -126,15 +126,14 @@ export class ElectronPTYProxy extends PTYProxy {
                 })
             })
         }
-        return new Promise<ChildProcess[]>((resolve, reject) => {
-            psNode.lookup({ ppid: truePID }, (err, processes) => {
-                if (err) {
-                    reject(err)
-                    return
-                }
-                resolve(processes as ChildProcess[])
-            })
-        })
+        try {
+            return await getLinuxChildProcesses(truePID)
+        } catch (error) {
+            // Not every Linux ps knows --ppid (busybox); closing a tab must
+            // still work there.
+            console.warn('Could not list child processes:', error)
+            return []
+        }
     }
 
     async getWorkingDirectory (): Promise<string|null> {
