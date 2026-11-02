@@ -243,7 +243,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                         this.frontend.clearSelection()
                         this.notifications.notice(this.translate.instant('Copied'))
                     } else {
-                        this.forEachFocusedTerminalPane(tab => tab.sendInput('\x03'))
+                        this.sendInput('\x03')
                     }
                     break
                 case 'copy':
@@ -252,7 +252,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     this.notifications.notice(this.translate.instant('Copied'))
                     break
                 case 'paste':
-                    this.forEachFocusedTerminalPane(tab => tab.paste())
+                    this.paste()
                     break
                 case 'select-all':
                     this.frontend?.selectAll()
@@ -269,13 +269,13 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     break
                 }
                 case 'clear':
-                    this.forEachFocusedTerminalPane(tab => {
+                    this.multifocus.getInputTargets(this).forEach(tab => {
                         const tabProfile = tab.profile
                         const shellType: string = tabProfile.options?.shellType ?? ''
                         const shellArgs: string[] = tabProfile.options?.args ?? []
                         if (this.hostApp.platform === Platform.Windows && (shellType === 'powershell' || shellArgs.some(arg => arg.includes('clink')))) {
                             // Windows PowerShell and cmd(Clink): send Ctrl+L to PTY (natively clears)
-                            tab.sendInput('\x0c')
+                            tab.sendInputToSession(Buffer.from('\x0c'))
                         } else {
                             // Windows cmd(stock) and macOS/Linux: clear xterm buffer only
                             tab.frontend?.clear()
@@ -292,46 +292,34 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     this.forEachFocusedTerminalPane(tab => tab.resetZoom())
                     break
                 case 'previous-word':
-                    this.forEachFocusedTerminalPane(tab => {
-                        tab.sendInput({
-                            [Platform.Windows]: '\x1b[1;5D',
-                            [Platform.macOS]: '\x1bb',
-                            [Platform.Linux]: '\x1bb',
-                        }[this.hostApp.platform])
-                    })
+                    this.sendInput({
+                        [Platform.Windows]: '\x1b[1;5D',
+                        [Platform.macOS]: '\x1bb',
+                        [Platform.Linux]: '\x1bb',
+                    }[this.hostApp.platform])
                     break
                 case 'next-word':
-                    this.forEachFocusedTerminalPane(tab => {
-                        tab.sendInput({
-                            [Platform.Windows]: '\x1b[1;5C',
-                            [Platform.macOS]: '\x1bf',
-                            [Platform.Linux]: '\x1bf',
-                        }[this.hostApp.platform])
-                    })
+                    this.sendInput({
+                        [Platform.Windows]: '\x1b[1;5C',
+                        [Platform.macOS]: '\x1bf',
+                        [Platform.Linux]: '\x1bf',
+                    }[this.hostApp.platform])
                     break
                 case 'delete-line':
-                    this.forEachFocusedTerminalPane(tab => {
-                        tab.sendInput('\x1bw')
-                    })
+                    this.sendInput('\x1bw')
                     break
                 case 'delete-previous-word':
-                    this.forEachFocusedTerminalPane(tab => {
-                        tab.sendInput('\u0017')
-                    })
+                    this.sendInput('\u0017')
                     break
                 case 'delete-next-word':
-                    this.forEachFocusedTerminalPane(tab => {
-                        tab.sendInput({
-                            [Platform.Windows]: '\x1bd\x1b[3;5~',
-                            [Platform.macOS]: '\x1bd',
-                            [Platform.Linux]: '\x1bd',
-                        }[this.hostApp.platform])
-                    })
+                    this.sendInput({
+                        [Platform.Windows]: '\x1bd\x1b[3;5~',
+                        [Platform.macOS]: '\x1bd',
+                        [Platform.Linux]: '\x1bd',
+                    }[this.hostApp.platform])
                     break
                 case 'insert-new-line':
-                    this.forEachFocusedTerminalPane(tab => {
-                        tab.sendInput('\x1b\r')
-                    })
+                    this.sendInput('\x1b\r')
                     break
                 case 'copy-current-path':
                     this.copyCurrentPath()
@@ -461,7 +449,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.frontend.focus()
 
         this.blurred$.subscribe(() => {
-            this.multifocus.cancel()
+            this.multifocus.cancel(this)
         })
 
         this.visibility$
@@ -507,6 +495,15 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         if (!(data instanceof Buffer)) {
             data = Buffer.from(data, 'utf-8')
         }
+        // Focus reports describe one terminal's state, not user input.
+        const targets = data.equals(OSC_FOCUS_IN) || data.equals(OSC_FOCUS_OUT)
+            ? [this] : this.multifocus.getInputTargets(this)
+        for (const tab of targets) {
+            tab.sendInputToSession(data)
+        }
+    }
+
+    protected sendInputToSession (data: Buffer): void {
         this.session?.feedFromTerminal(data)
         if (this.config.store.terminal.scrollOnInput && !data.equals(OSC_FOCUS_IN) && !data.equals(OSC_FOCUS_OUT)) {
             this.frontend?.scrollToBottom()
@@ -543,6 +540,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     }
 
     async paste (): Promise<void> {
+        const targets = this.multifocus.getInputTargets(this)
+        const sessions = targets.map(tab => tab.session)
         let data = this.platform.readClipboard()
         if (this.hostApp.platform === Platform.Windows) {
             data = data.replaceAll('\r\n', '\r')
@@ -559,39 +558,47 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             data = data.substring(0, data.length - 1)
         }
 
-        if (!this.alternateScreenActive) {
-            if ((data.includes('\r') || data.includes('\n')) && this.config.store.terminal.warnOnMultilinePaste) {
-                const buttons = [
-                    this.translate.instant('Paste'),
-                    this.translate.instant('Cancel'),
-                ]
-                const result = (await this.platform.showMessageBox(
-                    {
-                        type: 'warning',
-                        detail: data.slice(0, 1000),
-                        message: this.translate.instant('Paste multiple lines?'),
-                        buttons,
-                        defaultId: 0,
-                        cancelId: 1,
-                    },
-                )).response
-                if (result === 1) {
-                    return
-                }
-            } else {
-                if (this.config.store.terminal.trimWhitespaceOnPaste) {
-                    data = data.trimEnd()
-                    if (!data.includes('\r')) {
-                        data = data.trimStart()
-                    }
-                }
+        const needsConfirmation = targets.some(tab => !tab.alternateScreenActive)
+            && (data.includes('\r') || data.includes('\n')) && this.config.store.terminal.warnOnMultilinePaste
+        if (needsConfirmation) {
+            const buttons = [
+                this.translate.instant('Paste'),
+                this.translate.instant('Cancel'),
+            ]
+            const result = (await this.platform.showMessageBox(
+                {
+                    type: 'warning',
+                    detail: data.slice(0, 1000),
+                    message: this.translate.instant('Paste multiple lines?'),
+                    buttons,
+                    defaultId: 0,
+                    cancelId: 1,
+                },
+            )).response
+            if (result === 1) {
+                return
+            }
+            // Do not paste into a different broadcast set or a reconnected
+            // session after waiting for confirmation.
+            const current = this.multifocus.getInputTargets(this)
+            if (current.length !== targets.length || targets.some((tab, i) => current[i] !== tab || tab.session !== sessions[i])) {
+                return
             }
         }
 
-        if (this.config.store.terminal.bracketedPaste && this.frontend?.supportsBracketedPaste()) {
-            data = `\x1b[200~${data}\x1b[201~`
+        for (const tab of targets) {
+            let targetData = data
+            if (!tab.alternateScreenActive && !needsConfirmation && this.config.store.terminal.trimWhitespaceOnPaste) {
+                targetData = targetData.trimEnd()
+                if (!targetData.includes('\r')) {
+                    targetData = targetData.trimStart()
+                }
+            }
+            if (this.config.store.terminal.bracketedPaste && tab.frontend?.supportsBracketedPaste()) {
+                targetData = `\x1b[200~${targetData}\x1b[201~`
+            }
+            tab.sendInputToSession(Buffer.from(targetData, 'utf-8'))
         }
-        this.sendInput(data)
     }
 
     /**
