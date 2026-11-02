@@ -4,20 +4,25 @@ import { createRequire } from 'node:module'
 import { test } from 'node:test'
 import ts from 'typescript'
 
+// SSHMultiplexerService carries an Angular decorator, which Node's type stripping cannot load, so the
+// service source is transpiled with the TypeScript compiler and evaluated with a stubbed `@angular/core`.
 const require = createRequire(import.meta.url)
 const { Subject } = require('rxjs')
 const source = readFileSync(new URL('../src/services/sshMultiplexer.service.ts', import.meta.url), 'utf8')
 const compiled = ts.transpileModule(source, { compilerOptions: {
     module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, experimentalDecorators: true,
 } }).outputText
-const module = { exports: {} }
-new Function('require', 'module', 'exports', compiled)(name => {
-    if (name === '@angular/core') return { Injectable: () => value => value }
+const serviceModule: { exports: any } = { exports: {} }
+// eslint-disable-next-line @typescript-eslint/no-implied-eval
+new Function('require', 'module', 'exports', compiled)((name: string) => {
+    if (name === '@angular/core') {
+        return { Injectable: () => (value: any) => value }
+    }
     return require(name)
-}, module, module.exports)
-const { SSHMultiplexerService } = module.exports
+}, serviceModule, serviceModule.exports)
+const { SSHMultiplexerService } = serviceModule.exports
 const profile = { type: 'ssh', name: 'test', options: { host: 'test.invalid', user: 'test', port: 22 } }
-const create = () => new SSHMultiplexerService({ getConfigProxyForProfile: value => value })
+const create = () => new SSHMultiplexerService({ getConfigProxyForProfile: (value: any) => value })
 const session = () => ({ profile, isReusable: true, willDestroy$: new Subject() })
 
 test('returns live sessions and evicts sessions that become unusable', async () => {
@@ -58,7 +63,7 @@ test('old-session teardown cannot evict a live replacement', async () => {
 
 test('failed key resolution releases the early destruction observer', async () => {
     const cache = new SSHMultiplexerService({
-        getConfigProxyForProfile: value => value,
+        getConfigProxyForProfile: (value: any) => value,
         getProfiles: async () => { throw new Error('profiles unavailable') },
     })
     const current = { ...session(), profile: { ...profile, options: { ...profile.options, jumpHost: 'jump' } } }
