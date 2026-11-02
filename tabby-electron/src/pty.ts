@@ -126,7 +126,14 @@ export class ElectronPTYProxy extends PTYProxy {
                 })
             })
         }
-        return getLinuxChildProcesses(truePID)
+        try {
+            return await getLinuxChildProcesses(truePID)
+        } catch (error) {
+            // Not every Linux ps knows --ppid (busybox); closing a tab must
+            // still work there.
+            console.warn('Could not list child processes:', error)
+            return []
+        }
     }
 
     async getWorkingDirectory (): Promise<string|null> {
