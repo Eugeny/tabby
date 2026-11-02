@@ -21,7 +21,7 @@
         i.fas.fa-sync-alt.me-1
         div(translate) Refresh
 
-    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex(*ngIf='!showFilter', (click)='showFilter = true')
+    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex(*ngIf='!showFilter', (click)='showFilter = true', [disabled]='!connected')
         i.fas.fa-filter.me-1
         div(translate) Filter
 
