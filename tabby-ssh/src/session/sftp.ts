@@ -4,6 +4,7 @@ import { posix as posixPath } from 'path'
 import { Injector } from '@angular/core'
 import { FileDownload, FileUpload, Logger, LogService } from 'tabby-core'
 import * as russh from 'russh'
+import { writeSFTPUpload } from './sftpUpload'
 
 export interface SFTPFile {
     name: string
@@ -114,15 +115,12 @@ export class SFTPSession {
         this.logger.info('Uploading into', path)
         const tempPath = path + '.tabby-upload'
         try {
-            const handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE)
-            while (true) {
-                const chunk = await transfer.read()
-                if (!chunk.length) {
-                    break
-                }
-                await handle.write(chunk)
-            }
-            await handle.close()
+            await writeSFTPUpload({
+                stat: () => this.sftp.stat(path),
+                open: () => this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE | russh.OPEN_TRUNCATE),
+                chmod: mode => this.chmod(tempPath, mode),
+                warn: (message, error) => this.logger.warn(message, path, error),
+            }, transfer)
             await this.unlink(path).catch(() => null)
             await this.rename(tempPath, path)
             transfer.close()
