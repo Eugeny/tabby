@@ -68,13 +68,6 @@ export class AutoSudoPasswordMiddleware extends SessionMiddleware {
         this.promptMatcher.reset()
         super.close()
     }
-
-    async loadPassword (username: string): Promise<string| null> {
-        if (this.profile.options.user !== username) {
-            return null
-        }
-        return this.ps.loadPassword(this.profile, username)
-    }
 }
 
 @Injectable()
