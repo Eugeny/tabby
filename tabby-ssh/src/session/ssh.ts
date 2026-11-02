@@ -130,6 +130,10 @@ export class SSHSession {
     private privateKeyImporters: AutoPrivateKeyLocator[]
     private previouslyDisconnected = false
 
+    get isReusable (): boolean {
+        return this.open && !this.previouslyDisconnected && this.ssh instanceof russh.AuthenticatedSSHClient
+    }
+
     constructor (
         private injector: Injector,
         public profile: SSHProfile,
