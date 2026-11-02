@@ -531,9 +531,9 @@ export class SSHSession {
             const socket = new Socket()
             socket.connect(forward.targetPort, forward.targetAddress)
             socket.on('error', e => {
+                // The bridge below closes the channel once the failed socket closes.
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.logger.warn(`Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
-                channel.close()
             })
 
             this.setupSocketChannelEvents(channel, socket, 'Remote forward')
