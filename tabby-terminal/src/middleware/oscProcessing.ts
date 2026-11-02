@@ -61,11 +61,12 @@ export class OSCProcessor extends SessionMiddleware {
             }
 
             if (!foundSuffix) {
-                // No terminator yet. Only keep waiting while this can still be a live OSC:
-                // xterm aborts an OSC on CAN/SUB or on ESC not followed by '\\' (an ESC\\ here
-                // would already have matched as the suffix). Anything else is passed through
-                // untouched - holding it would swallow all further output and re-concatenate
-                // the growing backlog on every chunk.
+                // No terminator yet. Only keep waiting while this can still be a live OSC that
+                // we may need to intercept: xterm ends an OSC string on any ESC (an ESC\\ here
+                // would already have matched as the suffix) and aborts it on CAN/SUB, so once
+                // one of those appears there is nothing left for us to intercept. Pass the bytes
+                // through untouched and let xterm handle them - holding them would swallow all
+                // further output and re-concatenate the growing backlog on every chunk.
                 const pending = data.subarray(prefixIndex)
                 const esc = pending.indexOf(0x1b, OSCPrefix.length)
                 const aborted = pending.length > MAX_PENDING_OSC
