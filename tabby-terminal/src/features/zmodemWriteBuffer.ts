@@ -1,5 +1,11 @@
 const WRITE_BATCH_SIZE = 128 * 1024
-const MAX_BUFFERED_BYTES = 8 * 1024 * 1024
+// Caps the memory a session may hold while the disk lags behind the link, so
+// a stalled download fails instead of growing without bound. Senders that
+// honour the advertised receive window wait for each ZACK and never approach
+// it; only a sender that ignores the window (lrzsz 0.12.20, as shipped by most
+// distributions) streams nonstop, and for it the cap has to outlast a disk
+// stall of a few seconds on a fast link rather than cancel the download.
+const MAX_BUFFERED_BYTES = 64 * 1024 * 1024
 
 /** Shared across files, including files still finishing after their wire EOF. */
 export class ZModemWriteBudget {
