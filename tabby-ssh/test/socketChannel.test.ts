@@ -33,16 +33,30 @@ async function connected () {
     } }
 }
 
+// Poll for a state instead of sleeping a fixed time, so a slow runner only delays the test.
+async function waitFor (condition: () => boolean, what: string): Promise<void> {
+    const deadline = Date.now() + 5000
+    while (!condition()) {
+        if (Date.now() > deadline) {
+            throw new Error(`Timed out waiting for ${what}`)
+        }
+        await setTimeout(5)
+    }
+}
+
 test('serializes asynchronous writes and sends EOF after the final write', { timeout: 10000 }, async t => {
     const pair = await connected(), remote = channel(), owner = new Subject<void>()
     t.after(async () => { owner.next(); await pair.close() })
     const received: Buffer[] = [], errors: unknown[] = []
     let release: () => void = () => undefined
     const blocked = new Promise<void>(resolve => { release = resolve })
+    let writing: () => void = () => undefined
+    const firstWrite = new Promise<void>(resolve => { writing = resolve })
     let active = 0, maxActive = 0, eofBytes = 0
     remote.write = async data => {
         active++
         maxActive = Math.max(maxActive, active)
+        writing()
         await blocked
         received.push(Buffer.from(data))
         active--
@@ -53,9 +67,10 @@ test('serializes asynchronous writes and sends EOF after the final write', { tim
     bridgeSocketToChannel(remote, pair.socket, { error: (...args) => errors.push(args) }, 'test', owner)
     try {
         pair.client.write('first')
-        await setTimeout(20)
+        await firstWrite
         pair.client.end('second')
-        await setTimeout(20)
+        // The paused socket still reads ahead, so the second chunk lands in its buffer without a data event.
+        await waitFor(() => pair.socket.bytesRead >= 'firstsecond'.length, 'the second chunk to arrive')
         assert.equal(active, 1)
         assert.equal(pair.socket.isPaused(), true)
         release()
@@ -83,7 +98,8 @@ test('flushes buffered channel output before destroying a closed connection', { 
         assert.ok(pair.socket.writableLength > 0)
         remote.eof$.next()
         remote.closed$.next()
-        await setTimeout(30)
+        // Output must keep draining into the paused peer after the channel closed.
+        await waitFor(() => pair.client.bytesRead > 0, 'output to flow after the channel closed')
         pair.client.resume()
         await ended
         assert.deepEqual(Buffer.concat(received), expected)
@@ -115,13 +131,15 @@ test('ignores late data after EOF and cancels pending writes on session teardown
     const errors: unknown[] = []
     let closeCalls = 0, eofCalls = 0, release: () => void = () => undefined
     const blocked = new Promise<void>(resolve => { release = resolve })
-    remote.write = async () => blocked
+    let writing: () => void = () => undefined
+    const pendingWrite = new Promise<void>(resolve => { writing = resolve })
+    remote.write = async () => { writing(); await blocked }
     remote.close = async () => { closeCalls++ }
     remote.eof = async () => { eofCalls++ }
     bridgeSocketToChannel(remote, pair.socket, { error: (...args) => errors.push(args) }, 'test', owner)
     try {
         pair.client.write('data')
-        await setTimeout(20)
+        await pendingWrite
         remote.eof$.next()
         remote.data$.next(Buffer.from('late'))
         owner.next()
