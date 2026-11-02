@@ -55,7 +55,7 @@
 .body(*ngIf='!connected')
     div(*ngIf='connecting', translate) Connecting
     .alert.alert-danger(*ngIf='connectionError !== null', role='alert')
-        div(translate) Could not start the SFTP session.
+        div(translate) The SFTP session is not available.
         div(translate) Check the server's SFTP configuration and try again.
         div.small.text-break {{connectionError}}
         button.btn.btn-secondary.mt-2((click)='connect()', translate) Retry
