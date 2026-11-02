@@ -44,7 +44,12 @@ export class Application {
                 return
             }
             for (const spec of specs) {
-                globalShortcut.register(spec, () => this.globalHotkey$.next())
+                // One invalid accelerator must not prevent the remaining hotkeys from registering
+                try {
+                    globalShortcut.register(spec, () => this.globalHotkey$.next())
+                } catch (error) {
+                    console.error(`Could not register the global hotkey ${spec}:`, error)
+                }
             }
         })
 

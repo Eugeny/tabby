@@ -19,6 +19,7 @@ import { DockMenuService } from './services/dockMenu.service'
 import { ElectronUACService } from './services/uac.service'
 
 import { ElectronHotkeyProvider } from './hotkeys'
+import { toElectronAccelerator } from './globalHotkey'
 import { ElectronConfigProvider } from './config'
 import { EditSFTPContextMenu } from './sftpContextMenu'
 import { ExportTerminalContextMenu } from './terminalContextMenu'
@@ -158,12 +159,7 @@ export default class ElectronModule {
             item = typeof item === 'string' ? [item] : item
 
             try {
-                let electronKeySpec = item[0]
-                electronKeySpec = electronKeySpec.replaceAll('Meta', 'Super')
-                electronKeySpec = electronKeySpec.replaceAll('⌘', 'Command')
-                electronKeySpec = electronKeySpec.replaceAll('⌥', 'Alt')
-                electronKeySpec = electronKeySpec.replaceAll('-', '+')
-                specs.push(electronKeySpec)
+                specs.push(toElectronAccelerator(item[0]))
             } catch (err) {
                 console.error('Could not register the global hotkey:', err)
             }
