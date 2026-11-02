@@ -1,7 +1,7 @@
 import deepClone from 'clone-deep'
 import deepEqual from 'deep-equal'
 import { v4 as uuidv4 } from 'uuid'
-import * as yaml from 'js-yaml'
+import { parseConfig, serializeConfig } from '../api/configSerialization'
 import { Observable, Subject, AsyncSubject, lastValueFrom } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
@@ -228,7 +228,7 @@ export class ConfigService {
     async load (): Promise<void> {
         const content = await this.platform.loadConfig()
         if (content) {
-            this._store = yaml.load(content)
+            this._store = parseConfig(content)
         } else {
             this._store = { version: LATEST_VERSION }
         }
@@ -246,7 +246,7 @@ export class ConfigService {
         // Scrub undefined values
         let cleanStore = JSON.parse(JSON.stringify(this._store))
         cleanStore = await this.maybeEncryptConfig(cleanStore)
-        await this.platform.saveConfig(yaml.dump(cleanStore))
+        await this.platform.saveConfig(serializeConfig(cleanStore))
         this.emitChange()
     }
 
@@ -256,14 +256,14 @@ export class ConfigService {
     readRaw (): string {
         // Scrub undefined values
         const cleanStore = JSON.parse(JSON.stringify(this._store))
-        return yaml.dump(cleanStore)
+        return serializeConfig(cleanStore)
     }
 
     /**
      * Writes config YAML as string
      */
     async writeRaw (data: string): Promise<void> {
-        this._store = yaml.load(data)
+        this._store = parseConfig(data)
         await this.save()
         await this.load()
         this.emitChange()
