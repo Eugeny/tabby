@@ -119,6 +119,7 @@ export class SFTPSession {
                 stat: () => this.sftp.stat(path),
                 open: () => this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE | russh.OPEN_TRUNCATE),
                 chmod: mode => this.chmod(tempPath, mode),
+                warn: (message, error) => this.logger.warn(message, path, error),
             }, transfer)
             await this.unlink(path).catch(() => null)
             await this.rename(tempPath, path)
