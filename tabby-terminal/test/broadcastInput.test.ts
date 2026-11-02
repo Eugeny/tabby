@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { test } from 'node:test'
+import { Subject } from 'rxjs'
 import ts from 'typescript'
 
 function loadMethods (file, className, names, bindings = {}) {
@@ -20,7 +21,7 @@ class SplitTab {
     layoutCalls = 0
     layout () { this.layoutCalls++ }
 }
-const Broadcast = loadMethods('../src/services/multifocus.service.ts', 'MultifocusService', ['start', 'cancel', 'getInputTargets'], {
+const Broadcast = loadMethods('../src/services/multifocus.service.ts', 'MultifocusService', ['sourceDestroyed', 'start', 'cancel', 'getInputTargets'], {
     SplitTabComponent: SplitTab, document: { querySelector: () => ({ style: {} }) },
 })
 const Platform = { Windows: 'windows', Linux: 'linux', macOS: 'macos' }
@@ -37,6 +38,7 @@ function fixture (clipboard = 'PASTE') {
         let scrolls = 0
         const tab = Object.assign(new Terminal(), {
             session: { feedFromTerminal: data => writes.push(data) },
+            destroyed$: new Subject<void>(),
             frontend: { scrollToBottom: () => { scrolls++ }, supportsBracketedPaste: () => false },
             multifocus: broadcast, config, alternateScreenActive: false,
             hostApp: { platform: Platform.Linux }, translate: { instant: s => s },
@@ -76,6 +78,45 @@ test('cancelling returns to local input and starting a new set replaces the old 
     f.broadcast.cancel()
     assert.equal(parent._allFocusMode, false)
     assert.equal(parent.layoutCalls, 2)
+})
+
+test('destroying the source tab ends the broadcast', () => {
+    const f = fixture(), third = f.create()
+    const parent = new SplitTab()
+    f.broadcast.cancel()
+    f.source.tab.parent = parent
+    f.broadcast.start(f.source.tab, [f.other.tab])
+    assert.equal(parent._allFocusMode, true)
+    // BaseTabComponent.destroy() completes blurred$ without emitting and then emits destroyed$.
+    f.source.tab.destroyed$.next()
+    f.source.tab.destroyed$.complete()
+    assert.equal(parent._allFocusMode, false)
+    assert.deepEqual(f.broadcast.getInputTargets(f.source.tab), [f.source.tab])
+    assert.deepEqual(f.broadcast.getInputTargets(f.other.tab), [f.other.tab])
+    f.other.tab.sendInput('local')
+    assert.deepEqual(f.other.text(), ['local'])
+    assert.deepEqual(f.source.text(), [])
+    f.broadcast.start(f.other.tab, [third.tab])
+    assert.deepEqual(f.broadcast.getInputTargets(f.other.tab), [f.other.tab, third.tab])
+    f.other.tab.sendInput('again')
+    assert.deepEqual(third.text(), ['again'])
+    f.broadcast.cancel()
+})
+
+test('destroying an earlier source does not end a later broadcast', () => {
+    const f = fixture(), third = f.create()
+    const parent = new SplitTab()
+    f.broadcast.cancel()
+    f.other.tab.parent = parent
+    f.broadcast.start(f.other.tab, [third.tab])
+    f.source.tab.destroyed$.next()
+    f.source.tab.destroyed$.complete()
+    assert.equal(parent._allFocusMode, true)
+    assert.deepEqual(f.broadcast.getInputTargets(f.other.tab), [f.other.tab, third.tab])
+    f.other.tab.sendInput('x')
+    assert.deepEqual(third.text(), ['x'])
+    f.broadcast.cancel()
+    assert.equal(parent._allFocusMode, false)
 })
 
 test('terminal focus reports stay local and do not scroll', () => {

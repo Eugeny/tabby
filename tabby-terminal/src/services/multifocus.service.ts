@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Subscription } from 'rxjs'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { SplitTabComponent, TranslateService, AppService, HotkeysService } from 'tabby-core'
 
@@ -6,6 +7,7 @@ import { SplitTabComponent, TranslateService, AppService, HotkeysService } from 
 export class MultifocusService {
     private currentTab: BaseTerminalTabComponent<any>|null = null
     private inputTargets: BaseTerminalTabComponent<any>[] = []
+    private sourceDestroyed: Subscription|null = null
     private warningElement: HTMLElement
 
     constructor (
@@ -44,6 +46,14 @@ export class MultifocusService {
 
         this.currentTab = currentTab
         this.inputTargets = [...new Set([currentTab, ...tabs])]
+        // Closing the source completes blurred$ without emitting, so it would
+        // otherwise stay the source forever and block later broadcasts.
+        const tab = currentTab
+        this.sourceDestroyed = tab.destroyed$.subscribe(() => {
+            if (this.currentTab === tab) {
+                this.cancel()
+            }
+        })
     }
 
     getInputTargets (tab: BaseTerminalTabComponent<any>): BaseTerminalTabComponent<any>[] {
@@ -62,6 +72,8 @@ export class MultifocusService {
         if (!this.currentTab) {
             return
         }
+        this.sourceDestroyed?.unsubscribe()
+        this.sourceDestroyed = null
         if (this.currentTab.parent instanceof SplitTabComponent) {
             this.currentTab.parent._allFocusMode = false
             this.currentTab.parent.layout()
