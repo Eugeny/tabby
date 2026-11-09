@@ -129,7 +129,7 @@ export class SFTPSession {
         const suffix = crypto.randomBytes(16).toString('hex')
         const tempPath = posixPath.join(directory, `.tabby-upload-${suffix}`)
         const backupPath = posixPath.join(directory, `.tabby-backup-${suffix}`)
-        let handle: SFTPFileHandle | undefined
+        let handle: SFTPFileHandle | undefined = undefined
         let publishing = false
         this.uploadPaths.add(uploadPath)
         try {
