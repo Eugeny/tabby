@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Subject, Observable } from 'rxjs'
 import { posix as posixPath } from 'path'
+import * as crypto from 'crypto'
 import { Injector } from '@angular/core'
 import { FileDownload, FileUpload, Logger, LogService } from 'tabby-core'
 import * as russh from 'russh'
@@ -112,9 +113,9 @@ export class SFTPSession {
 
     async upload (path: string, transfer: FileUpload): Promise<void> {
         this.logger.info('Uploading into', path)
-        const tempPath = path + '.tabby-upload'
+        const tempPath = path + '.tabby-upload-' + crypto.randomBytes(16).toString('hex')
         try {
-            const handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE)
+            const handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE | russh.OPEN_TRUNCATE)
             while (true) {
                 const chunk = await transfer.read()
                 if (!chunk.length) {
