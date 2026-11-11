@@ -46,3 +46,8 @@ export function getXtermBackgroundColor (
     const { appTheme, appColorScheme } = getActiveTerminalTheme(themes)
     return appTheme.followsColorScheme ? appColorScheme.background : appTheme.terminalBackground
 }
+
+export function normalizePasteLineEndings (data: string): string {
+    return data.replace(/\r?\n/g, '\r')
+}
+
