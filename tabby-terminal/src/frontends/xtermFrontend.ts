@@ -26,9 +26,9 @@ const COLOR_NAMES = [
     'brightBlack', 'brightRed', 'brightGreen', 'brightYellow', 'brightBlue', 'brightMagenta', 'brightCyan', 'brightWhite',
 ]
 
-// Fcitx5 applies Chinese punctuation during the browser's default text-input
-// processing. If xterm handles these keys on keydown, it calls preventDefault()
-// before Fcitx5 can emit the converted keypress/input event.
+// Linux IMEs can convert punctuation or commit numbered candidates during the
+// browser's default text-input processing. If xterm handles these keys on
+// keydown, preventDefault() suppresses the converted keypress/input event.
 const LINUX_IME_TEXT_KEY_CODES = new Set([
     'Backquote',
     'Backslash',
@@ -45,7 +45,9 @@ function isIMETextKey (event: KeyboardEvent): boolean {
     if (event.ctrlKey || event.altKey || event.metaKey) {
         return false
     }
-    return LINUX_IME_TEXT_KEY_CODES.has(event.code) || event.code === 'Space' && event.shiftKey
+    // Match digits by text: the same physical keys can produce non-digits on
+    // other layouts (for example, the number row on AZERTY).
+    return /^[0-9]$/.test(event.key) || LINUX_IME_TEXT_KEY_CODES.has(event.code) || event.code === 'Space' && event.shiftKey
 }
 
 // How many times to recreate the WebGL renderer after a lost GPU context
