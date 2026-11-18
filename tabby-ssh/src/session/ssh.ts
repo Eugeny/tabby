@@ -592,7 +592,8 @@ export class SSHSession {
 
             const agent = await russh.SSHAgentStream.connect(spec)
             channel.data$.subscribe(data => agent.write(data))
-            agent.data$.subscribe(data => channel.write(data), undefined, () => channel.close())
+            const writer = this.createSerialChannelWriter(channel, 'Agent forward', () => agent.close())
+            agent.data$.subscribe(data => writer.write(data), undefined, () => writer.close())
             channel.closed$.subscribe(() => agent.close())
         })
     }
@@ -910,14 +911,16 @@ export class SSHSession {
             },
         })
 
-        // Socket → Channel data flow with proper conversion
+        // Socket → Channel data flow.
+        // channel.write() is an async native call; issuing several of them concurrently lets the
+        // native side interleave/reorder chunks, which corrupts the byte stream of the forwarded
+        // TCP connection. Writes are therefore serialized, and the socket is paused while too much
+        // data is queued so memory stays bounded.
+        const writer = this.createSerialChannelWriter(channel, logPrefix, err => {
+            socket.destroy(new Error(`${logPrefix}: failed to write to channel: ${err}`))
+        })
         socket.on('data', data => {
-            try {
-                channel.write(new Uint8Array(data.buffer, data.byteOffset, data.byteLength))
-            } catch (err) {
-                this.logger.error(`${logPrefix}: channel write error: ${err}`)
-                socket.destroy(new Error(`${logPrefix}failed to write to channel: ${err}`))
-            }
+            writer.write(data, () => socket.pause(), () => socket.resume())
         })
 
         // Handle EOF from remote
@@ -935,20 +938,91 @@ export class SSHSession {
         // Handle socket errors
         socket.on('error', err => {
             this.logger.error(`${logPrefix}: socket error: ${err}`)
-            channel.close()
+            writer.close()
         })
 
-        // Handle socket close
+        // Handle socket close: flush queued data before closing the channel
         socket.on('close', () => {
             this.logger.debug(`${logPrefix}: socket closed, closing channel`)
-            channel.close()
+            writer.close()
         })
 
-        // Handle EOF from local
+        // Handle EOF from local: must not overtake queued data
         socket.on('end', () => {
             this.logger.debug(`${logPrefix}: socket end, sending EOF to channel`)
-            channel.eof()
+            writer.eof()
         })
+    }
+
+    private createSerialChannelWriter (channel: russh.Channel, logPrefix: string, onError: (err: unknown) => void): {
+        write: (data: Uint8Array, pause?: () => void, resume?: () => void) => void
+        eof: () => void
+        close: () => void
+    } {
+        const highWaterMark = 1024 * 1024
+        const lowWaterMark = 256 * 1024
+        let chain: Promise<void> = Promise.resolve()
+        let queuedBytes = 0
+        let paused = false
+        let failed = false
+        let eofQueued = false
+        let closeQueued = false
+
+        const enqueue = (op: () => Promise<void>) => {
+            chain = chain.then(async () => {
+                if (!failed) {
+                    await op()
+                }
+            }).catch(err => {
+                if (failed) {
+                    return
+                }
+                failed = true
+                this.logger.error(`${logPrefix}: channel write error: ${err}`)
+                onError(err)
+                channel.close().catch(() => null)
+            })
+        }
+
+        return {
+            write: (data, pause, resume) => {
+                if (failed || eofQueued || closeQueued) {
+                    return
+                }
+                // Copy: the native call runs asynchronously and must not alias a buffer Node may reuse
+                const chunk = new Uint8Array(data)
+                queuedBytes += chunk.byteLength
+                if (!paused && pause && queuedBytes > highWaterMark) {
+                    paused = true
+                    pause()
+                }
+                enqueue(async () => {
+                    try {
+                        await channel.write(chunk)
+                    } finally {
+                        queuedBytes -= chunk.byteLength
+                        if (paused && resume && queuedBytes < lowWaterMark) {
+                            paused = false
+                            resume()
+                        }
+                    }
+                })
+            },
+            eof: () => {
+                if (eofQueued || closeQueued) {
+                    return
+                }
+                eofQueued = true
+                enqueue(() => channel.eof())
+            },
+            close: () => {
+                if (closeQueued) {
+                    return
+                }
+                closeQueued = true
+                enqueue(() => channel.close())
+            },
+        }
     }
 
     async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<russh.KeyPair> {
