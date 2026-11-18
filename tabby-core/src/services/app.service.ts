@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { TranslateService } from '@ngx-translate/core'
 import { Observable, Subject, BehaviorSubject, AsyncSubject, takeUntil, debounceTime } from 'rxjs'
 
 import { BaseTabComponent } from '../components/baseTab.component'
@@ -9,7 +10,8 @@ import { SelectorOption } from '../api/selector'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BootstrapData, BOOTSTRAP_DATA } from '../api/mainProcess'
 import { HostWindowService } from '../api/hostWindow'
-import { HostAppService } from '../api/hostApp'
+import { HostAppService, Platform } from '../api/hostApp'
+import { PlatformService } from '../api/platform'
 
 import { ConfigService } from './config.service'
 import { TabRecoveryService } from './tabRecovery.service'
@@ -64,6 +66,8 @@ export class AppService {
     private mruTraversing = false
     /** Set to true inside nextMRUTab/previousMRUTab so selectTab() skips the MRU update */
     private skipMRUUpdate = false
+    /** True while the close confirmation dialog is open */
+    private closeConfirmationOpen = false
 
     private activeTabChange = new Subject<BaseTabComponent|null>()
     private tabsChanged = new Subject<void>()
@@ -95,6 +99,8 @@ export class AppService {
         private tabsService: TabsService,
         private selector: SelectorService,
         private ngbModal: NgbModal,
+        private platform: PlatformService,
+        private translate: TranslateService,
         @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         this.tabsChanged$.subscribe(() => {
@@ -124,11 +130,6 @@ export class AppService {
 
         this.tabClosed$.subscribe(async () => {
             if (!this.tabs.length && this.config.store.appearance.lastTabClosesWindow) {
-                try {
-                    await this.tabRecovery.saveTabs(this.tabs)
-                } catch (error) {
-                    console.warn('Could not save the recovery state before closing the window:', error)
-                }
                 this.hostWindow.close()
             }
         })
@@ -556,12 +557,44 @@ export class AppService {
     }
 
     async closeWindow (): Promise<void> {
+        if (!await this.confirmClose()) {
+            return
+        }
         await this.tabRecovery.saveTabs(this.tabs)
         this.tabRecovery.enabled = false
         if (await this.closeAllTabs()) {
             this.hostWindow.close()
         } else {
             this.tabRecovery.enabled = true
+        }
+    }
+
+    /**
+     * Ask the user to confirm closing the window, if the corresponding setting is enabled.
+     * The web platform has its own `beforeunload` prompt, so it is skipped here.
+     */
+    private async confirmClose (): Promise<boolean> {
+        if (!this.config.store.confirmClose || this.hostApp.platform === Platform.Web) {
+            return true
+        }
+        if (this.closeConfirmationOpen) {
+            return false
+        }
+        this.closeConfirmationOpen = true
+        try {
+            const result = await this.platform.showMessageBox({
+                type: 'warning',
+                message: this.translate.instant('Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window.'),
+                buttons: [
+                    this.translate.instant('Close'),
+                    this.translate.instant('Cancel'),
+                ],
+                defaultId: 0,
+                cancelId: 1,
+            })
+            return result.response === 0
+        } finally {
+            this.closeConfirmationOpen = false
         }
     }
 

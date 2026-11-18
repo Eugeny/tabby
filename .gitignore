@@ -4,6 +4,8 @@ app/assets/webpack
 node_modules
 
 build/files.wxs
+# downloaded by CI (and local builds) before running build-windows.mjs
+build/vc_redist.exe
 dist
 */dist
 */typings
