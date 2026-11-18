@@ -127,11 +127,19 @@ Tabby.registerModule('readline', {
     clearLine: stream => stream.write('\r'),
 })
 
+// @angular/compiler must be registered before any other @angular package: the
+// prebuilt @angular/common and @angular/cdk fesm bundles are partially compiled
+// (ɵɵngDeclare*) and fall back to JIT when the Angular Linker hasn't processed
+// them, which needs ng.ɵcompilerFacade - published by @angular/compiler as soon
+// as it is evaluated. Arguments to registerModule are evaluated eagerly, so
+// requiring e.g. @angular/cdk/clipboard first would throw
+// "The injectable 'PlatformLocation' needs to be compiled using the JIT
+// compiler, but '@angular/compiler' is not available".
+Tabby.registerModule('@angular/compiler', require('@angular/compiler'))
 Tabby.registerModule('@angular/core', require('@angular/core'))
 Tabby.registerModule('@angular/cdk', require('@angular/cdk'))
 Tabby.registerModule('@angular/cdk/clipboard', require('@angular/cdk/clipboard'))
 Tabby.registerModule('@angular/cdk/drag-drop', require('@angular/cdk/drag-drop'))
-Tabby.registerModule('@angular/compiler', require('@angular/compiler'))
 Tabby.registerModule('@angular/common', require('@angular/common'))
 Tabby.registerModule('@angular/forms', require('@angular/forms'))
 Tabby.registerModule('@angular/platform-browser', require('@angular/platform-browser'))
