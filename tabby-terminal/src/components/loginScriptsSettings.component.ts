@@ -37,7 +37,17 @@ export class LoginScriptsSettingsComponent {
             },
         )).response === 0) {
             this.scripts = this.scripts.filter(x => x !== script)
+            this.options.scripts = this.scripts
         }
+    }
+
+    moveScript (index: number, delta: number) {
+        const target = index + delta
+        if (target < 0 || target >= this.scripts.length) {
+            return
+        }
+        const [script] = this.scripts.splice(index, 1)
+        this.scripts.splice(target, 0, script)
     }
 
     addScript () {
