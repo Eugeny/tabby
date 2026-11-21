@@ -522,6 +522,28 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         await this.frontendWriteLock
     }
 
+    /**
+     * Resolves once everything written so far has reached the frontend
+     */
+    async waitForFrontendWrites (): Promise<void> {
+        await this.frontendWriteLock
+        await this.frontend?.waitForWrites()
+    }
+
+    /**
+     * Swaps the frontend this tab renders into while keeping its session running,
+     * e.g. to display the tab in another window.
+     * The previous frontend is neither detached nor destroyed.
+     *
+     * @returns the previous frontend
+     */
+    replaceFrontend (frontend: Frontend): Frontend|undefined {
+        const previous = this.frontend
+        this.frontend = frontend
+        this.attachTermContainerHandlers()
+        return previous
+    }
+
     protected async writeRaw (data: string): Promise<void> {
         if (!this.frontend) {
             throw new Error('Frontend not ready')

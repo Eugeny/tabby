@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input, HostBinding, ElementRef, Output, EventEmitter } from '@angular/core'
+import { CdkDragDrop } from '@angular/cdk/drag-drop'
 import { AppService } from '../services/app.service'
+import { TabTransferService } from '../services/tabTransfer.service'
 import { BaseTabComponent } from './baseTab.component'
 import { SelfPositioningComponent } from './selfPositioning.component'
 import { SplitDropZoneInfo, SplitTabComponent } from './splitTab.component'
@@ -11,7 +13,7 @@ import { SplitDropZoneInfo, SplitTabComponent } from './splitTab.component'
     template: `
     <div
         cdkDropList
-        (cdkDropListDropped)="tabDropped.emit($event.item.data); isHighlighted = false"
+        (cdkDropListDropped)="onDropped($event)"
         (cdkDropListEntered)="isHighlighted = true"
         (cdkDropListExited)="isHighlighted = false"
         cdkAutoDropGroup='app-tabs'
@@ -31,12 +33,28 @@ export class SplitTabDropZoneComponent extends SelfPositioningComponent {
     constructor (
         element: ElementRef,
         app: AppService,
+        tabTransfer: TabTransferService,
     ) {
         super(element)
         this.subscribeUntilDestroyed(app.tabDragActive$, tab => {
             this.isActive = !!tab && this.canActivateFor(tab)
             this.layout()
         })
+        this.subscribeUntilDestroyed(tabTransfer.dropGhost$, ghost => {
+            // The pane is about to become a tab of its own instead
+            if (ghost) {
+                this.isHighlighted = false
+            }
+        })
+    }
+
+    onDropped (event: CdkDragDrop<any>): void {
+        this.isHighlighted = false
+        // The drop list stays the drag's target after the pointer has moved on,
+        // e.g. to the tab bar - only take the pane if it's actually dropped here
+        if (event.isPointerOverContainer) {
+            this.tabDropped.emit(event.item.data)
+        }
     }
 
     canActivateFor (tab: BaseTabComponent): boolean {

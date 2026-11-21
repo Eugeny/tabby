@@ -58,9 +58,11 @@ export class Session extends BaseSession {
 
     async start (options: SessionOptions): Promise<void> {
         let pty: PTYProxy|null = null
+        let restored = false
 
         if (options.restoreFromPTYID) {
             pty = await this.ptyInterface.restore(options.restoreFromPTYID)
+            restored = !!pty
             options.restoreFromPTYID = null
         }
 
@@ -177,10 +179,34 @@ export class Session extends BaseSession {
         this.pauseAfterExit = options.pauseAfterExit
 
         this.destroyed$.subscribe(() => this.pty!.unsubscribeAll())
+
+        if (restored) {
+            // Output might have been held back while another window handed the PTY over
+            this.pty.resumeOutput()
+        }
     }
 
     getID (): string|null {
         return this.pty?.getID() ?? null
+    }
+
+    /**
+     * Holds back the PTY output so that another window can take it over without losing any
+     */
+    async holdOutput (): Promise<void> {
+        await this.pty?.holdOutput()
+    }
+
+    resumeOutput (): void {
+        this.pty?.resumeOutput()
+    }
+
+    /**
+     * Lets go of the PTY without killing it, once another window has attached to it
+     */
+    detach (): void {
+        this.pty?.unsubscribeAll()
+        this.open = false
     }
 
     resize (columns: number, rows: number): void {

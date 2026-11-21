@@ -170,6 +170,18 @@ export class AppService {
         }
     }
 
+    /**
+     * Removes a top-level tab from this window without destroying it,
+     * e.g. when it's being moved into another window
+     */
+    detachTab (tab: BaseTabComponent): void {
+        if (!this.tabs.includes(tab)) {
+            return
+        }
+        this.removeTab(tab)
+        this.tabRemoved.next(tab)
+    }
+
     removeTab (tab: BaseTabComponent): void {
         const newIndex = Math.min(this.tabs.length - 2, this.tabs.indexOf(tab))
         this.tabs = this.tabs.filter((x) => x !== tab)
