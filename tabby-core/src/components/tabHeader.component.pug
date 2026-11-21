@@ -17,6 +17,7 @@ profile-icon(
 
 .name(
     [class.no-hover]='config.store.terminal.hideCloseButton && config.store.terminal.hideTabOptionsButton'
+    [title]='tab.displayTitle'
     cdkDrag,
     cdkDragRootElement='tab-header',
     [cdkDragData]='tab',
