@@ -1,6 +1,6 @@
 import type { BrowserWindow, TouchBar } from 'electron'
 import { Injectable, Inject, NgZone } from '@angular/core'
-import { BootstrapData, BOOTSTRAP_DATA, HostWindowService } from 'tabby-core'
+import { BootstrapData, BOOTSTRAP_DATA, HostWindowService, RecoveryToken, TabDragPreview } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 
 export interface Bounds {
@@ -55,6 +55,23 @@ export class ElectronHostWindow extends HostWindowService {
 
         electron.ipcRenderer.on('host:window-unmaximized', () => zone.run(() => {
             this._isMaximized = false
+        }))
+
+        electron.ipcRenderer.on('host:tab-drag-over', (_$event, screenX: number, screenY: number, title: string) => zone.run(() => {
+            this.tabDragOver.next({ screenX, screenY, title })
+        }))
+
+        electron.ipcRenderer.on('host:tab-drag-leave', () => zone.run(() => {
+            this.tabDragOver.next(null)
+        }))
+
+        electron.ipcRenderer.on('host:receive-tab', (_$event, requestID: string, token: RecoveryToken, screenX?: number, screenY?: number) => zone.run(() => {
+            this.tabTransferRequest.next({
+                token,
+                screenX,
+                screenY,
+                respond: accepted => electron.ipcRenderer.send('app:receive-tab-result', requestID, accepted),
+            })
         }))
 
         this._isMaximized = this.getWindow().isMaximized()
@@ -130,5 +147,46 @@ export class ElectronHostWindow extends HostWindowService {
 
     flashFrame (): void {
         this.electron.ipcRenderer.send('window-flash-frame')
+    }
+
+    supportsTabTransfer (): boolean {
+        return true
+    }
+
+    async findWindowAt (screenX: number, screenY: number): Promise<number|null> {
+        return this.electron.ipcRenderer.invoke('app:find-window-at', screenX, screenY)
+    }
+
+    async sendTab (token: RecoveryToken, targetWindow: number|null, screenX: number, screenY: number, grabX: number, grabY: number): Promise<boolean> {
+        // Recovery tokens are plain JSON, but might contain config proxies that IPC can't clone
+        const plainToken = JSON.parse(JSON.stringify(token))
+        return this.electron.ipcRenderer.invoke('app:send-tab', plainToken, targetWindow, screenX, screenY, grabX, grabY)
+    }
+
+    moveTo (screenX: number, screenY: number, grabX: number, grabY: number): void {
+        this.electron.ipcRenderer.send('window-move-to', screenX, screenY, grabX, grabY)
+    }
+
+    startTabDragPreview (preview: TabDragPreview): void {
+        this.electron.ipcRenderer.send('app:tab-drag-preview:start', {
+            rect: preview.rect,
+            grab: { x: preview.grabX, y: preview.grabY },
+            title: preview.title,
+            fontFamily: preview.fontFamily,
+            fontSize: preview.fontSize,
+            background: preview.background,
+            foreground: preview.foreground,
+            accent: preview.accent,
+            movesWindow: preview.movesWindow,
+            labels: preview.labels,
+        })
+    }
+
+    moveTabDragPreview (screenX: number, screenY: number): void {
+        this.electron.ipcRenderer.send('app:tab-drag-preview:move', screenX, screenY)
+    }
+
+    endTabDragPreview (): void {
+        this.electron.ipcRenderer.send('app:tab-drag-preview:end')
     }
 }

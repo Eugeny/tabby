@@ -98,6 +98,26 @@ export class ElectronPTYProxy extends PTYProxy {
         ipcRenderer.send('pty:write', this.id, data)
     }
 
+    async holdOutput (): Promise<void> {
+        const key = `pty:${this.id}:output-held`
+        let listener: (() => void)|null = null
+        await new Promise<void>(resolve => {
+            // The PTY might be gone already
+            const timeout = setTimeout(resolve, 2000)
+            listener = () => {
+                clearTimeout(timeout)
+                resolve()
+            }
+            ipcRenderer.on(key, listener)
+            ipcRenderer.send('pty:hold-output', this.id)
+        })
+        ipcRenderer.off(key, listener!)
+    }
+
+    resumeOutput (): void {
+        ipcRenderer.send('pty:resume-output', this.id)
+    }
+
     async kill (signal?: string): Promise<void> {
         ipcRenderer.send('pty:kill', this.id, signal)
     }

@@ -6,8 +6,9 @@
         *ngIf='shouldShowDragHandle',
         cdkDrag,
         [cdkDragData]='tab',
-        (cdkDragStarted)='onTabDragStart()',
-        (cdkDragEnded)='onTabDragEnd()'
+        (cdkDragStarted)='onTabDragStart($event)',
+        (cdkDragMoved)='onTabDragMove($event)',
+        (cdkDragEnded)='onTabDragEnd($event)'
     )
 
     ng-content

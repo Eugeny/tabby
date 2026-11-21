@@ -34,19 +34,22 @@ title-bar(
                 cdkDropList,
                 [cdkDropListOrientation]='(config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "bottom") ? "horizontal" : "vertical"',
                 (cdkDropListDropped)='onTabsReordered($event)',
+                [cdkDropListEnterPredicate]='canEnterTabList',
                 cdkAutoDropGroup='app-tabs'
             )
-                tab-header(
-                    *ngFor='let tab of app.tabs; let idx = index',
-                    [index]='idx',
-                    [tab]='tab',
-                    [active]='tab == app.activeTab',
-                    [@animateTab]='{value: "in", params: {size: targetTabSize}}',
-                    [@.disabled]='hasVerticalTabs() || !config.store.accessibility.animations',
-                    (click)='app.selectTab(tab)',
-                    [class.fully-draggable]='hostApp.platform !== Platform.macOS',
-                    [ngbTooltip]='tab.customTitle || tab.title'
-                )
+                ng-container(*ngFor='let tab of app.tabs; let idx = index')
+                    .tab-drop-ghost(*ngIf='dropGhost?.index === idx') {{dropGhost?.title}}
+                    tab-header(
+                        [index]='idx',
+                        [tab]='tab',
+                        [active]='tab == app.activeTab',
+                        [@animateTab]='{value: "in", params: {size: targetTabSize}}',
+                        [@.disabled]='hasVerticalTabs() || !config.store.accessibility.animations',
+                        (click)='app.selectTab(tab)',
+                        [class.fully-draggable]='hostApp.platform !== Platform.macOS',
+                        [ngbTooltip]='tab.customTitle || tab.title'
+                    )
+                .tab-drop-ghost(*ngIf='dropGhost && dropGhost.index >= app.tabs.length') {{dropGhost.title}}
 
             .btn-group.background
                 .d-flex(

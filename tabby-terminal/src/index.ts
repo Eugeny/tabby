@@ -93,6 +93,7 @@ export default class TerminalModule { } // eslint-disable-line @typescript-eslin
 
 export { TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider }
 export { Frontend, XTermFrontend, XTermWebGLFrontend }
+export { SaveStateOptions } from './frontends/frontend'
 export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export { ConnectableTerminalTabComponent } from './api/connectableTerminalTab.component'
 export * from './api/interfaces'

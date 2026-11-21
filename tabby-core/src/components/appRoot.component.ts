@@ -2,7 +2,7 @@
 import { Component, Input, HostListener, HostBinding, ViewChildren, ViewChild } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { CdkDragDrop } from '@angular/cdk/drag-drop'
+import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop'
 
 import { HostAppService, Platform } from '../api/hostApp'
 import { HotkeysService } from '../services/hotkeys.service'
@@ -11,6 +11,7 @@ import { ConfigService } from '../services/config.service'
 import { ThemesService } from '../services/themes.service'
 import { UpdaterService } from '../services/updater.service'
 import { CommandService } from '../services/commands.service'
+import { TabDropGhost, TabTransferService } from '../services/tabTransfer.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
@@ -73,6 +74,8 @@ export class AppRootComponent {
     @ViewChildren(TabBodyComponent) tabBodies: TabBodyComponent[]
     @ViewChild('activeTransfersDropdown') activeTransfersDropdown: NgbDropdown
     unsortedTabs: BaseTabComponent[] = []
+    /** Placeholder for a tab that's being dragged over the tab bar */
+    dropGhost: TabDropGhost|null = null
     updatesAvailable = false
     activeTransfers: FileTransfer[] = []
     private logger: Logger
@@ -89,7 +92,12 @@ export class AppRootComponent {
         log: LogService,
         ngbModal: NgbModal,
         _themes: ThemesService,
+        tabTransfer: TabTransferService,
     ) {
+        tabTransfer.dropGhost$.subscribe(ghost => {
+            this.dropGhost = ghost
+        })
+
         // document.querySelector('app-root')?.remove()
         this.logger = log.create('main')
         this.logger.info('v', platform.getAppVersion())
@@ -250,8 +258,18 @@ export class AppRootComponent {
         return this.config.store.appearance.flexTabs ? '*' : '200px'
     }
 
+    /**
+     * Only tabs are sorted by the tab list itself - split panes dropped onto the tab bar
+     * are handled by [[TabTransferService]], wherever on the tab bar they're dropped
+     */
+    canEnterTabList = (drag: CdkDrag): boolean => this.app.tabs.includes(drag.data)
+
     onTabsReordered (event: CdkDragDrop<BaseTabComponent[]>) {
         const tab: BaseTabComponent = event.item.data
+        if (!this.app.tabs.includes(tab) && !tab.parent) {
+            // The tab has been moved into another window in the meantime
+            return
+        }
         if (!this.app.tabs.includes(tab)) {
             if (tab.parent instanceof SplitTabComponent) {
                 tab.parent.removeTab(tab)

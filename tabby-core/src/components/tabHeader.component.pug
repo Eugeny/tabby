@@ -20,8 +20,9 @@ profile-icon(
     cdkDrag,
     cdkDragRootElement='tab-header',
     [cdkDragData]='tab',
-    (cdkDragStarted)='onTabDragStart(tab)',
-    (cdkDragEnded)='onTabDragEnd()',
+    (cdkDragStarted)='onTabDragStart(tab, $event)',
+    (cdkDragMoved)='onTabDragMove($event)',
+    (cdkDragEnded)='onTabDragEnd($event)',
 ) {{tab.customTitle || tab.title}}
 
 .buttons

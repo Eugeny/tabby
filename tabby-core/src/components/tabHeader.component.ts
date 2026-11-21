@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input, Optional, Inject, HostBinding, HostListener, NgZone } from '@angular/core'
+import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop'
 import { auditTime } from 'rxjs'
 import { TabContextMenuItemProvider } from '../api/tabContextMenuProvider'
 import { BaseTabComponent } from './baseTab.component'
 import { SplitTabComponent } from './splitTab.component'
 import { HotkeysService } from '../services/hotkeys.service'
 import { AppService } from '../services/app.service'
+import { TabTransferService } from '../services/tabTransfer.service'
 import { HostAppService, Platform } from '../api/hostApp'
 import { ConfigService } from '../services/config.service'
 import { BaseComponent } from './base.component'
@@ -31,6 +33,7 @@ export class TabHeaderComponent extends BaseComponent {
         public hostApp: HostAppService,
         private hotkeys: HotkeysService,
         private platform: PlatformService,
+        private tabTransfer: TabTransferService,
         private zone: NgZone,
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
     ) {
@@ -78,15 +81,21 @@ export class TabHeaderComponent extends BaseComponent {
         return items.slice(1)
     }
 
-    onTabDragStart (tab: BaseTabComponent) {
+    onTabDragStart (tab: BaseTabComponent, event: CdkDragStart) {
         this.app.emitTabDragStarted(tab)
+        this.tabTransfer.handleDragStart(tab, event)
     }
 
-    onTabDragEnd () {
+    onTabDragMove (event: CdkDragMove) {
+        this.tabTransfer.handleDragMove(this.tab, event)
+    }
+
+    onTabDragEnd (event: CdkDragEnd) {
         setTimeout(() => {
             this.app.emitTabDragEnded()
             this.app.emitTabsChanged()
         })
+        this.tabTransfer.handleDragEnd(this.tab, event)
     }
 
     @HostBinding('class.flex-width') get isFlexWidthEnabled (): boolean {

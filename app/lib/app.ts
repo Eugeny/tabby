@@ -1,4 +1,4 @@
-import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions, WebContents } from 'electron'
+import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions, Point, WebContents } from 'electron'
 import promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
 import { spawnSync } from 'child_process'
@@ -11,11 +11,15 @@ import { saveConfig } from './config'
 import { Window, WindowOptions } from './window'
 import { pluginManager } from './pluginManager'
 import { PTYManager } from './pty'
+import { TabTransferManager } from './tabTransfer'
+import { TabDragPreview } from './tabDragPreview'
 import { logMainError } from './errors'
 
 export class Application {
     private tray?: Tray
     private ptyManager = new PTYManager()
+    private tabTransferManager = new TabTransferManager()
+    private tabDragPreview = new TabDragPreview()
     private windows: Window[] = []
     private cachedPlasmaVersion?: [number, number] | null
     private globalHotkey$ = new Subject<void>()
@@ -26,6 +30,8 @@ export class Application {
     constructor (private configStore: any) {
         remote.initialize()
         this.ptyManager.init(this)
+        this.tabTransferManager.init(this)
+        this.tabDragPreview.init(this)
 
         app.on('child-process-gone', (_event, details) => {
             if (details.type === 'GPU' && details.reason !== 'clean-exit') {
@@ -115,6 +121,18 @@ export class Application {
         screen.on('display-removed', () => this.broadcast('host:displays-changed'))
     }
 
+    get isQuitRequested (): boolean {
+        return this.quitRequested
+    }
+
+    /**
+     * Windows that haven't been moved to the background
+     * (see [[keepWindowInBackground]])
+     */
+    private get foregroundWindows (): Window[] {
+        return this.windows.filter(x => !x.isInBackground)
+    }
+
     async newWindow (options?: WindowOptions): Promise<Window> {
         const window = new Window(this, this.configStore, options)
         this.windows.push(window)
@@ -122,6 +140,9 @@ export class Application {
             window.makeMain()
         }
         window.visible$.subscribe(visible => {
+            if (window.isInBackground) {
+                return
+            }
             if (visible) {
                 this.disableTray()
             } else {
@@ -130,10 +151,7 @@ export class Application {
         })
         window.closed$.subscribe(() => {
             this.windows = this.windows.filter(x => x !== window)
-            if (!this.windows.some(x => x.isMainWindow)) {
-                this.windows[0]?.makeMain()
-                this.windows[0]?.present()
-            }
+            this.ensureMainWindow()
         })
         if (process.platform === 'darwin') {
             this.setupMenu()
@@ -142,27 +160,79 @@ export class Application {
         return window
     }
 
+    private ensureMainWindow () {
+        const windows = this.foregroundWindows
+        if (!windows.some(x => x.isMainWindow)) {
+            windows[0]?.makeMain()
+            windows[0]?.present()
+        }
+    }
+
+    /**
+     * Returns the topmost window (other than `except`) found at the given screen point
+     */
+    findWindowAt (point: Point, except?: WebContents): Window|null {
+        const candidates = this.foregroundWindows.filter(window => {
+            if (window.isDestroyed() || window.webContents.id === except?.id || !window.isVisible() || window.isMinimized()) {
+                return false
+            }
+            const bounds = window.getBounds()
+            return point.x >= bounds.x && point.x < bounds.x + bounds.width && point.y >= bounds.y && point.y < bounds.y + bounds.height
+        })
+        // Electron doesn't expose the z-order, the most recently focused window is the best guess
+        candidates.sort((a, b) => b.lastFocusTime - a.lastFocusTime)
+        return candidates[0] ?? null
+    }
+
+    getWindowByWebContents (id: number): Window|null {
+        return this.foregroundWindows.find(window => !window.isDestroyed() && window.webContents.id === id) ?? null
+    }
+
+    /**
+     * A window that's asked to close while it still runs sessions shown in
+     * other windows is hidden instead, and closes once these sessions end
+     */
+    keepWindowInBackground (window: Window): boolean {
+        if (this.quitRequested || !this.tabTransferManager.isHostingSessions(window.webContents)) {
+            return false
+        }
+        window.moveToBackground()
+        if (window.isMainWindow) {
+            window.isMainWindow = false
+            this.ensureMainWindow()
+        }
+        return true
+    }
+
+    onSessionRelayRemoved (host: WebContents): void {
+        const window = this.windows.find(x => x.isInBackground && !x.isDestroyed() && x.webContents === host)
+        if (window && !this.tabTransferManager.isHostingSessions(host)) {
+            window.forceClose()
+        }
+    }
+
     onGlobalHotkey (): void {
-        let isPresent = this.windows.some(x => x.isFocused() && x.isVisible())
-        const isDockedOnTop = this.windows.some(x => x.isDockedOnTop())
+        const windows = this.foregroundWindows
+        let isPresent = windows.some(x => x.isFocused() && x.isVisible())
+        const isDockedOnTop = windows.some(x => x.isDockedOnTop())
         if (isDockedOnTop) {
             // if docked and on top, hide even if not focused right now
-            isPresent = this.windows.some(x => x.isVisible())
+            isPresent = windows.some(x => x.isVisible())
         }
 
         if (isPresent) {
-            for (const window of this.windows) {
+            for (const window of windows) {
                 window.hide()
             }
         } else {
-            for (const window of this.windows) {
+            for (const window of windows) {
                 window.present()
             }
         }
     }
 
     presentAllWindows (): void {
-        for (const window of this.windows) {
+        for (const window of this.foregroundWindows) {
             window.present()
         }
     }
@@ -185,7 +255,7 @@ export class Application {
         if (!this.hasWindows()) {
             await this.newWindow()
         }
-        this.windows.filter(w => !w.isDestroyed())[0].send(event, ...args)
+        this.foregroundWindows.filter(w => !w.isDestroyed())[0].send(event, ...args)
     }
 
     enableTray (): void {
@@ -223,7 +293,7 @@ export class Application {
     }
 
     hasWindows (): boolean {
-        return !!this.windows.length
+        return !!this.foregroundWindows.length
     }
 
     private shouldRegisterGlobalHotkeys (): boolean {
@@ -282,17 +352,18 @@ export class Application {
     }
 
     focus (): void {
-        for (const window of this.windows) {
+        for (const window of this.foregroundWindows) {
             window.present()
         }
     }
 
     async handleSecondInstance (argv: string[], cwd: string): Promise<void> {
-        if (!this.windows.length) {
+        if (!this.hasWindows()) {
             await this.newWindow()
         }
         this.presentAllWindows()
-        this.windows[this.windows.length - 1].passCliArguments(argv, cwd, true)
+        const windows = this.foregroundWindows
+        windows[windows.length - 1].passCliArguments(argv, cwd, true)
     }
 
     private setupMenu () {
@@ -309,7 +380,7 @@ export class Application {
                             if (!this.hasWindows()) {
                                 await this.newWindow()
                             }
-                            this.windows[0].send('host:preferences-menu')
+                            this.foregroundWindows[0].send('host:preferences-menu')
                         },
                     },
                     { type: 'separator' },
