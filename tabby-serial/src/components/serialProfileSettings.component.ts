@@ -42,7 +42,6 @@ export class SerialProfileSettingsComponent implements ProfileSettingsComponent<
     }
 
     async ngOnInit () {
-        this.profile.options.connectionType ??= 'serial'
         this.foundPorts = await this.serial.listPorts()
     }
 }
