@@ -16,6 +16,7 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     configDefaults = {
         options: {
             port: null,
+            askForPort: false,
             baudrate: null,
             databits: 8,
             stopbits: 1,
@@ -82,8 +83,23 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     }
 
     async getNewTabParameters (profile: SerialProfile): Promise<NewTabParameters<SerialTabComponent>> {
-        if (!profile.options.baudrate) {
+        if (profile.options.askForPort || !profile.options.baudrate) {
             profile = deepClone({ ...profile })
+        }
+
+        if (profile.options.askForPort) {
+            const ports = await this.serial.listPorts()
+            profile.options.port = await this.selector.show(
+                this.translate.instant('Select a serial port'),
+                ports.map(p => ({
+                    name: p.description ? `${p.name} (${p.description})` : p.name,
+                    description: p.description,
+                    result: p.name,
+                })),
+            )
+        }
+
+        if (!profile.options.baudrate) {
             profile.options.baudrate = await this.selector.show(
                 this.translate.instant('Baud rate'),
                 BAUD_RATES.map(x => ({
@@ -102,7 +118,7 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     }
 
     getDescription (profile: SerialProfile): string {
-        return profile.options.port
+        return profile.options.askForPort ? this.translate.instant('Select a serial port when connecting') : profile.options.port
     }
 
     quickConnect (query: string): PartialProfile<SerialProfile> {

@@ -7,6 +7,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     .mb-3
                         label(translate) Device
                         input.form-control(
+                            *ngIf='!profile.options.askForPort',
                             type='text',
                             alwaysVisibleTypeahead,
                             [(ngModel)]='profile.options.port',
@@ -24,6 +25,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             [(ngModel)]='profile.options.baudrate',
                             [ngbTypeahead]='baudratesAutocomplete'
                         )
+
+            .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                .header
+                    .title(translate) Ask every time
+                    .description(translate) Choose the device each time this profile is opened
+                toggle([(ngModel)]='profile.options.askForPort')
 
             stream-processing-settings([options]='profile.options')
 
