@@ -68,6 +68,12 @@
                     .description(translate) Connection name will be used instead
                 toggle([(ngModel)]='profile.disableDynamicTitle')
 
+            .form-line(*ngIf='defaultsMode === "disabled" && !profile.isBuiltin')
+                .header
+                    .title(translate) Show in quick access
+                    .description(translate) Display this profile at the top of the profile selector
+                toggle([(ngModel)]='profile.showInQuickAccess')
+
             .form-line
                 .header
                     .title(translate) When a session ends

@@ -20,6 +20,7 @@ export interface Profile {
     weight: number
     isBuiltin: boolean
     isTemplate: boolean
+    showInQuickAccess: boolean
 }
 
 export interface ConnectableProfile extends Profile {

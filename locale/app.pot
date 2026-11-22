@@ -786,6 +786,10 @@ msgstr ""
 msgid "Purple"
 msgstr ""
 
+#: tabby-core/src/services/profiles.service.ts:319
+msgid "Quick access"
+msgstr ""
+
 #: tabby-core/src/index.ts:229
 #: tabby-core/src/services/profiles.service.ts:339
 msgid "Quick connect"

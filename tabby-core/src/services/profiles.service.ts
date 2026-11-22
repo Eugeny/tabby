@@ -26,6 +26,7 @@ export class ProfilesService {
         weight: 0,
         isBuiltin: false,
         isTemplate: false,
+        showInQuickAccess: false,
         terminalColorScheme: null,
         behaviorOnSessionEnd: 'auto',
     }
@@ -310,6 +311,18 @@ export class ProfilesService {
                 profiles = profiles.filter(x => !x.isTemplate)
 
                 profiles = profiles.filter(x => x.id && !this.config.store.profileBlacklist.includes(x.id))
+
+                const quickAccessProfiles = profiles.filter(x => !x.isBuiltin && x.showInQuickAccess)
+                options = [
+                    ...quickAccessProfiles.map((p): SelectorOption<void> => ({
+                        ...this.selectorOptionForProfile(p),
+                        group: this.translate.instant('Quick access'),
+                        icon: p.icon ?? 'fas fa-star',
+                        weight: -(recentProfiles.length + 2),
+                        callback: () => resolve(p),
+                    })),
+                    ...options,
+                ]
 
                 options = [...options, ...profiles.map((p): SelectorOption<void> => ({
                     ...this.selectorOptionForProfile(p),
