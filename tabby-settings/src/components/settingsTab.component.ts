@@ -37,6 +37,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     checkingForUpdate = false
     updateAvailable = false
     showConfigDefaults = false
+    tabFilter = ''
     allLanguages = LocaleService.allLanguages
     @HostBinding('class.pad-window-controls') padWindowControls = false
 
@@ -50,7 +51,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         public updater: UpdaterService,
         private app: AppService,
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
-        translate: TranslateService,
+        private translate: TranslateService,
         injector: Injector,
     ) {
         super(injector)
@@ -73,6 +74,37 @@ export class SettingsTabComponent extends BaseTabComponent {
 
     async ngOnInit () {
         this.isShellIntegrationInstalled = await this.platform.isShellIntegrationInstalled()
+    }
+
+    tabMatchesFilter (title: string): boolean {
+        const query = this.tabFilter.trim().toLowerCase()
+        if (!query) {
+            return true
+        }
+        return title.toLowerCase().includes(query)
+            || this.translate.instant(title).toLowerCase().includes(query)
+    }
+
+    onFilterChange () {
+        if (this.activeTab && this.tabMatchesFilter(this.tabTitleForId(this.activeTab))) {
+            return
+        }
+        const firstMatch = this.allTabs().find(tab => this.tabMatchesFilter(tab.title))
+        if (firstMatch) {
+            this.activeTab = firstMatch.id
+        }
+    }
+
+    private allTabs (): { id: string, title: string }[] {
+        return [
+            { id: 'application', title: 'Application' },
+            ...this.settingsProviders.map(provider => ({ id: provider.id, title: provider.title })),
+            { id: 'config-file', title: 'Config file' },
+        ]
+    }
+
+    private tabTitleForId (id: string): string {
+        return this.allTabs().find(tab => tab.id === id)?.title ?? ''
     }
 
     async toggleShellIntegration () {

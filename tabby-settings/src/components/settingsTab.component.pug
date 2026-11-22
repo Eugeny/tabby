@@ -1,6 +1,16 @@
+.input-group.settings-search.mb-3
+    .input-group-text
+        i.fas.fa-fw.fa-search
+    input.form-control(
+        type='search',
+        [placeholder]='"Search settings"|translate',
+        [(ngModel)]='tabFilter',
+        (ngModelChange)='onFilterChange()'
+    )
+
 .content
-    ul.nav-pills(ngbNav, #nav='ngbNav', [activeId]='activeTab', orientation='vertical')
-        li(ngbNavItem='application')
+    ul.nav-pills(ngbNav, #nav='ngbNav', [(activeId)]='activeTab', orientation='vertical')
+        li(ngbNavItem='application', *ngIf='tabMatchesFilter("Application")')
             a(ngbNavLink, draggable='false')
                 i.fas.fa-fw.fa-window-maximize.me-2
                 span(translate) Application
@@ -121,24 +131,24 @@
                         )
 
         ng-container(*ngFor='let provider of settingsProviders')
-            li(*ngIf='provider.prioritized', [ngbNavItem]='provider.id')
+            li(*ngIf='provider.prioritized && tabMatchesFilter(provider.title)', [ngbNavItem]='provider.id')
                 a.d-flex.align-items-center(ngbNavLink, draggable='false')
                     i(class='fas fa-fw me-2 fa-{{provider.icon}}')
                     span {{provider.title|translate}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
 
-        .mb-3
+        .mb-3(*ngIf='!tabFilter')
 
         ng-container(*ngFor='let provider of settingsProviders')
-            li(*ngIf='!provider.prioritized', [ngbNavItem]='provider.id')
+            li(*ngIf='!provider.prioritized && tabMatchesFilter(provider.title)', [ngbNavItem]='provider.id')
                 a.d-flex.align-items-center(ngbNavLink, draggable='false')
                     i(class='fas fa-fw me-2 fa-{{provider.icon || "puzzle-piece"}}')
                     span {{provider.title|translate}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
 
-        li(ngbNavItem='config-file')
+        li(ngbNavItem='config-file', *ngIf='tabMatchesFilter("Config file")')
             a.d-flex.align-items-center(ngbNavLink, draggable='false')
                 i.fas.fa-fw.fa-code.me-2
                 span(translate) Config file

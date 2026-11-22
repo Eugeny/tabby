@@ -28,6 +28,12 @@
         align-items: center;
     }
 
+    > .settings-search {
+        flex: none;
+        margin: 20px 10px 0;
+        width: 202px;
+    }
+
     > .content {
         display: flex;
         min-height: 0;
