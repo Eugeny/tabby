@@ -113,6 +113,17 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     (ngModelChange)='config.save()'
                 )
 
+            .form-line.content-box
+                .header
+                    .title(translate) Hide profiles matching pattern
+                    .description(translate) Profiles whose ID or name matches this case-insensitive regular expression will be hidden from profile lists. Leave empty to disable.
+
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='config.store.profileHidePattern',
+                    (ngModelChange)='config.save()'
+                )
+
             .form-line.content-box(*ngIf='hostApp.platform === Platform.Windows')
                 .header
                     .title(translate) Terminal identification

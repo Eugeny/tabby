@@ -53,6 +53,7 @@ pluginBlacklist: []
 commandBlacklist: []
 providerBlacklist: []
 profileBlacklist: []
+profileHidePattern: ''
 hacks:
   disableGPU: false
   disableVibrancyWhileDragging: false

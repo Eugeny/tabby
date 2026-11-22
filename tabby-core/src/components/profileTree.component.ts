@@ -68,6 +68,9 @@ export class ProfileTreeComponent extends BaseComponent {
 
                 // remove blocklisted profiles
                 group.profiles = group.profiles.filter(x => x.id && !this.config.store.profileBlacklist.includes(x.id))
+
+                // remove profiles hidden by the configured pattern
+                group.profiles = group.profiles.filter(x => !this.profilesService.isProfileHiddenByPattern(x))
             }
         }
 
@@ -227,7 +230,7 @@ export class ProfileTreeComponent extends BaseComponent {
             })
 
             const matches = new FuzzySearch(
-                profiles.filter(p => !p.isTemplate && p.id && !this.config.store.profileBlacklist.includes(p.id)),
+                profiles.filter(p => !p.isTemplate && p.id && !this.config.store.profileBlacklist.includes(p.id) && !this.profilesService.isProfileHiddenByPattern(p)),
                 ['name', 'description'],
                 { sort: false },
             ).search(q)
