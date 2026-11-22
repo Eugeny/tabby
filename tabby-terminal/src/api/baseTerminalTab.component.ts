@@ -14,7 +14,7 @@ import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
-import { getTerminalBackgroundColor } from '../helpers'
+import { getRightClickBehavior, getTerminalBackgroundColor } from '../helpers'
 
 
 const INACTIVE_TAB_UNLOAD_DELAY = 1000 * 30
@@ -666,11 +666,15 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
 
     private rightMouseDownTime = 0
 
+    private get rightClickBehavior (): string {
+        return getRightClickBehavior(this.profile.rightClick, this.config.store.terminal.rightClick)
+    }
+
     protected async handleRightMouseDown (event: MouseEvent): Promise<void> {
         event.preventDefault()
         event.stopPropagation()
         this.rightMouseDownTime = Date.now()
-        if (this.config.store.terminal.rightClick === 'menu') {
+        if (this.rightClickBehavior === 'menu') {
             this.platform.popupContextMenu(await this.buildContextMenu(), event)
         }
     }
@@ -678,13 +682,13 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected async handleRightMouseUp (event: MouseEvent): Promise<void> {
         event.preventDefault()
         event.stopPropagation()
-        if (this.config.store.terminal.rightClick === 'paste'
-            || this.config.store.terminal.rightClick === 'clipboard') {
+        const behavior = this.rightClickBehavior
+        if (behavior === 'paste' || behavior === 'clipboard') {
             const duration = Date.now() - this.rightMouseDownTime
             if (duration < 250) {
-                if (this.config.store.terminal.rightClick === 'paste') {
+                if (behavior === 'paste') {
                     this.paste()
-                } else if (this.config.store.terminal.rightClick === 'clipboard') {
+                } else {
                     if (this.frontend?.getSelection()) {
                         this.frontend.copySelection()
                         this.frontend.clearSelection()

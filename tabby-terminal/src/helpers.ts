@@ -1,5 +1,13 @@
 import { ConfigService, ThemesService, Theme, TerminalColorScheme } from 'tabby-core'
 
+/** Returns the profile's right-click override, or the global setting when it is unset. */
+export function getRightClickBehavior (
+    override: string|null|undefined,
+    globalBehavior: string,
+): string {
+    return override ?? globalBehavior
+}
+
 function getActiveTerminalTheme (
     themes: ThemesService,
 ): { appTheme: Theme, appColorScheme: TerminalColorScheme } {

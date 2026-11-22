@@ -79,7 +79,20 @@
                     option(ngValue='keep', translate) Keep
                     option(*ngIf='isConnectable()', ngValue='reconnect', translate) Reconnect
                     option(ngValue='close', translate) Close
-            
+
+            .form-line
+                .header
+                    .title(translate) Right click
+                    .description(translate) Overrides the global Terminal setting for this profile
+                select.form-control(
+                    [(ngModel)]='profile.rightClick',
+                )
+                    option([ngValue]='null', translate) Use global setting
+                    option(ngValue='off', translate) Off
+                    option(ngValue='menu', translate) Context menu
+                    option(ngValue='paste', translate) Paste
+                    option(ngValue='clipboard', translate) Paste if no selection, else copy
+
             .form-line(*ngIf='isConnectable()')
                 .header
                     .title(translate) Clear terminal after connection

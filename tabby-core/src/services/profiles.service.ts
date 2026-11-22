@@ -27,6 +27,7 @@ export class ProfilesService {
         isBuiltin: false,
         isTemplate: false,
         terminalColorScheme: null,
+        rightClick: null,
         behaviorOnSessionEnd: 'auto',
     }
 
