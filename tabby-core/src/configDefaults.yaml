@@ -8,6 +8,7 @@ appearance:
   dockHideOnBlur: false
   dockAlwaysOnTop: true
   flexTabs: false
+  tintActiveTabWithColor: false
   tabsLocation: top
   tabsInFullscreen: false
   cycleTabs: true
