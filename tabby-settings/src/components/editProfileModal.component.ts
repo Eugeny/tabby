@@ -10,10 +10,12 @@ const iconsClassList = Object.keys(iconsData).map(
         style => `fa${style[0]} fa-${icon}`,
     ),
 ).flat()
+const browseIcons = [...iconsClassList].sort((a, b) => a.localeCompare(b))
 
 /** @hidden */
 @Component({
     templateUrl: './editProfileModal.component.pug',
+    styleUrls: ['./editProfileModal.component.scss'],
 })
 export class EditProfileModalComponent<P extends Profile, PP extends ProfileProvider<P>> {
     @Input('profile') partialProfile: P
@@ -23,6 +25,10 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
     @Input() profileGroup: PartialProfileGroup<ProfileGroup> | undefined
     groups: PartialProfileGroup<ProfileGroup>[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
+
+    iconBrowserOpen = false
+    iconBrowserSearch = ''
+    visibleIcons: string[] = browseIcons
 
     protected profile: FullyDefined<P> & ConfigProxy<FullyDefined<P>>
     private settingsComponentInstance?: ProfileSettingsComponent<P, PP>
@@ -86,6 +92,22 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
             debounceTime(200),
             map(term => iconsClassList.filter(v => v.toLowerCase().includes(term.toLowerCase())).slice(0, 10)),
         )
+
+    toggleIconBrowser () {
+        this.iconBrowserOpen = !this.iconBrowserOpen
+    }
+
+    filterIcons () {
+        const query = this.iconBrowserSearch.trim().toLowerCase()
+        this.visibleIcons = query
+            ? browseIcons.filter(icon => icon.toLowerCase().includes(query))
+            : browseIcons
+    }
+
+    selectIcon (icon: string) {
+        this.profile.icon = icon
+        this.iconBrowserOpen = false
+    }
 
     save () {
         if (!this.profileGroup) {

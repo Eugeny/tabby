@@ -1,0 +1,47 @@
+.icon-browser-toggle {
+    cursor: pointer;
+}
+
+.icon-browser {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: var(--theme-bg-less);
+    border: 1px solid var(--theme-bg-less-2);
+    border-radius: 0.375rem;
+}
+
+.icon-browser-search {
+    margin-bottom: 0.5rem;
+}
+
+.icon-browser-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(2.5rem, 1fr));
+    gap: 0.25rem;
+    max-height: 16rem;
+    overflow-y: auto;
+}
+
+.icon-browser-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+
+    &:hover {
+        background: var(--theme-bg-less-2);
+    }
+
+    &.selected {
+        background: var(--theme-bg-less-2);
+        border-color: var(--theme-primary);
+    }
+}

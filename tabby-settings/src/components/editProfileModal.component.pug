@@ -41,11 +41,34 @@
                         [ngbTypeahead]='iconSearch',
                         [resultTemplate]='rt'
                     )
+                    button.input-group-text.icon-browser-toggle(
+                        type='button',
+                        (click)='toggleIconBrowser()',
+                        [ngbTooltip]='"Browse icons"|translate'
+                    )
+                        i.fas.fa-th
                     .input-group-text
                         profile-icon(
                             [icon]='profile.icon',
                             [color]='profile.color'
                         )
+
+                .icon-browser(*ngIf='iconBrowserOpen')
+                    input.form-control.form-control-sm.icon-browser-search(
+                        type='text',
+                        placeholder='Search icons',
+                        [(ngModel)]='iconBrowserSearch',
+                        (ngModelChange)='filterIcons()'
+                    )
+                    .icon-browser-grid
+                        button.icon-browser-item(
+                            *ngFor='let icon of visibleIcons',
+                            type='button',
+                            [class.selected]='profile.icon === icon',
+                            [ngbTooltip]='icon',
+                            (click)='selectIcon(icon)'
+                        )
+                            i([class]='"fa-fw " + icon')
 
                 ng-template(#rt,let-r='result',let-t='term')
                     i([class]='"fa-fw " + r')
@@ -54,13 +77,18 @@
             .form-line
                 .header
                     .title(translate) Color
-                input.form-control.w-50(
-                    type='text',
-                    [(ngModel)]='profile.color',
-                    placeholder='#000000',
-                    [ngbTypeahead]='colorsAutocomplete',
-                    [resultFormatter]='colorsFormatter'
-                )
+                .input-group.w-50
+                    input.form-control.color-picker(
+                        type='color',
+                        [(ngModel)]='profile.color'
+                    )
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='profile.color',
+                        placeholder='#000000',
+                        [ngbTypeahead]='colorsAutocomplete',
+                        [resultFormatter]='colorsFormatter'
+                    )
 
             .form-line
                 .header
