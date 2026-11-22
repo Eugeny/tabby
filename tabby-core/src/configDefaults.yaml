@@ -47,6 +47,7 @@ enableAutomaticUpdates: true
 hideTray: false
 version: 1
 vault: null
+vaultAutoLockMinutes: 0
 encrypted: false
 enableExperimentalFeatures: false
 pluginBlacklist: []

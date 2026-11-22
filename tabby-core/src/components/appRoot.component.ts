@@ -11,6 +11,7 @@ import { ConfigService } from '../services/config.service'
 import { ThemesService } from '../services/themes.service'
 import { UpdaterService } from '../services/updater.service'
 import { CommandService } from '../services/commands.service'
+import { VaultAutoLockService } from '../services/vaultAutoLock.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
@@ -85,6 +86,7 @@ export class AppRootComponent {
         public hostApp: HostAppService,
         public config: ConfigService,
         public app: AppService,
+        private vaultAutoLock: VaultAutoLockService,
         platform: PlatformService,
         log: LogService,
         ngbModal: NgbModal,
@@ -154,6 +156,7 @@ export class AppRootComponent {
         // This mirrors the way Alt+Tab works in desktop window managers: you cycle while
         // holding the modifier and the selection is confirmed when you let go.
         this.hotkeys.keyEvent$.subscribe(event => {
+            this.vaultAutoLock.noteActivity()
             // keyEvent$ also carries wheel and mouse events
             if (!(event instanceof KeyboardEvent) || event.type !== 'keyup') {
                 return

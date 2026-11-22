@@ -78,6 +78,18 @@ div(*ngIf='vault.isEnabled()')
                 (click)='toggleConfigEncrypted()',
             )
 
+        .form-line
+            .header
+                .title(translate) Lock the vault when idle
+                .description(translate) Forget the master passphrase after this many minutes without activity. Stored secrets, files, and saving the encrypted config will require it again. Already-open terminals stay connected. Set to 0 to disable.
+            input.form-control(
+                type='number',
+                min='0',
+                step='1',
+                [(ngModel)]='config.store.vaultAutoLockMinutes',
+                (ngModelChange)='config.save()'
+            )
+
     .text-center(*ngIf='!vaultContents')
         i.fas.fa-key.fa-3x
         h3.m-3(translate) Vault is locked
