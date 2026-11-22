@@ -19,6 +19,7 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
     Platform = Platform
     profile: ProxifiedConfig<FullyDefined<SSHProfile>>
     hasSavedPassword: boolean
+    hasSavedSudoPassword: boolean
 
     connectionMode: 'direct'|'proxyCommand'|'jumpHost'|'socksProxy'|'httpProxy' = 'direct'
 
@@ -66,31 +67,61 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
                 console.error('Could not check for saved password', e)
             }
         }
+
+        try {
+            const savedSudoPassword = await this.passwordStorage.loadSudoPassword(this.profile)
+            this.hasSavedSudoPassword = savedSudoPassword != null
+        } catch (e) {
+            console.error('Could not check for saved sudo password', e)
+        }
     }
 
     getJumpHostLabel (p: PartialProfile<SSHProfile>) {
         return p.group ? `${this.profilesService.resolveProfileGroupName(p.group)} / ${p.name}` : p.name
     }
 
-    async setPassword () {
+    private async promptForPassword (prompt: string): Promise<string|null> {
         const modal = this.ngbModal.open(PromptModalComponent)
-        modal.componentInstance.prompt = `Password for ${this.profile.options.user}@${this.profile.options.host}`
+        modal.componentInstance.prompt = prompt
         modal.componentInstance.password = true
         try {
             const result = await modal.result.catch(() => null)
             // Allow saving a blank password (servers with PermitEmptyPasswords),
             // but guard against a malformed modal result carrying no string value.
             if (typeof result?.value !== 'string') {
-                return
+                return null
             }
             // An empty field is far more often an accidental OK than a deliberate
             // blank password, and a stored blank is then offered - and rejected -
             // on every connection, so make the intent explicit.
             if (result.value === '' && !await this.confirmBlankPassword()) {
-                return
+                return null
             }
-            this.passwordStorage.savePassword(this.profile, result.value)
+            return result.value
+        } catch {
+            return null
+        }
+    }
+
+    async setPassword () {
+        const value = await this.promptForPassword(`Password for ${this.profile.options.user}@${this.profile.options.host}`)
+        if (value === null) {
+            return
+        }
+        try {
+            await this.passwordStorage.savePassword(this.profile, value)
             this.hasSavedPassword = true
+        } catch { }
+    }
+
+    async setSudoPassword () {
+        const value = await this.promptForPassword(`Sudo password for ${this.profile.options.host}`)
+        if (value === null) {
+            return
+        }
+        try {
+            await this.passwordStorage.saveSudoPassword(this.profile, value)
+            this.hasSavedSudoPassword = true
         } catch { }
     }
 
@@ -111,6 +142,11 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
     clearSavedPassword () {
         this.hasSavedPassword = false
         this.passwordStorage.deletePassword(this.profile)
+    }
+
+    clearSavedSudoPassword () {
+        this.hasSavedSudoPassword = false
+        this.passwordStorage.deleteSudoPassword(this.profile)
     }
 
     async addPrivateKey () {

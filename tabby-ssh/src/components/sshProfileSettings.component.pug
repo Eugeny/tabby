@@ -181,6 +181,18 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     i.fas.fa-trash-alt
                     span(translate) Forget
 
+            .form-line(*ngIf='profile.options.host')
+                .header
+                    .title(translate) Sudo password
+                    .description(*ngIf='!hasSavedSudoPassword', translate) Save a password to use for sudo prompts on this host
+                    .description(*ngIf='hasSavedSudoPassword', translate) There is a saved sudo password for this connection
+                button.btn.btn-success.ms-4(*ngIf='!hasSavedSudoPassword', (click)='setSudoPassword()')
+                    i.fas.fa-key
+                    span(translate) Set sudo password
+                button.btn.btn-danger.ms-4(*ngIf='hasSavedSudoPassword', (click)='clearSavedSudoPassword()')
+                    i.fas.fa-trash-alt
+                    span(translate) Forget
+
             .mb-3(*ngIf='!profile.options.auth || profile.options.auth === "publicKey"')
                 label(translate) Private keys
                 .list-group.mb-2

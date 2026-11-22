@@ -106,7 +106,12 @@ export class AutoSudoPasswordMiddleware extends SessionMiddleware {
 
     async handlePrompt (username: string): Promise<void> {
         console.log(`Detected sudo prompt for user: ${username}`)
-        const pw = await this.ps.loadPassword(this.profile, username)
+        // A dedicated sudo password is per-host and works even when sudo does not
+        // name the account (e.g. sudo-rs, or sudo configured with targetpw).
+        // Otherwise keep the existing per-account lookup, falling back to the
+        // profile's own account when the prompt does not name one.
+        const sudoPassword = await this.ps.loadSudoPassword(this.profile)
+        const pw = sudoPassword ?? await this.ps.loadPassword(this.profile, username || this.profile.options.user)
         if (pw) {
             this.outputToTerminal.next(Buffer.from(this.pasteHint))
             this.pendingPasswordToPaste = pw

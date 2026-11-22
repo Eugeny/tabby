@@ -5,6 +5,11 @@ import { SSHProfile } from '../api'
 
 export const VAULT_SECRET_TYPE_PASSWORD = 'ssh:password'
 export const VAULT_SECRET_TYPE_PASSPHRASE = 'ssh:key-passphrase'
+export const VAULT_SECRET_TYPE_SUDO_PASSWORD = 'ssh:sudo-password'
+
+// Keychain entries are keyed by connection plus account; use a reserved account
+// for the sudo password so it cannot collide with a real login account.
+const SUDO_PASSWORD_ACCOUNT = 'tabby-sudo-password'
 
 @Injectable({ providedIn: 'root' })
 export class PasswordStorageService {
@@ -54,6 +59,37 @@ export class PasswordStorageService {
                 console.warn(`Failed to load stored password for ${account}@${profile.options.host}:${profile.options.port ?? 22}`, e)
                 return null
             }
+        }
+    }
+
+    async saveSudoPassword (profile: SSHProfile, password: string): Promise<void> {
+        if (this.vault.isEnabled()) {
+            const key = this.getVaultKeyForConnection(profile, SUDO_PASSWORD_ACCOUNT)
+            this.vault.addSecret({ type: VAULT_SECRET_TYPE_SUDO_PASSWORD, key, value: password })
+        } else {
+            await keytar.setPassword(this.getKeytarKeyForConnection(profile), SUDO_PASSWORD_ACCOUNT, password)
+        }
+    }
+
+    async deleteSudoPassword (profile: SSHProfile): Promise<void> {
+        if (this.vault.isEnabled()) {
+            const key = this.getVaultKeyForConnection(profile, SUDO_PASSWORD_ACCOUNT)
+            this.vault.removeSecret(VAULT_SECRET_TYPE_SUDO_PASSWORD, key)
+        } else {
+            await keytar.deletePassword(this.getKeytarKeyForConnection(profile), SUDO_PASSWORD_ACCOUNT)
+        }
+    }
+
+    async loadSudoPassword (profile: SSHProfile): Promise<string|null> {
+        if (this.vault.isEnabled()) {
+            const key = this.getVaultKeyForConnection(profile, SUDO_PASSWORD_ACCOUNT)
+            return (await this.vault.getSecret(VAULT_SECRET_TYPE_SUDO_PASSWORD, key))?.value ?? null
+        }
+        try {
+            return await keytar.getPassword(this.getKeytarKeyForConnection(profile), SUDO_PASSWORD_ACCOUNT)
+        } catch (e) {
+            console.warn(`Failed to load stored sudo password for ${profile.options.host}:${profile.options.port ?? 22}`, e)
+            return null
         }
     }
 
