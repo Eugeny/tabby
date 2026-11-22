@@ -209,6 +209,23 @@ div.mt-4
             label.btn.btn-secondary(for='bellAudible')
                 span(translate) Audible
 
+    .form-line(*ngIf='config.store.terminal.bell === "audible"')
+        .header
+            .title(translate) Custom bell sound
+            .description(translate) URL of an audio file to play instead of the default bell. Use Browse to pick a local file, or paste a data:, file: or https: URL. Leave empty to use the default sound.
+        .input-group
+            input.form-control(
+                type='text',
+                [(ngModel)]='config.store.terminal.bellSound',
+                (ngModelChange)='config.save()',
+            )
+            label.btn.btn-secondary.mb-0(for='bellSoundFile', translate) Browse
+        input#bellSoundFile.d-none(
+            type='file',
+            accept='audio/*',
+            (change)='onBellSoundSelected($event)',
+        )
+
     .form-line(*ngIf='hostApp.platform !== Platform.Web')
         .header
             .title(translate) Flash taskbar

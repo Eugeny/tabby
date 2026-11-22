@@ -23,6 +23,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             fallbackFont: null,
             linePadding: 0,
             bell: 'off',
+            bellSound: null,
             bellFlashFrame: false,
             bracketedPaste: true,
             background: 'theme',

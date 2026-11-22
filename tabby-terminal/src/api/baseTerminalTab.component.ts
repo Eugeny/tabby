@@ -138,6 +138,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected sessionChanged = new Subject<BaseSession|null>()
     protected recentInputs = ''
     private bellPlayer: HTMLAudioElement
+    private defaultBellSound: string
+    private currentBellSound: string
     private termContainerSubscriptions = new SubscriptionContainer()
     private sessionHandlers = new SubscriptionContainer()
     private spinner = new Spinner({
@@ -357,11 +359,23 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             }
         })
 
+        this.defaultBellSound = require('../bell.ogg')
+        this.currentBellSound = this.defaultBellSound
         this.bellPlayer = document.createElement('audio')
-        this.bellPlayer.src = require('../bell.ogg')
+        this.bellPlayer.src = this.currentBellSound
         this.bellPlayer.load()
 
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
+    }
+
+    private updateBellSound (): void {
+        const sound = this.config.store.terminal.bellSound || this.defaultBellSound
+        if (sound === this.currentBellSound) {
+            return
+        }
+        this.currentBellSound = sound
+        this.bellPlayer.src = sound
+        this.bellPlayer.load()
     }
 
     /** @hidden */
@@ -448,6 +462,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                 this.frontend?.visualBell()
             }
             if (this.config.store.terminal.bell === 'audible') {
+                this.updateBellSound()
                 this.bellPlayer.play()
             }
             if (this.config.store.terminal.bellFlashFrame) {
