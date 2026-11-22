@@ -41,6 +41,8 @@
                             .actions
                                 .action((click)='launchProfile(profile)')
                                     .fa.fa-fw.fas.fa-play
+                                .action(*ngIf='!(profile.isBuiltin ?? profile.isTemplate)', (click)='editProfile(profile)')
+                                    .fa.fa-fw.fas.fa-pencil-alt
 
                     ng-container(*ngFor='let child of group.children')
                         ng-container(*ngTemplateOutlet='recursiveGroup; context: {$implicit: child, depth: depth + 1}')

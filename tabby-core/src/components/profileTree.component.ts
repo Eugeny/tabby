@@ -80,7 +80,7 @@ export class ProfileTreeComponent extends BaseComponent {
         this.rootGroups = this.profilesService.buildGroupTree(this.profileGroups)
     }
 
-    private async editProfile (profile: PartialProfile<Profile>): Promise<void> {
+    async editProfile (profile: PartialProfile<Profile>): Promise<void> {
         const { EditProfileModalComponent } = window['nodeRequire']('tabby-settings')
         const modal = this.ngbModal.open(
             EditProfileModalComponent,
