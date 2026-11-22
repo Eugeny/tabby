@@ -17,6 +17,8 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
 
     protected reconnectOffered = false
     protected isDisconnectedByHand = false
+    /** True when tab recovery restored the previous terminal buffer into this tab */
+    private restoredHistory = false
 
     constructor (protected injector: Injector) {
         super(injector)
@@ -50,6 +52,7 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
             this.clearServiceMessagesOnConnect()
         })
         super.onFrontendReady()
+        this.restoredHistory = !!this.savedState && !this.savedStateIsLive
     }
 
     /**
@@ -126,9 +129,20 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
     }
 
     private clearServiceMessagesOnConnect (): void {
-        if (this.profile.clearServiceMessagesOnConnect && this.session?.open) {
-            this.frontend?.clear()
+        if (!this.profile.clearServiceMessagesOnConnect || !this.session?.open) {
+            return
         }
+        if (this.restoredHistory) {
+            // Recovery restores the previous terminal contents before the connection
+            // completes. With the vault enabled that completion is delayed until the
+            // user unlocks it, so the restored history is visible first and then wiped
+            // by this clear when auto-login succeeds. The restored buffer is not a
+            // service message - keep it, and only skip this once (manual reconnects
+            // still honour the profile setting).
+            this.restoredHistory = false
+            return
+        }
+        this.frontend?.clear()
     }
 
 }
