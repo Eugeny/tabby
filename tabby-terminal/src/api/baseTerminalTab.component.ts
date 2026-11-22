@@ -137,6 +137,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected binaryOutput = new Subject<Buffer>()
     protected sessionChanged = new Subject<BaseSession|null>()
     protected recentInputs = ''
+    private oscProgressActive = false
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions = new SubscriptionContainer()
     private sessionHandlers = new SubscriptionContainer()
@@ -527,7 +528,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             throw new Error('Frontend not ready')
         }
 
-        if (this.config.store.terminal.detectProgress) {
+        // Once a session reports progress explicitly via OSC 9;4, stop guessing from its output
+        if (this.config.store.terminal.detectProgress && !this.oscProgressActive) {
             const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
             if (!this.alternateScreenActive && percentageMatch) {
                 const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
@@ -780,6 +782,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     }
 
     setSession (session: BaseSession|null, destroyOnSessionClose = false): void {
+        this.oscProgressActive = false
         if (session) {
             if (this.session) {
                 this.setSession(null)
@@ -846,6 +849,13 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
             this.platform.setClipboard({ text: content })
             this.notifications.notice(this.translate.instant('Copied'))
+        })
+
+        this.attachSessionHandler(this.session.oscProcessor.progressReported$, progress => {
+            this.oscProgressActive = true
+            // The numeric progress bar cannot express error/warning/indeterminate styling;
+            // states with a percentage still show their value, clear/indeterminate remove it.
+            this.setProgress(progress.progress)
         })
     }
 
