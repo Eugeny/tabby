@@ -58,7 +58,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
 
     ngOnInit () {
         this.profile = this.profilesService.getConfigProxyForProfile<P>(this.partialProfile, { skipGlobalDefaults: this.defaultsMode === 'enabled', skipGroupDefaults: this.defaultsMode === 'group' })
-        this.tagsString = (this.profile.tags ?? []).join(', ')
+        this.tagsString = this.profile.tags.join(', ')
     }
 
     ngAfterViewInit () {
