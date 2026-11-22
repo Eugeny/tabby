@@ -104,7 +104,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     (ngModelChange)='config.save()'
                 )
 
-            .form-line.content-box(*ngIf='config.store.profiles.length > 0')
+            .form-line.content-box
                 .header
                     .title(translate) Show built-in profiles in selector
                     .description(translate) If disabled, only custom profiles will show up in the profile selector
