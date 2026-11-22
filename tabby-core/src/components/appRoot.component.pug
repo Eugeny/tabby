@@ -1,7 +1,7 @@
 title-bar(
   *ngIf='ready && !hostWindow.isFullscreen && config.store.appearance.dock == "off" && isTitleBarNeeded()',
   (dblclick)='toggleMaximize()',
-  [hideControls]='hostApp.platform !== Platform.Linux && !hostWindow.isFullscreen',
+  [hideControls]='config.store.appearance.hideWindowControls || (hostApp.platform !== Platform.Linux && !hostWindow.isFullscreen)',
   [class.inset]='hostApp.platform == Platform.macOS && !hostWindow.isFullscreen'
 )
 
@@ -97,7 +97,8 @@ title-bar(
                 ) !{require('../icons/gift.svg')}
 
             window-controls.background(
-                *ngIf='config.store.appearance.frame == "thin" \
+                *ngIf='!config.store.appearance.hideWindowControls \
+                && config.store.appearance.frame == "thin" \
                 && config.store.appearance.tabsLocation !== "left" \
                 && config.store.appearance.tabsLocation !== "right" \
                 && hostApp.platform == Platform.Linux',

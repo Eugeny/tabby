@@ -130,6 +130,15 @@ h3.mb-3(translate) Window
         (ngModelChange)='saveConfiguration(true)'
     )
 
+.form-line(*ngIf='hostApp.platform === Platform.Linux')
+    .header
+        .title(translate) Hide window control buttons
+        .description(translate) Hides the minimize, maximize, and close buttons. The title bar remains visible and can still be used to drag the window.
+    toggle(
+        [(ngModel)]='config.store.appearance.hideWindowControls',
+        (ngModelChange)='config.save()',
+    )
+
 .form-line
     .header
         .title(translate) Show profile sidebar
