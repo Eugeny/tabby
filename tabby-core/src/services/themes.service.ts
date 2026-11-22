@@ -6,6 +6,39 @@ import { TerminalColorScheme, Theme } from '../api/theme'
 import { PlatformService, PlatformTheme } from '../api/platform'
 import { NewTheme } from '../theme'
 
+const MIN_SURFACE_CONTRAST = 1.1
+const EXTREME_BACKGROUND_LIGHTNESS = 12
+
+/**
+ * HSL lighten/darken are relative, so they cannot move pure black or white.
+ * UI surfaces derived from such a background would collapse into it and become
+ * invisible. Nudge them just enough to stay distinguishable from a background
+ * that is close to either end of the lightness range.
+ */
+function ensureSurfaceContrast (surface: ReturnType<typeof Color>, background: ReturnType<typeof Color>): ReturnType<typeof Color> {
+    let result = surface.hsl()
+    if (result.contrast(background) >= MIN_SURFACE_CONTRAST) {
+        return result
+    }
+
+    const backgroundLightness = background.lightness()
+    if (backgroundLightness >= EXTREME_BACKGROUND_LIGHTNESS && backgroundLightness <= 100 - EXTREME_BACKGROUND_LIGHTNESS) {
+        return result
+    }
+
+    const step = backgroundLightness < 50 ? 1 : -1
+    let lightness = result.lightness()
+    while (result.contrast(background) < MIN_SURFACE_CONTRAST) {
+        const next = lightness + step
+        if (next < 0 || next > 100) {
+            break
+        }
+        lightness = next
+        result = result.lightness(lightness)
+    }
+    return result
+}
+
 @Injectable({ providedIn: 'root' })
 export class ThemesService {
     get themeChanged$ (): Observable<Theme> { return this.themeChanged }
@@ -70,7 +103,7 @@ export class ThemesService {
             background = background.fade(0.6)
         }
         // const background = theme.background
-        const backgroundMore = more(background.string(), 0.25).string()
+        const backgroundMore = ensureSurfaceContrast(more(background.string(), 0.25), background).string()
         // const backgroundMore =more(theme.background, 0.25).string()
         const accentIndex = 4
         const vars: Record<string, string> = {}
@@ -104,11 +137,11 @@ export class ThemesService {
             vars['--theme-fg-less'] = less(theme.foreground, 0.25).string()
             vars['--theme-fg-less-2'] = less(theme.foreground, 0.5).string()
 
-            vars['--theme-bg-less-2'] = less(theme.background, 0.5).string()
-            vars['--theme-bg-less'] = less(theme.background, 0.25).string()
+            vars['--theme-bg-less-2'] = ensureSurfaceContrast(less(theme.background, 0.5), background).string()
+            vars['--theme-bg-less'] = ensureSurfaceContrast(less(theme.background, 0.25), background).string()
             vars['--theme-bg'] = theme.background
             vars['--theme-bg-more'] = backgroundMore
-            vars['--theme-bg-more-2'] = more(backgroundMore, 0.25).string()
+            vars['--theme-bg-more-2'] = ensureSurfaceContrast(more(backgroundMore, 0.25), background).string()
 
             contrastPairs.push(['--theme-bg', '--theme-fg'])
             contrastPairs.push(['--theme-bg-less', '--theme-fg-less'])
@@ -119,14 +152,14 @@ export class ThemesService {
             const themeColors = {
                 primary: theme.colors[accentIndex],
                 secondary: isDark
-                    ? less(theme.background, 0.5).string()
-                    : less(theme.background, 0.125).string(),
-                tertiary: more(theme.background, 0.75).string(),
+                    ? ensureSurfaceContrast(less(theme.background, 0.5), background).string()
+                    : ensureSurfaceContrast(less(theme.background, 0.125), background).string(),
+                tertiary: ensureSurfaceContrast(more(theme.background, 0.75), background).string(),
                 warning: theme.colors[3],
                 danger: theme.colors[1],
                 success: theme.colors[2],
                 info: theme.colors[4],
-                dark: more(theme.background, 0.75).string(),
+                dark: ensureSurfaceContrast(more(theme.background, 0.75), background).string(),
                 light: more(theme.foreground, 0.5).string(),
                 link: theme.colors[8], // for .btn-link
             }
