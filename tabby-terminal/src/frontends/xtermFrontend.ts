@@ -19,6 +19,7 @@ import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
 import { generatePalette } from '../generatePalette'
 import { disposeWebglAddon } from './webglAddon'
+import { MouseTrackingMode } from './mouseReporting'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -813,6 +814,10 @@ export class XTermFrontend extends Frontend {
 
     supportsBracketedPaste (): boolean {
         return this.xterm.modes.bracketedPasteMode
+    }
+
+    getMouseTrackingMode (): MouseTrackingMode {
+        return this.xterm.modes.mouseTrackingMode
     }
 
     isAlternateScreenActive (): boolean {

@@ -15,6 +15,7 @@ import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
 import { getTerminalBackgroundColor } from '../helpers'
+import { shouldDeferRightClickToApplication } from '../frontends/mouseReporting'
 
 
 const INACTIVE_TAB_UNLOAD_DELAY = 1000 * 30
@@ -720,7 +721,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.termContainerSubscriptions.subscribe(this.focused$, () => this.frontend && (this.frontend.enableResizing = true))
         this.termContainerSubscriptions.subscribe(this.blurred$, () => this.frontend && (this.frontend.enableResizing = false))
 
-        this.termContainerSubscriptions.subscribe(this.frontend.mouseEvent$, event => {
+        const frontend = this.frontend
+        this.termContainerSubscriptions.subscribe(frontend.mouseEvent$, event => {
+            const deferRightClick = shouldDeferRightClickToApplication(frontend.getMouseTrackingMode(), event)
             if (event.type === 'mousedown') {
                 if (event.which === 1) {
                     this.multifocus.cancel()
@@ -734,13 +737,21 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     return
                 }
                 if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                    this.handleRightMouseDown(event)
+                    // The app has mouse reporting on: xterm already forwarded the
+                    // press and needs this event to keep bubbling to `document`
+                    // to receive the matching release. Opening our own menu here
+                    // would also show two menus for a single right-click.
+                    if (!deferRightClick) {
+                        this.handleRightMouseDown(event)
+                    }
                     return
                 }
             }
             if (event.type === 'mouseup') {
                 if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                    this.handleRightMouseUp(event)
+                    if (!deferRightClick) {
+                        this.handleRightMouseUp(event)
+                    }
                     return
                 }
             }
