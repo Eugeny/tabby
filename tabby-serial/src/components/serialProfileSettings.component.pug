@@ -5,8 +5,21 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
             .row
                 .col-6(ng:if='hostApp.platform !== Platform.Web')
                     .mb-3
-                        label(translate) Device
+                        label(translate) Connection type
+                        select.form-control([(ngModel)]='profile.options.connectionType')
+                            option(value='serial', translate) Serial port
+                            option(value='pipe', translate) Named pipe / Unix socket
+                    .mb-3
+                        label(*ngIf="profile.options.connectionType === 'pipe'", translate) Pipe path
+                        label(*ngIf="profile.options.connectionType !== 'pipe'", translate) Device
                         input.form-control(
+                            *ngIf="profile.options.connectionType === 'pipe'",
+                            type='text',
+                            placeholder='\\\\.\\pipe\\name or /path/to/socket',
+                            [(ngModel)]='profile.options.port'
+                        )
+                        input.form-control(
+                            *ngIf="profile.options.connectionType !== 'pipe'",
                             type='text',
                             alwaysVisibleTypeahead,
                             [(ngModel)]='profile.options.port',
@@ -14,7 +27,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             [resultFormatter]='portsFormatter'
                         )
 
-                .col-6
+                .col-6(*ngIf="profile.options.connectionType !== 'pipe'")
                     .mb-3
                         label(translate) Baud rate
                         input.form-control(
@@ -30,56 +43,57 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
         a(ngbNavLink, translate) Advanced
         ng-template(ngbNavContent)
-            .form-line
-                .header
-                    .title(translate) Data bits
-                input.form-control(
-                    type='number',
-                    placeholder='8',
-                    [(ngModel)]='profile.options.databits',
-                )
+            ng-container(*ngIf="profile.options.connectionType !== 'pipe'")
+                .form-line
+                    .header
+                        .title(translate) Data bits
+                    input.form-control(
+                        type='number',
+                        placeholder='8',
+                        [(ngModel)]='profile.options.databits',
+                    )
 
-            .form-line
-                .header
-                    .title(translate) Stop bits
-                input.form-control(
-                    type='number',
-                    placeholder='1',
-                    [(ngModel)]='profile.options.stopbits',
-                )
+                .form-line
+                    .header
+                        .title(translate) Stop bits
+                    input.form-control(
+                        type='number',
+                        placeholder='1',
+                        [(ngModel)]='profile.options.stopbits',
+                    )
 
-            .form-line
-                .header
-                    .title(translate) Parity
-                select.form-control(
-                    type='text',
-                    [(ngModel)]='profile.options.parity'
-                )
-                    option(value='none', translate) None
-                    option(value='even') Even
-                    option(value='odd') Odd
-                    option(value='mark', ng:if='hostApp.platform === Platform.Windows') Mark
-                    option(value='space', ng:if='hostApp.platform === Platform.Windows') Space
+                .form-line
+                    .header
+                        .title(translate) Parity
+                    select.form-control(
+                        type='text',
+                        [(ngModel)]='profile.options.parity'
+                    )
+                        option(value='none', translate) None
+                        option(value='even') Even
+                        option(value='odd') Odd
+                        option(value='mark', ng:if='hostApp.platform === Platform.Windows') Mark
+                        option(value='space', ng:if='hostApp.platform === Platform.Windows') Space
 
-            .form-line
-                .header
-                    .title RTS / CTS
-                toggle([(ngModel)]='profile.options.rtscts')
+                .form-line
+                    .header
+                        .title RTS / CTS
+                    toggle([(ngModel)]='profile.options.rtscts')
 
-            .form-line
-                .header
-                    .title XON
-                toggle([(ngModel)]='profile.options.xon')
+                .form-line
+                    .header
+                        .title XON
+                    toggle([(ngModel)]='profile.options.xon')
 
-            .form-line
-                .header
-                    .title XOFF
-                toggle([(ngModel)]='profile.options.xoff')
+                .form-line
+                    .header
+                        .title XOFF
+                    toggle([(ngModel)]='profile.options.xoff')
 
-            .form-line
-                .header
-                    .title Xany
-                toggle([(ngModel)]='profile.options.xany')
+                .form-line
+                    .header
+                        .title Xany
+                    toggle([(ngModel)]='profile.options.xany')
 
             .form-line
                 .header

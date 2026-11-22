@@ -6,7 +6,7 @@ import { NewTabParameters, PartialProfile, SelectorService, HostAppService, Plat
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
 import { SerialTabComponent } from './components/serialTab.component'
 import { SerialService } from './services/serial.service'
-import { BAUD_RATES, SerialProfile } from './api'
+import { BAUD_RATES, SerialConnectionType, SerialProfile } from './api'
 
 @Injectable({ providedIn: 'root' })
 export class SerialProfilesService extends QuickConnectProfileProvider<SerialProfile> {
@@ -16,6 +16,7 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     configDefaults = {
         options: {
             port: null,
+            connectionType: 'serial' as SerialConnectionType,
             baudrate: null,
             databits: 8,
             stopbits: 1,
@@ -82,7 +83,7 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     }
 
     async getNewTabParameters (profile: SerialProfile): Promise<NewTabParameters<SerialTabComponent>> {
-        if (!profile.options.baudrate) {
+        if (!profile.options.baudrate && profile.options.connectionType !== 'pipe') {
             profile = deepClone({ ...profile })
             profile.options.baudrate = await this.selector.show(
                 this.translate.instant('Baud rate'),
@@ -108,7 +109,11 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     quickConnect (query: string): PartialProfile<SerialProfile> {
         let port = query
         let baudrate = 115200
-        if (query.includes('@')) {
+        let connectionType: SerialConnectionType = 'serial'
+        if (port.toLowerCase().startsWith('pipe:')) {
+            connectionType = 'pipe'
+            port = port.slice('pipe:'.length)
+        } else if (query.includes('@')) {
             baudrate = parseInt(port.split('@')[1]) || baudrate
             port = port.split('@')[0]
         } else if (query.includes(':')) {
@@ -122,6 +127,7 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
             options: {
                 port,
                 baudrate,
+                connectionType,
             },
         }
     }
@@ -130,9 +136,12 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
         if (!profile.options.port) {
             return null
         }
+        const { port, baudrate, connectionType } = profile.options
+        if (connectionType === 'pipe') {
+            return `pipe:${port}`
+        }
         // baudrate defaults to null ("not chosen yet"), unlike ssh/telnet's real port
         // defaults - so null and 115200 both render bare, and both parse back to 115200
-        const { port, baudrate } = profile.options
         return baudrate && baudrate !== 115200 ? `${port}@${baudrate}` : port
     }
 }

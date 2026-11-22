@@ -1,11 +1,11 @@
 terminal-toolbar([tab]='this')
     i.fas.fa-xs.fa-circle.text-success.me-2(*ngIf='session && session.open')
     i.fas.fa-xs.fa-circle.text-danger.me-2(*ngIf='!session || !session.open')
-    strong {{profile.options.port}} ({{profile.options.baudrate}})
+    strong {{profile.options.port}} <span *ngIf="profile.options.connectionType !== 'pipe'">({{profile.options.baudrate}})</span>
 
     .me-auto
 
-    button.btn.btn-sm.btn-link.me-3((click)='changeBaudRate()', *ngIf='session && session.open && hostApp.platform !== Platform.Web')
+    button.btn.btn-sm.btn-link.me-3((click)='changeBaudRate()', *ngIf="session && session.open && hostApp.platform !== Platform.Web && profile.options.connectionType !== 'pipe'")
         span(translate) Change baud rate
 
     button.btn.btn-sm.btn-link.me-2((click)='disconnect()', *ngIf='session && session.open')

@@ -1,4 +1,5 @@
 import stripAnsi from 'strip-ansi'
+import { connect, Socket } from 'net'
 import { SerialPortStream } from '@serialport/stream'
 import { LogService, NotificationsService } from 'tabby-core'
 import { Subject, Observable } from 'rxjs'
@@ -10,8 +11,11 @@ export interface SerialProfile extends ConnectableTerminalProfile {
     options: SerialProfileOptions
 }
 
+export type SerialConnectionType = 'serial' | 'pipe'
+
 export interface SerialProfileOptions extends StreamProcessingOptions, LoginScriptsOptions {
     port: string
+    connectionType: SerialConnectionType
     baudrate: number | null
     databits: 5 | 6 | 7 | 8
     stopbits: 1 | 1.5 | 2
@@ -43,6 +47,7 @@ class SlowFeedMiddleware extends SessionMiddleware {
 
 export class SerialSession extends BaseSession {
     serial: SerialPortStream|null
+    private socket: Socket|null = null
 
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
@@ -76,6 +81,18 @@ export class SerialSession extends BaseSession {
             this.profile.options.port = (await this.serialService.listPorts())[0].name
         }
 
+        if (this.profile.options.connectionType === 'pipe') {
+            await this.startPipe()
+        } else {
+            await this.startSerial()
+        }
+
+        this.open = true
+        setTimeout(() => this.streamProcessor.start())
+        this.loginScriptProcessor?.executeUnconditionalScripts()
+    }
+
+    private async startSerial (): Promise<void> {
         const serial = this.serial = new SerialPortStream({
             binding: this.serialService.detectBinding(),
             path: this.profile.options.port,
@@ -118,9 +135,6 @@ export class SerialSession extends BaseSession {
             }
         })
 
-        this.open = true
-        setTimeout(() => this.streamProcessor.start())
-
         serial.on('readable', () => {
             this.emitOutput(serial.read())
         })
@@ -131,12 +145,46 @@ export class SerialSession extends BaseSession {
                 this.destroy()
             }
         })
+    }
 
-        this.loginScriptProcessor?.executeUnconditionalScripts()
+    private async startPipe (): Promise<void> {
+        // net.connect({path}) opens Unix domain sockets and Windows named pipes
+        // (e.g. \\.\pipe\name) using Node's built-in binding - no serial ioctls.
+        const socket = this.socket = connect({ path: this.profile.options.port })
+        let connected = false
+        await new Promise<void>((resolve, reject) => {
+            socket.once('connect', () => {
+                connected = true
+                this.zone.run(resolve)
+            })
+            socket.on('error', error => {
+                this.zone.run(() => {
+                    if (connected) {
+                        this.notifications.error(error.message)
+                    } else {
+                        reject(error)
+                    }
+                    this.destroy()
+                })
+            })
+            socket.on('close', () => {
+                this.emitServiceMessage('Pipe closed')
+                this.destroy()
+            })
+
+            socket.on('data', data => this.emitOutput(data))
+            socket.on('end', () => {
+                this.logger.info('Shell session ended')
+                if (this.open) {
+                    this.destroy()
+                }
+            })
+        })
     }
 
     write (data: Buffer): void {
         this.serial?.write(data)
+        this.socket?.write(data)
     }
 
     async destroy (): Promise<void> {
@@ -151,6 +199,7 @@ export class SerialSession extends BaseSession {
 
     kill (_?: string): void {
         this.serial?.close()
+        this.socket?.destroy()
     }
 
     emitServiceMessage (msg: string): void {
