@@ -36,6 +36,10 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
                     },
                 },
                 {
+                    label: this.translate.instant('Copy screen'),
+                    click: () => tab.copyScreen(),
+                },
+                {
                     label: this.translate.instant('Paste'),
                     click: () => tab.paste(),
                 },

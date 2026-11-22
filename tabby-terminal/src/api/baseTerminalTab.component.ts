@@ -631,6 +631,19 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         }
     }
 
+    /** Copies the visible terminal screen (not the current selection) to the clipboard. */
+    copyScreen (): void {
+        if (!(this.frontend instanceof XTermFrontend)) {
+            return
+        }
+        const text = this.frontend.getScreenText()
+        if (!text) {
+            return
+        }
+        this.platform.setClipboard({ text })
+        this.notifications.notice(this.translate.instant('Copied'))
+    }
+
     /** @hidden */
     ngOnDestroy (): void {
         super.ngOnDestroy()

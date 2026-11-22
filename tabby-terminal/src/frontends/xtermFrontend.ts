@@ -19,6 +19,7 @@ import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
 import { generatePalette } from '../generatePalette'
 import { disposeWebglAddon } from './webglAddon'
+import { getScreenText } from './screenText'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -557,6 +558,11 @@ export class XTermFrontend extends Frontend {
 
     getSelection (): string {
         return this.xterm.getSelection()
+    }
+
+    /** Text of the currently visible screen, independent of any selection. */
+    getScreenText (): string {
+        return getScreenText(this.xterm.buffer.active, this.xterm.rows)
     }
 
     copySelection (): void {
