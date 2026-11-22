@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { BaseTabComponent, TabContextMenuItemProvider, HostAppService, Platform, MenuItemOptions, TranslateService } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, HostAppService, Platform, MenuItemOptions, TranslateService, PlatformService, NotificationsService } from 'tabby-core'
 import { SSHTabComponent } from './components/sshTab.component'
 import { SSHService } from './services/ssh.service'
 
@@ -13,6 +13,8 @@ export class SFTPContextMenu extends TabContextMenuItemProvider {
         private hostApp: HostAppService,
         private ssh: SSHService,
         private translate: TranslateService,
+        private platform: PlatformService,
+        private notifications: NotificationsService,
     ) {
         super()
     }
@@ -22,6 +24,12 @@ export class SFTPContextMenu extends TabContextMenuItemProvider {
             return []
         }
         const items = [{
+            label: this.translate.instant('Copy host IP'),
+            click: () => {
+                this.platform.setClipboard({ text: tab.profile.options.host })
+                this.notifications.notice(this.translate.instant('Copied'))
+            },
+        }, {
             label: this.translate.instant('Open SFTP panel'),
             click: () => {
                 tab.openSFTP()
