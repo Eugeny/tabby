@@ -18,6 +18,7 @@ import { parseArgs } from './cli'
 import { Application } from './app'
 import electronDebug from 'electron-debug'
 import { loadConfig } from './config'
+import { shouldRegisterTabbyProtocol } from './protocolRegistration'
 
 const argv = parseArgs(process.argv, process.cwd())
 
@@ -36,12 +37,14 @@ process.mainModule = module
 const application = new Application(configStore)
 
 // Register tabby:// URL scheme
-if (process.defaultApp) {
-    if (process.argv.length >= 2) {
-        app.setAsDefaultProtocolClient('tabby', process.execPath, [process.argv[1]])
+if (shouldRegisterTabbyProtocol(process.platform, () => app.isDefaultProtocolClient('tabby'))) {
+    if (process.defaultApp) {
+        if (process.argv.length >= 2) {
+            app.setAsDefaultProtocolClient('tabby', process.execPath, [process.argv[1]])
+        }
+    } else {
+        app.setAsDefaultProtocolClient('tabby')
     }
-} else {
-    app.setAsDefaultProtocolClient('tabby')
 }
 
 ipcMain.on('app:new-window', () => {
