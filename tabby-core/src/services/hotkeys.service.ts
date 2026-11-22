@@ -79,6 +79,7 @@ export class HotkeysService {
     private suppressNextKeyupKeystroke = false
     private lastEventTimestamp = 0
     private lastWheelTimestamp: number|null = null
+    private seenEventNames = new WeakMap<KeyboardEvent|WheelEvent|MouseEvent, Set<string>>()
 
     private constructor (
         private zone: NgZone,
@@ -133,8 +134,27 @@ export class HotkeysService {
         if (!HANDLED_EVENT_NAMES.includes(eventName)) {
             return
         }
+        // A keyup can never describe a keydown. xterm invokes its custom key
+        // handler for both, so a mislabelled keyup would complete the chord a
+        // second time while its modifiers are still held.
+        if (eventName === 'keydown' && 'type' in nativeEvent && nativeEvent.type === 'keyup') {
+            return
+        }
         if (nativeEvent.timeStamp === this.lastEventTimestamp) {
             return
+        }
+        // The timestamp check only covers consecutive pushes, but the same DOM
+        // event can be forwarded more than once (xterm's key handler and the
+        // document listener) with other events in between. Remember which
+        // names have already been processed for this particular event object.
+        const seenNames = this.seenEventNames.get(nativeEvent)
+        if (seenNames?.has(eventName)) {
+            return
+        }
+        if (seenNames) {
+            seenNames.add(eventName)
+        } else {
+            this.seenEventNames.set(nativeEvent, new Set([eventName]))
         }
 
         nativeEvent['event'] = eventName
