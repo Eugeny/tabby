@@ -10,7 +10,7 @@ app-root {
 
     .main.content {
         .tab-bar {
-            background: var(--theme-bg-more-2);
+            background: var(--tab-bar-bg, var(--theme-bg-more-2));
 
             .btn-tab-bar {
                 background: transparent;

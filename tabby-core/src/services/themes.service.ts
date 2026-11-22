@@ -47,6 +47,7 @@ export class ThemesService {
         if (!this.findCurrentTheme().followsColorScheme) {
             document.documentElement.style.cssText = this.rootElementStyleBackup
         }
+        document.documentElement.style.removeProperty('--tab-bar-bg')
 
         const theme = this._getActiveColorScheme()
         const isDark = Color(theme.background).luminosity() < Color(theme.foreground).luminosity()
@@ -77,6 +78,9 @@ export class ThemesService {
         const contrastPairs: string[][] = []
 
         vars['--body-bg'] = background.string()
+        if (this.getConfigStoreOrDefaults().appearance.matchTabBarBackground) {
+            vars['--tab-bar-bg'] = background.string()
+        }
         if (this.findCurrentTheme().followsColorScheme) {
             vars['--bs-body-bg'] = theme.background
             vars['--bs-body-color'] = theme.foreground

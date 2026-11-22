@@ -274,6 +274,15 @@ h3.mt-4(translate) Tabs
 
 .form-line
     .header
+        .title(translate) Match tab bar background to terminal
+        .description(translate) Uses the terminal background color for the tab bar to avoid a visible seam
+    toggle(
+        [(ngModel)]='config.store.appearance.matchTabBarBackground',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
         .title(translate) Tabs location
     .btn-group
         input.btn-check(

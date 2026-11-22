@@ -13,6 +13,7 @@ appearance:
   cycleTabs: true
   theme: Follow the color scheme
   frame: thin
+  matchTabBarBackground: false
   css: '/* * { color: blue !important; } */'
   opacity: 1.0
   vibrancy: false

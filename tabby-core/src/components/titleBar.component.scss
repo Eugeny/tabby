@@ -3,7 +3,7 @@ $titlebar-height: 30px;
 :host {
     flex: 0 0 $titlebar-height;
     display: flex;
-    background: var(--theme-bg-more-2);
+    background: var(--tab-bar-bg, var(--theme-bg-more-2));
     color: var(--bs-body-color);
 
     .title {
