@@ -10,6 +10,7 @@ export interface Profile {
     type: string
     name: string
     group: string
+    tags: string[]
     options: any
 
     icon: string | null

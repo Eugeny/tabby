@@ -19,6 +19,7 @@ export class ProfilesService {
         type: '',
         name: '',
         group: '',
+        tags: [],
         options: {},
         icon: '',
         color: '',

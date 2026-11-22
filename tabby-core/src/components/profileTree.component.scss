@@ -8,6 +8,11 @@ input {
     border: 1px solid var(--theme-secondary);
 }
 
+.tag-filter {
+    max-width: 45%;
+    border: 1px solid var(--theme-secondary);
+}
+
 .profile-tree {
     max-height: 100%;
     overflow-y: scroll;

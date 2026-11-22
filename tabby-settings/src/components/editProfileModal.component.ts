@@ -22,6 +22,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
     @Input() defaultsMode: 'enabled'|'group'|'disabled' = 'disabled'
     @Input() profileGroup: PartialProfileGroup<ProfileGroup> | undefined
     groups: PartialProfileGroup<ProfileGroup>[]
+    tagsString = ''
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
     protected profile: FullyDefined<P> & ConfigProxy<FullyDefined<P>>
@@ -57,6 +58,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
 
     ngOnInit () {
         this.profile = this.profilesService.getConfigProxyForProfile<P>(this.partialProfile, { skipGlobalDefaults: this.defaultsMode === 'enabled', skipGroupDefaults: this.defaultsMode === 'group' })
+        this.tagsString = (this.profile.tags ?? []).join(', ')
     }
 
     ngAfterViewInit () {
@@ -94,6 +96,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
             this.profile.group = this.profileGroup.id
         }
 
+        this.profile.tags = this.tagsString.split(',').map(tag => tag.trim()).filter(Boolean)
         this.settingsComponentInstance?.save?.()
         this.profile.__cleanup()
         this.modalInstance.close(this.partialProfile)

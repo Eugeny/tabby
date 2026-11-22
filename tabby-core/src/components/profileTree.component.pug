@@ -1,10 +1,17 @@
 .p-2.h-100.d-flex.flex-column
-    input.form-control.form-control-sm.mb-1(
-        type='text',
-        [(ngModel)]='filter',
-        [placeholder]='"Filter"|translate',
-        (ngModelChange)='onFilterChange()'
-    )
+    .d-flex.mb-1
+        input.form-control.form-control-sm.me-1(
+            type='text',
+            [(ngModel)]='filter',
+            [placeholder]='"Filter"|translate',
+            (ngModelChange)='onFilterChange()'
+        )
+        select.form-control.form-control-sm.tag-filter(
+            [(ngModel)]='tagFilter',
+            (ngModelChange)='onFilterChange()'
+        )
+            option([value]='""') {{ 'All tags'|translate }}
+            option(*ngFor='let tag of availableTags', [value]='tag') {{ tag }}
 
     .profile-tree.h-100
         .d-flex.flex-column.p-2.profile-tree-container

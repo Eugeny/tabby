@@ -32,6 +32,14 @@
                 )
 
             .mb-3(*ngIf='defaultsMode === "disabled"')
+                label(translate) Tags
+                input.form-control(
+                    type='text',
+                    placeholder='Tag1, Tag2',
+                    [(ngModel)]='tagsString'
+                )
+
+            .mb-3(*ngIf='defaultsMode === "disabled"')
                 label(translate) Icon
                 .input-group
                     input.form-control(

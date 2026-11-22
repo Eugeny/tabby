@@ -29,6 +29,7 @@ export class ProfileTreeComponent extends BaseComponent {
 
     filteredProfiles: PartialProfile<Profile>[] = []
     @Input() filter = ''
+    tagFilter = ''
 
 
     panelMinWidth = 200
@@ -199,25 +200,41 @@ export class ProfileTreeComponent extends BaseComponent {
         return this.profilesService.launchProfile(profile)
     }
 
+    get availableTags (): string[] {
+        const tags = new Set<string>()
+        for (const group of this.profileGroups) {
+            for (const profile of group.profiles ?? []) {
+                for (const tag of profile.tags ?? []) {
+                    if (tag) { tags.add(tag) }
+                }
+            }
+        }
+        return [...tags].sort((a, b) => a.localeCompare(b))
+    }
+
     async onFilterChange (): Promise<void> {
         try {
             const q = this.filter.trim().toLowerCase()
 
-            if (q.length === 0) {
+            if (q.length === 0 && !this.tagFilter) {
                 this.rootGroups = this.profilesService.buildGroupTree(this.profileGroups)
                 return
             }
 
-            const profiles = await this.profilesService.getProfiles({
+            let profiles = await this.profilesService.getProfiles({
                 includeBuiltin: this.config.store.terminal.showBuiltinProfiles,
                 clone: true,
             })
 
-            const matches = new FuzzySearch(
-                profiles.filter(p => !p.isTemplate),
-                ['name', 'description'],
-                { sort: false },
-            ).search(q)
+            profiles = profiles.filter(p => !p.isTemplate)
+
+            if (this.tagFilter) {
+                profiles = profiles.filter(p => (p.tags ?? []).includes(this.tagFilter))
+            }
+
+            const matches = q.length > 0
+                ? new FuzzySearch(profiles, ['name', 'description', 'tags'], { sort: false }).search(q)
+                : profiles
 
             this.rootGroups = [
                 {
