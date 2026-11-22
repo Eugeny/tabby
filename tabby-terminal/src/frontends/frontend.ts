@@ -95,7 +95,7 @@ export abstract class Frontend {
     abstract isAlternateScreenActive (): boolean
 
     /**
-     * Reset terminal modes (mouse tracking, bracketed paste, etc.)
+     * Reset terminal modes (mouse tracking, bracketed paste, cursor visibility, etc.)
      * Called on session reconnection to prevent stale modes from leaking
      */
     resetTerminalModes (): void { } // eslint-disable-line
