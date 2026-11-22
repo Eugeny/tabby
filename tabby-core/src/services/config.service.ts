@@ -463,6 +463,20 @@ export class ConfigService {
             }
             config.version = 8
         }
+        if (config.version < 9) {
+            // Default profile ids used to be based on names that no longer match the
+            // built-in profile ids, so new tabs always fell back to the first profile.
+            const legacyDefaultProfiles = {
+                'cmd-clink': 'local:clink',
+                'local:cmd-clink': 'local:clink',
+                'user-default': 'local:default',
+                'local:user-default': 'local:default',
+            }
+            if (typeof config.terminal?.profile === 'string') {
+                config.terminal.profile = legacyDefaultProfiles[config.terminal.profile] ?? config.terminal.profile
+            }
+            config.version = 9
+        }
     }
 
     private async maybeDecryptConfig (store) {
