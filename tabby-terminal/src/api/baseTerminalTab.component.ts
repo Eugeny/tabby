@@ -467,8 +467,16 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.visibility$
             .pipe(debounce(visibility => interval(visibility ? 0 : INACTIVE_TAB_UNLOAD_DELAY)))
             .subscribe(visibility => {
-                if (visibility && this.frontend instanceof XTermFrontend) {
+                if (!(this.frontend instanceof XTermFrontend)) {
+                    return
+                }
+                if (visibility) {
                     this.frontend.reactivate()
+                } else {
+                    // Background tab: stop parsing/writing PTY output into xterm
+                    // after the idle delay. Output is buffered and replayed on
+                    // reactivation, so scrollback and recovery are preserved.
+                    this.frontend.deactivate()
                 }
             })
     }

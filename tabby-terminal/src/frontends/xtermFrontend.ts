@@ -19,6 +19,7 @@ import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
 import { generatePalette } from '../generatePalette'
 import { disposeWebglAddon } from './webglAddon'
+import { SuspendedOutputBuffer } from './suspendedOutput'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -128,6 +129,8 @@ export class XTermFrontend extends Frontend {
     private pinnedToBottom = true
     private pendingRendererRecovery = false
     private rendererRecoveryAttempts = 0
+    private suspended = false
+    private suspendedOutput = new SuspendedOutputBuffer()
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -604,6 +607,12 @@ export class XTermFrontend extends Frontend {
     }
 
     async write (data: string): Promise<void> {
+        if (this.suspended) {
+            // Hidden tab: hold the raw output instead of parsing it into xterm
+            // and scheduling renders. It is replayed in order on reactivation.
+            this.suspendedOutput.push(data)
+            return
+        }
         // Capture pinned state before the write — the async write yields
         // to the event loop, and RAF callbacks (e.g. from wheel events)
         // could change pinnedToBottom mid-write.
@@ -800,11 +809,16 @@ export class XTermFrontend extends Frontend {
     }
 
     saveState (): any {
-        return this.serializeAddon.serialize({
+        const state = this.serializeAddon.serialize({
             excludeAltBuffer: true,
             excludeModes: true,
             scrollback: 1000,
         })
+        // A hidden tab's newest output may still be suspended rather than parsed
+        // into xterm. Append it so recovery/restart doesn't lose it: restoreState()
+        // writes the serialized state and this raw output in one go.
+        const pending = this.suspendedOutput.value
+        return pending ? state + pending : state
     }
 
     restoreState (state: string): void {
@@ -828,11 +842,27 @@ export class XTermFrontend extends Frontend {
     }
 
     /**
+     * Stop feeding xterm while the tab is hidden. The renderer and the terminal
+     * buffer stay intact (so scrollback and recovery are unaffected); only the
+     * per-chunk parsing and rendering work is deferred until reactivation.
+     */
+    deactivate (): void {
+        this.suspended = true
+    }
+
+    /**
      * Redraw the terminal and recover the renderer when its tab is shown again.
      * Reactivating clears stale renderer state left behind while the tab was
      * hidden, and flushes any GPU context recovery deferred until now.
      */
     reactivate (): void {
+        if (this.suspended) {
+            this.suspended = false
+            const pending = this.suspendedOutput.drain()
+            if (pending) {
+                void this.write(pending)
+            }
+        }
         // An app- or window-level GPU reset can blank the canvas without firing
         // xterm's per-canvas contextlost event, so pendingRendererRecovery stays
         // unset. Treat a WebGL frontend that has lost its addon as needing
