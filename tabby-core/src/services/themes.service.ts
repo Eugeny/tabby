@@ -51,6 +51,8 @@ export class ThemesService {
         const theme = this._getActiveColorScheme()
         const isDark = Color(theme.background).luminosity() < Color(theme.foreground).luminosity()
 
+        document.body.classList.toggle('light-theme', !isDark)
+
         function more (some, factor) {
             if (isDark) {
                 return Color(some).darken(factor)
