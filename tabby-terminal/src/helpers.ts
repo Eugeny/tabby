@@ -9,11 +9,24 @@ function getActiveTerminalTheme (
     return { appTheme, appColorScheme }
 }
 
+/** Whether the window itself is see-through (Acrylic/vibrancy or opacity below 100%). */
+function isWindowTransparent (config: ConfigService): boolean {
+    const appearance = config.store?.appearance
+    return !!appearance?.vibrancy || (appearance?.opacity ?? 1) < 1
+}
+
 export function getTerminalBackgroundColor (
     config: ConfigService,
     themes: ThemesService,
     scheme: TerminalColorScheme | null,
 ): string|null {
+    // A profile with a custom color scheme must not paint an opaque surface
+    // over a transparent window, otherwise its opacity effectively doesn't
+    // carry over from the Window settings.
+    if (isWindowTransparent(config)) {
+        return null
+    }
+
     const { appTheme, appColorScheme } = getActiveTerminalTheme(themes)
 
     // Use non transparent background when:
@@ -32,15 +45,16 @@ export function getXtermBackgroundColor (
     themes: ThemesService,
     scheme: TerminalColorScheme | null,
 ): string {
+    // Keep the terminal surface transparent when the window is translucent so
+    // the OS blur / window opacity is visible inside the terminal area too,
+    // even for profiles with their own color scheme.
+    if (isWindowTransparent(config)) {
+        return '#00000000'
+    }
+
     const configuredBackground = getTerminalBackgroundColor(config, themes, scheme)
     if (configuredBackground) {
         return configuredBackground
-    }
-
-    // Keep terminal surface transparent when window vibrancy is enabled,
-    // so the OS acrylic/blur effect is visible inside the terminal area too.
-    if (config.store.appearance?.vibrancy) {
-        return '#00000000'
     }
 
     const { appTheme, appColorScheme } = getActiveTerminalTheme(themes)
