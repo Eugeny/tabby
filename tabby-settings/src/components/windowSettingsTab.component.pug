@@ -121,6 +121,15 @@ h3.mb-3(translate) Window
         label.btn.btn-secondary(for='frameFull')
             span(translate) Full
 
+.form-line(*ngIf='platform.supportsWindowControls && config.store.appearance.frame !== "native"')
+    .header
+        .title(translate) Hide title bar
+        .description(translate) Hides the custom title bar and its window buttons, giving more vertical space to the terminal. The window can still be dragged by the tab bar.
+    toggle(
+        [(ngModel)]='config.store.appearance.hideTitleBar',
+        (ngModelChange)='saveConfiguration()',
+    )
+
 .form-line(*ngIf='hostApp.platform !== Platform.Web && hostApp.platform !== Platform.Linux')
     .header
         .title(translate) Hide tray icon

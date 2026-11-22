@@ -76,8 +76,9 @@ title-bar(
 
             .btn-space.background(
                 [class.persistent]='config.store.appearance.frame == "thin"',
-                [class.drag]='config.store.appearance.frame == "thin" \
-                && ((config.store.appearance.tabsLocation !== "left" && config.store.appearance.tabsLocation !== "right") || hostApp.platform !== Platform.macOS)'
+                [class.drag]='config.store.appearance.hideTitleBar \
+                || (config.store.appearance.frame == "thin" \
+                && ((config.store.appearance.tabsLocation !== "left" && config.store.appearance.tabsLocation !== "right") || hostApp.platform !== Platform.macOS))'
             )
 
             .btn-group.background

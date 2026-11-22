@@ -281,6 +281,9 @@ export class AppRootComponent {
     }
 
     protected isTitleBarNeeded (): boolean {
+        if (this.config.store.appearance.hideTitleBar) {
+            return false
+        }
         return (
             this.config.store.appearance.frame === 'full'
             ||
