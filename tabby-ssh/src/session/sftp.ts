@@ -4,6 +4,7 @@ import { posix as posixPath } from 'path'
 import { Injector } from '@angular/core'
 import { FileDownload, FileUpload, Logger, LogService } from 'tabby-core'
 import * as russh from 'russh'
+import { downloadWithRetry, uploadWithRetry } from './sftpTransfer'
 
 export interface SFTPFile {
     name: string
@@ -114,15 +115,10 @@ export class SFTPSession {
         this.logger.info('Uploading into', path)
         const tempPath = path + '.tabby-upload'
         try {
-            const handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE)
-            while (true) {
-                const chunk = await transfer.read()
-                if (!chunk.length) {
-                    break
-                }
-                await handle.write(chunk)
-            }
-            await handle.close()
+            await uploadWithRetry({
+                open: append => this.open(tempPath, russh.OPEN_WRITE | (append ? russh.OPEN_APPEND : russh.OPEN_CREATE | russh.OPEN_TRUNCATE)),
+                size: async () => (await this.stat(tempPath)).size,
+            }, transfer)
             await this.unlink(path).catch(() => null)
             await this.rename(tempPath, path)
             transfer.close()
@@ -137,16 +133,8 @@ export class SFTPSession {
     async download (path: string, transfer: FileDownload): Promise<void> {
         this.logger.info('Downloading', path)
         try {
-            const handle = await this.open(path, russh.OPEN_READ)
-            while (true) {
-                const chunk = await handle.read()
-                if (!chunk.length) {
-                    break
-                }
-                await transfer.write(chunk)
-            }
+            await downloadWithRetry(() => this.open(path, russh.OPEN_READ), transfer)
             transfer.close()
-            handle.close()
         } catch (e) {
             transfer.setStatus(e instanceof Error ? e.message : String(e))
             transfer.cancel()
