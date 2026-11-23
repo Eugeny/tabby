@@ -683,6 +683,15 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             || this.config.store.terminal.rightClick === 'clipboard') {
             const duration = Date.now() - this.rightMouseDownTime
             if (duration < 250) {
+                // A right click doesn't fire the `click` event that normally focuses a
+                // terminal pane, so activate/focus this pane before pasting: the
+                // clipboard text should land in the prompt under the cursor (and
+                // subsequent keystrokes should go there) without a prior click.
+                if (this.parent instanceof SplitTabComponent && !this.parent._allFocusMode && this.parent.getFocusedTab() !== this) {
+                    this.parent.focus(this)
+                } else {
+                    this.frontend?.focus()
+                }
                 if (this.config.store.terminal.rightClick === 'paste') {
                     this.paste()
                 } else if (this.config.store.terminal.rightClick === 'clipboard') {
