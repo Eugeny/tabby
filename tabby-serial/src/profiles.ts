@@ -2,7 +2,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
-import { NewTabParameters, PartialProfile, SelectorService, HostAppService, Platform, TranslateService, QuickConnectProfileProvider } from 'tabby-core'
+import { NewTabParameters, PartialProfile, SelectorService, HostAppService, Platform, TranslateService, QuickConnectProfileProvider, NotificationsService } from 'tabby-core'
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
 import { SerialTabComponent } from './components/serialTab.component'
 import { SerialService } from './services/serial.service'
@@ -40,6 +40,7 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
         private serial: SerialService,
         private hostApp: HostAppService,
         private translate: TranslateService,
+        private notifications: NotificationsService,
     ) {
         super()
     }
@@ -82,8 +83,29 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     }
 
     async getNewTabParameters (profile: SerialProfile): Promise<NewTabParameters<SerialTabComponent>> {
-        if (!profile.options.baudrate) {
+        // No device set: ask. The web build picks its own port when the session starts.
+        const askForPort = !profile.options.port && this.hostApp.platform !== Platform.Web
+        if (askForPort || !profile.options.baudrate) {
             profile = deepClone({ ...profile })
+        }
+
+        if (askForPort) {
+            const ports = await this.serial.listPorts()
+            if (!ports.length) {
+                this.notifications.error(this.translate.instant('No serial ports found'))
+                throw new Error('No serial ports found')
+            }
+            profile.options.port = ports.length === 1 ? ports[0].name : await this.selector.show(
+                this.translate.instant('Select a serial port'),
+                ports.map(p => ({
+                    name: p.name,
+                    description: p.description,
+                    result: p.name,
+                })),
+            )
+        }
+
+        if (!profile.options.baudrate) {
             profile.options.baudrate = await this.selector.show(
                 this.translate.instant('Baud rate'),
                 BAUD_RATES.map(x => ({
