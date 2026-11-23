@@ -5,6 +5,7 @@ import * as crypto from 'crypto'
 import { Injector } from '@angular/core'
 import { FileDownload, FileUpload, Logger, LogService } from 'tabby-core'
 import * as russh from 'russh'
+import { publishUpload } from './sftpPublish'
 
 // SSH_FXF_EXCL in SFTP v3. russh accepts this flag but does not export it.
 const OPEN_EXCLUSIVE = 0x20
@@ -50,7 +51,7 @@ export class SFTPSession {
     get closed$ (): Observable<void> { return this.closed }
     private closed = new Subject<void>()
     private logger: Logger
-    private uploadPaths = new Set<string>()
+    private uploads = new Map<string, Promise<void>>()
 
     constructor (private sftp: russh.SFTP, injector: Injector) {
         this.logger = injector.get(LogService).create('sftp')
@@ -116,22 +117,28 @@ export class SFTPSession {
     }
 
     async upload (path: string, transfer: FileUpload): Promise<void> {
-        this.logger.info('Uploading into', path)
-        const uploadPath = posixPath.normalize(path)
-        if (this.uploadPaths.has(uploadPath)) {
-            const error = new Error(`An upload to ${path} is already in progress`)
-            transfer.setStatus(error.message)
-            transfer.cancel()
-            throw error
+        // Uploads to the same path run one after another, so that the last one started wins
+        const key = posixPath.normalize(path)
+        const previous = this.uploads.get(key) ?? Promise.resolve()
+        const current = previous.catch(() => null).then(() => this.uploadNow(path, transfer))
+        this.uploads.set(key, current)
+        try {
+            await current
+        } finally {
+            if (this.uploads.get(key) === current) {
+                this.uploads.delete(key)
+            }
         }
+    }
 
+    private async uploadNow (path: string, transfer: FileUpload): Promise<void> {
+        this.logger.info('Uploading into', path)
         const directory = posixPath.dirname(path)
         const suffix = crypto.randomBytes(16).toString('hex')
         const tempPath = posixPath.join(directory, `.tabby-upload-${suffix}`)
         const backupPath = posixPath.join(directory, `.tabby-backup-${suffix}`)
         let handle: SFTPFileHandle | undefined = undefined
         let publishing = false
-        this.uploadPaths.add(uploadPath)
         try {
             handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE | OPEN_EXCLUSIVE)
             while (true) {
@@ -149,7 +156,7 @@ export class SFTPSession {
                 throw new Error('Upload cancelled')
             }
             publishing = true
-            await this.publishUpload(tempPath, path, backupPath)
+            await publishUpload(this, tempPath, path, backupPath, (...args) => this.logger.warn(...args))
             transfer.close()
         } catch (e) {
             if (handle && !publishing) {
@@ -159,51 +166,7 @@ export class SFTPSession {
             transfer.setStatus(e instanceof Error ? e.message : String(e))
             transfer.cancel()
             throw e
-        } finally {
-            this.uploadPaths.delete(uploadPath)
         }
-    }
-
-    private async publishUpload (tempPath: string, path: string, backupPath: string): Promise<void> {
-        const directory = posixPath.dirname(path)
-        const name = posixPath.basename(path)
-        try {
-            await this.rename(tempPath, path)
-            return
-        } catch (e) {
-            // The binding wraps SSH_FX_FAILURE as a Rust Debug string. A lost reply is
-            // ambiguous and must not trigger a second attempt to replace the destination.
-            const entries = e instanceof Error && /^Status\(Status \{ id: \d+, status_code: Failure,/.test(e.message)
-                ? await this.readdir(directory).catch(() => null)
-                : null
-            const existing = entries?.find(entry => entry.name === name)
-            if (!existing || existing.isDirectory || !entries?.some(entry => entry.name === posixPath.basename(tempPath))) {
-                throw new Error(`Could not publish upload to ${path}. Check ${tempPath} for the uploaded file. ${e}`)
-            }
-        }
-
-        try {
-            await this.rename(path, backupPath)
-        } catch (e) {
-            throw new Error(`Could not move ${path} aside. Check ${backupPath} for the original and ${tempPath} for the upload. ${e}`)
-        }
-        try {
-            await this.rename(tempPath, path)
-        } catch (e) {
-            // A second client may have created the destination, or the rename may have
-            // succeeded before its reply was lost. Leave both recovery paths untouched.
-            const entries = await this.readdir(directory).catch(() => null)
-            if (entries && !entries.some(entry => entry.name === name)) {
-                try {
-                    await this.rename(backupPath, path)
-                } catch (restoreError) {
-                    throw new Error(`Could not replace or restore ${path}. Check ${backupPath} for the original and ${tempPath} for the upload. ${e}; ${restoreError}`)
-                }
-                throw new Error(`Could not replace ${path}. The original was restored. Check ${tempPath} for the upload. ${e}`)
-            }
-            throw new Error(`Could not confirm replacement of ${path}. Check ${backupPath} for the original and ${tempPath} for the upload. ${e}`)
-        }
-        await this.unlink(backupPath).catch(e => this.logger.warn('Could not remove upload backup', backupPath, e))
     }
 
     async download (path: string, transfer: FileDownload): Promise<void> {
