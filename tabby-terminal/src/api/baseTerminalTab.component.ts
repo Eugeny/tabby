@@ -15,7 +15,6 @@ import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
 import { getTerminalBackgroundColor } from '../helpers'
-import { shouldDeferRightClickToApplication } from '../frontends/mouseReporting'
 
 
 const INACTIVE_TAB_UNLOAD_DELAY = 1000 * 30
@@ -666,6 +665,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     }
 
     private rightMouseDownTime = 0
+    private rightClickLeftToApp = false
 
     protected async handleRightMouseDown (event: MouseEvent): Promise<void> {
         event.preventDefault()
@@ -732,7 +732,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
 
         const frontend = this.frontend
         this.termContainerSubscriptions.subscribe(frontend.mouseEvent$, event => {
-            const deferRightClick = shouldDeferRightClickToApplication(frontend.getMouseTrackingMode(), event)
             if (event.type === 'mousedown') {
                 if (event.which === 1) {
                     this.multifocus.cancel()
@@ -746,11 +745,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     return
                 }
                 if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                    // The app has mouse reporting on: xterm already forwarded the
-                    // press and needs this event to keep bubbling to `document`
-                    // to receive the matching release. Opening our own menu here
-                    // would also show two menus for a single right-click.
-                    if (!deferRightClick) {
+                    // Right-click is off and the app tracks the mouse: xterm has reported
+                    // the press and listens for the release on `document`, so leave both
+                    // events alone. Decided on the press, as the app may change modes in response.
+                    this.rightClickLeftToApp = this.config.store.terminal.rightClick === 'off' && frontend.isMouseTrackingActive()
+                    if (!this.rightClickLeftToApp) {
                         this.handleRightMouseDown(event)
                     }
                     return
@@ -758,7 +757,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             }
             if (event.type === 'mouseup') {
                 if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                    if (!deferRightClick) {
+                    if (!this.rightClickLeftToApp) {
                         this.handleRightMouseUp(event)
                     }
                     return

@@ -19,7 +19,6 @@ import { BaseTerminalProfile } from '../api/interfaces'
 import { getXtermBackgroundColor } from '../helpers'
 import { generatePalette } from '../generatePalette'
 import { disposeWebglAddon } from './webglAddon'
-import { MouseTrackingMode } from './mouseReporting'
 import './xterm.css'
 
 const COLOR_NAMES = [
@@ -498,12 +497,16 @@ export class XTermFrontend extends Frontend {
             mousedown: event => this.mouseEvent.next(event as MouseEvent),
             mouseup: event => this.mouseEvent.next(event as MouseEvent),
             rightButtonCapture: event => {
-                // Tabby always handles right-click itself (menu/paste/copy).
-                // Don't let xterm also report it to apps with mouse tracking
-                // enabled - some of them paste on right-click, doubling the paste
-                if ((event as MouseEvent).button === 2 && this.xterm.modes.mouseTrackingMode !== 'none') {
-                    event.stopPropagation()
-                    this.mouseEvent.next(event as MouseEvent)
+                // Tabby handles right-click itself (menu/paste/copy), so don't let
+                // xterm also report it to apps with mouse tracking enabled - some of
+                // them paste on right-click, doubling the paste.
+                // With right-click turned off, the click is the app's instead.
+                const e = event as MouseEvent
+                const rightClick = e.button === 2 || e.button === 0 && e.ctrlKey
+                if (rightClick && this.isMouseTrackingActive() && this.configService.store.terminal.rightClick !== 'off') {
+                    // "immediate" also skips our own bubble listener when the host itself is the target
+                    event.stopImmediatePropagation()
+                    this.mouseEvent.next(e)
                 }
             },
             mousewheel: event => this.mouseEvent.next(event as MouseEvent),
@@ -835,8 +838,8 @@ export class XTermFrontend extends Frontend {
         return this.xterm.modes.bracketedPasteMode
     }
 
-    getMouseTrackingMode (): MouseTrackingMode {
-        return this.xterm.modes.mouseTrackingMode
+    isMouseTrackingActive (): boolean {
+        return this.xterm.modes.mouseTrackingMode !== 'none'
     }
 
     isAlternateScreenActive (): boolean {

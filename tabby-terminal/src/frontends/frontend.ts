@@ -1,7 +1,6 @@
 import { Injector } from '@angular/core'
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
 import { BaseTerminalProfile, ResizeEvent } from '../api/interfaces'
-import { MouseTrackingMode } from './mouseReporting'
 
 export interface SearchOptions {
     regex?: boolean
@@ -95,12 +94,9 @@ export abstract class Frontend {
     abstract supportsBracketedPaste (): boolean
     abstract isAlternateScreenActive (): boolean
 
-    /**
-     * Mouse tracking mode requested by the running application, if supported.
-     * Frontends that do not report mouse events should leave this at `none`.
-     */
-    getMouseTrackingMode (): MouseTrackingMode {
-        return 'none'
+    /** Whether the running application has asked for mouse events */
+    isMouseTrackingActive (): boolean {
+        return false
     }
 
     /**
