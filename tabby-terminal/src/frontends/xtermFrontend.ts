@@ -635,6 +635,11 @@ export class XTermFrontend extends Frontend {
         this.xterm.write('\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[?1006l')
         // Disable bracketed paste mode
         this.xterm.write('\x1b[?2004l')
+        // Re-enable the cursor (DECTCEM). The old session may have died while an
+        // application had hidden it with ?25l; the reused xterm keeps that state
+        // and the new shell does not necessarily emit ?25h, leaving no cursor
+        // after a reconnect (#11307).
+        this.xterm.write('\x1b[?25h')
     }
 
     visualBell (): void {
