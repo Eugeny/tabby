@@ -184,11 +184,24 @@ export class ProfileTreeComponent extends BaseComponent {
             },
             {
                 type: 'normal',
+                label: this.translate.instant('Open all in group'),
+                click: () => this.profilesService.launchProfiles(this.getGroupProfiles(group)),
+                enabled: this.getGroupProfiles(group).some(x => !x.isBuiltin),
+            },
+            {
+                type: 'normal',
                 label: this.translate.instant('Edit group'),
                 click: () => this.editProfileGroup(group),
                 enabled: group.editable,
             },
         ])
+    }
+
+    private getGroupProfiles (group: PartialProfileGroup<CollapsableProfileGroup>): PartialProfile<Profile>[] {
+        return [
+            ...(group.profiles ?? []),
+            ...(group.children ?? []).flatMap(child => this.getGroupProfiles(child)),
+        ]
     }
 
     private async tabStateChanged (): Promise<void> {
