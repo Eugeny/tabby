@@ -32,6 +32,12 @@ export function getXtermBackgroundColor (
     themes: ThemesService,
     scheme: TerminalColorScheme | null,
 ): string {
+    // Keep xterm transparent for in-app background providers without enabling
+    // window vibrancy or making the color scheme itself transparent.
+    if (config.store.terminal.transparentBackground) {
+        return '#00000000'
+    }
+
     const configuredBackground = getTerminalBackgroundColor(config, themes, scheme)
     if (configuredBackground) {
         return configuredBackground

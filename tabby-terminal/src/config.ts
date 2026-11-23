@@ -26,6 +26,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             bellFlashFrame: false,
             bracketedPaste: true,
             background: 'theme',
+            transparentBackground: false,
             ligatures: false,
             cursor: 'block',
             cursorBlink: true,
