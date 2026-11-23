@@ -2,11 +2,12 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
-import { NewTabParameters, PartialProfile, SelectorService, HostAppService, Platform, TranslateService, QuickConnectProfileProvider } from 'tabby-core'
+import { NewTabParameters, PartialProfile, SelectorService, HostAppService, Platform, TranslateService, NotificationsService, QuickConnectProfileProvider } from 'tabby-core'
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
 import { SerialTabComponent } from './components/serialTab.component'
 import { SerialService } from './services/serial.service'
-import { BAUD_RATES, SerialProfile } from './api'
+import { SerialProfile } from './api'
+import { selectBaudRate } from './baudRate'
 
 @Injectable({ providedIn: 'root' })
 export class SerialProfilesService extends QuickConnectProfileProvider<SerialProfile> {
@@ -40,6 +41,7 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
         private serial: SerialService,
         private hostApp: HostAppService,
         private translate: TranslateService,
+        private notifications: NotificationsService,
     ) {
         super()
     }
@@ -84,12 +86,11 @@ export class SerialProfilesService extends QuickConnectProfileProvider<SerialPro
     async getNewTabParameters (profile: SerialProfile): Promise<NewTabParameters<SerialTabComponent>> {
         if (!profile.options.baudrate) {
             profile = deepClone({ ...profile })
-            profile.options.baudrate = await this.selector.show(
-                this.translate.instant('Baud rate'),
-                BAUD_RATES.map(x => ({
-                    name: x.toString(), result: x, weight: x,
-                })),
-            )
+            const rate = await selectBaudRate(this.selector, this.translate, this.notifications)
+            if (!rate) {
+                throw new Error('Baud rate selection cancelled')
+            }
+            profile.options.baudrate = rate
         }
         return {
             type: SerialTabComponent,

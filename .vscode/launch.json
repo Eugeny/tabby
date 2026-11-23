@@ -20,11 +20,15 @@
         },
         {
             "name": "Electron: Renderer",
-            "type": "pwa-chrome",
+            "type": "chrome",
             "request": "attach",
             "port": 9223,
             "webRoot": "${workspaceFolder}",
-            "timeout": 30000
+            "timeout": 30000,
+            "sourceMapPathOverrides": {
+                "webpack-tabby-serial:///./src/*": "${workspaceFolder}/tabby-serial/src/*",
+                "webpack-tabby-core:///./src/*": "${workspaceFolder}/tabby-core/src/*"
+            }
         }
     ],
     "compounds": [
