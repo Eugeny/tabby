@@ -69,6 +69,43 @@ div(*ngIf='vault.isEnabled()')
                             span(translate) Delete
 
         h3.mt-5(translate) Options
+
+        .form-line(*ngIf='touchIdAvailable')
+            .header
+                .title
+                    i.fas.fa-fingerprint.me-2
+                    span(translate) Use Touch ID to unlock
+                .description(translate) Unlock the vault using Touch ID instead of entering the passphrase
+            toggle(
+                [(ngModel)]='touchIdEnabled',
+                (ngModelChange)='toggleTouchId($event)',
+            )
+
+        ng-container(*ngIf='touchIdAvailable && touchIdEnabled')
+            .form-line
+                .header
+                    .title(translate) Require the passphrase every
+                    .description(translate) Touch ID stops working this many days after the passphrase was last entered
+                .input-group(style='width: 120px')
+                    input.form-control(
+                        type='number',
+                        min='1',
+                        max='30',
+                        step='1',
+                        [(ngModel)]='touchIdExpireDays',
+                        (change)='setTouchIdExpiry()',
+                    )
+                    span.input-group-text(translate) days
+
+            .form-line
+                .header
+                    .title(translate) Require the passphrase after the computer restarts
+                    .description(translate) Touch ID only works once the passphrase has been entered since the last restart
+                toggle(
+                    [(ngModel)]='touchIdExpireOnRestart',
+                    (ngModelChange)='setTouchIdExpiry()',
+                )
+
         .form-line
             .header
                 .title(translate) Encrypt config file

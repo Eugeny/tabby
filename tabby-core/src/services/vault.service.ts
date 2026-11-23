@@ -7,6 +7,7 @@ import { wrapPromise, serializeFunction } from '../utils'
 import { UnlockVaultModalComponent } from '../components/unlockVaultModal.component'
 import { NotificationsService } from './notifications.service'
 import { SelectorService } from './selector.service'
+import { VaultBiometricsService } from './vaultBiometrics.service'
 import { FileProvider } from '../api/fileProvider'
 import { PlatformService } from '../api/platform'
 
@@ -101,6 +102,8 @@ export const VAULT_SECRET_TYPE_FILE = 'file'
 
 // Don't make it accessible through VaultService fields
 let _rememberedPassphrase: string|null = null
+// The passphrase from the unlock modal, until it has been tried on the vault
+let _unverifiedPassphrase: { value: string, fromBiometrics: boolean }|null = null
 
 @Injectable({ providedIn: 'root' })
 export class VaultService {
@@ -118,6 +121,7 @@ export class VaultService {
         private zone: NgZone,
         private notifications: NotificationsService,
         private ngbModal: NgbModal,
+        private biometrics: VaultBiometricsService,
     ) {
         this.getPassphrase = serializeFunction(this.getPassphrase.bind(this))
     }
@@ -129,6 +133,7 @@ export class VaultService {
             }
         } else {
             this.store = null
+            this.biometrics.disable()
             this.contentChanged.next()
         }
     }
@@ -139,16 +144,30 @@ export class VaultService {
 
     forgetPassphrase (): void {
         _rememberedPassphrase = null
+        _unverifiedPassphrase = null
     }
 
     async decrypt (storage: StoredVault, passphrase?: string): Promise<Vault> {
         if (!passphrase) {
             passphrase = await this.getPassphrase()
         }
+        const unverified = _unverifiedPassphrase?.value === passphrase ? _unverifiedPassphrase : null
+        if (unverified) {
+            _unverifiedPassphrase = null
+        }
         try {
-            return await wrapPromise(this.zone, decryptVault(storage, passphrase))
+            const vault = await wrapPromise(this.zone, decryptVault(storage, passphrase))
+            if (unverified && !unverified.fromBiometrics) {
+                // Entering the right passphrase restarts the Touch ID expiry period
+                this.biometrics.storePassphrase(passphrase)
+            }
+            return vault
         } catch (e) {
             this.forgetPassphrase()
+            if (unverified?.fromBiometrics) {
+                // The passphrase stored for Touch ID is outdated
+                this.biometrics.forgetPassphrase()
+            }
             if (e.toString().includes('BAD_DECRYPT')) {
                 this.notifications.error('Incorrect passphrase')
             }
@@ -177,6 +196,20 @@ export class VaultService {
         await this.ready$.toPromise()
         this.store = await this.encrypt(vault, passphrase)
         this.contentChanged.next()
+        if (passphrase) {
+            // The passphrase might have changed
+            await this.biometrics.storePassphrase(passphrase)
+        }
+    }
+
+    /**
+     * Lets the vault be unlocked with Touch ID instead of the current passphrase
+     */
+    async enableBiometricUnlock (): Promise<void> {
+        const passphrase = await this.getPassphrase()
+        // Only keep a passphrase that opens the vault
+        await this.load(passphrase)
+        await this.biometrics.enable(passphrase)
     }
 
     async getPassphrase (): Promise<string> {
@@ -186,12 +219,13 @@ export class VaultService {
             if (!result) {
                 throw new Error('Vault unlock cancelled')
             }
-            const { passphrase, rememberFor } = result
+            const { passphrase, rememberFor, fromBiometrics } = result
             setTimeout(() => {
                 _rememberedPassphrase = null
                 // avoid multiple consequent prompts
             }, Math.max(1000, rememberFor * 60000))
             _rememberedPassphrase = passphrase
+            _unverifiedPassphrase = { value: passphrase, fromBiometrics }
         }
 
         return _rememberedPassphrase!
