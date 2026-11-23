@@ -5,12 +5,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider, FullyDefined, ConfigProxy } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
-const iconsClassList = Object.keys(iconsData).map(
+const iconsClassList = Array.from(Object.keys(iconsData)).sort().map(
     icon => iconsData[icon].map(
         style => `fa${style[0]} fa-${icon}`,
     ),
 ).flat()
-const browseIcons = [...iconsClassList].sort((a, b) => a.localeCompare(b))
 
 /** @hidden */
 @Component({
@@ -28,7 +27,7 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
 
     iconBrowserOpen = false
     iconBrowserSearch = ''
-    visibleIcons: string[] = browseIcons
+    visibleIcons: string[] = iconsClassList
 
     protected profile: FullyDefined<P> & ConfigProxy<FullyDefined<P>>
     private settingsComponentInstance?: ProfileSettingsComponent<P, PP>
@@ -100,8 +99,8 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
     filterIcons () {
         const query = this.iconBrowserSearch.trim().toLowerCase()
         this.visibleIcons = query
-            ? browseIcons.filter(icon => icon.toLowerCase().includes(query))
-            : browseIcons
+            ? iconsClassList.filter(icon => icon.toLowerCase().includes(query))
+            : iconsClassList
     }
 
     selectIcon (icon: string) {

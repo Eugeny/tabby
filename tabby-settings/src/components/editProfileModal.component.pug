@@ -34,6 +34,12 @@
             .mb-3(*ngIf='defaultsMode === "disabled"')
                 label(translate) Icon
                 .input-group
+                    button.input-group-text.icon-browser-toggle(
+                        type='button',
+                        (click)='toggleIconBrowser()',
+                        [ngbTooltip]='"Browse icons"|translate'
+                    )
+                        i.fas.fa-ellipsis-h
                     input.form-control(
                         type='text',
                         alwaysVisibleTypeahead,
@@ -41,12 +47,6 @@
                         [ngbTypeahead]='iconSearch',
                         [resultTemplate]='rt'
                     )
-                    button.input-group-text.icon-browser-toggle(
-                        type='button',
-                        (click)='toggleIconBrowser()',
-                        [ngbTooltip]='"Browse icons"|translate'
-                    )
-                        i.fas.fa-th
                     .input-group-text
                         profile-icon(
                             [icon]='profile.icon',
@@ -77,18 +77,19 @@
             .form-line
                 .header
                     .title(translate) Color
-                .input-group.w-50
-                    input.form-control.color-picker(
-                        type='color',
-                        [(ngModel)]='profile.color'
-                    )
-                    input.form-control(
-                        type='text',
-                        [(ngModel)]='profile.color',
-                        placeholder='#000000',
-                        [ngbTypeahead]='colorsAutocomplete',
-                        [resultFormatter]='colorsFormatter'
-                    )
+
+            .d-flex.gap-2
+                input.form-control.color-picker(
+                    type='color',
+                    [(ngModel)]='profile.color'
+                )
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='profile.color',
+                    placeholder='#000000',
+                    [ngbTypeahead]='colorsAutocomplete',
+                    [resultFormatter]='colorsFormatter'
+                )
 
             .form-line
                 .header

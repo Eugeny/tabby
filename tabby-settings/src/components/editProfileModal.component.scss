@@ -16,8 +16,8 @@
 
 .icon-browser-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(2.5rem, 1fr));
-    gap: 0.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(2rem, 1fr));
+    gap: 0.2rem;
     max-height: 16rem;
     overflow-y: auto;
 }
@@ -44,4 +44,9 @@
         background: var(--theme-bg-less-2);
         border-color: var(--theme-primary);
     }
+}
+
+.color-picker {
+    height: 35px;
+    width: 50px;
 }
