@@ -185,8 +185,8 @@ export class ProfileTreeComponent extends BaseComponent {
             {
                 type: 'normal',
                 label: this.translate.instant('Open all in group'),
-                click: () => this.launchAllProfilesInGroup(group),
-                enabled: this.getGroupProfiles(group).length > 0,
+                click: () => this.profilesService.launchProfiles(this.getGroupProfiles(group)),
+                enabled: this.getGroupProfiles(group).some(x => !x.isBuiltin),
             },
             {
                 type: 'normal',
@@ -202,12 +202,6 @@ export class ProfileTreeComponent extends BaseComponent {
             ...(group.profiles ?? []),
             ...(group.children ?? []).flatMap(child => this.getGroupProfiles(child)),
         ]
-    }
-
-    private launchAllProfilesInGroup (group: PartialProfileGroup<CollapsableProfileGroup>): void {
-        for (const profile of this.getGroupProfiles(group)) {
-            this.launchProfile(profile)
-        }
     }
 
     private async tabStateChanged (): Promise<void> {
