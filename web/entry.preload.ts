@@ -66,6 +66,7 @@ const Tabby = {
         const info = await Tabby.resolvePluginInfo(url)
         const module = await webRequire(info.url)
         Tabby.registerPluginModule(info.name, module)
+        module.pluginName = info.name
         return module
     },
     loadPlugins: async (urls, progressCallback) => {
@@ -76,6 +77,9 @@ const Tabby = {
         for (const info of infos) {
             const module = await webRequire(info.url)
             Tabby.registerPluginModule(info.name, module)
+            // bootstrap() copies pluginName onto the NgModule and tabby-core
+            // keys ConfigService.servicesCache by it.
+            module.pluginName = info.name
             pluginModules.push(module)
             progressCallback?.(infos.indexOf(info), infos.length)
         }

@@ -34,6 +34,12 @@
             .mb-3(*ngIf='defaultsMode === "disabled"')
                 label(translate) Icon
                 .input-group
+                    button.input-group-text.icon-browser-toggle(
+                        type='button',
+                        (click)='toggleIconBrowser()',
+                        [ngbTooltip]='"Browse icons"|translate'
+                    )
+                        i.fas.fa-ellipsis-h
                     input.form-control(
                         type='text',
                         alwaysVisibleTypeahead,
@@ -47,6 +53,23 @@
                             [color]='profile.color'
                         )
 
+                .icon-browser(*ngIf='iconBrowserOpen')
+                    input.form-control.form-control-sm.icon-browser-search(
+                        type='text',
+                        placeholder='Search icons',
+                        [(ngModel)]='iconBrowserSearch',
+                        (ngModelChange)='filterIcons()'
+                    )
+                    .icon-browser-grid
+                        button.icon-browser-item(
+                            *ngFor='let icon of visibleIcons',
+                            type='button',
+                            [class.selected]='profile.icon === icon',
+                            [ngbTooltip]='icon',
+                            (click)='selectIcon(icon)'
+                        )
+                            i([class]='"fa-fw " + icon')
+
                 ng-template(#rt,let-r='result',let-t='term')
                     i([class]='"fa-fw " + r')
                     ngb-highlight.ms-2([result]='r', [term]='t')
@@ -54,7 +77,13 @@
             .form-line
                 .header
                     .title(translate) Color
-                input.form-control.w-50(
+
+            .d-flex.gap-2
+                input.form-control.color-picker(
+                    type='color',
+                    [(ngModel)]='profile.color'
+                )
+                input.form-control(
                     type='text',
                     [(ngModel)]='profile.color',
                     placeholder='#000000',

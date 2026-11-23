@@ -82,6 +82,7 @@ $form-check-input-width: 1.4em;
 $form-switch-width: 2.5em;
 
 $input-placeholder-color: var(--theme-fg-more-2);
+$input-bg: var(--theme-bg-more-2);
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import "./theme.vendor.scss";
@@ -89,7 +90,6 @@ $input-placeholder-color: var(--theme-fg-more-2);
 body {
     background: var(--body-bg);
     --bs-border-color: var(--theme-bg-more-2);
-    --bs-form-control-bg: var(--theme-bg-more-2);
     --bs-emphasis-color: var(--theme-fg-less-2);
 }
 
