@@ -25,6 +25,7 @@ const MAX_CONEMU_SUBCOMMAND = 12
 /** Limits for kitty notifications sent in several chunks */
 const MAX_PENDING_KITTY_NOTIFICATIONS = 16
 const MAX_KITTY_NOTIFICATION_FIELD_LENGTH = 8 * 1024
+const MAX_KITTY_NOTIFICATION_ID_LENGTH = 128
 
 export interface TerminalNotification {
     title?: string
@@ -339,8 +340,8 @@ export class OSCProcessor extends SessionMiddleware {
             }
         }
 
-        // Identifiers are echoed back to the program, so only keep the characters the spec allows
-        const id = (options.get('i') ?? '').replace(/[^a-zA-Z0-9_\-+.]/g, '')
+        // Identifiers are echoed back to the program, so only keep the characters the spec allows, and not too many
+        const id = (options.get('i') ?? '').replace(/[^a-zA-Z0-9_\-+.]/g, '').substring(0, MAX_KITTY_NOTIFICATION_ID_LENGTH)
         const payloadType = options.get('p') ?? 'title'
 
         if (payloadType === '?') {

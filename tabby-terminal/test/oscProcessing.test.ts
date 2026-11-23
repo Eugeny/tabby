@@ -161,6 +161,12 @@ describe('OSCProcessor OSC 99 (kitty) notifications', () => {
         assert.equal(t.notifications[0].title, undefined)
     })
 
+    it('truncates an overlong id before echoing it back', () => {
+        const t = setup()
+        t.feed(`\x1b]99;i=${'a'.repeat(5000)}:p=?;\x1b\\`)
+        assert.equal(t.sessionOutput(), `\x1b]99;i=${'a'.repeat(128)}:p=?;a=focus,report:o=unfocused,invisible:p=title,body,close,?\x1b\\`)
+    })
+
     it('answers a capability query with a sanitized id', () => {
         const t = setup()
         t.feed('\x1b]99;i=q<1>:p=?;\x1b\\')
