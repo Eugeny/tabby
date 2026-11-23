@@ -31,6 +31,7 @@ export class SFTPPanelComponent {
     editingPath: string|null = null
     showFilter = false
     filterText = ''
+    private navigationGeneration = 0
 
     constructor (
         private ngbModal: NgbModal,
@@ -53,6 +54,7 @@ export class SFTPPanelComponent {
     }
 
     async navigate (newPath: string, fallbackOnError = true): Promise<void> {
+        const generation = ++this.navigationGeneration
         const previousPath = this.path
         this.path = newPath
         this.pathChange.next(this.path)
@@ -76,11 +78,22 @@ export class SFTPPanelComponent {
         this.fileList = null
         this.filteredFileList = []
         try {
-            this.fileList = await this.sftp.readdir(this.path)
+            const files = await this.sftp.readdir(this.path)
+            if (generation !== this.navigationGeneration) {
+                return
+            }
+            this.fileList = files
         } catch (error) {
-            this.notifications.error(error.message)
+            if (generation !== this.navigationGeneration) {
+                return
+            }
+            this.notifications.error(error instanceof Error ? error.message : String(error))
             if (previousPath && fallbackOnError) {
-                this.navigate(previousPath, false)
+                await this.navigate(previousPath, false)
+            } else {
+                // Never leave the panel stuck on "Loading" when a directory cannot be read
+                this.fileList = []
+                this.updateFilteredList()
             }
             return
         }
