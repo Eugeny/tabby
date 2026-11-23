@@ -20,7 +20,11 @@ export class AutoSudoPasswordMiddleware extends SessionMiddleware {
     feedFromSession (data: Buffer): void {
         if (data.includes(10) || data.includes(13)) {
             this.promptGeneration++
-            this.pendingPasswordToPaste = null
+            if (this.pendingPasswordToPaste) {
+                // Enter no longer pastes, so don't leave the offer on screen
+                this.clearPasteHint()
+                this.pendingPasswordToPaste = null
+            }
         }
         const username = this.promptMatcher.push(data)
         if (username !== null) {
@@ -33,10 +37,7 @@ export class AutoSudoPasswordMiddleware extends SessionMiddleware {
         this.promptGeneration++
         this.promptMatcher.reset()
         if (this.pendingPasswordToPaste) {
-            const backspaces = Buffer.alloc(this.pasteHintLength, 8) // backspace
-            const spaces = Buffer.alloc(this.pasteHintLength, 32) // space
-            const clear = Buffer.concat([backspaces, spaces, backspaces])
-            this.outputToTerminal.next(clear)
+            this.clearPasteHint()
             if (data.length === 1 && data[0] === 13) { // Enter key
                 this.outputToSession.next(Buffer.from(this.pendingPasswordToPaste + '\n'))
                 this.pendingPasswordToPaste = null
@@ -46,6 +47,12 @@ export class AutoSudoPasswordMiddleware extends SessionMiddleware {
             }
         }
         this.outputToSession.next(data)
+    }
+
+    private clearPasteHint (): void {
+        const backspaces = Buffer.alloc(this.pasteHintLength, 8) // backspace
+        const spaces = Buffer.alloc(this.pasteHintLength, 32) // space
+        this.outputToTerminal.next(Buffer.concat([backspaces, spaces, backspaces]))
     }
 
     async handlePrompt (username: string): Promise<void> {
