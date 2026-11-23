@@ -25,7 +25,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         },
         [Platform.Windows]: {
             terminal: {
-                profile: 'local:cmd-clink',
+                profile: 'local:clink',
             },
             hotkeys: {
                 'new-tab': [

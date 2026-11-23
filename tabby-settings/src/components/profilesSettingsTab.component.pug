@@ -47,8 +47,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             ng-template(#recursiveGroup let-group)
                 .collapse-item.d-flex.align-items-center.p-1((click)='toggleGroupCollapse(group)')
-                    .fa.fa-fw.far.fa-folder(*ngIf='group.collapsed')
-                    .fa.fa-fw.far.fa-folder-open(*ngIf='!group.collapsed')
+                    profile-icon.ms-1([icon]='group.icon ?? (group.collapsed ? "far fa-folder" : "far fa-folder-open")', [color]='group?.color')
                     span.ms-3.me-auto {{ group.name || ("Ungrouped"|translate) }}
 
                     button.btn.btn-sm.btn-link.hover-reveal.ms-2(*ngIf='group.editable && group.name', (click)='$event.stopPropagation(); editProfileGroup(group)')

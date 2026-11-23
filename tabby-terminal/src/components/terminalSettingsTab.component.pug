@@ -81,6 +81,15 @@ div.mt-4
             option(ngValue='paste', translate) Paste
             option(ngValue='clipboard', translate) Paste if no selection, else copy
 
+    .form-line(*ngIf='hostApp.platform === Platform.macOS')
+        .header
+            .title(translate) Select word on right click
+
+        toggle(
+            [(ngModel)]='config.store.terminal.rightClickSelectsWord',
+            (ngModelChange)='config.save()',
+        )
+
     .form-line
         .header
             .title(translate) Paste on middle-click
@@ -215,6 +224,15 @@ div.mt-4
             .description(translate) Flash the taskbar or dock icon when the terminal bell rings and the window is not focused
         toggle(
             [(ngModel)]='config.store.terminal.bellFlashFrame',
+            (ngModelChange)='config.save()',
+        )
+
+    .form-line
+        .header
+            .title(translate) Desktop notifications
+            .description(translate) Show notifications sent by programs (OSC 9, 777 and 99) when their terminal is not focused
+        toggle(
+            [(ngModel)]='config.store.terminal.desktopNotifications',
             (ngModelChange)='config.save()',
         )
 

@@ -1,5 +1,9 @@
 .colorbar([style.background-color]='tab.color', *ngIf='tab.color != null')
-.progressbar([style.width]='progress + "%"', *ngIf='progress != null')
+.progressbar(
+    *ngIf='progress != null',
+    [class.indeterminate]='progress === "indeterminate"',
+    [style.width]='progress === "indeterminate" ? null : progress + "%"'
+)
 .activity-indicator(*ngIf='tab.activity$|async')
 .current-tab-indicator
 

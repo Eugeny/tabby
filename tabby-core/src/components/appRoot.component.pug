@@ -5,7 +5,7 @@ title-bar(
   [class.inset]='hostApp.platform == Platform.macOS && !hostWindow.isFullscreen'
 )
 
-.window.h-100.d-flex
+.window.d-flex
     profile-tree(
         *ngIf='ready && config.store.showProfileTree',
         [class.mac-inset]='hostApp.platform == Platform.macOS \

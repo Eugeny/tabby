@@ -4,6 +4,7 @@ import { NewTabParameters } from './tabs.service'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { QuickConnectProfileProvider, PartialProfile, PartialProfileGroup, Profile, ProfileGroup, ProfileProvider } from '../api/profileProvider'
 import { SelectorOption } from '../api/selector'
+import { PlatformService } from '../api/platform'
 import { AppService } from './app.service'
 import { configMerge, ConfigProxy, ConfigService, FullyDefined } from './config.service'
 import { NotificationsService } from './notifications.service'
@@ -37,6 +38,7 @@ export class ProfilesService {
         private notifications: NotificationsService,
         private selector: SelectorService,
         private translate: TranslateService,
+        private platform: PlatformService,
         @Inject(ProfileProvider) private profileProviders: ProfileProvider<Profile>[],
     ) { }
 
@@ -232,6 +234,34 @@ export class ProfilesService {
     * Methods used to interact with Profile Selector
     */
 
+    /**
+     * Opens several profiles one after another, asking first.
+     * Built-in profiles are skipped.
+     */
+    async launchProfiles (profiles: PartialProfile<Profile>[]): Promise<void> {
+        profiles = profiles.filter(x => !x.isBuiltin)
+        if (profiles.length > 1) {
+            const result = await this.platform.showMessageBox({
+                type: 'warning',
+                message: this.translate.instant('Open {count} profiles?', { count: profiles.length }),
+                buttons: [this.translate.instant('Open'), this.translate.instant('Cancel')],
+                defaultId: 0,
+                cancelId: 1,
+            })
+            if (result.response !== 0) {
+                return
+            }
+        }
+        for (const profile of profiles) {
+            try {
+                await this.launchProfile(profile)
+            } catch (error) {
+                // e.g. a dismissed prompt - carry on with the rest
+                console.error('Could not open profile', profile.name, error)
+            }
+        }
+    }
+
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
         const fullProfile = this.getConfigProxyForProfile(profile)
         const provider = this.providerForProfile(fullProfile)
@@ -327,6 +357,33 @@ export class ProfilesService {
                     weight: p.isBuiltin ? 2 : 1,
                     callback: () => resolve(p),
                 }))]
+
+                // One "open all" entry per group, covering its subgroups
+                const isInGroup = (id: string|undefined, groupId: string) => {
+                    for (let depth = 0; id && depth <= 30; depth++) {
+                        if (id === groupId) {
+                            return true
+                        }
+                        id = this.resolveProfileGroup(id)?.parentGroupId
+                    }
+                    return false
+                }
+                for (const group of this.getSyncProfileGroups()) {
+                    const members = profiles.filter(p => !p.isBuiltin && isInGroup(p.group, group.id))
+                    if (members.length > 1) {
+                        options.push({
+                            name: this.translate.instant('Open all in group'),
+                            description: this.translate.instant('{count} profiles', { count: members.length }),
+                            group: this.resolveProfileGroupPath(group.id).join(' 🡒 '),
+                            icon: 'fas fa-layer-group',
+                            weight: 1,
+                            callback: () => {
+                                resolve(null)
+                                this.launchProfiles(members)
+                            },
+                        })
+                    }
+                }
 
                 try {
                     const { SettingsTabComponent } = window['nodeRequire']('tabby-settings')
