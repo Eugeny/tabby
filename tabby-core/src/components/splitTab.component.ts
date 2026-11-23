@@ -219,6 +219,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /** @hidden */
     _allFocusMode = false
 
+    /** The pane whose progress this tab is currently showing */
+    private progressSource: BaseTabComponent|null = null
+
     /** @hidden */
     _spannerResizing = false
 
@@ -552,6 +555,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         tab.removeFromContainer()
         tab.parent = null
         this.viewRefs.delete(tab)
+        this.clearProgressFrom(tab)
 
         this.layout()
 
@@ -574,6 +578,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.attachTabView(newTab)
         tab.parent = null
         newTab.parent = this
+        this.clearProgressFrom(tab)
         this.recoveryStateChangedHint.next()
         this.onAfterTabAdded(newTab)
         this.updateTitle()
@@ -871,7 +876,15 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         )
         tab.subscribeUntilDestroyed(
             this.observeUntilChildDetached(tab, tab.progress$),
-            p => this.setProgress(p),
+            // The child clears its own progress
+            p => {
+                if (p !== null) {
+                    this.progressSource = tab
+                    this.setProgress(p, null)
+                } else {
+                    this.clearProgressFrom(tab)
+                }
+            },
         )
         if (tab.title) {
             this.updateTitle()
@@ -885,6 +898,14 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         tab.destroyed$.subscribe(() => {
             this.removeTab(tab)
         })
+    }
+
+    // A pane that closes or is moved away never reports the end of its progress
+    private clearProgressFrom (tab: BaseTabComponent) {
+        if (this.progressSource === tab) {
+            this.progressSource = null
+            this.setProgress(null)
+        }
     }
 
     private observeUntilChildDetached<T> (tab: BaseTabComponent, event: Observable<T>): Observable<T> {

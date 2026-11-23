@@ -24,6 +24,14 @@ $tab-border-radius: 4px;
   flex-direction: row;
 }
 
+// Fill the remaining height of :host instead of forcing 100%, so a rendered
+// title-bar (e.g. thin frame with left/right tabs) is subtracted from the
+// content height rather than pushing it below the window edge.
+:host > .window {
+    flex: 1 1 0;
+    min-height: 0;
+}
+
 .content {
     width: 100%;
     flex: 1 1 0;
