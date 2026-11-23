@@ -129,6 +129,7 @@ export class SSHSession {
     private knownHosts: SSHKnownHostsService
     private privateKeyImporters: AutoPrivateKeyLocator[]
     private previouslyDisconnected = false
+    private pendingProfileForwards = new Map<string, Promise<void>>()
 
     constructor (
         private injector: Injector,
@@ -499,16 +500,6 @@ export class SSHSession {
             this.passwordStorage.savePassword(this.profile, this.savedPassword, this.authUsername ?? undefined)
         }
 
-        for (const fwConfig of this.profile.options.forwardedPorts) {
-            const fw = Object.assign(new ForwardedPort(), fwConfig)
-            this.addPortForward(fw).catch(e => {
-                this.notifications.error(
-                    this.translate.instant(_('Failed to forward port {fw}'), { fw: fw.toString() }),
-                    e.toString(),
-                )
-            })
-        }
-
         this.open = true
 
         this.ssh.tcpChannelOpen$.subscribe(async event => {
@@ -595,6 +586,8 @@ export class SSHSession {
             agent.data$.subscribe(data => channel.write(data), undefined, () => channel.close())
             channel.closed$.subscribe(() => agent.close())
         })
+
+        void this.applyProfilePortForwards(this.profile)
     }
 
     private async verifyHostKey (key: russh.SshPublicKey): Promise<boolean> {
@@ -810,6 +803,34 @@ export class SSHSession {
         return null
     }
 
+    async applyProfilePortForwards (profile: SSHProfile): Promise<void> {
+        // Shared connections keep the union of their profiles' forwards until
+        // explicitly removed or the connection closes.
+        await Promise.all(profile.options.forwardedPorts.map(fwConfig => {
+            const fw = Object.assign(new ForwardedPort(), fwConfig)
+            const keyFor = (port: ForwardedPort) => JSON.stringify([
+                port.type, port.host, port.port,
+                ...(port.type === PortForwardType.Dynamic ? [] : [port.targetAddress, port.targetPort]),
+            ])
+            const key = keyFor(fw)
+            if (this.forwardedPorts.some(port => keyFor(port) === key)) {
+                return
+            }
+            const pending = this.pendingProfileForwards.get(key)
+            if (pending) {
+                return pending
+            }
+            const adding = this.addPortForward(fw).catch(e => {
+                this.notifications.error(
+                    this.translate.instant(_('Failed to forward port {fw}'), { fw: fw.toString() }),
+                    e.toString(),
+                )
+            }).finally(() => this.pendingProfileForwards.delete(key))
+            this.pendingProfileForwards.set(key, adding)
+            return adding
+        }))
+    }
+
     async addPortForward (fw: ForwardedPort): Promise<void> {
         if (fw.type === PortForwardType.Local || fw.type === PortForwardType.Dynamic) {
             await fw.startLocalListener(async (accept, reject, sourceAddress, sourcePort, targetAddress, targetPort) => {
@@ -833,6 +854,12 @@ export class SSHSession {
 
                 this.setupSocketChannelEvents(channel, socket, 'Local forward')
             }).then(() => {
+                if (!this.open) {
+                    // Effective once destroy() resets `open` (#11873): a bind that completes
+                    // after teardown must not leave a listener behind.
+                    fw.stopLocalListener()
+                    throw new Error('Connection closed before the port forward was ready')
+                }
                 this.logger.info(`Forwarded ${fw}`)
                 this.forwardedPorts.push(fw)
             }).catch(e => {
@@ -850,6 +877,14 @@ export class SSHSession {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.logger.error(`Remote rejected port forwarding for ${fw}: ${err}`)
                 throw err
+            }
+            if (!this.open) {
+                // Effective once destroy() resets `open` (#11873): the remote end must not keep
+                // a forward that no session will serve. Cancelling is best-effort.
+                this.ssh.stopForwardingTCPPort(fw.host, fw.port).catch(err => {
+                    this.logger.warn(`Could not cancel the port forward ${fw} after the connection closed: ${err}`)
+                })
+                throw new Error('Connection closed before the port forward was ready')
             }
             this.logger.info(`Forwarded ${fw}`)
             this.forwardedPorts.push(fw)
