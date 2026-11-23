@@ -665,6 +665,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     }
 
     private rightMouseDownTime = 0
+    private rightClickLeftToApp = false
 
     protected async handleRightMouseDown (event: MouseEvent): Promise<void> {
         event.preventDefault()
@@ -729,7 +730,8 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.termContainerSubscriptions.subscribe(this.focused$, () => this.frontend && (this.frontend.enableResizing = true))
         this.termContainerSubscriptions.subscribe(this.blurred$, () => this.frontend && (this.frontend.enableResizing = false))
 
-        this.termContainerSubscriptions.subscribe(this.frontend.mouseEvent$, event => {
+        const frontend = this.frontend
+        this.termContainerSubscriptions.subscribe(frontend.mouseEvent$, event => {
             if (event.type === 'mousedown') {
                 if (event.which === 1) {
                     this.multifocus.cancel()
@@ -743,13 +745,21 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     return
                 }
                 if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                    this.handleRightMouseDown(event)
+                    // Right-click is off and the app tracks the mouse: xterm has reported
+                    // the press and listens for the release on `document`, so leave both
+                    // events alone. Decided on the press, as the app may change modes in response.
+                    this.rightClickLeftToApp = this.config.store.terminal.rightClick === 'off' && frontend.isMouseTrackingActive()
+                    if (!this.rightClickLeftToApp) {
+                        this.handleRightMouseDown(event)
+                    }
                     return
                 }
             }
             if (event.type === 'mouseup') {
                 if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                    this.handleRightMouseUp(event)
+                    if (!this.rightClickLeftToApp) {
+                        this.handleRightMouseUp(event)
+                    }
                     return
                 }
             }
