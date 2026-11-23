@@ -474,9 +474,8 @@ export class Window {
             if (!this.touchBarControl) {
                 return
             }
-            // Replacing the segments rebuilds the native control. On macOS 26
-            // that is a SwiftUI layout pass which also leaks, on every Mac,
-            // Touch Bar or not, so a tab switch only moves the selection.
+            // Replacing the segments rebuilds the native control, which is slow and leaks
+            // on macOS 26 (with or without a Touch Bar), so a tab switch only moves the selection
             const key = JSON.stringify(segments)
             if (key !== touchBarSegments) {
                 touchBarSegments = key

@@ -4,10 +4,8 @@ import { Subject } from 'rxjs'
 import { ipcRenderer } from 'electron'
 import { TouchbarService } from '../src/services/touchbar.service.ts'
 
-// Every `window-set-touch-bar` message makes the main process replace all the segments of the
-// Touch Bar's NSSegmentedControl. On macOS 26 that control is drawn with SwiftUI on every Mac,
-// Touch Bar or not, and each replacement leaves observation state behind that makes the next one
-// slower, until after days of title updates the main process freezes for seconds at a time.
+// Every `window-set-touch-bar` message makes the main process rebuild the native Touch Bar
+// control, which gets slower each time on macOS 26 - so the renderer must not send many.
 
 class FakeTab {
     hasActivity = false
@@ -72,8 +70,21 @@ describe('TouchbarService', () => {
         mock.timers.tick(1000)
 
         const updates = touchBarUpdates()
-        assert.ok(updates.length <= 3, `${updates.length} Touch Bar updates in 3.5 seconds, each one rebuilding the native control`)
+        assert.ok(updates.length <= 4, `${updates.length} Touch Bar updates in 3.5 seconds, each one rebuilding the native control`)
         assert.equal(updates.at(-1)![1][0].label, 'title 49', 'the last title must still reach the Touch Bar')
+    })
+
+    it('sends a change at once after a quiet period', () => {
+        const app = setUp()
+        mock.timers.tick(5000)
+        ;(ipcRenderer as any).sent = []
+
+        app.activeTab = app.tabs[1]
+        app.activeTabChange$.next()
+
+        const updates = touchBarUpdates()
+        assert.equal(updates.length, 1)
+        assert.equal(updates[0][2], 1)
     })
 
     it('sends nothing when hacks.disableTouchBar is set', () => {

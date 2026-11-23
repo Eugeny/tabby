@@ -1,5 +1,5 @@
 import deepEqual from 'deep-equal'
-import { Subject, auditTime, distinctUntilChanged, map } from 'rxjs'
+import { Subject, distinctUntilChanged, map, throttleTime } from 'rxjs'
 import { ipcRenderer } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
 import { AppService, ConfigService, HostAppService, Platform } from 'tabby-core'
@@ -38,7 +38,8 @@ export class TouchbarService {
         }))
 
         this.touchbarState$.pipe(
-            auditTime(TOUCHBAR_UPDATE_INTERVAL),
+            // leading: a tab switch shows up at once; trailing: the last title is never dropped
+            throttleTime(TOUCHBAR_UPDATE_INTERVAL, undefined, { leading: true, trailing: true }),
             distinctUntilChanged(deepEqual),
         ).subscribe(state => {
             ipcRenderer.send('window-set-touch-bar', ...state)
