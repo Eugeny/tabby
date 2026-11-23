@@ -2,7 +2,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import deepClone from 'clone-deep'
 import { Component, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService, Platform, ProfileGroup, PartialProfileGroup, QuickConnectProfileProvider } from 'tabby-core'
+import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService, Platform, ProfileGroup, PartialProfileGroup, QuickConnectProfileProvider, splitSearchTerms } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 import { EditProfileGroupModalComponent, EditProfileGroupModalComponentResult } from './editProfileGroupModal.component'
 
@@ -273,7 +273,8 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     isProfileVisible (profile: PartialProfile<Profile>): boolean {
-        return !this.filter || (profile.name + '$' + (this.getDescription(profile) ?? '')).toLowerCase().includes(this.filter.toLowerCase())
+        const content = (profile.name + '$' + (this.getDescription(profile) ?? '') + '$' + (profile.tags ?? []).join('$')).toLowerCase()
+        return splitSearchTerms(this.filter).every(term => content.includes(term))
     }
 
     getDescription (profile: PartialProfile<Profile>): string|null {

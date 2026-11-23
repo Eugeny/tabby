@@ -23,6 +23,7 @@ export class ProfilesService {
         icon: '',
         color: '',
         disableDynamicTitle: false,
+        tags: [],
         weight: 0,
         isBuiltin: false,
         isTemplate: false,
@@ -271,6 +272,7 @@ export class ProfilesService {
                 let options: SelectorOption<void>[] = recentProfiles.map((p, i) => ({
                     ...this.selectorOptionForProfile(p),
                     group: this.translate.instant('Recent'),
+                    tags: undefined,
                     icon: 'fas fa-history',
                     color: p.color ?? undefined,
                     weight: i - (recentProfiles.length + 1),

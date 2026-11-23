@@ -51,6 +51,17 @@
                     i([class]='"fa-fw " + r')
                     ngb-highlight.ms-2([result]='r', [term]='t')
 
+            .mb-3(*ngIf='defaultsMode === "disabled"')
+                label(translate) Tags
+                input.form-control(
+                    type='text',
+                    placeholder='None',
+                    alwaysVisibleTypeahead,
+                    [(ngModel)]='tagsString',
+                    [ngbTypeahead]='tagSearch',
+                    [resultFormatter]='tagFormatter'
+                )
+
             .form-line
                 .header
                     .title(translate) Color
