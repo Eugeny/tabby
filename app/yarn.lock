@@ -1353,10 +1353,10 @@ negotiator@^1.0.0:
   dependencies:
     content-type "^2.1.0"
 
-node-abi@4.35.0, node-abi@^3.3.0:
-  version "4.35.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-4.35.0.tgz#2eb8e04075745e2dd6594769c499828c29113446"
-  integrity sha512-ymk4aIzxdPopw2giv8Fs1Ec6vybGkjmyxUwVqhkI4MCy2tVfXdkOGGWieWVjL0THgH+7a8lRdevyupoYj3Js/Q==
+node-abi@4.43.0, node-abi@^3.3.0:
+  version "4.43.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-4.43.0.tgz#d138bfd94980312afc8b54e11a8f88dcae4d1780"
+  integrity sha512-sey5XPoGJ2VBCcwtHhvwSbMMkYvXyvZkn+FjHsoFij3bcWjJRN4+3Zt7GsZOkgZ8J0maJFCWsYtralZDJVQncg==
   dependencies:
     semver "^7.6.3"
 
