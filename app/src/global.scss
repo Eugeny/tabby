@@ -7,6 +7,13 @@ body {
     overflow: hidden;
     background: transparent !important;
     -webkit-font-smoothing: antialiased;
+
+    // Grayscale antialiasing keeps dark-theme text from looking bloated, but
+    // makes dark-on-light text noticeably thinner. Restore subpixel
+    // antialiasing on light color schemes to even out the apparent weight.
+    &.light-theme {
+        -webkit-font-smoothing: subpixel-antialiasing;
+    }
 }
 
 .modal-dialog, .modal-backdrop, .no-drag {

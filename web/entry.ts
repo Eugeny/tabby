@@ -40,6 +40,11 @@ window['bootstrapTabby'] = async function bootstrap (options: BootstrapOptions):
         enableProdMode()
     }
 
+    // config.service.ts iterates window.pluginModules to discover the providers
+    // contributed by every plugin (used by ThemesService and friends), so it has
+    // to be exposed globally, not just passed to getRootModule().
+    window['pluginModules'] = pluginModules
+
     const module = getRootModule(pluginModules)
     window['rootModule'] = module
 
