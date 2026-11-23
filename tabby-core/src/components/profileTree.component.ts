@@ -233,7 +233,7 @@ export class ProfileTreeComponent extends BaseComponent {
             })
 
             const matches = new FuzzySearch(
-                profiles.filter(p => !p.isTemplate),
+                profiles.filter(p => !p.isTemplate && p.id && !this.config.store.profileBlacklist.includes(p.id)),
                 ['name', 'description'],
                 { sort: false },
             ).search(q)
