@@ -50,4 +50,3 @@ export function getXtermBackgroundColor (
 export function normalizePasteLineEndings (data: string): string {
     return data.replace(/\r?\n/g, '\r')
 }
-
