@@ -93,6 +93,13 @@ export class TabHeaderComponent extends BaseComponent {
         return this.config.store.appearance.flexTabs
     }
 
+    @HostBinding('style.background-color') get tintedActiveTabBackground (): string|null {
+        if (!this.active || !this.tab.color) {
+            return null
+        }
+        return `color-mix(in srgb, ${this.tab.color} 20%, var(--body-bg))`
+    }
+
     @HostListener('dblclick', ['$event']) onDoubleClick ($event: MouseEvent): void {
         this.app.renameTab(this.tab)
         $event.stopPropagation()
