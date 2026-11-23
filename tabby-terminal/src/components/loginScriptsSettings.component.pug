@@ -1,6 +1,5 @@
 div
-    //TODO ([sortablejs]='scripts')
-    .input-group.flex-grow-1(*ngFor='let script of scripts')
+    .input-group.flex-grow-1(*ngFor='let script of scripts; let i = index')
         input.form-control(
             type='text',
             placeholder='Expect',
@@ -12,6 +11,18 @@ div
             [(ngModel)]='script.send'
         )
         .input-group-text.p-0.border-0
+            button.btn.btn-link.btn-sm.hover-reveal(
+                (click)='moveScript(i, -1)',
+                [disabled]='i === 0',
+                [attr.aria-label]='"Move up"|translate',
+            )
+                i.fas.fa-fw.fa-arrow-up
+            button.btn.btn-link.btn-sm.hover-reveal(
+                (click)='moveScript(i, 1)',
+                [disabled]='i === scripts.length - 1',
+                [attr.aria-label]='"Move down"|translate',
+            )
+                i.fas.fa-fw.fa-arrow-down
             .hover-reveal(ngbDropdown)
                 button.btn.btn-link.btn-sm(ngbDropdownToggle)
                     i.fas.fa-fw.fa-cog
