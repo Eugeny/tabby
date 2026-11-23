@@ -2,7 +2,6 @@ import * as fs from 'mz/fs'
 import * as crypto from 'crypto'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
-import * as shellQuote from 'shell-quote'
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
@@ -20,6 +19,7 @@ import { supportedAlgorithms } from '../algorithms'
 import { requestShellPTY, SSHShellChannelOptions } from './shellChannel'
 import * as russh from 'russh'
 import { selectNextAuthMethod, updateAuthPlanAfterFailure } from './authMethodSelection'
+import { parseProxyCommand } from './proxyCommand'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -387,13 +387,12 @@ export class SSHSession {
         if (this.profile.options.proxyCommand) {
             this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
 
-            // parse() yields operator objects for things like && or |, which newCommand
-            // can't run - it spawns a single process, not a shell. Dropping them silently
-            // would turn "a && b" into "a b", so refuse instead.
-            const argv = shellQuote.parse(this.profile.options.proxyCommand)
-            if (!argv.every((x): x is string => typeof x === 'string')) {
-                throw new Error('Proxy command contains shell operators, which are not supported')
-            }
+            const argv = parseProxyCommand(
+                this.profile.options.proxyCommand,
+                this.profile.options.host.trim(),
+                this.profile.options.port,
+                this.profile.options.user,
+            )
             transport = await russh.SshTransport.newCommand(argv[0], argv.slice(1))
         } else if (this.jumpChannel) {
             transport = await russh.SshTransport.newSshChannel(this.jumpChannel.take())
