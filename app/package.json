@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2",
-    "@npmcli/arborist": "^9",
+    "@npmcli/arborist": "^10",
     "any-promise": "^1",
     "atomically": "^2",
     "dunder-proto": "^1",
