@@ -13,6 +13,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         type='text',
                         [(ngModel)]='config.store.configSync.host',
                         (keydown.enter)='config.save()',
+                        (change)='config.save(); testConnection()',
                     )
                     button.btn.btn-secondary(
                         *ngIf='config.store.configSync.host',
@@ -29,7 +30,8 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     input.form-control(
                         type='password',
                         [(ngModel)]='config.store.configSync.token',
-                        (keydown.enter)='config.save(); testConnection()'
+                        (keydown.enter)='config.save(); testConnection()',
+                        (change)='config.save(); testConnection()'
                     )
                     .input-group-text(*ngIf='config.store.configSync.token')
                         i.fas.fa-fw.fa-circle-notch.fa-spin.text-warning(*ngIf='connectionSuccessful === null')

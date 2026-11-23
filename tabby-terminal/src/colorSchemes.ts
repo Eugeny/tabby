@@ -32,7 +32,7 @@ export class DefaultColorSchemes extends TerminalColorSchemeProvider {
     static defaultLightColorScheme: TerminalColorScheme = {
         name: 'Tabby Default Light',
         foreground: '#4d4d4c',
-        background: '#ffffff',
+        background: '#f8f9fa',
         cursor: '#4d4d4c',
         colors: [
             '#000000',

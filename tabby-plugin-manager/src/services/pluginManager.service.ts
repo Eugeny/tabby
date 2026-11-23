@@ -1,5 +1,5 @@
 import { compare as semverCompare, valid as semverValid } from 'semver'
-import { Observable, from, forkJoin, map, of } from 'rxjs'
+import { Observable, from, forkJoin, map, of, catchError } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'tabby-core'
 import { PLUGIN_BLACKLIST } from '../../../app/src/pluginBlacklist'
@@ -52,7 +52,16 @@ export class PluginManagerService {
     _listAvailableInternal (namePrefix: string, keyword: string, query?: string): Observable<PluginInfo[]> {
         const searchText = encodeURIComponent(`keywords:${keyword} ${query?.trim() ?? ''}`.trim())
         return from(
-            fetch(`https://registry.npmjs.com/-/v1/search?text=${searchText}&size=250`).then(r => r.json()),
+            fetch(`https://registry.npmjs.com/-/v1/search?text=${searchText}&size=250`).then(async r => {
+                if (!r.ok) {
+                    throw new Error(`npm search failed: ${r.status}`)
+                }
+                const response = await r.json()
+                if (!Array.isArray(response.objects)) {
+                    throw new Error('npm search returned an invalid response')
+                }
+                return response
+            }),
         ).pipe(
             map(response => response.objects
                 .filter(item => !item.keywords?.includes('tabby-dummy-transition-plugin'))
@@ -82,6 +91,10 @@ export class PluginManagerService {
                 })
             }),
             map(plugins => plugins.sort((a, b) => a.name.localeCompare(b.name))),
+            catchError(err => {
+                this.logger.error('Failed to search available plugins', err)
+                return of<PluginInfo[]>([])
+            }),
         )
     }
 
