@@ -5,22 +5,41 @@ import { Application } from './app'
 import { UTF8Splitter } from './utfSplitter'
 import { Observable, Subject, debounceTime } from 'rxjs'
 
+/** Output is never held back for longer than this, even if nobody resumes it */
+const MAX_OUTPUT_HOLD_TIME = 10000
+
 class PTYDataQueue {
     private buffers: Buffer[] = []
     private delta = 0
     private maxChunk = 1024 * 100
     private maxDelta = this.maxChunk * 5
     private flowPaused = false
+    private held = false
     private decoder = new UTF8Splitter()
     private output$ = new Subject<Buffer>()
 
     constructor (private pty: nodePTY.IPty, private onData: (data: Buffer) => void) {
         this.output$.pipe(debounceTime(500)).subscribe(() => {
-            const remainder = this.decoder.flush()
-            if (remainder.length) {
-                this.onData(remainder)
+            if (!this.held) {
+                this.flushDecoder()
             }
         })
+    }
+
+    /**
+     * Keeps all further output queued until [[release]] is called
+     */
+    hold () {
+        this.held = true
+    }
+
+    release () {
+        if (!this.held) {
+            return
+        }
+        this.held = false
+        this.flushDecoder()
+        this.maybeEmit()
     }
 
     push (data: Buffer) {
@@ -34,6 +53,9 @@ class PTYDataQueue {
     }
 
     private maybeEmit () {
+        if (this.held) {
+            return
+        }
         if (this.delta <= this.maxDelta && this.flowPaused) {
             this.resume()
             return
@@ -69,6 +91,13 @@ class PTYDataQueue {
         }
     }
 
+    private flushDecoder () {
+        const remainder = this.decoder.flush()
+        if (remainder.length) {
+            this.onData(remainder)
+        }
+    }
+
     private emitData (data: Buffer) {
         const validChunk = this.decoder.write(data)
         this.onData(validChunk)
@@ -91,6 +120,7 @@ export class PTY {
     private pty: nodePTY.IPty
     private outputQueue: PTYDataQueue
     private closedSubject = new Subject<void>()
+    private holdTimeout?: ReturnType<typeof setTimeout>
     exited = false
 
     constructor (private id: string, private app: Application, ...args: any[]) {
@@ -131,6 +161,24 @@ export class PTY {
 
     ackData (length: number): void {
         this.outputQueue.ack(length)
+    }
+
+    /**
+     * Holds back output while the PTY is being handed over to another window.
+     * The `output-held` event marks the point after which nothing is sent
+     */
+    holdOutput (): void {
+        this.outputQueue.hold()
+        clearTimeout(this.holdTimeout)
+        this.holdTimeout = setTimeout(() => this.resumeOutput(), MAX_OUTPUT_HOLD_TIME)
+        // Data events are emitted asynchronously, queue behind them
+        setImmediate(() => this.emit('output-held'))
+    }
+
+    resumeOutput (): void {
+        clearTimeout(this.holdTimeout)
+        this.holdTimeout = undefined
+        this.outputQueue.release()
     }
 
     kill (signal?: string): void {
@@ -202,6 +250,14 @@ export class PTYManager {
 
         ipcMain.on('pty:ack-data', (_event, id, length) => {
             this.ptys.get(id)?.ackData(length)
+        })
+
+        ipcMain.on('pty:hold-output', (_event, id) => {
+            this.ptys.get(id)?.holdOutput()
+        })
+
+        ipcMain.on('pty:resume-output', (_event, id) => {
+            this.ptys.get(id)?.resumeOutput()
         })
     }
 }

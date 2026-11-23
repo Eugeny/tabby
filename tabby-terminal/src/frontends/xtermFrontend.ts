@@ -6,7 +6,7 @@ import {
     Platform, PlatformService, TerminalColorScheme, ThemesService,
     WIN_BUILD_BUNDLED_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_REFLOW_SUPPORTED,
 } from 'tabby-core'
-import { Frontend, SearchOptions, SearchState } from './frontend'
+import { Frontend, SaveStateOptions, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
 import { LigaturesAddon } from '@xterm/addon-ligatures'
@@ -804,16 +804,20 @@ export class XTermFrontend extends Frontend {
         this.focus()
     }
 
-    saveState (): any {
+    saveState (options?: SaveStateOptions): any {
         return this.serializeAddon.serialize({
-            excludeAltBuffer: true,
-            excludeModes: true,
+            excludeAltBuffer: !options?.live,
+            excludeModes: !options?.live,
             scrollback: 1000,
         })
     }
 
     restoreState (state: string): void {
         this.xterm.write(state)
+    }
+
+    waitForWrites (): Promise<void> {
+        return new Promise(resolve => this.xterm.write('', resolve))
     }
 
     supportsBracketedPaste (): boolean {

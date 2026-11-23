@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input, HostBinding, ElementRef } from '@angular/core'
+import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop'
 import { HotkeysService } from '../services/hotkeys.service'
 import { AppService } from '../services/app.service'
+import { TabTransferService } from '../services/tabTransfer.service'
 import { BaseTabComponent } from './baseTab.component'
 import { SplitPaneGeometry, SplitTabComponent } from './splitTab.component'
 import { SelfPositioningComponent } from './selfPositioning.component'
@@ -16,8 +18,9 @@ import { SelfPositioningComponent } from './selfPositioning.component'
             class='rearrange-label'
             cdkDrag
             [cdkDragData]='tab'
-            (cdkDragStarted)='onTabDragStart(tab)'
-            (cdkDragEnded)='onTabDragEnd()'
+            (cdkDragStarted)='onTabDragStart(tab, $event)'
+            (cdkDragMoved)='onTabDragMove($event)'
+            (cdkDragEnded)='onTabDragEnd($event)'
         >
             <i class="fa fa-window-maximize me-3"></i>
             <label>{{tab.displayTitle}}</label>
@@ -41,6 +44,7 @@ export class SplitTabPaneLabelComponent extends SelfPositioningComponent {
         element: ElementRef,
         hotkeys: HotkeysService,
         private app: AppService,
+        private tabTransfer: TabTransferService,
     ) {
         super(element)
         this.subscribeUntilDestroyed(hotkeys.hotkey$, hk => {
@@ -60,15 +64,21 @@ export class SplitTabPaneLabelComponent extends SelfPositioningComponent {
         this.layout()
     }
 
-    onTabDragStart (tab: BaseTabComponent): void {
+    onTabDragStart (tab: BaseTabComponent, event: CdkDragStart): void {
         this.app.emitTabDragStarted(tab)
+        this.tabTransfer.handleDragStart(tab, event)
     }
 
-    onTabDragEnd (): void {
+    onTabDragMove (event: CdkDragMove): void {
+        this.tabTransfer.handleDragMove(this.tab, event)
+    }
+
+    onTabDragEnd (event: CdkDragEnd): void {
         setTimeout(() => {
             this.app.emitTabDragEnded()
             this.app.emitTabsChanged()
         })
+        this.tabTransfer.handleDragEnd(this.tab, event)
     }
 
     layout () {

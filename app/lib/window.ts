@@ -12,10 +12,13 @@ import type { Application } from './app'
 import { parseArgs } from './cli'
 import { parseTabbyURL, isTabbyURL } from './urlHandler'
 import { isWindowsBuild } from './windows'
+import { placeWindowAt } from './tabTransfer'
 
 
 export interface WindowOptions {
     hidden?: boolean
+    /** Explicit window placement, e.g. for a window created by dragging a tab out */
+    bounds?: Rectangle
 }
 
 type GlasstronWindow = BrowserWindow & {
@@ -32,6 +35,9 @@ const activityIcon = nativeImage.createFromPath(`${app.getAppPath()}/assets/acti
 export class Window {
     ready: Promise<void>
     isMainWindow = false
+    /** Hidden window that only keeps sessions alive for other windows */
+    isInBackground = false
+    lastFocusTime = 0
     webContents: WebContents
     private visible = new Subject<boolean>()
     private closed = new Subject<void>()
@@ -53,9 +59,9 @@ export class Window {
         const options = _options ?? {}
 
         this.windowConfig = new ElectronConfig({ name: 'window' })
-        this.windowBounds = this.windowConfig.get('windowBoundaries')
+        this.windowBounds = options.bounds ?? this.windowConfig.get('windowBoundaries')
 
-        const maximized = this.windowConfig.get('maximized')
+        const maximized = !options.bounds && this.windowConfig.get('maximized')
         const bwOptions: BrowserWindowConstructorOptions = {
             width: 800,
             height: 600,
@@ -255,6 +261,28 @@ export class Window {
         return this.window!.isVisible()
     }
 
+    isMinimized (): boolean {
+        return this.window!.isMinimized()
+    }
+
+    getBounds (): Rectangle {
+        return this.window!.getBounds()
+    }
+
+    getNormalBounds (): Rectangle {
+        return this.window!.getNormalBounds()
+    }
+
+    moveToBackground (): void {
+        this.isInBackground = true
+        this.window?.hide()
+    }
+
+    forceClose (): void {
+        this.closing = true
+        this.window?.close()
+    }
+
     isDockedOnTop (): boolean {
         return this.isMainWindow && this.configStore.appearance?.dock && this.configStore.appearance?.dock !== 'off' && (this.configStore.appearance?.dockAlwaysOnTop ?? true)
     }
@@ -394,6 +422,7 @@ export class Window {
         })
 
         this.window.on('focus', () => {
+            this.lastFocusTime = Date.now()
             this.window?.flashFrame(false)
             this.send('host:window-focused')
             // Re-apply acrylic on Win11 when window gains focus
@@ -463,8 +492,20 @@ export class Window {
         })
 
         this.on('window-close', () => {
-            this.closing = true
-            this.window?.close()
+            if (this.application.keepWindowInBackground(this)) {
+                return
+            }
+            this.forceClose()
+        })
+
+        this.on('window-move-to', (_, x: number, y: number, grabX: number, grabY: number) => {
+            if (!this.window) {
+                return
+            }
+            if (this.window.isMaximized()) {
+                this.window.unmaximize()
+            }
+            this.window.setBounds(placeWindowAt(this.window.getNormalBounds(), { x, y }, { x: grabX, y: grabY }))
         })
 
         this.on('window-set-touch-bar', (_, segments, selectedIndex) => {

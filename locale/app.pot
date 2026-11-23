@@ -190,6 +190,10 @@ msgstr ""
 msgid "Could not decrypt config"
 msgstr ""
 
+#: tabby-core/src/services/tabTransfer.service.ts:368
+msgid "Could not move the tab to another window"
+msgstr ""
+
 #: tabby-ssh/src/components/sshTab.component.ts:114
 msgid "Could not set up port forward on {host}"
 msgstr ""
@@ -575,6 +579,14 @@ msgstr ""
 msgid "Move to \"Ungrouped\""
 msgstr ""
 
+#: tabby-core/src/services/tabTransfer.service.ts:173
+msgid "Move to this window"
+msgstr ""
+
+#: tabby-core/src/services/tabTransfer.service.ts:172
+msgid "Move window here"
+msgstr ""
+
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:60
 msgid "Name for the new config"
 msgstr ""
@@ -609,6 +621,7 @@ msgid "New terminal"
 msgstr ""
 
 #: tabby-electron/src/hotkeys.ts:10
+#: tabby-core/src/services/tabTransfer.service.ts:171
 msgid "New window"
 msgstr ""
 
@@ -1143,8 +1156,16 @@ msgstr ""
 msgid "The vault must be unlocked to load your configuration."
 msgstr ""
 
+#: tabby-electron/src/components/relayedTerminalTab.component.ts:46
+msgid "The window running this session has been closed"
+msgstr ""
+
 #: tabby-core/src/components/transfersMenu.component.ts:52
 msgid "There are active file transfers"
+msgstr ""
+
+#: tabby-electron/src/components/relayedTerminalTab.component.ts:84
+msgid "This session is not available anymore"
 msgstr ""
 
 #: tabby-core/src/hotkeys.ts:20

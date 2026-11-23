@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TabbyCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ProfileProvider } from 'tabby-core'
+import TabbyCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, TabTransferProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ProfileProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 import { SettingsTabProvider } from 'tabby-settings'
 
@@ -18,6 +18,7 @@ import { TerminalService } from './services/terminal.service'
 
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
+import { LocalTabTransferProvider } from './tabTransfer'
 import { ShellSettingsTabProvider } from './settings'
 import { TerminalConfigProvider } from './config'
 import { LocalTerminalHotkeyProvider } from './hotkeys'
@@ -41,6 +42,7 @@ import { LocalProfilesService } from './profiles'
 
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
+        { provide: TabTransferProvider, useClass: LocalTabTransferProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: LocalTerminalHotkeyProvider, multi: true },
 

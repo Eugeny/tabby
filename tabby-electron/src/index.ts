@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
-import { TerminalColorSchemeProvider, TerminalContextMenuItemProvider, TerminalDecorator } from 'tabby-terminal'
+import { CommonModule } from '@angular/common'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import TabbyCoreModule, { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider, TabRecoveryProvider, TabTransferProvider } from 'tabby-core'
+import TabbyTerminalModule, { TerminalColorSchemeProvider, TerminalContextMenuItemProvider, TerminalDecorator } from 'tabby-terminal'
 import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
 import { PTYInterface, ShellProvider, UACService } from 'tabby-local'
 import { auditTime } from 'rxjs'
@@ -25,6 +27,8 @@ import { ExportTerminalContextMenu } from './terminalContextMenu'
 import { OpenSSHImporter, PrivateKeyLocator, StaticFileImporter } from './sshImporters'
 import { ElectronPTYInterface } from './pty'
 import { PathDropDecorator } from './pathDrop'
+import { RelayedTerminalTabComponent } from './components/relayedTerminalTab.component'
+import { RelayedTabTransferProvider, RelayedTerminalTabRecoveryProvider, RelayingTabTransferProvider } from './tabTransfer'
 
 import { CmderShellProvider } from './shells/cmder'
 import { Cygwin32ShellProvider } from './shells/cygwin32'
@@ -41,6 +45,12 @@ import { WSLShellProvider } from './shells/wsl'
 import { VSDevToolsProvider } from './shells/vs'
 
 @NgModule({
+    imports: [
+        CommonModule,
+        NgbModule,
+        TabbyCoreModule,
+        TabbyTerminalModule,
+    ],
     providers: [
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: PlatformService, useExisting: ElectronPlatformService },
@@ -79,10 +89,17 @@ import { VSDevToolsProvider } from './shells/vs'
 
         { provide: TerminalContextMenuItemProvider, useClass: ExportTerminalContextMenu, multi: true },
 
+        { provide: TabTransferProvider, useClass: RelayingTabTransferProvider, multi: true },
+        { provide: TabTransferProvider, useClass: RelayedTabTransferProvider, multi: true },
+        { provide: TabRecoveryProvider, useClass: RelayedTerminalTabRecoveryProvider, multi: true },
+
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,
         WSLShellProvider,
         WindowsStockShellsProvider,
+    ],
+    declarations: [
+        RelayedTerminalTabComponent,
     ],
 })
 export default class ElectronModule {

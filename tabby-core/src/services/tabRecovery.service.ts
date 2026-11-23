@@ -33,19 +33,26 @@ export class TabRecoveryService {
     async getFullRecoveryToken (tab: BaseTabComponent, options?: GetRecoveryTokenOptions): Promise<RecoveryToken|null> {
         const token = await tab.getRecoveryToken(options)
         if (token) {
-            token.tabTitle = tab.title
-            token.tabCustomTitle = tab.customTitle
-            token.tabCustomTitleVisible = tab.customTitleVisible
-            token.tabPinned = tab.pinned
-            if (tab.icon) {
-                token.tabIcon = tab.icon
-            }
-            if (tab.color) {
-                token.tabColor = tab.color
-            }
-            token.disableDynamicTitle = tab['disableDynamicTitle']
+            this.addTabMetadata(tab, token)
         }
         return token
+    }
+
+    /**
+     * Stores the generic tab properties (title, color, etc.) in the recovery token
+     */
+    addTabMetadata (tab: BaseTabComponent, token: RecoveryToken): void {
+        token.tabTitle = tab.title
+        token.tabCustomTitle = tab.customTitle
+        token.tabCustomTitleVisible = tab.customTitleVisible
+        token.tabPinned = tab.pinned
+        if (tab.icon) {
+            token.tabIcon = tab.icon
+        }
+        if (tab.color) {
+            token.tabColor = tab.color
+        }
+        token.disableDynamicTitle = tab['disableDynamicTitle']
     }
 
     async recoverTab (token: RecoveryToken): Promise<NewTabParameters<BaseTabComponent>|null> {

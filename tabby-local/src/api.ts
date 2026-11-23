@@ -91,6 +91,14 @@ export abstract class PTYProxy {
     abstract getChildProcesses (): Promise<ChildProcess[]>
     abstract getTruePID (): Promise<number>
     abstract getWorkingDirectory (): Promise<string|null>
+
+    /**
+     * Stops delivering output until [[resumeOutput]] is called, e.g. while the PTY
+     * is handed over to another window. Resolves once everything sent before has arrived.
+     */
+    async holdOutput (): Promise<void> { } // eslint-disable-line @typescript-eslint/no-empty-function
+
+    resumeOutput (): void { } // eslint-disable-line @typescript-eslint/no-empty-function
 }
 
 export abstract class PTYInterface {

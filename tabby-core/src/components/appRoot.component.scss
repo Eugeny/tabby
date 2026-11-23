@@ -44,6 +44,23 @@ $tab-border-radius: 4px;
     }
 }
 
+.tab-drop-ghost {
+    flex: 1000 1 200px;
+    width: 200px;
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    opacity: 0.5;
+    border: 1px dashed currentColor;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
 .content.tabs-on-left > .tab-bar, .content.tabs-on-right > .tab-bar {
     height: 100%;
     width: var(--side-tab-width);
@@ -57,8 +74,12 @@ $tab-border-radius: 4px;
         flex: none;
         flex-direction: column;
 
-        tab-header {
+        tab-header, .tab-drop-ghost {
             flex: 0 0 var(--tabs-height);
+        }
+
+        .tab-drop-ghost {
+            width: 100%;
         }
     }
 

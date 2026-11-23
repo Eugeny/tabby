@@ -467,6 +467,10 @@ msgstr "Mit Formatierung kopieren"
 msgid "Could not decrypt config"
 msgstr "Konfiguration konnte nicht entschlüsselt werden"
 
+#: tabby-core/src/services/tabTransfer.service.ts:368
+msgid "Could not move the tab to another window"
+msgstr "Der Tab konnte nicht in ein anderes Fenster verschoben werden"
+
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
 msgid "Create"
 msgstr "Erstellen"
@@ -1296,6 +1300,14 @@ msgstr "Tab nach rechts verschieben"
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:228
 msgid "Move to \"Ungrouped\""
 msgstr "Nach \"Ungruppiert\" verschieben"
+
+#: tabby-core/src/services/tabTransfer.service.ts:173
+msgid "Move to this window"
+msgstr "In dieses Fenster verschieben"
+
+#: tabby-core/src/services/tabTransfer.service.ts:172
+msgid "Move window here"
+msgstr "Fenster hierher verschieben"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Moving the mouse over an inactive pane will cause it to activate"
@@ -2270,6 +2282,10 @@ msgstr "Terminal-Identifikation"
 msgid "Thank you for downloading Tabby!"
 msgstr "Vielen Dank, dass Sie Tabby heruntergeladen haben!"
 
+#: tabby-electron/src/components/relayedTerminalTab.component.ts:46
+msgid "The window running this session has been closed"
+msgstr "Das Fenster, in dem diese Sitzung läuft, wurde geschlossen"
+
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
 msgid "Theme"
 msgstr "Theme"
@@ -2293,6 +2309,10 @@ msgstr "Diese gelten für alle Profile eines bestimmten Typs in dieser Gruppe"
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
 msgid "Thin"
 msgstr "Dünn"
+
+#: tabby-electron/src/components/relayedTerminalTab.component.ts:84
+msgid "This session is not available anymore"
+msgstr "Diese Sitzung ist nicht mehr verfügbar"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:205
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"

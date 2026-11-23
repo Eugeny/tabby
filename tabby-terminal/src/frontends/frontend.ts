@@ -14,6 +14,14 @@ export interface SearchState {
     resultCount: number
 }
 
+export interface SaveStateOptions {
+    /**
+     * The state will be restored into a terminal attached to the same, still
+     * running session - include the alternate screen and the terminal modes
+     */
+    live?: boolean
+}
+
 /**
  * Extend to add support for a different VT frontend implementation
  */
@@ -88,8 +96,13 @@ export abstract class Frontend {
     abstract findPrevious (term: string, searchOptions?: SearchOptions): SearchState
     abstract cancelSearch (): void
 
-    abstract saveState (): any
+    abstract saveState (options?: SaveStateOptions): any
     abstract restoreState (state: string): void
+
+    /**
+     * Resolves once everything written so far has been processed
+     */
+    async waitForWrites (): Promise<void> { } // eslint-disable-line @typescript-eslint/no-empty-function
 
     abstract supportsBracketedPaste (): boolean
     abstract isAlternateScreenActive (): boolean
