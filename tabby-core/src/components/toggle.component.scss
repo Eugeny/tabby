@@ -1,8 +1,6 @@
 :host {
     flex: none;
-    $toggle-size: 18px;
     $height: 30px;
-    $padding: 2px;
     display: inline-flex;
     border-radius: 3px;
     line-height: $height;
@@ -27,5 +25,65 @@
 
     label {
         display: none;
+    }
+
+    // Keep the off state neutral across terminal color schemes. Only the on track uses the accent.
+    .form-switch .form-check-input {
+        appearance: none;
+        position: relative;
+        width: 32px;
+        height: 20px;
+        margin-top: 0;
+        border: 0;
+        border-radius: 10px;
+        background: #76767b;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12);
+        transition: background-color .15s ease;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 0 0 .5px rgba(0, 0, 0, .08);
+            transition: transform .15s ease;
+        }
+
+        &:checked {
+            background: var(--bs-primary, #0a84ff);
+
+            &::before {
+                transform: translateX(12px);
+            }
+        }
+
+        &:focus {
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12);
+        }
+
+        &:focus-visible {
+            outline: 3px solid Highlight;
+            outline-offset: 3px;
+        }
+    }
+
+    &.disabled * {
+        cursor: not-allowed;
+    }
+}
+
+:host-context(.no-animations) .form-switch .form-check-input,
+:host-context(.no-animations) .form-switch .form-check-input::before {
+    transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :host .form-switch .form-check-input,
+    :host .form-switch .form-check-input::before {
+        transition: none;
     }
 }
