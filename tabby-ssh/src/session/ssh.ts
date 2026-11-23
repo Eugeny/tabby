@@ -896,7 +896,12 @@ export class SSHSession {
         if (this.profile.options.agentForward) {
             await ch.requestAgentForwarding()
         }
-        await ch.requestShell()
+        if (options.remoteCommand) {
+            this.logger.info(`Running remote command: ${options.remoteCommand}`)
+            await ch.requestExec(options.remoteCommand)
+        } else {
+            await ch.requestShell()
+        }
         return ch
     }
 

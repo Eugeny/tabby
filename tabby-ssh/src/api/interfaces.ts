@@ -38,6 +38,7 @@ export interface SSHProfileOptions extends LoginScriptsOptions {
     reuseSession: boolean
     input: InputProcessingOptions,
     cwd: string | null
+    remoteCommand?: string | null
     rememberCwd: boolean
     term?: string
 }
