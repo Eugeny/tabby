@@ -122,8 +122,13 @@ export class AppService {
             }
         })
 
-        this.tabClosed$.subscribe(() => {
+        this.tabClosed$.subscribe(async () => {
             if (!this.tabs.length && this.config.store.appearance.lastTabClosesWindow) {
+                try {
+                    await this.tabRecovery.saveTabs(this.tabs)
+                } catch (error) {
+                    console.warn('Could not save the recovery state before closing the window:', error)
+                }
                 this.hostWindow.close()
             }
         })

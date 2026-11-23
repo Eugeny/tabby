@@ -21,17 +21,19 @@ export class DockMenuService {
     async update (): Promise<void> {
         let profiles = await this.profilesService.getProfiles()
         profiles = profiles.filter(x => x.id && !this.configService.store.profileBlacklist.includes(x.id))
-        const recentProfiles = this.profilesService.getRecentProfiles().filter(x => x.id && !this.configService.store.profileBlacklist.includes(x.id))
+        const allRecentProfiles = this.profilesService.getRecentProfiles()
+        const recentProfiles = allRecentProfiles.filter(x => x.id && !this.configService.store.profileBlacklist.includes(x.id))
 
         if (this.hostApp.platform === Platform.Windows) {
             this.electron.app.setJumpList([
                 {
                     type: 'custom',
                     name: this.translate.instant('Recent'),
-                    items: recentProfiles.map((profile, index) => ({
+                    items: recentProfiles.map(profile => ({
                         type: 'task',
                         program: process.execPath,
-                        args: `recent ${index}`,
+                        // `recent N` indexes the unfiltered list
+                        args: `recent ${allRecentProfiles.indexOf(profile)}`,
                         title: profile.name,
                         iconPath: process.execPath,
                         iconIndex: 0,

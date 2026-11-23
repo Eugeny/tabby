@@ -116,6 +116,7 @@ export class XTermFrontend extends Frontend {
         drop: (event: Event) => void
         mousedown: (event: Event) => void
         mouseup: (event: Event) => void
+        rightButtonCapture: (event: Event) => void
         mousewheel: (event: Event) => void
         contextmenu: (event: Event) => void
     }
@@ -495,6 +496,19 @@ export class XTermFrontend extends Frontend {
             drop: event => this.drop.next(event as DragEvent),
             mousedown: event => this.mouseEvent.next(event as MouseEvent),
             mouseup: event => this.mouseEvent.next(event as MouseEvent),
+            rightButtonCapture: event => {
+                // Tabby handles right-click itself (menu/paste/copy), so don't let
+                // xterm also report it to apps with mouse tracking enabled - some of
+                // them paste on right-click, doubling the paste.
+                // With right-click turned off, the click is the app's instead.
+                const e = event as MouseEvent
+                const rightClick = e.button === 2 || e.button === 0 && e.ctrlKey
+                if (rightClick && this.isMouseTrackingActive() && this.configService.store.terminal.rightClick !== 'off') {
+                    // "immediate" also skips our own bubble listener when the host itself is the target
+                    event.stopImmediatePropagation()
+                    this.mouseEvent.next(e)
+                }
+            },
             mousewheel: event => this.mouseEvent.next(event as MouseEvent),
             contextmenu: event => {
                 event.preventDefault()
@@ -507,6 +521,8 @@ export class XTermFrontend extends Frontend {
         host.addEventListener('drop', this.hostEventHandlers.drop)
         host.addEventListener('mousedown', this.hostEventHandlers.mousedown)
         host.addEventListener('mouseup', this.hostEventHandlers.mouseup)
+        host.addEventListener('mousedown', this.hostEventHandlers.rightButtonCapture, true)
+        host.addEventListener('mouseup', this.hostEventHandlers.rightButtonCapture, true)
         host.addEventListener('mousewheel', this.hostEventHandlers.mousewheel)
         host.addEventListener('contextmenu', this.hostEventHandlers.contextmenu)
 
@@ -532,6 +548,8 @@ export class XTermFrontend extends Frontend {
             host.removeEventListener('drop', this.hostEventHandlers.drop)
             host.removeEventListener('mousedown', this.hostEventHandlers.mousedown)
             host.removeEventListener('mouseup', this.hostEventHandlers.mouseup)
+            host.removeEventListener('mousedown', this.hostEventHandlers.rightButtonCapture, true)
+            host.removeEventListener('mouseup', this.hostEventHandlers.rightButtonCapture, true)
             host.removeEventListener('mousewheel', this.hostEventHandlers.mousewheel)
             host.removeEventListener('contextmenu', this.hostEventHandlers.contextmenu)
             this.hostEventHandlers = undefined
@@ -635,6 +653,11 @@ export class XTermFrontend extends Frontend {
         this.xterm.write('\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[?1006l')
         // Disable bracketed paste mode
         this.xterm.write('\x1b[?2004l')
+        // Re-enable the cursor (DECTCEM). The old session may have died while an
+        // application had hidden it with ?25l; the reused xterm keeps that state
+        // and the new shell does not necessarily emit ?25h, leaving no cursor
+        // after a reconnect (#11307).
+        this.xterm.write('\x1b[?25h')
     }
 
     visualBell (): void {
@@ -731,6 +754,9 @@ export class XTermFrontend extends Frontend {
         }[config.terminal.cursor] || config.terminal.cursor
         this.xterm.options.cursorBlink = config.terminal.cursorBlink
         this.xterm.options.macOptionIsMeta = config.terminal.altIsMeta
+        if (this.hostApp.platform === Platform.macOS) {
+            this.xterm.options.rightClickSelectsWord = config.terminal.rightClickSelectsWord
+        }
         this.xterm.options.scrollback = config.terminal.scrollbackLines
         this.xterm.options.wordSeparator = config.terminal.wordSeparator
         this.xterm.options.drawBoldTextInBrightColors = config.terminal.drawBoldTextInBrightColors
@@ -813,6 +839,10 @@ export class XTermFrontend extends Frontend {
 
     supportsBracketedPaste (): boolean {
         return this.xterm.modes.bracketedPasteMode
+    }
+
+    isMouseTrackingActive (): boolean {
+        return this.xterm.modes.mouseTrackingMode !== 'none'
     }
 
     isAlternateScreenActive (): boolean {

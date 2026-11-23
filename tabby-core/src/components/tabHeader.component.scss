@@ -132,6 +132,12 @@ $tabs-height: 38px;
         height: 3px;
         z-index: 1;
         transition: 0.25s width;
+
+        &.indeterminate {
+            width: 30%;
+            transition: none;
+            animation: progressbar-indeterminate 1.5s ease-in-out infinite;
+        }
     }
 
     .colorbar {
@@ -168,4 +174,9 @@ $tabs-height: 38px;
         left: 0;
         right: 0;
     }
+}
+
+@keyframes progressbar-indeterminate {
+    from { left: -30%; }
+    to { left: 100%; }
 }
