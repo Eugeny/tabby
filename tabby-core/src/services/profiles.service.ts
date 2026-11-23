@@ -12,7 +12,7 @@ import { SelectorService } from './selector.service'
 import deepClone from 'clone-deep'
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
-import { distributeProfilesByGroup } from '../utils/groupProfiles'
+import { distributeProfilesByGroup } from './profiles.util'
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
@@ -101,8 +101,7 @@ export class ProfilesService {
             ]
         }
 
-        // Memoize sort keys for this snapshot to avoid repeatedly resolving group names.
-        // Both original stable sorts remain unchanged for compatibility.
+        // Resolve each profile's group name once, not on every comparison
         const keys = new WeakMap<object, string>()
         const sortKey = (p: PartialProfile<Profile>): string => {
             let key = keys.get(p)
@@ -509,8 +508,7 @@ export class ProfilesService {
             group.editable = true
         }
         if (options?.includeProfiles) {
-            // This preserves the existing Built-in/Ungrouped handling below:
-            // only profiles not consumed by configured groups are returned.
+            // What's left goes into the Built-in/Ungrouped groups below
             profiles = distributeProfilesByGroup(profiles, groups)
         }
 

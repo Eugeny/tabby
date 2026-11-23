@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { distributeProfilesByGroup } from '../src/utils/groupProfiles'
+import { distributeProfilesByGroup } from '../src/services/profiles.util'
 
 interface TestProfile {
     id: string
