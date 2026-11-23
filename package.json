@@ -51,7 +51,7 @@
     "ngx-toastr": "^16",
     "node-abi": "^4",
     "npmlog": "6.0.2",
-    "patch-package": "^6",
+    "patch-package": "^8",
     "po-gettext-loader": "^1",
     "pug": "3",
     "pug-html-loader": "1.1.5",
