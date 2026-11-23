@@ -3,9 +3,9 @@
 
 
 "@electron/remote@^2":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-2.1.3.tgz#fe3341ea6a23c72f663ed611cf7dc2b7784d36d1"
-  integrity sha512-XlpxC8S4ttj/v2d+PKp9na/3Ev8bV7YWNL7Cw5b9MAWgTphEml7iYgbc7V0r9D6yDOfOkj06bchZgOZdlWJGNA==
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-2.1.4.tgz#2343b84a3fbab558098e3a27f326c80e00f9c794"
+  integrity sha512-5NMDIu9VYoikv5isuGHnuB6Hm3IKWasEvbDxgPYs8yrCICxLiOaucocFz9tYQEokyrqZce6avBFXj0SXuowSiw==
 
 "@gar/promise-retry@^1.0.0", "@gar/promise-retry@^1.0.2":
   version "1.0.3"
