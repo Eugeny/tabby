@@ -353,15 +353,6 @@ h3.mt-4(translate) Tabs
 
 .form-line
     .header
-        .title(translate) Tint the active tab with its color
-
-    toggle(
-        [(ngModel)]='config.store.appearance.tintActiveTabWithColor',
-        (ngModelChange)='config.save();',
-    )
-
-.form-line
-    .header
         .title(translate) Hide tab index
 
     toggle(

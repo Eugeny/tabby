@@ -94,7 +94,7 @@ export class TabHeaderComponent extends BaseComponent {
     }
 
     @HostBinding('style.background-color') get tintedActiveTabBackground (): string|null {
-        if (!this.config.store.appearance.tintActiveTabWithColor || !this.active || !this.tab.color) {
+        if (!this.active || !this.tab.color) {
             return null
         }
         return `color-mix(in srgb, ${this.tab.color} 20%, var(--body-bg))`
