@@ -13,8 +13,8 @@ export class SSHShellSession extends BaseSession {
     shell?: russh.Channel
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
+    /** `null` once the shell is being torn down */
     private ssh: SSHSession|null
-    private destroyingShell = false
 
     constructor (
         injector: Injector,
@@ -90,7 +90,7 @@ export class SSHShellSession extends BaseSession {
     }
 
     resize (columns: number, rows: number): void {
-        if (!this.shell || this.destroyingShell) {
+        if (!this.shell || !this.ssh) {
             return
         }
         this.shell.resizePTY({
@@ -99,7 +99,7 @@ export class SSHShellSession extends BaseSession {
             pixHeight: 0,
             pixWidth: 0,
         }).catch(error => {
-            if (!this.destroyingShell) {
+            if (this.ssh) {
                 this.logger.error('Could not resize SSH shell', error)
             }
         })
@@ -116,16 +116,16 @@ export class SSHShellSession extends BaseSession {
     }
 
     async destroy (): Promise<void> {
-        if (this.destroyingShell) {
+        // unref() can destroy the SSH session, whose willDestroy$ calls back into here
+        const ssh = this.ssh
+        if (!ssh) {
             return
         }
-        this.destroyingShell = true
+        this.ssh = null
         this.logger.debug('Closing shell')
         this.serviceMessage.complete()
         this.kill()
-        const ssh = this.ssh
-        this.ssh = null
-        ssh?.unref()
+        ssh.unref()
         await super.destroy()
     }
 

@@ -488,7 +488,7 @@ export class SSHSession {
         if (authenticatedClient) {
             this.ssh = authenticatedClient
         } else {
-            this.ssh.disconnect()
+            this.ssh.disconnect().catch(() => null)
             this.passwordStorage.deletePassword(this.profile, this.authUsername ?? undefined)
             // eslint-disable-next-line @typescript-eslint/no-base-to-string
             throw new Error('Authentication rejected')
@@ -883,7 +883,9 @@ export class SSHSession {
         this.willDestroy.next()
         this.willDestroy.complete()
         this.serviceMessage.complete()
-        if (!this.previouslyDisconnected) {
+        // `ssh` is only assigned once start() has connected
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!this.previouslyDisconnected && this.ssh) {
             try {
                 await this.ssh.disconnect()
             } catch (error) {
