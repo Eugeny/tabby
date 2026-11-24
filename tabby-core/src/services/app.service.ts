@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Observable, Subject, AsyncSubject, takeUntil, debounceTime } from 'rxjs'
+import { Observable, Subject, BehaviorSubject, AsyncSubject, takeUntil, debounceTime } from 'rxjs'
 
 import { BaseTabComponent } from '../components/baseTab.component'
 import { SplitTabComponent } from '../components/splitTab.component'
@@ -70,7 +70,7 @@ export class AppService {
     private tabOpened = new Subject<BaseTabComponent>()
     private tabRemoved = new Subject<BaseTabComponent>()
     private tabClosed = new Subject<BaseTabComponent>()
-    private tabDragActive = new Subject<BaseTabComponent|null>()
+    private tabDragActive = new BehaviorSubject<BaseTabComponent|null>(null)
     private ready = new AsyncSubject<void>()
     private recoveryStateChangedHint = new Subject<void>()
 
