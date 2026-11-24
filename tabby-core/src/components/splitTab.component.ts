@@ -5,6 +5,7 @@ import { TabRecoveryProvider, RecoveryToken } from '../api/tabRecovery'
 import { TabsService, NewTabParameters } from '../services/tabs.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
+import { AppService } from '../services/app.service'
 
 export type SplitOrientation = 'v' | 'h'
 export type SplitDirection = 'r' | 't' | 'b' | 'l'
@@ -225,6 +226,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /** @hidden */
     _spannerResizing = false
 
+    /** @hidden */
+    _tabDragActive = false
+
     /**
      * Disables display of dynamic window/tab title provided by the shell
      */
@@ -272,11 +276,16 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         private hotkeys: HotkeysService,
         private tabsService: TabsService,
         private tabRecovery: TabRecoveryService,
+        private app: AppService,
         injector: Injector,
     ) {
         super(injector)
         this.root = new SplitContainer()
         this.setTitle('')
+
+        this.subscribeUntilDestroyed(this.app.tabDragActive$, tab => {
+            this._tabDragActive = !!tab
+        })
 
         this.focused$.subscribe(() => {
             this.getAllTabs().forEach(x => x.emitFocused())
@@ -855,7 +864,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () => this.focus(tab))
         if (this.config.store.terminal.focusFollowsMouse) {
             tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'mousemove', () => {
-                if (this._spannerResizing) {
+                if (this._spannerResizing || this._tabDragActive) {
                     return
                 }
                 this.focus(tab)

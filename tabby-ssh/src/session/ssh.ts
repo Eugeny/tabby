@@ -20,6 +20,7 @@ import { supportedAlgorithms } from '../algorithms'
 import { requestShellPTY, SSHShellChannelOptions } from './shellChannel'
 import * as russh from 'russh'
 import { selectNextAuthMethod, updateAuthPlanAfterFailure } from './authMethodSelection'
+import { bridgeSocketToChannel } from './socketChannel'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -129,6 +130,11 @@ export class SSHSession {
     private knownHosts: SSHKnownHostsService
     private privateKeyImporters: AutoPrivateKeyLocator[]
     private previouslyDisconnected = false
+    private destroyed = false
+
+    get isReusable (): boolean {
+        return this.open && !this.previouslyDisconnected && this.ssh instanceof russh.AuthenticatedSSHClient
+    }
 
     constructor (
         private injector: Injector,
@@ -487,7 +493,7 @@ export class SSHSession {
         if (authenticatedClient) {
             this.ssh = authenticatedClient
         } else {
-            this.ssh.disconnect()
+            this.ssh.disconnect().catch(() => null)
             this.passwordStorage.deletePassword(this.profile, this.authUsername ?? undefined)
             // eslint-disable-next-line @typescript-eslint/no-base-to-string
             throw new Error('Authentication rejected')
@@ -530,9 +536,9 @@ export class SSHSession {
             const socket = new Socket()
             socket.connect(forward.targetPort, forward.targetAddress)
             socket.on('error', e => {
+                // The bridge below closes the channel once the failed socket closes.
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.logger.warn(`Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
-                channel.close()
             })
 
             this.setupSocketChannelEvents(channel, socket, 'Remote forward')
@@ -872,11 +878,25 @@ export class SSHSession {
     }
 
     async destroy (): Promise<void> {
+        if (this.destroyed) {
+            return
+        }
+        // Shells and jump sessions can re-enter teardown from willDestroy.
+        this.destroyed = true
+        this.open = false
         this.logger.info('Destroying')
         this.willDestroy.next()
         this.willDestroy.complete()
         this.serviceMessage.complete()
-        this.ssh.disconnect()
+        // `ssh` is only assigned once start() has connected
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!this.previouslyDisconnected && this.ssh) {
+            try {
+                await this.ssh.disconnect()
+            } catch (error) {
+                this.logger.error('Could not disconnect SSH session', error)
+            }
+        }
     }
 
     async openShellChannel (options: SSHShellChannelOptions): Promise<russh.Channel> {
@@ -900,55 +920,21 @@ export class SSHSession {
         return ch
     }
 
+    /**
+     * Open a session channel and run a single command, without a PTY.
+     * Useful for clients that need to run a command without starting a shell.
+     */
+    async openExecChannel (command: string): Promise<russh.Channel> {
+        if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+            throw new Error('Cannot open an exec channel before auth')
+        }
+        const ch = await this.ssh.activateChannel(await this.ssh.openSessionChannel())
+        await ch.requestExec(command)
+        return ch
+    }
+
     private setupSocketChannelEvents (channel: russh.Channel, socket: Socket, logPrefix: string): void {
-        // Channel → Socket data flow with error handling
-        channel.data$.subscribe({
-            next: data => socket.write(data),
-            error: err => {
-                this.logger.error(`${logPrefix}: channel data error: ${err}`)
-                socket.destroy()
-            },
-        })
-
-        // Socket → Channel data flow with proper conversion
-        socket.on('data', data => {
-            try {
-                channel.write(new Uint8Array(data.buffer, data.byteOffset, data.byteLength))
-            } catch (err) {
-                this.logger.error(`${logPrefix}: channel write error: ${err}`)
-                socket.destroy(new Error(`${logPrefix}failed to write to channel: ${err}`))
-            }
-        })
-
-        // Handle EOF from remote
-        channel.eof$.subscribe(() => {
-            this.logger.debug(`${logPrefix}: channel EOF received, ending socket`)
-            socket.end()
-        })
-
-        // Handle channel close
-        channel.closed$.subscribe(() => {
-            this.logger.debug(`${logPrefix}: channel closed, destroying socket`)
-            socket.destroy()
-        })
-
-        // Handle socket errors
-        socket.on('error', err => {
-            this.logger.error(`${logPrefix}: socket error: ${err}`)
-            channel.close()
-        })
-
-        // Handle socket close
-        socket.on('close', () => {
-            this.logger.debug(`${logPrefix}: socket closed, closing channel`)
-            channel.close()
-        })
-
-        // Handle EOF from local
-        socket.on('end', () => {
-            this.logger.debug(`${logPrefix}: socket end, sending EOF to channel`)
-            channel.eof()
-        })
+        bridgeSocketToChannel(channel, socket, this.logger, logPrefix, this.willDestroy$)
     }
 
     async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<russh.KeyPair> {
