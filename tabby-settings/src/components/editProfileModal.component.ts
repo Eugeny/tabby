@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider, FullyDefined, ConfigProxy } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
-const iconsClassList = Object.keys(iconsData).map(
+const iconsClassList = Array.from(Object.keys(iconsData)).sort().map(
     icon => iconsData[icon].map(
         style => `fa${style[0]} fa-${icon}`,
     ),
@@ -14,6 +14,7 @@ const iconsClassList = Object.keys(iconsData).map(
 /** @hidden */
 @Component({
     templateUrl: './editProfileModal.component.pug',
+    styleUrls: ['./editProfileModal.component.scss'],
 })
 export class EditProfileModalComponent<P extends Profile, PP extends ProfileProvider<P>> {
     @Input('profile') partialProfile: P
@@ -23,6 +24,10 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
     @Input() profileGroup: PartialProfileGroup<ProfileGroup> | undefined
     groups: PartialProfileGroup<ProfileGroup>[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
+
+    iconBrowserOpen = false
+    iconBrowserSearch = ''
+    visibleIcons: string[] = iconsClassList
 
     protected profile: FullyDefined<P> & ConfigProxy<FullyDefined<P>>
     private settingsComponentInstance?: ProfileSettingsComponent<P, PP>
@@ -86,6 +91,22 @@ export class EditProfileModalComponent<P extends Profile, PP extends ProfileProv
             debounceTime(200),
             map(term => iconsClassList.filter(v => v.toLowerCase().includes(term.toLowerCase())).slice(0, 10)),
         )
+
+    toggleIconBrowser () {
+        this.iconBrowserOpen = !this.iconBrowserOpen
+    }
+
+    filterIcons () {
+        const query = this.iconBrowserSearch.trim().toLowerCase()
+        this.visibleIcons = query
+            ? iconsClassList.filter(icon => icon.toLowerCase().includes(query))
+            : iconsClassList
+    }
+
+    selectIcon (icon: string) {
+        this.profile.icon = icon
+        this.iconBrowserOpen = false
+    }
 
     save () {
         if (!this.profileGroup) {

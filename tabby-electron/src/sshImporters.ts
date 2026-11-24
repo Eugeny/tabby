@@ -140,7 +140,7 @@ async function parseSSHConfigFile (
                 continue
             }
 
-            const matches = glob.sync(resolveSSHIncludePath(directive.value))
+            const matches = glob.sync(resolveSSHIncludePath(directive.value), { windowsPathsNoEscape: process.platform === 'win32' })
             for (const match of matches) {
                 const stat = await fs.stat(match)
                 if (stat.isDirectory()) {

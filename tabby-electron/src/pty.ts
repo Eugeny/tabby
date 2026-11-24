@@ -1,7 +1,7 @@
-import * as psNode from 'ps-node'
 import { ipcRenderer } from 'electron'
 import { ChildProcess, PTYInterface, PTYProxy } from 'tabby-local'
 import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
+import { getLinuxChildProcesses } from './linuxProcess'
 
 /* eslint-disable block-scoped-var */
 
@@ -40,10 +40,11 @@ export class ElectronPTYProxy extends PTYProxy {
     ) {
         super()
         this.truePID = new Promise(async (resolve) => {
+            await new Promise(r => setTimeout(r, 2000))
+            // Read the PID only now: on Windows, node-pty connects ConPTY asynchronously
+            // and reports PID 0 until it has, which would hide every child process (#11810)
             let pid = await this.getPID()
             try {
-                await new Promise(r => setTimeout(r, 2000))
-
                 // Retrieve any possible single children now that shell has fully started
                 let processes = await this.getChildProcessesInternal(pid)
                 while (pid && processes.length === 1) {
@@ -126,15 +127,14 @@ export class ElectronPTYProxy extends PTYProxy {
                 })
             })
         }
-        return new Promise<ChildProcess[]>((resolve, reject) => {
-            psNode.lookup({ ppid: truePID }, (err, processes) => {
-                if (err) {
-                    reject(err)
-                    return
-                }
-                resolve(processes as ChildProcess[])
-            })
-        })
+        try {
+            return await getLinuxChildProcesses(truePID)
+        } catch (error) {
+            // Not every Linux ps knows --ppid (busybox); closing a tab must
+            // still work there.
+            console.warn('Could not list child processes:', error)
+            return []
+        }
     }
 
     async getWorkingDirectory (): Promise<string|null> {
