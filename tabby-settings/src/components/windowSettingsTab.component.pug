@@ -432,6 +432,16 @@ h3.mt-4(translate) Hacks
         (ngModelChange)='config.save(); config.requestRestart()'
     )
 
+.form-line(*ngIf='hostApp.platform === Platform.macOS')
+    .header
+        .title(translate) Disable Touch Bar
+        .description(translate) Stops showing tabs on the Touch Bar. Turn this on if your Mac has no Touch Bar
+
+    toggle(
+        [(ngModel)]='config.store.hacks.disableTouchBar',
+        (ngModelChange)='config.save(); config.requestRestart()'
+    )
+
 .form-line(*ngIf='hostApp.platform === Platform.Windows && isFluentVibrancySupported')
     .header
         .title(translate) Enable fluent background option

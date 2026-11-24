@@ -227,6 +227,10 @@ tab-body {
         --bs-alert-border-color: var(--theme-#{$color}-more);
         --bs-alert-color: var(--theme-#{$color});
     }
+
+    .text-bg-#{$color} {
+        color: var(--theme-#{$color}-fg) !important;
+    }
 }
 
 
@@ -338,6 +342,9 @@ hotkey-input-modal {
 }
 
 .list-group-light {
+    --bs-list-group-action-hover-bg: transparent;
+    --bs-list-group-action-active-bg: transparent;
+
     .list-group-item {
         border: none !important;
         outline: none !important;

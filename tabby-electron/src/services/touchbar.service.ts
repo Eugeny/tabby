@@ -1,8 +1,12 @@
 import deepEqual from 'deep-equal'
-import { Subject, distinctUntilChanged, map } from 'rxjs'
+import { Subject, distinctUntilChanged, map, throttleTime } from 'rxjs'
 import { ipcRenderer } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
-import { AppService, HostAppService, Platform } from 'tabby-core'
+import { AppService, ConfigService, HostAppService, Platform } from 'tabby-core'
+
+// Tab titles can change many times a second, and every change the Touch Bar
+// is sent costs the main process a native layout pass.
+const TOUCHBAR_UPDATE_INTERVAL = 1000
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })
@@ -12,6 +16,7 @@ export class TouchbarService {
     private constructor (
         private app: AppService,
         private hostApp: HostAppService,
+        private config: ConfigService,
         private zone: NgZone,
     ) {
         if (this.hostApp.platform !== Platform.macOS) {
@@ -32,13 +37,17 @@ export class TouchbarService {
             this.app.selectTab(this.app.tabs[index])
         }))
 
-        this.touchbarState$.pipe(distinctUntilChanged(deepEqual)).subscribe(state => {
+        this.touchbarState$.pipe(
+            // leading: a tab switch shows up at once; trailing: the last title is never dropped
+            throttleTime(TOUCHBAR_UPDATE_INTERVAL, undefined, { leading: true, trailing: true }),
+            distinctUntilChanged(deepEqual),
+        ).subscribe(state => {
             ipcRenderer.send('window-set-touch-bar', ...state)
         })
     }
 
     update (): void {
-        if (this.hostApp.platform !== Platform.macOS) {
+        if (this.hostApp.platform !== Platform.macOS || this.config.store.hacks.disableTouchBar) {
             return
         }
 

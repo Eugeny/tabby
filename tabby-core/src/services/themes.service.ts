@@ -106,8 +106,9 @@ export class ThemesService {
             vars['--theme-fg-less'] = less(theme.foreground, 0.25).string()
             vars['--theme-fg-less-2'] = less(theme.foreground, 0.5).string()
 
-            vars['--theme-bg-less-2'] = less(theme.background, 0.5).string()
-            vars['--theme-bg-less'] = less(theme.background, 0.25).string()
+            // less() on a light bg is darken(), which drops #f8f9fa to 73% lightness
+            vars['--theme-bg-less-2'] = Color(theme.background).mix(Color(theme.foreground), 0.08).string()
+            vars['--theme-bg-less'] = Color(theme.background).mix(Color(theme.foreground), 0.04).string()
             vars['--theme-bg'] = theme.background
             vars['--theme-bg-more'] = backgroundMore
             vars['--theme-bg-more-2'] = more(backgroundMore, 0.25).string()

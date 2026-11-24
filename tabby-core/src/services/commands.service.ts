@@ -5,6 +5,7 @@ import { SelectorService } from './selector.service'
 @Injectable({ providedIn: 'root' })
 export class CommandService {
     private lastCommand = Promise.resolve()
+    private showingSelector = false
 
     constructor (
         private selector: SelectorService,
@@ -91,24 +92,29 @@ export class CommandService {
     }
 
     async showSelector (): Promise<void> {
-        if (this.selector.active) {
+        if (this.showingSelector || this.selector.active) {
             return
         }
 
-        const context: CommandContext = {}
-        const tab = this.app.activeTab
-        if (tab instanceof SplitTabComponent) {
-            context.tab = tab.getFocusedTab() ?? undefined
+        this.showingSelector = true
+        try {
+            const context: CommandContext = {}
+            const tab = this.app.activeTab
+            if (tab instanceof SplitTabComponent) {
+                context.tab = tab.getFocusedTab() ?? undefined
+            }
+            const commands = await this.getCommands(context)
+            await this.selector.show(
+                this.translate.instant('Commands'),
+                commands.map(c => ({
+                    name: c.label,
+                    callback: c.run,
+                    description: c.sublabel,
+                    icon: c.icon,
+                })),
+            )
+        } finally {
+            this.showingSelector = false
         }
-        const commands = await this.getCommands(context)
-        return this.selector.show(
-            this.translate.instant('Commands'),
-            commands.map(c => ({
-                name: c.label,
-                callback: c.run,
-                description: c.sublabel,
-                icon: c.icon,
-            })),
-        )
     }
 }
