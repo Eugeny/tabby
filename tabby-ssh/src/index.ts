@@ -23,7 +23,6 @@ import { SSHSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 import { SSHHotkeyProvider } from './hotkeys'
 import { SSHProfilesService } from './profiles'
-import { SFTPContextMenuItemProvider } from './api/contextMenu'
 import { CommonSFTPContextMenu } from './sftpContextMenu'
 import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirectoryModal.component'
 import { SSHCommandProvider } from './commands'
@@ -46,7 +45,7 @@ import { SSHCommandProvider } from './commands'
         { provide: HotkeyProvider, useClass: SSHHotkeyProvider, multi: true },
         { provide: CommandProvider, useExisting: SSHCommandProvider, multi: true },
         { provide: ProfileProvider, useExisting: SSHProfilesService, multi: true },
-        { provide: SFTPContextMenuItemProvider, useClass: CommonSFTPContextMenu, multi: true },
+        { provide: CommandProvider, useExisting: CommonSFTPContextMenu, multi: true },
     ],
     declarations: [
         SSHProfileSettingsComponent,

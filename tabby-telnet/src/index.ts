@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 import { NgxFilesizeModule } from 'ngx-filesize'
-import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, ProfileProvider } from 'tabby-core'
+import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, ProfileProvider, CommandProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 
 import { TelnetProfileSettingsComponent } from './components/telnetProfileSettings.component'
@@ -13,6 +13,7 @@ import { TelnetTabComponent } from './components/telnetTab.component'
 import { TelnetConfigProvider } from './config'
 import { RecoveryProvider } from './recoveryProvider'
 import { TelnetHotkeyProvider } from './hotkeys'
+import { TelnetCommandProvider } from './commands'
 import { TelnetProfilesService } from './profiles'
 
 /** @hidden */
@@ -30,6 +31,7 @@ import { TelnetProfilesService } from './profiles'
         { provide: ConfigProvider, useClass: TelnetConfigProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: TelnetHotkeyProvider, multi: true },
+        { provide: CommandProvider, useExisting: TelnetCommandProvider, multi: true },
         { provide: ProfileProvider, useExisting: TelnetProfilesService, multi: true },
     ],
     declarations: [

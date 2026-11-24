@@ -305,86 +305,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             if (!this.hasFocus || !this.focusedTab) {
                 return
             }
-            switch (hotkey) {
-                case 'split-right':
-                    this.splitTab(this.focusedTab, 'r')
-                    break
-                case 'split-bottom':
-                    this.splitTab(this.focusedTab, 'b')
-                    break
-                case 'split-top':
-                    this.splitTab(this.focusedTab, 't')
-                    break
-                case 'split-left':
-                    this.splitTab(this.focusedTab, 'l')
-                    break
-                case 'pane-nav-left':
-                    this.navigate('l')
-                    break
-                case 'pane-nav-right':
-                    this.navigate('r')
-                    break
-                case 'pane-nav-up':
-                    this.navigate('t')
-                    break
-                case 'pane-nav-down':
-                    this.navigate('b')
-                    break
-                case 'pane-nav-previous':
-                    this.navigateLinear(-1)
-                    break
-                case 'pane-nav-next':
-                    this.navigateLinear(1)
-                    break
-                case 'pane-nav-1':
-                    this.navigateSpecific(0)
-                    break
-                case 'pane-nav-2':
-                    this.navigateSpecific(1)
-                    break
-                case 'pane-nav-3':
-                    this.navigateSpecific(2)
-                    break
-                case 'pane-nav-4':
-                    this.navigateSpecific(3)
-                    break
-                case 'pane-nav-5':
-                    this.navigateSpecific(4)
-                    break
-                case 'pane-nav-6':
-                    this.navigateSpecific(5)
-                    break
-                case 'pane-nav-7':
-                    this.navigateSpecific(6)
-                    break
-                case 'pane-nav-8':
-                    this.navigateSpecific(7)
-                    break
-                case 'pane-nav-9':
-                    this.navigateSpecific(8)
-                    break
-                case 'pane-maximize':
-                    if (this.maximizedTab) {
-                        this.maximize(null)
-                    } else if (this.getAllTabs().length > 1) {
-                        this.maximize(this.focusedTab)
-                    }
-                    break
-                case 'close-pane':
-                    this.focusedTab.destroy()
-                    break
-                case 'pane-increase-vertical':
-                    this.resizePane('v')
-                    break
-                case 'pane-decrease-vertical':
-                    this.resizePane('dv')
-                    break
-                case 'pane-increase-horizontal':
-                    this.resizePane('h')
-                    break
-                case 'pane-decrease-horizontal':
-                    this.resizePane('dh')
-                    break
+            // ponytail: pane-nav-N stay here rather than nine palette commands
+            const match = /^pane-nav-(\d)$/.exec(hotkey)
+            if (match) {
+                this.navigateSpecific(parseInt(match[1]) - 1)
             }
         })
     }

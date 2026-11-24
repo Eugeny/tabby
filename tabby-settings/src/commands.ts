@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { CommandProvider, AppService, HostAppService, HotkeysService, TranslateService, Command, CommandLocation } from 'tabby-core'
+import { CommandProvider, AppService, HostAppService, TranslateService, Command, CommandLocation } from 'tabby-core'
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
@@ -8,18 +8,11 @@ import { SettingsTabComponent } from './components/settingsTab.component'
 export class SettingsCommandProvider extends CommandProvider {
     constructor (
         hostApp: HostAppService,
-        hotkeys: HotkeysService,
         private app: AppService,
         private translate: TranslateService,
     ) {
         super()
         hostApp.settingsUIRequest$.subscribe(() => this.open())
-
-        hotkeys.hotkey$.subscribe(async (hotkey) => {
-            if (hotkey === 'settings') {
-                this.open()
-            }
-        })
     }
 
     async provide (): Promise<Command[]> {
@@ -29,6 +22,7 @@ export class SettingsCommandProvider extends CommandProvider {
             label: this.translate.instant('Settings'),
             weight: 99,
             locations: [CommandLocation.RightToolbar, CommandLocation.StartPage],
+            hotkey: 'settings',
             run: async () => this.open(),
         }]
     }

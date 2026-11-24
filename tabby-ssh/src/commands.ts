@@ -28,7 +28,14 @@ export class SSHCommandProvider extends CommandProvider {
             group: 'ssh:sftp',
             label: this.translate.instant('Open SFTP panel'),
             locations: [CommandLocation.TabHeaderMenu, CommandLocation.TabBodyMenu],
+            hotkey: 'open-sftp',
             run: async () => tab.openSFTP(),
+        }, {
+            id: 'ssh:restart-session',
+            label: this.translate.instant('Restart current SSH session'),
+            locations: [],
+            hotkey: 'restart-ssh-session',
+            run: async () => tab.reconnect(),
         }]
         if (this.hostApp.platform === Platform.Windows && this.ssh.getWinSCPPath()) {
             commands.push({
@@ -36,7 +43,8 @@ export class SSHCommandProvider extends CommandProvider {
                 group: 'ssh:sftp',
                 label: this.translate.instant('Launch WinSCP'),
                 locations: [CommandLocation.TabHeaderMenu, CommandLocation.TabBodyMenu],
-                run: async () => this.ssh.launchWinSCP(tab.sshSession!),
+                hotkey: 'launch-winscp',
+                run: tab.sshSession ? async () => this.ssh.launchWinSCP(tab.sshSession!) : undefined,
             })
         }
         return commands

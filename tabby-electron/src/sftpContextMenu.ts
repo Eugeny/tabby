@@ -2,16 +2,14 @@ import * as tmp from 'tmp-promise'
 import * as fs from 'fs'
 import { Subject, debounceTime, debounce } from 'rxjs'
 import { Injectable } from '@angular/core'
-import { MenuItemOptions, TranslateService } from 'tabby-core'
-import { SFTPFile, SFTPPanelComponent, SFTPContextMenuItemProvider, SFTPSession } from 'tabby-ssh'
+import { Command, CommandContext, CommandLocation, CommandProvider, TranslateService } from 'tabby-core'
+import { SFTPFile, SFTPSession } from 'tabby-ssh'
 import { ElectronPlatformService, resolveInsideBase } from './services/platform.service'
 
 
 /** @hidden */
-@Injectable()
-export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
-    weight = 0
-
+@Injectable({ providedIn: 'root' })
+export class EditSFTPContextMenu extends CommandProvider {
     constructor (
         private translate: TranslateService,
         private platform: ElectronPlatformService,
@@ -19,22 +17,33 @@ export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
         super()
     }
 
-    async getItems (item: SFTPFile, panel: SFTPPanelComponent): Promise<MenuItemOptions[]> {
-        const items: MenuItemOptions[] = [
+    async provide (context: CommandContext): Promise<Command[]> {
+        const { sftpItem: item, sftpPanel: panel } = context
+        if (!item || !panel) {
+            return []
+        }
+        const commands: Command[] = [
             {
-                click: () => this.platform.setClipboard({
+                id: 'electron:sftp-copy-full-path',
+                group: 'electron:sftp-item',
+                label: this.translate.instant('Copy full path'),
+                locations: [CommandLocation.SFTPItemMenu],
+                run: async () => this.platform.setClipboard({
                     text: item.fullPath,
                 }),
-                label: this.translate.instant('Copy full path'),
             },
         ]
         if (!item.isDirectory) {
-            items.push({
-                click: () => this.edit(item, panel.sftp),
+            commands.push({
+                id: 'electron:sftp-edit-locally',
+                group: 'electron:sftp-item',
                 label: this.translate.instant('Edit locally'),
+                locations: [CommandLocation.SFTPItemMenu],
+                // Don't hold CommandService's serialized run queue for the whole transfer
+                run: async () => { void this.edit(item, panel.sftp) },
             })
         }
-        return items
+        return commands
     }
 
     private async edit (item: SFTPFile, sftp: SFTPSession) {

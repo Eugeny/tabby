@@ -3,7 +3,8 @@ import { Component, Input, HostBinding, HostListener, NgZone } from '@angular/co
 import { auditTime } from 'rxjs'
 
 import { BaseTabComponent, TabProgress } from './baseTab.component'
-import { HotkeysService } from '../services/hotkeys.service'
+// must load before app.service: splitTab <-> app.service is a cycle that only resolves in this order
+import { SplitTabComponent } from './splitTab.component'
 import { AppService } from '../services/app.service'
 import { HostAppService, Platform } from '../api/hostApp'
 import { ConfigService } from '../services/config.service'
@@ -13,7 +14,6 @@ import { PlatformService } from '../api/platform'
 import { CommandContext, CommandLocation } from '../api/commands'
 
 import { BaseComponent } from './base.component'
-import { SplitTabComponent } from './splitTab.component'
 
 /** @hidden */
 @Component({
@@ -32,19 +32,11 @@ export class TabHeaderComponent extends BaseComponent {
         public app: AppService,
         public config: ConfigService,
         public hostApp: HostAppService,
-        private hotkeys: HotkeysService,
         private platform: PlatformService,
         private commands: CommandService,
         private zone: NgZone,
     ) {
         super()
-        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, (hotkey) => {
-            if (this.app.activeTab === this.tab) {
-                if (hotkey === 'rename-tab') {
-                    this.app.renameTab(this.tab)
-                }
-            }
-        })
     }
 
     ngOnInit () {

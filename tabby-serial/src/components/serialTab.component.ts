@@ -38,9 +38,6 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
                 case 'end':
                     this.sendInput('\x1b[F' )
                     break
-                case 'restart-serial-session':
-                    this.reconnect()
-                    break
             }
         })
 

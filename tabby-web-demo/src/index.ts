@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
-import TabbyCorePlugin, { ProfileProvider, AppService } from 'tabby-core'
+import TabbyCorePlugin, { ProfileProvider, AppService, CommandProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 
 import { DemoTerminalTabComponent } from './components/terminalTab.component'
 import { DemoProfilesService } from './profiles'
+import { DemoCommandProvider } from './commands'
 
 /** @hidden */
 @NgModule({
@@ -20,6 +21,7 @@ import { DemoProfilesService } from './profiles'
     ],
     providers: [
         { provide: ProfileProvider, useClass: DemoProfilesService, multi: true },
+        { provide: CommandProvider, useExisting: DemoCommandProvider, multi: true },
     ],
     declarations: [
         DemoTerminalTabComponent,

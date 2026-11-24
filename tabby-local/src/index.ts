@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TabbyCorePlugin, { HostAppService, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, CLIHandler, ProfileProvider, CommandProvider } from 'tabby-core'
+import TabbyCorePlugin, { TabRecoveryProvider, ConfigProvider, HotkeyProvider, CLIHandler, ProfileProvider, CommandProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 import { SettingsTabProvider } from 'tabby-settings'
 
@@ -62,22 +62,7 @@ import { LocalCommandProvider } from './commands'
         CommandLineEditorComponent,
     ],
 })
-export default class LocalTerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
-    private constructor (
-        hotkeys: HotkeysService,
-        terminal: TerminalService,
-        hostApp: HostAppService,
-    ) {
-        hotkeys.hotkey$.subscribe(async (hotkey) => {
-            if (hotkey === 'new-tab') {
-                terminal.openTab()
-            }
-            if (hotkey === 'new-window') {
-                hostApp.newWindow()
-            }
-        })
-    }
-}
+export default class LocalTerminalModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
 
 export { TerminalTabComponent }
 export { TerminalService }

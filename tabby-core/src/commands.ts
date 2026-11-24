@@ -4,13 +4,13 @@ import { TranslateService } from '@ngx-translate/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { HostAppService, Platform } from './api/hostApp'
+import { HostWindowService } from './api/hostWindow'
 import { ProfilesService } from './services/profiles.service'
 import { AppService } from './services/app.service'
 import { CommandProvider, Command, CommandLocation, CommandContext } from './api/commands'
 import { SplitDirection, SplitTabComponent } from './components/splitTab.component'
 import { BaseTabComponent } from './components/baseTab.component'
 import { PromptModalComponent } from './components/promptModal.component'
-import { HotkeysService } from './services/hotkeys.service'
 import { TabsService } from './services/tabs.service'
 import { SplitLayoutProfilesService } from './profiles'
 import { TAB_COLORS } from './utils'
@@ -27,20 +27,9 @@ export class CoreCommandProvider extends CommandProvider {
         private splitLayoutProfilesService: SplitLayoutProfilesService,
         private ngbModal: NgbModal,
         private tabsService: TabsService,
-        hotkeys: HotkeysService,
+        private hostWindow: HostWindowService,
     ) {
         super()
-        hotkeys.hotkey$.subscribe(hotkey => {
-            if (hotkey === 'switch-profile') {
-                let tab = this.app.activeTab
-                if (tab instanceof SplitTabComponent) {
-                    tab = tab.getFocusedTab()
-                    if (tab) {
-                        this.switchTabProfile(tab)
-                    }
-                }
-            }
-        })
     }
 
     async switchTabProfile (tab: BaseTabComponent) {
@@ -82,6 +71,21 @@ export class CoreCommandProvider extends CommandProvider {
                     ? require('./icons/plus.svg')
                     : require('./icons/profiles.svg'),
                 run: async () => this.showProfileSelector(),
+                hotkey: 'profile-selector',
+            },
+            {
+                id: 'core:reopen-tab',
+                label: this.translate.instant('Reopen last tab'),
+                locations: [],
+                hotkey: 'reopen-tab',
+                run: async () => this.app.reopenLastTab(),
+            },
+            {
+                id: 'core:toggle-fullscreen',
+                label: this.translate.instant('Toggle fullscreen mode'),
+                locations: [],
+                hotkey: 'toggle-fullscreen',
+                run: async () => this.hostWindow.toggleFullscreen(),
             },
             ...this.profilesService.getRecentProfiles().map((profile, index) => ({
                 id: `core:recent-profile-${index}`,
@@ -105,6 +109,7 @@ export class CoreCommandProvider extends CommandProvider {
                 locations: [CommandLocation.TabHeaderMenu],
                 weight: -35,
                 group: 'core:close',
+                hotkey: tab.parent ? undefined : 'close-tab',
                 run: tab.effectivelyPinned ? undefined : async () => {
                     if (this.app.tabs.includes(tab)) {
                         this.app.closeTab(tab, true)
@@ -170,6 +175,7 @@ export class CoreCommandProvider extends CommandProvider {
                 locations: [CommandLocation.TabHeaderMenu],
                 group: 'core:common',
                 weight: -13,
+                hotkey: tab.parent ? undefined : 'rename-tab',
                 run: async () => this.app.renameTab(tab),
             })
             commands.push({
@@ -178,6 +184,7 @@ export class CoreCommandProvider extends CommandProvider {
                 locations: [CommandLocation.TabHeaderMenu],
                 group: 'core:common',
                 weight: -12,
+                hotkey: tab.parent ? undefined : 'duplicate-tab',
                 run: async () => this.app.duplicateTab(tab),
             })
             commands.push({
@@ -187,8 +194,32 @@ export class CoreCommandProvider extends CommandProvider {
                 group: 'core:common',
                 weight: -11.5,
                 checked: tab.pinned,
+                hotkey: tab.parent ? undefined : 'pin-tab',
                 run: async () => this.app.toggleTabPinned(tab),
             })
+
+            if (!tab.parent) {
+                // Act on the app's tab list, so only offered for the active top-level tab
+                const tabActions: [string, string, () => any][] = [
+                    ['restart-tab', this.translate.instant('Restart tab'), () => this.app.restartTab(tab)],
+                    ['toggle-last-tab', this.translate.instant('Toggle last tab'), () => this.app.toggleLastTab()],
+                    ['next-tab', this.translate.instant('Next tab'), () => this.app.nextTab()],
+                    ['previous-tab', this.translate.instant('Previous tab'), () => this.app.previousTab()],
+                    ['next-mru-tab', this.translate.instant('Next tab (MRU order)'), () => this.app.nextMRUTab()],
+                    ['previous-mru-tab', this.translate.instant('Previous tab (MRU order)'), () => this.app.previousMRUTab()],
+                    ['move-tab-left', this.translate.instant('Move tab to the left'), () => this.app.moveSelectedTabLeft()],
+                    ['move-tab-right', this.translate.instant('Move tab to the right'), () => this.app.moveSelectedTabRight()],
+                ]
+                if (tab instanceof SplitTabComponent) {
+                    tabActions.push(
+                        ['explode-tab', this.translate.instant('Turn current tab\'s panes into separate tabs'), () => this.app.explodeTab(tab)],
+                        ['combine-tabs', this.translate.instant('Combine all tabs into the current tab'), () => this.app.combineTabsInto(tab)],
+                    )
+                }
+                for (const [hotkey, label, run] of tabActions) {
+                    commands.push({ id: `core:${hotkey}`, label, locations: [], hotkey, run: async () => run() })
+                }
+            }
             commands.push({
                 id: 'core:tab-color',
                 label: this.translate.instant('Color'),
@@ -258,6 +289,7 @@ export class CoreCommandProvider extends CommandProvider {
                         }[dir],
                         locations: [CommandLocation.TabBodyMenu],
                         parent: 'core:split',
+                        hotkey: { r: 'split-right', b: 'split-bottom', l: 'split-left', t: 'split-top' }[dir],
                         run: async () => {
                             (tab.parent as SplitTabComponent).splitTab(tab, dir)
                         },
@@ -269,8 +301,36 @@ export class CoreCommandProvider extends CommandProvider {
                     label: this.translate.instant('Switch profile'),
                     group: 'core:common',
                     locations: [CommandLocation.TabBodyMenu],
+                    hotkey: 'switch-profile',
                     run: async () => this.switchTabProfile(tab),
                 })
+
+                const split = tab.parent
+                commands.push({
+                    id: 'core:close-pane',
+                    label: this.translate.instant('Close focused pane'),
+                    locations: [],
+                    hotkey: 'close-pane',
+                    run: tab.effectivelyPinned ? undefined : async () => tab.destroy(),
+                })
+                if (split.getAllTabs().length > 1) {
+                    const paneActions: [string, string, () => void][] = [
+                        ['pane-maximize', this.translate.instant('Maximize the active pane'), () => split.maximize(split.getMaximizedTab() ? null : tab)],
+                        ['pane-nav-up', this.translate.instant('Focus the pane above'), () => split.navigate('t')],
+                        ['pane-nav-down', this.translate.instant('Focus the pane below'), () => split.navigate('b')],
+                        ['pane-nav-left', this.translate.instant('Focus the pane on the left'), () => split.navigate('l')],
+                        ['pane-nav-right', this.translate.instant('Focus the pane on the right'), () => split.navigate('r')],
+                        ['pane-nav-previous', this.translate.instant('Focus previous pane'), () => split.navigateLinear(-1)],
+                        ['pane-nav-next', this.translate.instant('Focus next pane'), () => split.navigateLinear(1)],
+                        ['pane-increase-vertical', this.translate.instant('Increase vertical split size'), () => split.resizePane('v')],
+                        ['pane-decrease-vertical', this.translate.instant('Decrease vertical split size'), () => split.resizePane('dv')],
+                        ['pane-increase-horizontal', this.translate.instant('Increase horizontal split size'), () => split.resizePane('h')],
+                        ['pane-decrease-horizontal', this.translate.instant('Decrease horizontal split size'), () => split.resizePane('dh')],
+                    ]
+                    for (const [hotkey, label, run] of paneActions) {
+                        commands.push({ id: `core:${hotkey}`, label, locations: [], hotkey, run: async () => run() })
+                    }
+                }
             }
 
             if (tab instanceof SplitTabComponent && tab.getAllTabs().length > 1) {
@@ -329,7 +389,7 @@ export class TaskCompletionCommandProvider extends CommandProvider {
                 label: this.translate.instant('Notify when done'),
                 group: 'core:process',
                 weight: 0,
-                checked: extTab.__completionNotificationEnabled,
+                checked: !!extTab.__completionNotificationEnabled,
                 locations: [CommandLocation.TabBodyMenu, CommandLocation.TabHeaderMenu],
                 run: async () => {
                     extTab.__completionNotificationEnabled = !extTab.__completionNotificationEnabled

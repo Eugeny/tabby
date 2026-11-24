@@ -20,23 +20,6 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
 
     constructor (protected injector: Injector) {
         super(injector)
-
-        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
-            if (!this.hasFocus) {
-                return
-            }
-
-            switch (hotkey) {
-                case 'reconnect-tab':
-                    this.reconnect()
-                    this.notifications.notice(this.translate.instant('Reconnect'))
-                    break
-                case 'disconnect-tab':
-                    this.disconnect()
-                    this.notifications.notice(this.translate.instant('Disconnect'))
-                    break
-            }
-        })
     }
 
     ngOnInit (): void {

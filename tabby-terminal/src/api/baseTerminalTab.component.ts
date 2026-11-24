@@ -224,21 +224,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.setTitle(this.translate.instant('Terminal'))
 
         this.subscribeUntilDestroyed(this.hotkeys.unfilteredHotkey$, async hotkey => {
-            if (!this.hasFocus) {
-                return
-            }
-            if (hotkey === 'search') {
-                this.showSearchPanel = true
-                setImmediate(() => {
-                    const input = this.element.nativeElement.querySelector('.search-input')
-                    const selectedText = (this.frontend?.getSelection() ?? '').trim()
-                    if (input && selectedText.length) {
-                        input.value = selectedText
-                    }
-
-                    input?.focus()
-                    input?.select()
-                })
+            // hotkey$ (and so terminal:search) is muted while an input has focus - e.g. the search box itself
+            if (hotkey === 'search' && this.hasFocus && document.querySelector('input:focus')) {
+                this.showSearch()
             }
         })
 
@@ -255,51 +243,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     } else {
                         this.forEachFocusedTerminalPane(tab => tab.sendInput('\x03'))
                     }
-                    break
-                case 'copy':
-                    this.frontend?.copySelection()
-                    this.frontend?.clearSelection()
-                    this.notifications.notice(this.translate.instant('Copied'))
-                    break
-                case 'paste':
-                    this.forEachFocusedTerminalPane(tab => tab.paste())
-                    break
-                case 'select-all':
-                    this.frontend?.selectAll()
-                    break
-                case 'switch-meta-option': {
-                    const altIsMeta = !this.config.store.terminal.altIsMeta
-                    this.config.store.terminal.altIsMeta = altIsMeta
-                    this.config.save()
-                    // no config.changed$ listener here - re-apply to this tab now, others on focus
-                    this.configure()
-                    this.notifications.notice(this.translate.instant(
-                        altIsMeta ? 'Option key now sends Meta' : 'Option key now sends its normal character',
-                    ))
-                    break
-                }
-                case 'clear':
-                    this.forEachFocusedTerminalPane(tab => {
-                        const tabProfile = tab.profile
-                        const shellType: string = tabProfile.options?.shellType ?? ''
-                        const shellArgs: string[] = tabProfile.options?.args ?? []
-                        if (this.hostApp.platform === Platform.Windows && (shellType === 'powershell' || shellArgs.some(arg => arg.includes('clink')))) {
-                            // Windows PowerShell and cmd(Clink): send Ctrl+L to PTY (natively clears)
-                            tab.sendInput('\x0c')
-                        } else {
-                            // Windows cmd(stock) and macOS/Linux: clear xterm buffer only
-                            tab.frontend?.clear()
-                        }
-                    })
-                    break
-                case 'zoom-in':
-                    this.forEachFocusedTerminalPane(tab => tab.zoomIn())
-                    break
-                case 'zoom-out':
-                    this.forEachFocusedTerminalPane(tab => tab.zoomOut())
-                    break
-                case 'reset-zoom':
-                    this.forEachFocusedTerminalPane(tab => tab.resetZoom())
                     break
                 case 'previous-word':
                     this.forEachFocusedTerminalPane(tab => {
@@ -343,26 +286,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                         tab.sendInput('\x1b\r')
                     })
                     break
-                case 'copy-current-path':
-                    this.copyCurrentPath()
-                    break
-                case 'scroll-to-top':
-                    this.frontend?.scrollToTop()
-                    break
-                case 'scroll-page-up':
-                    this.frontend?.scrollPages(-1)
-                    break
                 case 'scroll-up':
                     this.frontend?.scrollLines(-1)
                     break
                 case 'scroll-down':
                     this.frontend?.scrollLines(1)
-                    break
-                case 'scroll-page-down':
-                    this.frontend?.scrollPages(1)
-                    break
-                case 'scroll-to-bottom':
-                    this.frontend?.scrollToBottom()
                     break
             }
         })
@@ -620,6 +548,20 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     resetZoom (): void {
         this.zoom = 0
         this.frontend?.setZoom(this.zoom)
+    }
+
+    showSearch (): void {
+        this.showSearchPanel = true
+        setImmediate(() => {
+            const input = this.element.nativeElement.querySelector('.search-input')
+            const selectedText = (this.frontend?.getSelection() ?? '').trim()
+            if (input && selectedText.length) {
+                input.value = selectedText
+            }
+
+            input?.focus()
+            input?.select()
+        })
     }
 
     async copyCurrentPath (): Promise<void> {
@@ -996,7 +938,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         }
     }
 
-    protected forEachFocusedTerminalPane (cb: (tab: BaseTerminalTabComponent<any>) => void): void {
+    forEachFocusedTerminalPane (cb: (tab: BaseTerminalTabComponent<any>) => void): void {
         if (this.parent && this.parent instanceof SplitTabComponent && this.parent._allFocusMode) {
             for (const tab of this.parent.getAllTabs()) {
                 if (tab instanceof BaseTerminalTabComponent) {

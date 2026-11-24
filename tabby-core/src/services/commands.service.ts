@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { Command, CommandContext, CommandLocation, CommandProvider, MenuItemOptions, SplitTabComponent, TabContextMenuItemProvider, ToolbarButton, ToolbarButtonProvider } from '../api'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
+import { HotkeysService } from './hotkeys.service'
 import { SelectorService } from './selector.service'
 import { firstBy } from 'thenby'
 
@@ -10,6 +11,7 @@ import { firstBy } from 'thenby'
 export class CommandService {
     private lastCommand = Promise.resolve()
     private showingSelector = false
+    private hotkeyProviders = new Map<string, Set<CommandProvider>>()
 
     constructor (
         private selector: SelectorService,
@@ -19,8 +21,12 @@ export class CommandService {
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[]|null,
         @Optional() @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         @Inject(CommandProvider) private commandProviders: CommandProvider[],
+        hotkeys: HotkeysService,
     ) {
         this.contextMenuProviders?.sort((a, b) => a.weight - b.weight)
+        hotkeys.hotkey$.subscribe(hotkey => {
+            this.runHotkey(hotkey).catch(error => console.error(`Hotkey ${hotkey} failed:`, error))
+        })
     }
 
     async getCommands (context: CommandContext): Promise<Command[]> {
@@ -53,7 +59,7 @@ export class CommandService {
             }
         }
 
-        items = items.filter(x => (x.enabled ?? true) && x.type !== 'separator')
+        items = items.filter(x => x.type !== 'separator')
 
         const commands = [
             ...buttons.map(x => Command.fromToolbarButton(x)),
@@ -100,6 +106,51 @@ export class CommandService {
         await command?.run?.()
     }
 
+    /**
+     * Runs the command bound to this hotkey in the active tab / focused pane.
+     * Bypasses getCommands(): no legacy items or blacklist, and no queue,
+     * so a slow command doesn't hold up the next keypress.
+     * @hidden
+     */
+    async runHotkey (hotkey: string): Promise<void> {
+        // Captured before any await: the hotkey acts on what was focused when pressed
+        const contexts = this.getActiveContexts()
+        const find = async (providers: CommandProvider[]): Promise<Command|undefined> => {
+            const found = await Promise.all(contexts.map(async context => {
+                const matches = await Promise.all(providers.map(async provider => {
+                    const command = (await provider.provide(context)).find(x => x.hotkey === hotkey)
+                    if (command) {
+                        this.hotkeyProviders.set(hotkey, (this.hotkeyProviders.get(hotkey) ?? new Set()).add(provider))
+                    }
+                    return command
+                }))
+                return matches.find(x => x)
+            }))
+            // Most specific context wins, as in getCommandsWithContexts
+            return found.filter(x => x).pop()
+        }
+        // ponytail: providers can't declare hotkeys up front, so remember which ones answered and
+        // only ask those; a miss (e.g. a terminal hotkey on the settings tab) still asks every provider
+        const command = await find([...this.hotkeyProviders.get(hotkey) ?? []])
+            ?? await find(this.config.enabledServices(this.commandProviders))
+        await command?.run?.()
+    }
+
+    /** @hidden */
+    getActiveContexts (): CommandContext[] {
+        const contexts: CommandContext[] = [{}]
+        if (this.app.activeTab) {
+            contexts.push({ tab: this.app.activeTab })
+        }
+        if (this.app.activeTab instanceof SplitTabComponent) {
+            const tab = this.app.activeTab.getFocusedTab()
+            if (tab) {
+                contexts.push({ tab })
+            }
+        }
+        return contexts
+    }
+
     async showSelector (): Promise<void> {
         if (this.showingSelector || this.selector.active) {
             return
@@ -107,18 +158,7 @@ export class CommandService {
 
         this.showingSelector = true
         try {
-            const contexts: CommandContext[] = [{}]
-            if (this.app.activeTab) {
-                contexts.push({ tab: this.app.activeTab })
-            }
-            if (this.app.activeTab instanceof SplitTabComponent) {
-                const tab = this.app.activeTab.getFocusedTab()
-                if (tab) {
-                    contexts.push({ tab })
-                }
-            }
-
-            const commands = (await this.getCommandsWithContexts(contexts))
+            const commands = (await this.getCommandsWithContexts(this.getActiveContexts()))
                 .filter(x => x.run)
                 .sort(firstBy(x => x.weight ?? 0))
 
@@ -173,7 +213,7 @@ export class CommandService {
                 submenu: submenu.length ? submenu : undefined,
                 checked: command.checked,
                 enabled: !!command.run || !!submenu.length,
-                type: command.checked ? 'checkbox' : undefined,
+                type: command.checked !== undefined ? 'checkbox' : undefined,
                 click: () => command.run?.(),
             }
         }

@@ -196,8 +196,6 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
                 this.showGroupSelector(group).catch(() => null)
             } else if (hotkey === 'command-selector') {
                 commands.showSelector().catch(() => null)
-            } else if (hotkey === 'profile-selector') {
-                commands.run('core:profile-selector', {})
             }
         })
 

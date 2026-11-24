@@ -101,53 +101,6 @@ export class AppRootComponent {
                     this.app.selectTab(this.app.tabs[index - 1])
                 }
             }
-            if (this.app.activeTab) {
-                if (hotkey === 'close-tab') {
-                    this.app.closeTab(this.app.activeTab, true)
-                }
-                if (hotkey === 'toggle-last-tab') {
-                    this.app.toggleLastTab()
-                }
-                if (hotkey === 'next-tab') {
-                    this.app.nextTab()
-                }
-                if (hotkey === 'previous-tab') {
-                    this.app.previousTab()
-                }
-                if (hotkey === 'next-mru-tab') {
-                    this.app.nextMRUTab()
-                }
-                if (hotkey === 'previous-mru-tab') {
-                    this.app.previousMRUTab()
-                }
-                if (hotkey === 'move-tab-left') {
-                    this.app.moveSelectedTabLeft()
-                }
-                if (hotkey === 'move-tab-right') {
-                    this.app.moveSelectedTabRight()
-                }
-                if (hotkey === 'duplicate-tab') {
-                    this.app.duplicateTab(this.app.activeTab)
-                }
-                if (hotkey === 'pin-tab') {
-                    this.app.toggleTabPinned(this.app.activeTab)
-                }
-                if (hotkey === 'restart-tab') {
-                    this.app.restartTab(this.app.activeTab)
-                }
-                if (hotkey === 'explode-tab' && this.app.activeTab instanceof SplitTabComponent) {
-                    this.app.explodeTab(this.app.activeTab)
-                }
-                if (hotkey === 'combine-tabs' && this.app.activeTab instanceof SplitTabComponent) {
-                    this.app.combineTabsInto(this.app.activeTab)
-                }
-            }
-            if (hotkey === 'reopen-tab') {
-                this.app.reopenLastTab()
-            }
-            if (hotkey === 'toggle-fullscreen') {
-                hostWindow.toggleFullscreen()
-            }
         })
 
         // Commit any in-progress MRU traversal when the user releases a modifier key.

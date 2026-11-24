@@ -16,6 +16,7 @@ function loadMethod (file, className, name, bindings = {}) {
 }
 class SplitTab {}
 const Probe = loadMethod('../src/services/commands.service.ts', 'CommandService', 'showSelector', { SplitTabComponent: SplitTab, firstBy })
+const { getActiveContexts } = loadMethod('../src/services/commands.service.ts', 'CommandService', 'getActiveContexts', { SplitTabComponent: SplitTab }).prototype
 
 function deferred () {
     let resolve, reject
@@ -28,7 +29,7 @@ function fixture () {
     const calls = { discoveries: 0, modals: [] }
     const selector = { active: false, show: (...args) => { calls.modals.push(args); return closed.promise } }
     const service = Object.assign(new Probe(), {
-        selector, app: { activeTab: null }, translate: { instant: s => s },
+        selector, app: { activeTab: null }, translate: { instant: s => s }, getActiveContexts,
         getCommandsWithContexts: async contexts => { calls.discoveries++; calls.contexts = contexts; return discovered.promise },
     })
     return { service, selector, discovered, closed, calls }

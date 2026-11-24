@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Inject, Injectable, Optional } from '@angular/core'
 
-import { CommandProvider, Command, CommandLocation, TranslateService, CommandContext, ProfilesService } from 'tabby-core'
+import { CommandProvider, Command, CommandLocation, TranslateService, CommandContext, ProfilesService, HostAppService } from 'tabby-core'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { TerminalService } from './services/terminal.service'
@@ -14,6 +14,7 @@ export class LocalCommandProvider extends CommandProvider {
         private terminal: TerminalService,
         private profilesService: ProfilesService,
         private translate: TranslateService,
+        private hostApp: HostAppService,
         @Optional() @Inject(UACService) private uac: UACService|undefined,
     ) {
         super()
@@ -30,7 +31,16 @@ export class LocalCommandProvider extends CommandProvider {
                 locations: [CommandLocation.LeftToolbar, CommandLocation.StartPage, CommandLocation.TabBodyMenu, CommandLocation.TabHeaderMenu],
                 weight: 11,
                 icon: require('./icons/plus.svg'),
+                // The hotkey always opens the default profile, the menu item clones the clicked tab's
+                hotkey: context.tab ? undefined : 'new-tab',
                 run: async () => this.runOpenTab(context),
+            },
+            {
+                id: 'local:new-window',
+                label: this.translate.instant('New window'),
+                locations: [],
+                hotkey: 'new-window',
+                run: async () => this.hostApp.newWindow(),
             },
         ]
 

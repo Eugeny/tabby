@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import slugify from 'slugify'
 import { v4 as uuidv4 } from 'uuid'
 
-import { CommandProvider, Command, CommandLocation, TranslateService, CommandContext, PromptModalComponent, PartialProfile, Profile, ConfigService, NotificationsService, SplitTabComponent } from 'tabby-core'
+import { CommandProvider, Command, CommandLocation, TranslateService, CommandContext, PromptModalComponent, PartialProfile, Profile, ConfigService, NotificationsService, SplitTabComponent, HostAppService, Platform } from 'tabby-core'
 
 import { ConnectableTerminalTabComponent } from './api/connectableTerminalTab.component'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
@@ -20,6 +20,7 @@ export class TerminalCommandProvider extends CommandProvider {
         private notifications: NotificationsService,
         private translate: TranslateService,
         private multifocus: MultifocusService,
+        private hostApp: HostAppService,
         @Optional() @Inject(TerminalContextMenuItemProvider) private legacyProviders: TerminalContextMenuItemProvider[]|null,
     ) {
         super()
@@ -43,12 +44,14 @@ export class TerminalCommandProvider extends CommandProvider {
                 },
             })
         }
-        if (tab instanceof BaseTerminalTabComponent && tab.session?.supportsWorkingDirectory()) {
+        if (tab instanceof BaseTerminalTabComponent) {
             commands.push({
                 id: 'terminal:copy-current-path',
                 group: 'terminal:misc',
                 label: this.translate.instant('Copy current path'),
-                locations: [CommandLocation.TabHeaderMenu, CommandLocation.TabBodyMenu],
+                // Always runnable: copyCurrentPath() explains when the shell doesn't support it
+                locations: tab.session?.supportsWorkingDirectory() ? [CommandLocation.TabHeaderMenu, CommandLocation.TabBodyMenu] : [],
+                hotkey: 'copy-current-path',
                 run: async () => tab.copyCurrentPath(),
             })
         }
@@ -57,6 +60,7 @@ export class TerminalCommandProvider extends CommandProvider {
             group: 'core:panes',
             label: this.translate.instant('Focus all tabs'),
             locations: [CommandLocation.TabHeaderMenu, CommandLocation.TabBodyMenu],
+            hotkey: 'focus-all-tabs',
             run: async () => {
                 this.multifocus.focusAllTabs()
             },
@@ -76,6 +80,7 @@ export class TerminalCommandProvider extends CommandProvider {
                 group: 'terminal:misc',
                 label: this.translate.instant('Focus all panes'),
                 locations: [CommandLocation.TabHeaderMenu, CommandLocation.TabBodyMenu],
+                hotkey: 'pane-focus-all',
                 run: async () => {
                     this.multifocus.focusAllPanes()
                 },
@@ -133,6 +138,7 @@ export class TerminalCommandProvider extends CommandProvider {
                 label: this.translate.instant('Disconnect'),
                 group: 'terminal:connection',
                 locations: [CommandLocation.TabHeaderMenu, CommandLocation.TabBodyMenu],
+                hotkey: 'disconnect-tab',
                 run: async () => {
                     setTimeout(() => {
                         tab.disconnect()
@@ -145,6 +151,7 @@ export class TerminalCommandProvider extends CommandProvider {
                 label: this.translate.instant('Reconnect'),
                 group: 'terminal:connection',
                 locations: [CommandLocation.TabHeaderMenu, CommandLocation.TabBodyMenu],
+                hotkey: 'reconnect-tab',
                 run: async () => {
                     setTimeout(() => {
                         tab.reconnect()
@@ -160,9 +167,11 @@ export class TerminalCommandProvider extends CommandProvider {
                 label: this.translate.instant('Copy'),
                 locations: [CommandLocation.TabBodyMenu],
                 weight: -2,
+                hotkey: 'copy',
                 run: async () => {
                     setTimeout(() => {
                         tab.frontend?.copySelection()
+                        tab.frontend?.clearSelection()
                         this.notifications.notice(this.translate.instant('Copied'))
                     })
                 },
@@ -172,18 +181,55 @@ export class TerminalCommandProvider extends CommandProvider {
                 label: this.translate.instant('Paste'),
                 locations: [CommandLocation.TabBodyMenu],
                 weight: -1,
-                run: async () => tab.paste(),
+                hotkey: 'paste',
+                run: async () => tab.forEachFocusedTerminalPane(t => t.paste()),
             })
+
+            const actions: [string, string, () => any][] = [
+                ['search', this.translate.instant('Search'), () => tab.showSearch()],
+                ['select-all', this.translate.instant('Select all'), () => tab.frontend?.selectAll()],
+                ['clear', this.translate.instant('Clear terminal'), () => tab.forEachFocusedTerminalPane(t => this.clear(t))],
+                ['zoom-in', this.translate.instant('Zoom in'), () => tab.forEachFocusedTerminalPane(t => t.zoomIn())],
+                ['zoom-out', this.translate.instant('Zoom out'), () => tab.forEachFocusedTerminalPane(t => t.zoomOut())],
+                ['reset-zoom', this.translate.instant('Reset zoom'), () => tab.forEachFocusedTerminalPane(t => t.resetZoom())],
+                ['scroll-to-top', this.translate.instant('Scroll terminal to top'), () => tab.frontend?.scrollToTop()],
+                ['scroll-page-up', this.translate.instant('Scroll terminal one page up'), () => tab.frontend?.scrollPages(-1)],
+                ['scroll-page-down', this.translate.instant('Scroll terminal one page down'), () => tab.frontend?.scrollPages(1)],
+                ['scroll-to-bottom', this.translate.instant('Scroll terminal to bottom'), () => tab.frontend?.scrollToBottom()],
+                ['switch-meta-option', this.translate.instant('Toggle the Option key between Meta and normal (macOS)'), () => {
+                    const altIsMeta = !this.config.store.terminal.altIsMeta
+                    this.config.store.terminal.altIsMeta = altIsMeta
+                    this.config.save()
+                    // no config.changed$ listener here - re-apply to this tab now, others on focus
+                    tab.configure()
+                    this.notifications.notice(this.translate.instant(
+                        altIsMeta ? 'Option key now sends Meta' : 'Option key now sends its normal character',
+                    ))
+                }],
+            ]
+            for (const [hotkey, label, run] of actions) {
+                commands.push({ id: `terminal:${hotkey}`, label, locations: [], hotkey, run: async () => run() })
+            }
 
             // Deprecated TerminalContextMenuItemProvider bridge
             for (const provider of this.legacyProviders ?? []) {
                 for (const item of await provider.getItems(tab)) {
-                    if (item.enabled ?? true) {
-                        commands.push(...Command.fromMenuItem(item))
-                    }
+                    commands.push(...Command.fromMenuItem(item))
                 }
             }
         }
         return commands
+    }
+
+    private clear (tab: BaseTerminalTabComponent<any>): void {
+        const shellType: string = tab.profile.options?.shellType ?? ''
+        const shellArgs: string[] = tab.profile.options?.args ?? []
+        if (this.hostApp.platform === Platform.Windows && (shellType === 'powershell' || shellArgs.some(arg => arg.includes('clink')))) {
+            // Windows PowerShell and cmd(Clink): send Ctrl+L to PTY (natively clears)
+            tab.sendInput('\x0c')
+        } else {
+            // Windows cmd(stock) and macOS/Linux: clear xterm buffer only
+            tab.frontend?.clear()
+        }
     }
 }

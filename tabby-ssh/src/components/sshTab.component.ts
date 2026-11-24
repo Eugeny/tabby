@@ -56,17 +56,6 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                 case 'end':
                     this.sendInput('\x1bOF' )
                     break
-                case 'restart-ssh-session':
-                    this.reconnect()
-                    break
-                case 'launch-winscp':
-                    if (this.sshSession) {
-                        this.ssh.launchWinSCP(this.sshSession)
-                    }
-                    break
-                case 'open-sftp':
-                    this.openSFTP()
-                    break
             }
         })
 
