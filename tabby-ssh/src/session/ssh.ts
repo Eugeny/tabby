@@ -130,6 +130,7 @@ export class SSHSession {
     private knownHosts: SSHKnownHostsService
     private privateKeyImporters: AutoPrivateKeyLocator[]
     private previouslyDisconnected = false
+    private destroyed = false
 
     get isReusable (): boolean {
         return this.open && !this.previouslyDisconnected && this.ssh instanceof russh.AuthenticatedSSHClient
@@ -492,7 +493,7 @@ export class SSHSession {
         if (authenticatedClient) {
             this.ssh = authenticatedClient
         } else {
-            this.ssh.disconnect()
+            this.ssh.disconnect().catch(() => null)
             this.passwordStorage.deletePassword(this.profile, this.authUsername ?? undefined)
             // eslint-disable-next-line @typescript-eslint/no-base-to-string
             throw new Error('Authentication rejected')
@@ -877,11 +878,25 @@ export class SSHSession {
     }
 
     async destroy (): Promise<void> {
+        if (this.destroyed) {
+            return
+        }
+        // Shells and jump sessions can re-enter teardown from willDestroy.
+        this.destroyed = true
+        this.open = false
         this.logger.info('Destroying')
         this.willDestroy.next()
         this.willDestroy.complete()
         this.serviceMessage.complete()
-        this.ssh.disconnect()
+        // `ssh` is only assigned once start() has connected
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!this.previouslyDisconnected && this.ssh) {
+            try {
+                await this.ssh.disconnect()
+            } catch (error) {
+                this.logger.error('Could not disconnect SSH session', error)
+            }
+        }
     }
 
     async openShellChannel (options: SSHShellChannelOptions): Promise<russh.Channel> {
