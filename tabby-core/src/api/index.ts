@@ -5,6 +5,7 @@ export { SplitTabComponent, SplitContainer, SplitDirection, SplitOrientation } f
 export { TabRecoveryProvider, RecoveryToken } from './tabRecovery'
 export { ToolbarButtonProvider, ToolbarButton } from './toolbarButtonProvider'
 export { ConfigProvider } from './configProvider'
+export { parseConfig, serializeConfig } from './configSerialization'
 export { HotkeyProvider, HotkeyDescription, Hotkey } from './hotkeyProvider'
 export { Theme, TerminalColorScheme } from './theme'
 export { TabContextMenuItemProvider } from './tabContextMenuProvider'
