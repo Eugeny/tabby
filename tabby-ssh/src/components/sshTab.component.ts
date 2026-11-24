@@ -85,9 +85,11 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                     throw new Error(`${profile.options.host}: jump host "${profile.options.jumpHost}" not found in your config`)
                 }
 
+                // The non-multiplexed retry must not pick the same (possibly dead) jump connection from the cache again
                 const jumpSession = await this.setupOneSession(
                     this.injector,
                     this.profilesService.getConfigProxyForProfile<SSHProfile>(jumpConnection),
+                    multiplex,
                 )
 
                 jumpSession.ref()
@@ -110,10 +112,13 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                         originatorPort: 0,
                     })
                 } catch (err) {
-                    this.notifications.error(
-                        this.translate.instant(_('Could not set up port forward on {host}'), { host: jumpConnection.name }),
-                        err.toString(),
-                    )
+                    // A failure on a reused connection is retried on a fresh one first
+                    if (!multiplex) {
+                        this.notifications.error(
+                            this.translate.instant(_('Could not set up port forward on {host}'), { host: jumpConnection.name }),
+                            err.toString(),
+                        )
+                    }
                     throw err
                 }
             }
