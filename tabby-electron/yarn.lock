@@ -322,9 +322,9 @@ set-function-length@^1.2.2:
     has-property-descriptors "^1.0.2"
 
 ssh-config@^5:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/ssh-config/-/ssh-config-5.3.0.tgz#9945936329832f2aa551fe58e8d1e7bb401c51ff"
-  integrity sha512-JIsoWax2CAJraGLvhXa4e9zfh+/KzoL6SKxjupQywLjGpuigYsZ+5OVmfZo1mBslxehA8kHWwFQ38eotFoLj6Q==
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/ssh-config/-/ssh-config-5.3.1.tgz#daf71c8458f94cfeca8d20f2848bb44222cb0c50"
+  integrity sha512-uGGsHrbsRLPgk7g1uNAwtzJG+Mo8YdZi3uh3XJ+UCXgPMTl9X5s3jjps7+plNV8oyE6rgUPoDCJKaPtmk9YPVA==
 
 stack-trace@0.0.x:
   version "0.0.10"
