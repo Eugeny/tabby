@@ -505,6 +505,7 @@ export class ConfigService {
                         this.translate.instant('Quit'),
                     ],
                     defaultId: 0,
+                    cancelId: 2,
                 })
                 if (result.response === 2) {
                     this.platform.quit()
