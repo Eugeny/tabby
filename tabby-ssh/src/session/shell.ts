@@ -14,6 +14,7 @@ export class SSHShellSession extends BaseSession {
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
     private ssh: SSHSession|null
+    private writing: Promise<void> = Promise.resolve()
 
     constructor (
         injector: Injector,
@@ -98,9 +99,15 @@ export class SSHShellSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        if (this.shell) {
-            this.shell.write(new Uint8Array(data))
+        const shell = this.shell
+        if (!shell) {
+            return
         }
+        // Each native write is its own async task; unless chained they can
+        // reach the channel out of order (corrupts ZMODEM uploads).
+        this.writing = this.writing
+            .then(() => shell.write(new Uint8Array(data)))
+            .catch(error => this.logger.debug('Shell write failed', error))
     }
 
     kill (_signal?: string): void {

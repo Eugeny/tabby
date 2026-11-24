@@ -11,7 +11,6 @@ const SPACER = '            '
 
 class ZModemMiddleware extends SessionMiddleware {
     private sentry: ZModem.Sentry
-    private writeQueue: Promise<void> = Promise.resolve()
     private isActive = false
     private logger: Logger
     private activeSession: any = null
@@ -62,12 +61,7 @@ class ZModemMiddleware extends SessionMiddleware {
                     this.outputToTerminal.next(Buffer.from(data))
                 }
             },
-            sender: data => {
-                const buf = Buffer.from(data)
-                this.writeQueue = this.writeQueue.then(async () => {
-                    this.outputToSession.next(buf)
-                })
-                return this.writeQueue },
+            sender: data => this.outputToSession.next(Buffer.from(data)),
             on_detect: async detection => {
                 if ((await this.platform.showMessageBox({
                     type: 'warning',
