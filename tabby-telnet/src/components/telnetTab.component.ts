@@ -26,12 +26,6 @@ export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetPr
     }
 
     ngOnInit (): void {
-        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
-            if (this.hasFocus && hotkey === 'restart-telnet-session') {
-                this.reconnect()
-            }
-        })
-
         super.ngOnInit()
     }
 

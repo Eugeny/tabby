@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
-import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, ProfileProvider } from 'tabby-core'
+import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, ProfileProvider, CommandProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
@@ -12,6 +12,7 @@ import { SerialTabComponent } from './components/serialTab.component'
 import { SerialConfigProvider } from './config'
 import { RecoveryProvider } from './recoveryProvider'
 import { SerialHotkeyProvider } from './hotkeys'
+import { SerialCommandProvider } from './commands'
 import { SerialProfilesService } from './profiles'
 
 /** @hidden */
@@ -29,6 +30,7 @@ import { SerialProfilesService } from './profiles'
         { provide: ProfileProvider, useClass: SerialProfilesService, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SerialHotkeyProvider, multi: true },
+        { provide: CommandProvider, useExisting: SerialCommandProvider, multi: true },
     ],
     declarations: [
         SerialProfileSettingsComponent,

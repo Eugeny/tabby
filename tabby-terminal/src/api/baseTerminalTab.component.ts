@@ -3,7 +3,7 @@ import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined } from 'tabby-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService, FullyDefined, CommandContext, CommandLocation, CommandService } from 'tabby-core'
 
 import { BaseSession } from '../session'
 import { TerminalNotification } from '../middleware/oscProcessing'
@@ -131,11 +131,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected notifications: NotificationsService
     protected log: LogService
     protected decorators: TerminalDecorator[] = []
-    protected contextMenuProviders: TabContextMenuItemProvider[]
     protected hostWindow: HostWindowService
     protected translate: TranslateService
     protected multifocus: MultifocusService
     protected themes: ThemesService
+    protected commands: CommandService
     // Deps end
 
     protected logger: Logger
@@ -214,31 +214,19 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.notifications = injector.get(NotificationsService)
         this.log = injector.get(LogService)
         this.decorators = injector.get<any>(TerminalDecorator, null, InjectFlags.Optional) as TerminalDecorator[]
-        this.contextMenuProviders = injector.get<any>(TabContextMenuItemProvider, null, InjectFlags.Optional) as TabContextMenuItemProvider[]
         this.hostWindow = injector.get(HostWindowService)
         this.translate = injector.get(TranslateService)
         this.multifocus = injector.get(MultifocusService)
         this.themes = injector.get(ThemesService)
+        this.commands = injector.get(CommandService)
 
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle(this.translate.instant('Terminal'))
 
         this.subscribeUntilDestroyed(this.hotkeys.unfilteredHotkey$, async hotkey => {
-            if (!this.hasFocus) {
-                return
-            }
-            if (hotkey === 'search') {
-                this.showSearchPanel = true
-                setImmediate(() => {
-                    const input = this.element.nativeElement.querySelector('.search-input')
-                    const selectedText = (this.frontend?.getSelection() ?? '').trim()
-                    if (input && selectedText.length) {
-                        input.value = selectedText
-                    }
-
-                    input?.focus()
-                    input?.select()
-                })
+            // hotkey$ (and so terminal:search) is muted while an input has focus - e.g. the search box itself
+            if (hotkey === 'search' && this.hasFocus && document.querySelector('input:focus')) {
+                this.showSearch()
             }
         })
 
@@ -255,51 +243,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     } else {
                         this.forEachFocusedTerminalPane(tab => tab.sendInput('\x03'))
                     }
-                    break
-                case 'copy':
-                    this.frontend?.copySelection()
-                    this.frontend?.clearSelection()
-                    this.notifications.notice(this.translate.instant('Copied'))
-                    break
-                case 'paste':
-                    this.forEachFocusedTerminalPane(tab => tab.paste())
-                    break
-                case 'select-all':
-                    this.frontend?.selectAll()
-                    break
-                case 'switch-meta-option': {
-                    const altIsMeta = !this.config.store.terminal.altIsMeta
-                    this.config.store.terminal.altIsMeta = altIsMeta
-                    this.config.save()
-                    // no config.changed$ listener here - re-apply to this tab now, others on focus
-                    this.configure()
-                    this.notifications.notice(this.translate.instant(
-                        altIsMeta ? 'Option key now sends Meta' : 'Option key now sends its normal character',
-                    ))
-                    break
-                }
-                case 'clear':
-                    this.forEachFocusedTerminalPane(tab => {
-                        const tabProfile = tab.profile
-                        const shellType: string = tabProfile.options?.shellType ?? ''
-                        const shellArgs: string[] = tabProfile.options?.args ?? []
-                        if (this.hostApp.platform === Platform.Windows && (shellType === 'powershell' || shellArgs.some(arg => arg.includes('clink')))) {
-                            // Windows PowerShell and cmd(Clink): send Ctrl+L to PTY (natively clears)
-                            tab.sendInput('\x0c')
-                        } else {
-                            // Windows cmd(stock) and macOS/Linux: clear xterm buffer only
-                            tab.frontend?.clear()
-                        }
-                    })
-                    break
-                case 'zoom-in':
-                    this.forEachFocusedTerminalPane(tab => tab.zoomIn())
-                    break
-                case 'zoom-out':
-                    this.forEachFocusedTerminalPane(tab => tab.zoomOut())
-                    break
-                case 'reset-zoom':
-                    this.forEachFocusedTerminalPane(tab => tab.resetZoom())
                     break
                 case 'previous-word':
                     this.forEachFocusedTerminalPane(tab => {
@@ -343,26 +286,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                         tab.sendInput('\x1b\r')
                     })
                     break
-                case 'copy-current-path':
-                    this.copyCurrentPath()
-                    break
-                case 'scroll-to-top':
-                    this.frontend?.scrollToTop()
-                    break
-                case 'scroll-page-up':
-                    this.frontend?.scrollPages(-1)
-                    break
                 case 'scroll-up':
                     this.frontend?.scrollLines(-1)
                     break
                 case 'scroll-down':
                     this.frontend?.scrollLines(1)
-                    break
-                case 'scroll-page-down':
-                    this.frontend?.scrollPages(1)
-                    break
-                case 'scroll-to-bottom':
-                    this.frontend?.scrollToBottom()
                     break
             }
         })
@@ -370,8 +298,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.bellPlayer = document.createElement('audio')
         this.bellPlayer.src = require('../bell.ogg')
         this.bellPlayer.load()
-
-        this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
     }
 
     /** @hidden */
@@ -501,13 +427,14 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     }
 
     async buildContextMenu (): Promise<MenuItemOptions[]> {
-        let items: MenuItemOptions[] = []
-        for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this)))) {
-            items = items.concat(section)
-            items.push({ type: 'separator' })
+        const contexts: CommandContext[] = [{ tab: this }]
+
+        // Top-level tab menu
+        if (this.parent) {
+            contexts.unshift({ tab: this.parent })
         }
-        items.splice(items.length - 1, 1)
-        return items
+
+        return this.commands.buildContextMenu(contexts, CommandLocation.TabBodyMenu)
     }
 
     /**
@@ -621,6 +548,20 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     resetZoom (): void {
         this.zoom = 0
         this.frontend?.setZoom(this.zoom)
+    }
+
+    showSearch (): void {
+        this.showSearchPanel = true
+        setImmediate(() => {
+            const input = this.element.nativeElement.querySelector('.search-input')
+            const selectedText = (this.frontend?.getSelection() ?? '').trim()
+            if (input && selectedText.length) {
+                input.value = selectedText
+            }
+
+            input?.focus()
+            input?.select()
+        })
     }
 
     async copyCurrentPath (): Promise<void> {
@@ -997,7 +938,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         }
     }
 
-    protected forEachFocusedTerminalPane (cb: (tab: BaseTerminalTabComponent<any>) => void): void {
+    forEachFocusedTerminalPane (cb: (tab: BaseTerminalTabComponent<any>) => void): void {
         if (this.parent && this.parent instanceof SplitTabComponent && this.parent._allFocusMode) {
             for (const tab of this.parent.getAllTabs()) {
                 if (tab instanceof BaseTerminalTabComponent) {

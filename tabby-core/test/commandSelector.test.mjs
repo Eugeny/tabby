@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { test } from 'node:test'
 import ts from 'typescript'
+import { firstBy } from 'thenby'
 
 function loadMethod (file, className, name, bindings = {}) {
     const source = readFileSync(new URL(file, import.meta.url), 'utf8')
@@ -14,7 +15,8 @@ function loadMethod (file, className, name, bindings = {}) {
     return new Function(...Object.keys(bindings), code)(...Object.values(bindings))
 }
 class SplitTab {}
-const Probe = loadMethod('../src/services/commands.service.ts', 'CommandService', 'showSelector', { SplitTabComponent: SplitTab })
+const Probe = loadMethod('../src/services/commands.service.ts', 'CommandService', 'showSelector', { SplitTabComponent: SplitTab, firstBy })
+const { getActiveContexts } = loadMethod('../src/services/commands.service.ts', 'CommandService', 'getActiveContexts', { SplitTabComponent: SplitTab }).prototype
 
 function deferred () {
     let resolve, reject
@@ -27,8 +29,8 @@ function fixture () {
     const calls = { discoveries: 0, modals: [] }
     const selector = { active: false, show: (...args) => { calls.modals.push(args); return closed.promise } }
     const service = Object.assign(new Probe(), {
-        selector, app: { activeTab: null }, translate: { instant: s => s },
-        getCommands: async context => { calls.discoveries++; calls.context = context; return discovered.promise },
+        selector, app: { activeTab: null }, translate: { instant: s => s }, getActiveContexts,
+        getCommandsWithContexts: async contexts => { calls.discoveries++; calls.contexts = contexts; return discovered.promise },
     })
     return { service, selector, discovered, closed, calls }
 }
@@ -37,10 +39,10 @@ test('coalesces requests while discovery is pending and while the palette is ope
     const f = fixture(), first = f.service.showSelector()
     await f.service.showSelector()
     assert.equal(f.calls.discoveries, 1)
-    const command = { label: 'Run', sublabel: 'Details', icon: 'icon', run: () => {} }
+    const command = { label: 'Run', fullLabel: 'Run it', icon: 'icon', run: () => {} }
     f.discovered.resolve([command])
     await new Promise(resolve => setImmediate(resolve))
-    assert.deepEqual(f.calls.modals, [['Commands', [{ name: 'Run', callback: command.run, description: 'Details', icon: 'icon' }]]])
+    assert.deepEqual(f.calls.modals, [['Commands', [{ name: 'Run it', callback: command.run, icon: 'icon' }]]])
     await f.service.showSelector()
     assert.equal(f.calls.discoveries, 1)
     f.closed.resolve()
@@ -53,7 +55,7 @@ test('releases the pending request after discovery fails', async () => {
     const f = fixture(), first = f.service.showSelector()
     f.discovered.reject(new Error('discovery failed'))
     await assert.rejects(first, /discovery failed/)
-    f.service.getCommands = async () => []
+    f.service.getCommandsWithContexts = async () => []
     f.closed.resolve()
     await f.service.showSelector()
     assert.equal(f.calls.modals.length, 1)
@@ -86,11 +88,12 @@ test('keeps an existing selector and preserves the focused pane context', async 
     assert.equal(f.calls.discoveries, 0)
     f.selector.active = false
     const pane = {}
-    f.service.app.activeTab = Object.assign(new SplitTab(), { getFocusedTab: () => pane })
+    const split = Object.assign(new SplitTab(), { getFocusedTab: () => pane })
+    f.service.app.activeTab = split
     f.discovered.resolve([])
     f.closed.resolve()
     await f.service.showSelector()
-    assert.deepEqual(f.calls.context, { tab: pane })
+    assert.deepEqual(f.calls.contexts, [{}, { tab: split }, { tab: pane }])
 })
 
 const Selector = loadMethod('../src/services/selector.service.ts', 'SelectorService', 'show', { SelectorModalComponent: class {} })

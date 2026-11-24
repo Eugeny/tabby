@@ -1,53 +1,74 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable, Optional } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { MenuItemOptions, PlatformService, TranslateService, HostAppService, Platform } from 'tabby-core'
+import { Command, CommandContext, CommandLocation, CommandProvider, PlatformService, TranslateService, HostAppService, Platform } from 'tabby-core'
 import { SFTPSession, SFTPFile } from './session/sftp'
 import { SFTPContextMenuItemProvider } from './api'
 import { SFTPDeleteModalComponent } from './components/sftpDeleteModal.component'
-import { SFTPPanelComponent } from './components/sftpPanel.component'
 
 
 /** @hidden */
-@Injectable()
-export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
-    weight = 10
-
+@Injectable({ providedIn: 'root' })
+export class CommonSFTPContextMenu extends CommandProvider {
     constructor (
         private platform: PlatformService,
         private ngbModal: NgbModal,
         private translate: TranslateService,
         private hostApp: HostAppService,
+        @Optional() @Inject(SFTPContextMenuItemProvider) private legacyProviders: SFTPContextMenuItemProvider[]|null,
     ) {
         super()
     }
 
-    async getItems (item: SFTPFile, panel: SFTPPanelComponent): Promise<MenuItemOptions[]> {
-        const items: MenuItemOptions[] = [
+    async provide (context: CommandContext): Promise<Command[]> {
+        const { sftpItem: item, sftpPanel: panel } = context
+        if (!item || !panel) {
+            return []
+        }
+
+        const commands: Command[] = [
             {
-                click: async () => {
+                id: 'ssh:sftp-create-directory',
+                group: 'ssh:sftp-item',
+                weight: 10,
+                label: this.translate.instant('Create directory'),
+                locations: [CommandLocation.SFTPItemMenu],
+                run: async () => {
                     await panel.openCreateDirectoryModal()
                 },
-                label: this.translate.instant('Create directory'),
             },
         ]
 
         // Add download folder option for directories (only in electron)
         if (item.isDirectory && this.hostApp.platform !== Platform.Web) {
-            items.push({
-                click: () => panel.downloadFolder(item),
+            commands.push({
+                id: 'ssh:sftp-download-directory',
+                group: 'ssh:sftp-item',
+                weight: 10,
                 label: this.translate.instant('Download directory'),
+                locations: [CommandLocation.SFTPItemMenu],
+                // Don't hold CommandService's serialized run queue for the whole transfer
+                run: async () => { void panel.downloadFolder(item) },
             })
         }
 
         if (!item.isDirectory) {
-            items.push({
-                click: () => panel.downloadItem(item),
+            commands.push({
+                id: 'ssh:sftp-download',
+                group: 'ssh:sftp-item',
+                weight: 10,
                 label: this.translate.instant('Download'),
+                locations: [CommandLocation.SFTPItemMenu],
+                run: async () => { void panel.downloadItem(item) },
             })
         }
 
-        items.push({
-            click: async () => {
+        commands.push({
+            id: 'ssh:sftp-delete',
+            group: 'ssh:sftp-item',
+            weight: 10,
+            label: this.translate.instant('Delete'),
+            locations: [CommandLocation.SFTPItemMenu],
+            run: async () => {
                 if ((await this.platform.showMessageBox({
                     type: 'warning',
                     message: this.translate.instant('Delete {fullPath}?', item),
@@ -62,10 +83,21 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
                     panel.navigate(panel.path)
                 }
             },
-            label: this.translate.instant('Delete'),
         })
 
-        return items
+        // Deprecated SFTPContextMenuItemProvider bridge
+        for (const [index, provider] of (this.legacyProviders ?? []).entries()) {
+            for (const menuItem of await provider.getItems(item, panel)) {
+                commands.push(...Command.fromMenuItem(menuItem).map(command => ({
+                    ...command,
+                    group: `legacy:sftp-item:${index}`,
+                    weight: provider.weight,
+                    locations: [CommandLocation.SFTPItemMenu],
+                })))
+            }
+        }
+
+        return commands
     }
 
     async deleteItem (item: SFTPFile, session: SFTPSession): Promise<void> {

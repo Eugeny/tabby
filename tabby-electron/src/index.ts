@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider, TabProgress } from 'tabby-core'
-import { TerminalColorSchemeProvider, TerminalContextMenuItemProvider, TerminalDecorator } from 'tabby-terminal'
-import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
+import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider, TabProgress, CommandProvider } from 'tabby-core'
+import { TerminalColorSchemeProvider, TerminalDecorator } from 'tabby-terminal'
+import { SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
 import { PTYInterface, ShellProvider, UACService } from 'tabby-local'
 import { auditTime } from 'rxjs'
 
@@ -53,7 +53,7 @@ import { VSDevToolsProvider } from './shells/vs'
         { provide: HotkeyProvider, useClass: ElectronHotkeyProvider, multi: true },
         { provide: ConfigProvider, useClass: ElectronConfigProvider, multi: true },
         { provide: FileProvider, useClass: ElectronFileProvider, multi: true },
-        { provide: SFTPContextMenuItemProvider, useClass: EditSFTPContextMenu, multi: true },
+        { provide: CommandProvider, useExisting: EditSFTPContextMenu, multi: true },
         { provide: SSHProfileImporter, useExisting: OpenSSHImporter, multi: true },
         { provide: SSHProfileImporter, useExisting: StaticFileImporter, multi: true },
         { provide: AutoPrivateKeyLocator, useExisting: PrivateKeyLocator, multi: true },
@@ -78,7 +78,7 @@ import { VSDevToolsProvider } from './shells/vs'
 
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
 
-        { provide: TerminalContextMenuItemProvider, useClass: ExportTerminalContextMenu, multi: true },
+        { provide: CommandProvider, useExisting: ExportTerminalContextMenu, multi: true },
 
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,

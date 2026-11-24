@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { Subscription } from 'rxjs'
-import { SplitTabComponent, TranslateService, AppService, HotkeysService } from 'tabby-core'
+import { SplitTabComponent, TranslateService, AppService } from 'tabby-core'
 
 @Injectable({ providedIn: 'root' })
 export class MultifocusService {
@@ -11,7 +11,6 @@ export class MultifocusService {
 
     constructor (
         private app: AppService,
-        hotkeys: HotkeysService,
         translate: TranslateService,
     ) {
         this.warningElement = document.createElement('div')
@@ -19,17 +18,6 @@ export class MultifocusService {
         this.warningElement.innerText = translate.instant('Broadcast mode. Click anywhere to cancel.')
         this.warningElement.style.display = 'none'
         document.body.appendChild(this.warningElement)
-
-        hotkeys.hotkey$.subscribe(hotkey => {
-            switch (hotkey) {
-                case 'focus-all-tabs':
-                    this.focusAllTabs()
-                    break
-                case 'pane-focus-all':
-                    this.focusAllPanes()
-                    break
-            }
-        })
     }
 
     start (currentTab: BaseTerminalTabComponent<any>, tabs: BaseTerminalTabComponent<any>[]): void {
