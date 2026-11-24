@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Subject, Observable } from 'rxjs'
 import { posix as posixPath } from 'path'
+import * as crypto from 'crypto'
 import { Injector } from '@angular/core'
 import { FileDownload, FileUpload, Logger, LogService } from 'tabby-core'
 import * as russh from 'russh'
+import { publishUpload } from './sftpPublish'
+
+// SSH_FXF_EXCL in SFTP v3. russh accepts this flag but does not export it.
+const OPEN_EXCLUSIVE = 0x20
 
 export interface SFTPFile {
     name: string
@@ -46,6 +51,7 @@ export class SFTPSession {
     get closed$ (): Observable<void> { return this.closed }
     private closed = new Subject<void>()
     private logger: Logger
+    private uploads = new Map<string, Promise<void>>()
 
     constructor (private sftp: russh.SFTP, injector: Injector) {
         this.logger = injector.get(LogService).create('sftp')
@@ -111,25 +117,54 @@ export class SFTPSession {
     }
 
     async upload (path: string, transfer: FileUpload): Promise<void> {
-        this.logger.info('Uploading into', path)
-        const tempPath = path + '.tabby-upload'
+        // Uploads to the same path run one after another, so that the last one started wins
+        const key = posixPath.normalize(path)
+        const previous = this.uploads.get(key) ?? Promise.resolve()
+        const current = previous.catch(() => null).then(() => this.uploadNow(path, transfer))
+        this.uploads.set(key, current)
         try {
-            const handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE)
+            await current
+        } finally {
+            if (this.uploads.get(key) === current) {
+                this.uploads.delete(key)
+            }
+        }
+    }
+
+    private async uploadNow (path: string, transfer: FileUpload): Promise<void> {
+        this.logger.info('Uploading into', path)
+        const directory = posixPath.dirname(path)
+        const suffix = crypto.randomBytes(16).toString('hex')
+        const tempPath = posixPath.join(directory, `.tabby-upload-${suffix}`)
+        const backupPath = posixPath.join(directory, `.tabby-backup-${suffix}`)
+        let handle: SFTPFileHandle | undefined = undefined
+        let publishing = false
+        try {
+            handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE | OPEN_EXCLUSIVE)
             while (true) {
                 const chunk = await transfer.read()
+                if (transfer.isCancelled()) {
+                    throw new Error('Upload cancelled')
+                }
                 if (!chunk.length) {
                     break
                 }
                 await handle.write(chunk)
             }
             await handle.close()
-            await this.unlink(path).catch(() => null)
-            await this.rename(tempPath, path)
+            if (transfer.isCancelled()) {
+                throw new Error('Upload cancelled')
+            }
+            publishing = true
+            await publishUpload(this, tempPath, path, backupPath, (...args) => this.logger.warn(...args))
             transfer.close()
         } catch (e) {
+            if (handle && !publishing) {
+                await handle.close().catch(() => null)
+                await this.unlink(tempPath).catch(() => null)
+            }
             transfer.setStatus(e instanceof Error ? e.message : String(e))
             transfer.cancel()
-            this.unlink(tempPath).catch(() => null)
             throw e
         }
     }
