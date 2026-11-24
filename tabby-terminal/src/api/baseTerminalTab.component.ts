@@ -20,7 +20,7 @@ import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
-import { getTerminalBackgroundColor } from '../helpers'
+import { getTerminalBackgroundColor, normalizePasteLineEndings } from '../helpers'
 
 
 const INACTIVE_TAB_UNLOAD_DELAY = 1000 * 30
@@ -553,18 +553,13 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     }
 
     async paste (): Promise<void> {
-        let data = this.platform.readClipboard()
-        if (this.hostApp.platform === Platform.Windows) {
-            data = data.replaceAll('\r\n', '\r')
-        } else {
-            data = data.replaceAll('\n', '\r')
-        }
+        let data = normalizePasteLineEndings(this.platform.readClipboard())
 
         if (this.config.store.terminal.replaceNewlinesWithSpacesOnPaste) {
             data = data.replace(/[\r\n]+/g, ' ')
         }
 
-        if (this.config.store.terminal.trimWhitespaceOnPaste && data.indexOf('\n') === data.length - 1) {
+        if (this.config.store.terminal.trimWhitespaceOnPaste && data.indexOf('\r') === data.length - 1) {
             // Ends with a newline and has no other line breaks
             data = data.substring(0, data.length - 1)
         }

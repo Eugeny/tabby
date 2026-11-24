@@ -13,7 +13,9 @@ export class SSHShellSession extends BaseSession {
     shell?: russh.Channel
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
+    /** `null` once the shell is being torn down */
     private ssh: SSHSession|null
+    private writing: Promise<void> = Promise.resolve()
 
     constructor (
         injector: Injector,
@@ -89,18 +91,31 @@ export class SSHShellSession extends BaseSession {
     }
 
     resize (columns: number, rows: number): void {
-        this.shell?.resizePTY({
+        if (!this.shell || !this.ssh) {
+            return
+        }
+        this.shell.resizePTY({
             columns,
             rows,
             pixHeight: 0,
             pixWidth: 0,
+        }).catch(error => {
+            if (this.ssh) {
+                this.logger.error('Could not resize SSH shell', error)
+            }
         })
     }
 
     write (data: Buffer): void {
-        if (this.shell) {
-            this.shell.write(new Uint8Array(data))
+        const shell = this.shell
+        if (!shell) {
+            return
         }
+        // Each native write is its own async task; unless chained they can
+        // reach the channel out of order (corrupts ZMODEM uploads).
+        this.writing = this.writing
+            .then(() => shell.write(new Uint8Array(data)))
+            .catch(error => this.logger.debug('Shell write failed', error))
     }
 
     kill (_signal?: string): void {
@@ -108,11 +123,16 @@ export class SSHShellSession extends BaseSession {
     }
 
     async destroy (): Promise<void> {
+        // unref() can destroy the SSH session, whose willDestroy$ calls back into here
+        const ssh = this.ssh
+        if (!ssh) {
+            return
+        }
+        this.ssh = null
         this.logger.debug('Closing shell')
         this.serviceMessage.complete()
         this.kill()
-        this.ssh?.unref()
-        this.ssh = null
+        ssh.unref()
         await super.destroy()
     }
 
