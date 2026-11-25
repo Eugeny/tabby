@@ -161,9 +161,9 @@ bootstrap@^4:
   integrity sha512-51Bbp/Uxr9aTuy6ca/8FbFloBUJZLHwnhTcnjIeRn2suQWsWzcuJhGjKDB5eppVte/8oCdOL3VuwxvZDUggwGQ==
 
 bowser@^2:
-  version "2.14.1"
-  resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.14.1.tgz#4ea39bf31e305184522d7ad7bfd91389e4f0cb79"
-  integrity sha512-tzPjzCxygAKWFOJP011oxFHs57HzIhOEracIgAePE4pqB3LikALKnSzUyU4MGs9/iCEUuHlAJTjTc5M+u7YEGg==
+  version "2.15.1"
+  resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.15.1.tgz#49e2360a63ff006183c95d844bcaa42198a19f47"
+  integrity sha512-ma47ABeUiTsmG4McKDtGCgQSiTCatM97Mlbn13K42N1kPSFE14oN3WFMjtyL4KubhGvQTqYheKl4Qx2bJtMXLQ==
 
 copy-text-to-clipboard@^3:
   version "3.2.2"
