@@ -1,10 +1,11 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, ProfilesService, AppService } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
 import { ConnectableTerminalTabComponent } from './api/connectableTerminalTab.component'
+import { ConnectableTerminalProfile } from './api/interfaces'
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
 
@@ -162,6 +163,8 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         private ngbModal: NgbModal,
         private notifications: NotificationsService,
         private translate: TranslateService,
+        private profiles: ProfilesService,
+        private app: AppService,
     ) {
         super()
     }
@@ -187,7 +190,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                             options.cwd = cwd
                         }
 
-                        const profile: PartialProfile<Profile> = {
+                        const profile: PartialProfile<ConnectableTerminalProfile> = {
                             type: tab.profile.type,
                             name,
                             options,
@@ -199,12 +202,18 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                         profile.color = tab.profile.color
                         profile.disableDynamicTitle = tab.profile.disableDynamicTitle
                         profile.behaviorOnSessionEnd = tab.profile.behaviorOnSessionEnd
+                        profile.terminalColorScheme = tab.profile.terminalColorScheme
+                        if (tab instanceof ConnectableTerminalTabComponent) {
+                            profile.clearServiceMessagesOnConnect = tab.profile.clearServiceMessagesOnConnect
+                        }
 
                         this.config.store.profiles = [
                             ...this.config.store.profiles,
                             profile,
                         ]
-                        this.config.save()
+                        await this.config.save()
+                        tab.profile = this.profiles.getConfigProxyForProfile(profile)
+                        this.app.emitTabsChanged()
                         this.notifications.info(this.translate.instant('Saved'))
                     },
                 },
