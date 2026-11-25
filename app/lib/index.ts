@@ -19,6 +19,10 @@ import { parseArgs } from './cli'
 import { Application } from './app'
 import electronDebug from 'electron-debug'
 import { loadConfig } from './config'
+import { applyAppUserModelId } from './appUserModelId'
+
+// Before any window, tray or jump list exists, so all of them use the installer's ID
+applyAppUserModelId(app, process)
 
 const argv = parseArgs(process.argv, process.cwd())
 
