@@ -36,7 +36,8 @@
                         )
                             .fw-20
                                 profile-icon.ms-1([icon]='profile.icon', [color]='profile.color')
-                            span.ms-2.no-wrap {{ profile.name }}
+                            span.ms-2.no-wrap([class.fw-bold]='profile.id && profile.id === activeProfileId') {{ profile.name }}
+                            .fa.fa-fw.fas.fa-eye.ms-2.text-success.opacity-75(*ngIf='profile.id && profile.id === activeProfileId', title='Active tab')
 
                             .actions
                                 .action((click)='launchProfile(profile)')
