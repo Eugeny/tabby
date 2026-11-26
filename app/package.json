@@ -31,7 +31,7 @@
     "mz": "^2",
     "native-process-working-directory": "^1",
     "node-abi": "4.35.0",
-    "node-pty": "^1.2.0-beta.8",
+    "node-pty": "^1.2.0-beta.18",
     "russh": "0.1.38",
     "rxjs": "^7",
     "yargs": "^18"
