@@ -144,6 +144,8 @@ export class SSHProfileSettingsComponent implements ProfileSettingsComponent<SSH
         if (this.connectionMode !== 'socksProxy') {
             this.profile.options.socksProxyHost = null
             this.profile.options.socksProxyPort = null
+            this.profile.options.socksProxyUsername = null
+            this.profile.options.socksProxyPassword = null
         }
         if (this.connectionMode !== 'httpProxy') {
             this.profile.options.httpProxyHost = null

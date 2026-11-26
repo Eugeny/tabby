@@ -80,6 +80,21 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         [(ngModel)]='profile.options.socksProxyPort',
                     )
 
+            .d-flex.w-100(*ngIf='connectionMode === "socksProxy"')
+                .mb-3.w-100.me-2
+                    label(translate) SOCKS proxy username
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='profile.options.socksProxyUsername',
+                    )
+
+                .mb-3.w-100
+                    label(translate) SOCKS proxy password
+                    input.form-control(
+                        type='password',
+                        [(ngModel)]='profile.options.socksProxyPassword',
+                    )
+
             .d-flex.w-100(*ngIf='connectionMode === "httpProxy"')
                 .mb-3.w-100.me-2
                     label(translate) HTTP proxy host
