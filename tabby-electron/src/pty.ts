@@ -117,6 +117,9 @@ export class ElectronPTYProxy extends PTYProxy {
             }))
         }
         if (process.platform === 'win32') {
+            if (!windowsProcessTree) {
+                return []
+            }
             return new Promise<ChildProcess[]>(resolve => {
                 windowsProcessTree.getProcessTree(truePID, tree => {
                     resolve(tree ? tree.children.map(child => ({

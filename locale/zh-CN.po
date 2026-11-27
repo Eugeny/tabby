@@ -140,6 +140,10 @@ msgstr "提出问题"
 msgid "Ask before closing the browser tab"
 msgstr "关闭标签页前询问"
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:19
+msgid "Ask before closing the window"
+msgstr "关闭窗口前询问"
+
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
 msgid "Audible"
 msgstr "有声"
@@ -1999,6 +2003,10 @@ msgstr "显示 {type} 配置选择器"
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:117
 msgid "Show a confirmation box when pasting multiple lines"
 msgstr "当粘贴多行时，显示确认对话框"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:19
+msgid "Show a confirmation dialog before closing Tabby"
+msgstr "关闭 Tabby 前显示确认对话框"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:75
 msgid "Show built-in profiles in selector"

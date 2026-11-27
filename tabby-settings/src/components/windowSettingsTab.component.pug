@@ -9,6 +9,15 @@ h3.mb-3(translate) Window
     )
         option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name|translate}}
 
+.form-line(*ngIf='hostApp.platform !== Platform.Web')
+    .header
+        .title(translate) Ask before closing the window
+        .description(translate) Show a confirmation dialog before closing Tabby
+    toggle(
+        [(ngModel)]='config.store.confirmClose',
+        (ngModelChange)='saveConfiguration()',
+    )
+
 .form-line
     .header
         .title(translate) Spaciness

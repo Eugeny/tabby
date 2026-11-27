@@ -94,6 +94,9 @@ export class ElectronPlatformService extends PlatformService {
 
     async isProcessRunning (name: string): Promise<boolean> {
         if (this.hostApp.platform === Platform.Windows) {
+            if (!windowsProcessTreeNative) {
+                return false
+            }
             return new Promise<boolean>(resolve => {
                 windowsProcessTreeNative.getProcessList(list => { // eslint-disable-line block-scoped-var
                     resolve(list.some(x => x.name === name))
@@ -105,6 +108,9 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     getWinSCPPath (): string|null {
+        if (!wnr) {
+            return null
+        }
         const key = wnr.getRegistryKey(wnr.HK.CR, 'WinSCP.Url\\DefaultIcon')
         if (key?.['']) {
             let detectedPath = key[''].value?.split(',')[0]
