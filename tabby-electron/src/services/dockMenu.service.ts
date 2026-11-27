@@ -23,13 +23,15 @@ export class DockMenuService {
         profiles = profiles.filter(x => x.id && !this.configService.store.profileBlacklist.includes(x.id))
         const allRecentProfiles = this.profilesService.getRecentProfiles()
         const recentProfiles = allRecentProfiles.filter(x => x.id && !this.configService.store.profileBlacklist.includes(x.id))
+        profiles = profiles.filter(x => !this.profilesService.isProfileHiddenByPattern(x))
+        const visibleRecentProfiles = recentProfiles.filter(x => !this.profilesService.isProfileHiddenByPattern(x))
 
         if (this.hostApp.platform === Platform.Windows) {
             this.electron.app.setJumpList([
                 {
                     type: 'custom',
                     name: this.translate.instant('Recent'),
-                    items: recentProfiles.map(profile => ({
+                    items: visibleRecentProfiles.map(profile => ({
                         type: 'task',
                         program: process.execPath,
                         // `recent N` indexes the unfiltered list
@@ -55,7 +57,7 @@ export class DockMenuService {
         if (this.hostApp.platform === Platform.macOS) {
             this.electron.app.dock?.setMenu(this.electron.Menu.buildFromTemplate(
                 [
-                    ...[...recentProfiles, ...profiles].map(profile => ({
+                    ...[...visibleRecentProfiles, ...profiles].map(profile => ({
                         label: profile.name,
                         click: () => this.zone.run(async () => {
                             this.profilesService.openNewTabForProfile(profile)

@@ -107,6 +107,26 @@ export class ProfilesService {
     }
 
     /**
+    * Whether a profile is hidden from lists by the configured hide pattern.
+    * The pattern is matched case-insensitively against the profile ID and name
+    * as a regular expression; invalid expressions fall back to substring matching.
+    */
+    isProfileHiddenByPattern (profile: PartialProfile<Profile>): boolean {
+        const pattern = this.config.store.profileHidePattern?.trim()
+        if (!pattern) { return false }
+
+        let regex: RegExp|null = null
+        try {
+            regex = new RegExp(pattern, 'i')
+        } catch { }
+
+        const needle = pattern.toLowerCase()
+        return [profile.id, profile.name].some(value => !!value && (
+            regex ? regex.test(value) : value.toLowerCase().includes(needle)
+        ))
+    }
+
+    /**
     * Insert a new Profile in config
     * arg: genId (default: true) -> generate uuid in before pushing Profile into config
     */
@@ -340,6 +360,8 @@ export class ProfilesService {
                 profiles = profiles.filter(x => !x.isTemplate)
 
                 profiles = profiles.filter(x => x.id && !this.config.store.profileBlacklist.includes(x.id))
+
+                profiles = profiles.filter(x => !this.isProfileHiddenByPattern(x))
 
                 options = [...options, ...profiles.map((p): SelectorOption<void> => ({
                     ...this.selectorOptionForProfile(p),
